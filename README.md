@@ -16,8 +16,6 @@ Implements entire admission process to master studies.
 * Conduct tests - acceptance test, unit tests at least for core parts and stress tests. Assumed number of concurrent users is 250, total number of users is 2500.
 
 ## Installation
-* set up system environment variable **JAVA_HOME_7** and point it to **JDK7** install path.
-
 * download **Spring Roo** latest GA version [from here](http://www.springsource.org/spring-roo) and follow its installation steps.
 
 * download and install [maven](http://maven.apache.org/download.html) and follow installation steps.
