@@ -1,0 +1,30 @@
+table {
+	text-align: center;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 11px;
+	color: #fff;
+	width: 100%;
+	background-color: #7AB5F1;
+	border: 1px #000 solid;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+table td.rows {
+	background-color: #ffffff;
+	color: #000;
+	padding: 4px;
+	text-align: left;
+	border: 1px #000 solid;
+}
+
+table th.header {
+	background-color: #7AB5F1;
+	color: #fff;
+	padding: 4px;
+	text-align: left;
+	border-bottom: 2px #fff solid;
+	font-size: 14px;
+	font-weight: bold;
+}
