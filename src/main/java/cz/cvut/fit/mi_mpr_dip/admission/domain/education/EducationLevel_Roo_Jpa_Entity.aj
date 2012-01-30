@@ -6,31 +6,15 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.EducationLevel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Version;
 
 privileged aspect EducationLevel_Roo_Jpa_Entity {
     
     declare @type: EducationLevel: @Entity;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long EducationLevel.id;
-    
     @Version
     @Column(name = "version")
     private Integer EducationLevel.version;
-    
-    public Long EducationLevel.getId() {
-        return this.id;
-    }
-    
-    public void EducationLevel.setId(Long id) {
-        this.id = id;
-    }
     
     public Integer EducationLevel.getVersion() {
         return this.version;

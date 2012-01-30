@@ -28,9 +28,9 @@ privileged aspect Country_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Country o", Country.class).getResultList();
     }
     
-    public static Country Country.findCountry(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Country.class, id);
+    public static Country Country.findCountry(Long countryId) {
+        if (countryId == null) return null;
+        return entityManager().find(Country.class, countryId);
     }
     
     public static List<Country> Country.findCountryEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Country_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Country attached = Country.findCountry(this.id);
+            Country attached = Country.findCountry(this.countryId);
             this.entityManager.remove(attached);
         }
     }

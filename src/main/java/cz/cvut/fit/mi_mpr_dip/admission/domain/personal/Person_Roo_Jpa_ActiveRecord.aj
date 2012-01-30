@@ -28,9 +28,9 @@ privileged aspect Person_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Person o", Person.class).getResultList();
     }
     
-    public static Person Person.findPerson(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Person.class, id);
+    public static Person Person.findPerson(Long personId) {
+        if (personId == null) return null;
+        return entityManager().find(Person.class, personId);
     }
     
     public static List<Person> Person.findPersonEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Person_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Person attached = Person.findPerson(this.id);
+            Person attached = Person.findPerson(this.personId);
             this.entityManager.remove(attached);
         }
     }

@@ -4,9 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.config.AccessiblePropertyPlaceholderConfigurer;
-import org.springframework.stereotype.Service;
 
-@Service
 public class AdminServiceImpl implements AdminService {
 
 	private AccessiblePropertyPlaceholderConfigurer exposablePropertyHolder;

@@ -7,12 +7,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 privileged aspect Programme_Roo_JavaBean {
     
-    public Long Programme.getId() {
-        return this.id;
+    public Long Programme.getProgrammeId() {
+        return this.programmeId;
     }
     
-    public void Programme.setId(Long id) {
-        this.id = id;
+    public void Programme.setProgrammeId(Long programmeId) {
+        this.programmeId = programmeId;
     }
     
     public String Programme.getName() {

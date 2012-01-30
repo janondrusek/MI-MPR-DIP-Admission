@@ -28,9 +28,9 @@ privileged aspect EducationLevel_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM EducationLevel o", EducationLevel.class).getResultList();
     }
     
-    public static EducationLevel EducationLevel.findEducationLevel(Long id) {
-        if (id == null) return null;
-        return entityManager().find(EducationLevel.class, id);
+    public static EducationLevel EducationLevel.findEducationLevel(Long educationLevelId) {
+        if (educationLevelId == null) return null;
+        return entityManager().find(EducationLevel.class, educationLevelId);
     }
     
     public static List<EducationLevel> EducationLevel.findEducationLevelEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect EducationLevel_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            EducationLevel attached = EducationLevel.findEducationLevel(this.id);
+            EducationLevel attached = EducationLevel.findEducationLevel(this.educationLevelId);
             this.entityManager.remove(attached);
         }
     }

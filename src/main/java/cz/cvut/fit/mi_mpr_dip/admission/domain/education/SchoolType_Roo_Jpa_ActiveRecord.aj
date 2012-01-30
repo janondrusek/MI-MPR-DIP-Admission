@@ -28,9 +28,9 @@ privileged aspect SchoolType_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM SchoolType o", SchoolType.class).getResultList();
     }
     
-    public static SchoolType SchoolType.findSchoolType(Long id) {
-        if (id == null) return null;
-        return entityManager().find(SchoolType.class, id);
+    public static SchoolType SchoolType.findSchoolType(Long schoolTypeId) {
+        if (schoolTypeId == null) return null;
+        return entityManager().find(SchoolType.class, schoolTypeId);
     }
     
     public static List<SchoolType> SchoolType.findSchoolTypeEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect SchoolType_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            SchoolType attached = SchoolType.findSchoolType(this.id);
+            SchoolType attached = SchoolType.findSchoolType(this.schoolTypeId);
             this.entityManager.remove(attached);
         }
     }

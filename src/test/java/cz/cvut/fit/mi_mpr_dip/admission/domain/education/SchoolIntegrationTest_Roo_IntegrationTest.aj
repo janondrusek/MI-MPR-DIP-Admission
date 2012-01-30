@@ -37,11 +37,11 @@ privileged aspect SchoolIntegrationTest_Roo_IntegrationTest {
     public void SchoolIntegrationTest.testFindSchool() {
         School obj = dod.getRandomSchool();
         Assert.assertNotNull("Data on demand for 'School' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getSchoolId();
         Assert.assertNotNull("Data on demand for 'School' failed to provide an identifier", id);
         obj = School.findSchool(id);
         Assert.assertNotNull("Find method for 'School' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'School' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'School' returned the incorrect identifier", id, obj.getSchoolId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect SchoolIntegrationTest_Roo_IntegrationTest {
     public void SchoolIntegrationTest.testFlush() {
         School obj = dod.getRandomSchool();
         Assert.assertNotNull("Data on demand for 'School' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getSchoolId();
         Assert.assertNotNull("Data on demand for 'School' failed to provide an identifier", id);
         obj = School.findSchool(id);
         Assert.assertNotNull("Find method for 'School' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect SchoolIntegrationTest_Roo_IntegrationTest {
     public void SchoolIntegrationTest.testMergeUpdate() {
         School obj = dod.getRandomSchool();
         Assert.assertNotNull("Data on demand for 'School' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getSchoolId();
         Assert.assertNotNull("Data on demand for 'School' failed to provide an identifier", id);
         obj = School.findSchool(id);
         boolean modified =  dod.modifySchool(obj);
         Integer currentVersion = obj.getVersion();
         School merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getSchoolId(), id);
         Assert.assertTrue("Version for 'School' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect SchoolIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'School' failed to initialize correctly", dod.getRandomSchool());
         School obj = dod.getNewTransientSchool(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'School' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'School' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'School' identifier to be null", obj.getSchoolId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'School' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'School' identifier to no longer be null", obj.getSchoolId());
     }
     
     @Test
     public void SchoolIntegrationTest.testRemove() {
         School obj = dod.getRandomSchool();
         Assert.assertNotNull("Data on demand for 'School' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getSchoolId();
         Assert.assertNotNull("Data on demand for 'School' failed to provide an identifier", id);
         obj = School.findSchool(id);
         obj.remove();

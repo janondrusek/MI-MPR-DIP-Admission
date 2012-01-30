@@ -24,7 +24,13 @@ privileged aspect SchoolDataOnDemand_Roo_DataOnDemand {
     
     public School SchoolDataOnDemand.getNewTransientSchool(int index) {
         School obj = new School();
+        setName(obj, index);
         return obj;
+    }
+    
+    public void SchoolDataOnDemand.setName(School obj, int index) {
+        String name = "name_" + index;
+        obj.setName(name);
     }
     
     public School SchoolDataOnDemand.getSpecificSchool(int index) {
@@ -36,14 +42,14 @@ privileged aspect SchoolDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         School obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getSchoolId();
         return School.findSchool(id);
     }
     
     public School SchoolDataOnDemand.getRandomSchool() {
         init();
         School obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getSchoolId();
         return School.findSchool(id);
     }
     

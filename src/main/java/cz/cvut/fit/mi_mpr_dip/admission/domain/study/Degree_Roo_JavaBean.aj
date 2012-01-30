@@ -7,12 +7,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 
 privileged aspect Degree_Roo_JavaBean {
     
-    public Long Degree.getId() {
-        return this.id;
+    public Long Degree.getDegreeId() {
+        return this.degreeId;
     }
     
-    public void Degree.setId(Long id) {
-        this.id = id;
+    public void Degree.setDegreeId(Long degreeId) {
+        this.degreeId = degreeId;
     }
     
     public String Degree.getName() {

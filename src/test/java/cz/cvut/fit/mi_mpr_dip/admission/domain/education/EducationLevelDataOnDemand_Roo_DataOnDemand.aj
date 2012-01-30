@@ -24,7 +24,13 @@ privileged aspect EducationLevelDataOnDemand_Roo_DataOnDemand {
     
     public EducationLevel EducationLevelDataOnDemand.getNewTransientEducationLevel(int index) {
         EducationLevel obj = new EducationLevel();
+        setName(obj, index);
         return obj;
+    }
+    
+    public void EducationLevelDataOnDemand.setName(EducationLevel obj, int index) {
+        String name = "name_" + index;
+        obj.setName(name);
     }
     
     public EducationLevel EducationLevelDataOnDemand.getSpecificEducationLevel(int index) {
@@ -36,14 +42,14 @@ privileged aspect EducationLevelDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         EducationLevel obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getEducationLevelId();
         return EducationLevel.findEducationLevel(id);
     }
     
     public EducationLevel EducationLevelDataOnDemand.getRandomEducationLevel() {
         init();
         EducationLevel obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getEducationLevelId();
         return EducationLevel.findEducationLevel(id);
     }
     

@@ -8,6 +8,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
 privileged aspect Person_Roo_JavaBean {
     
+    public Long Person.getPersonId() {
+        return this.personId;
+    }
+    
+    public void Person.setPersonId(Long personId) {
+        this.personId = personId;
+    }
+    
     public Country Person.getCitizenship() {
         return this.citizenship;
     }

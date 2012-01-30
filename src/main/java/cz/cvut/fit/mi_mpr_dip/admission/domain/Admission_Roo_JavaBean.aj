@@ -12,6 +12,22 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
 privileged aspect Admission_Roo_JavaBean {
     
+    public Long Admission.getAdmissionId() {
+        return this.admissionId;
+    }
+    
+    public void Admission.setAdmissionId(Long admissionId) {
+        this.admissionId = admissionId;
+    }
+    
+    public String Admission.getCode() {
+        return this.code;
+    }
+    
+    public void Admission.setCode(String code) {
+        this.code = code;
+    }
+    
     public Faculty Admission.getFaculty() {
         return this.faculty;
     }

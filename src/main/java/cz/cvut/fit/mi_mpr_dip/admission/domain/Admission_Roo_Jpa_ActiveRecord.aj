@@ -28,9 +28,9 @@ privileged aspect Admission_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Admission o", Admission.class).getResultList();
     }
     
-    public static Admission Admission.findAdmission(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Admission.class, id);
+    public static Admission Admission.findAdmission(Long admissionId) {
+        if (admissionId == null) return null;
+        return entityManager().find(Admission.class, admissionId);
     }
     
     public static List<Admission> Admission.findAdmissionEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Admission_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Admission attached = Admission.findAdmission(this.id);
+            Admission attached = Admission.findAdmission(this.admissionId);
             this.entityManager.remove(attached);
         }
     }

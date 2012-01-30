@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
-<suite name="Admission" verbose="1">
-	<packages>
-		<package name="cz.cvut.fit.mi_mpr_dip.admission"></package>
-	</packages>
-</suite>

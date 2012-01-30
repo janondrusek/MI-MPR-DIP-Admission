@@ -6,31 +6,15 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Version;
 
 privileged aspect Country_Roo_Jpa_Entity {
     
     declare @type: Country: @Entity;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long Country.id;
-    
     @Version
     @Column(name = "version")
     private Integer Country.version;
-    
-    public Long Country.getId() {
-        return this.id;
-    }
-    
-    public void Country.setId(Long id) {
-        this.id = id;
-    }
     
     public Integer Country.getVersion() {
         return this.version;

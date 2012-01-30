@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
                             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:annotation-config />
+	<import resource="spring-roo.xml" />
+	<import resource="spring-persistence.xml" />
 
-	<bean id="adminController"
-		class="cz.cvut.fit.mi_mpr_dip.admission.controller.AdminController">
+	<bean id="adminController" class="cz.cvut.fit.mi_mpr_dip.admission.controller.AdminController">
 		<property name="adminService" ref="adminService" />
 	</bean>
 
-	<bean id="adminService"
-		class="cz.cvut.fit.mi_mpr_dip.admission.service.AdminServiceImpl">
+	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdminServiceImpl">
 		<property name="exposablePropertyHolder" ref="propertyConfigurer" />
 		<property name="buildNumber" value="${build.number}" />
 	</bean>
 
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.AccessiblePropertyPlaceholderConfigurerImpl">
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.AccessiblePropertyPlaceholderConfigurerImpl">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:deployment.properties</value>
-				<value>classpath:build-number.properties</value>
-				<value>classpath:database.properties</value>
+				<value>classpath:META-INF/deployment.properties</value>
+				<value>classpath:META-INF/build-number.properties</value>
+				<value>classpath:META-INF/database.properties</value>
 			</list>
 		</property>
 	</bean>
 
-	<bean id="freemarkerConfig"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath" value="/" />
 		<property name="freemarkerVariables">
 			<map>
@@ -56,12 +53,6 @@
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
 	<bean id="fmHtmlEscape" class="freemarker.template.utility.HtmlEscape" />
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-		p:order="0" />
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-
-	<import resource="spring-roo.xml" />
-	<import resource="spring-persistence.xml" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:order="0" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 </beans>

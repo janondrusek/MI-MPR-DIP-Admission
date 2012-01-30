@@ -7,12 +7,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 
 privileged aspect Faculty_Roo_JavaBean {
     
-    public Long Faculty.getId() {
-        return this.id;
+    public Long Faculty.getFacultyId() {
+        return this.facultyId;
     }
     
-    public void Faculty.setId(Long id) {
-        this.id = id;
+    public void Faculty.setFacultyId(Long facultyId) {
+        this.facultyId = facultyId;
     }
     
     public String Faculty.getName() {

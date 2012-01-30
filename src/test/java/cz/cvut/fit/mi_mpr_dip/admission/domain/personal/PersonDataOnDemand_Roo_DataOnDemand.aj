@@ -43,14 +43,14 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         Person obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getPersonId();
         return Person.findPerson(id);
     }
     
     public Person PersonDataOnDemand.getRandomPerson() {
         init();
         Person obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getPersonId();
         return Person.findPerson(id);
     }
     

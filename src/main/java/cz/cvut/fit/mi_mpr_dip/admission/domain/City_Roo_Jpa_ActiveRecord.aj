@@ -28,9 +28,9 @@ privileged aspect City_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM City o", City.class).getResultList();
     }
     
-    public static City City.findCity(Long id) {
-        if (id == null) return null;
-        return entityManager().find(City.class, id);
+    public static City City.findCity(Long cityId) {
+        if (cityId == null) return null;
+        return entityManager().find(City.class, cityId);
     }
     
     public static List<City> City.findCityEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect City_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            City attached = City.findCity(this.id);
+            City attached = City.findCity(this.cityId);
             this.entityManager.remove(attached);
         }
     }

@@ -37,11 +37,11 @@ privileged aspect EducationLevelIntegrationTest_Roo_IntegrationTest {
     public void EducationLevelIntegrationTest.testFindEducationLevel() {
         EducationLevel obj = dod.getRandomEducationLevel();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getEducationLevelId();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to provide an identifier", id);
         obj = EducationLevel.findEducationLevel(id);
         Assert.assertNotNull("Find method for 'EducationLevel' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'EducationLevel' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'EducationLevel' returned the incorrect identifier", id, obj.getEducationLevelId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect EducationLevelIntegrationTest_Roo_IntegrationTest {
     public void EducationLevelIntegrationTest.testFlush() {
         EducationLevel obj = dod.getRandomEducationLevel();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getEducationLevelId();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to provide an identifier", id);
         obj = EducationLevel.findEducationLevel(id);
         Assert.assertNotNull("Find method for 'EducationLevel' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect EducationLevelIntegrationTest_Roo_IntegrationTest {
     public void EducationLevelIntegrationTest.testMergeUpdate() {
         EducationLevel obj = dod.getRandomEducationLevel();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getEducationLevelId();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to provide an identifier", id);
         obj = EducationLevel.findEducationLevel(id);
         boolean modified =  dod.modifyEducationLevel(obj);
         Integer currentVersion = obj.getVersion();
         EducationLevel merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getEducationLevelId(), id);
         Assert.assertTrue("Version for 'EducationLevel' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect EducationLevelIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to initialize correctly", dod.getRandomEducationLevel());
         EducationLevel obj = dod.getNewTransientEducationLevel(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'EducationLevel' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'EducationLevel' identifier to be null", obj.getEducationLevelId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'EducationLevel' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'EducationLevel' identifier to no longer be null", obj.getEducationLevelId());
     }
     
     @Test
     public void EducationLevelIntegrationTest.testRemove() {
         EducationLevel obj = dod.getRandomEducationLevel();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getEducationLevelId();
         Assert.assertNotNull("Data on demand for 'EducationLevel' failed to provide an identifier", id);
         obj = EducationLevel.findEducationLevel(id);
         obj.remove();

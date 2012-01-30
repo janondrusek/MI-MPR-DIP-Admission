@@ -6,31 +6,15 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Version;
 
 privileged aspect Admission_Roo_Jpa_Entity {
     
     declare @type: Admission: @Entity;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long Admission.id;
-    
     @Version
     @Column(name = "version")
     private Integer Admission.version;
-    
-    public Long Admission.getId() {
-        return this.id;
-    }
-    
-    public void Admission.setId(Long id) {
-        this.id = id;
-    }
     
     public Integer Admission.getVersion() {
         return this.version;
