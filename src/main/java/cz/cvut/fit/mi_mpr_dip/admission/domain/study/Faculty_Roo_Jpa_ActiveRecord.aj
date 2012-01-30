@@ -28,9 +28,9 @@ privileged aspect Faculty_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Faculty o", Faculty.class).getResultList();
     }
     
-    public static Faculty Faculty.findFaculty(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Faculty.class, id);
+    public static Faculty Faculty.findFaculty(Long id_) {
+        if (id_ == null) return null;
+        return entityManager().find(Faculty.class, id_);
     }
     
     public static List<Faculty> Faculty.findFacultyEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Faculty_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Faculty attached = Faculty.findFaculty(this.id);
+            Faculty attached = Faculty.findFaculty(this.id_);
             this.entityManager.remove(attached);
         }
     }

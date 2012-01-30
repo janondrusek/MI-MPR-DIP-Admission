@@ -17,19 +17,19 @@ privileged aspect Degree_Roo_Jpa_Entity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long Degree.id;
+    @Column(name = "id_")
+    private Long Degree.id_;
     
     @Version
     @Column(name = "version")
     private Integer Degree.version;
     
-    public Long Degree.getId() {
-        return this.id;
+    public Long Degree.getId_() {
+        return this.id_;
     }
     
-    public void Degree.setId(Long id) {
-        this.id = id;
+    public void Degree.setId_(Long id) {
+        this.id_ = id;
     }
     
     public Integer Degree.getVersion() {

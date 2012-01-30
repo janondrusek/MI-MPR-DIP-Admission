@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
 import java.security.SecureRandom;
@@ -24,7 +25,13 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
     
     public Person PersonDataOnDemand.getNewTransientPerson(int index) {
         Person obj = new Person();
+        setCitizenship(obj, index);
         return obj;
+    }
+    
+    public void PersonDataOnDemand.setCitizenship(Person obj, int index) {
+        Country citizenship = null;
+        obj.setCitizenship(citizenship);
     }
     
     public Person PersonDataOnDemand.getSpecificPerson(int index) {

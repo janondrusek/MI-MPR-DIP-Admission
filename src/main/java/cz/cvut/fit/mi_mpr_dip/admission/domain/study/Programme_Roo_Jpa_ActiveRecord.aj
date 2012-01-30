@@ -28,9 +28,9 @@ privileged aspect Programme_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Programme o", Programme.class).getResultList();
     }
     
-    public static Programme Programme.findProgramme(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Programme.class, id);
+    public static Programme Programme.findProgramme(Long id_) {
+        if (id_ == null) return null;
+        return entityManager().find(Programme.class, id_);
     }
     
     public static List<Programme> Programme.findProgrammeEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Programme_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Programme attached = Programme.findProgramme(this.id);
+            Programme attached = Programme.findProgramme(this.id_);
             this.entityManager.remove(attached);
         }
     }

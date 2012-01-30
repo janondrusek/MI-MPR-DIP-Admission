@@ -28,9 +28,9 @@ privileged aspect Degree_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Degree o", Degree.class).getResultList();
     }
     
-    public static Degree Degree.findDegree(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Degree.class, id);
+    public static Degree Degree.findDegree(Long id_) {
+        if (id_ == null) return null;
+        return entityManager().find(Degree.class, id_);
     }
     
     public static List<Degree> Degree.findDegreeEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Degree_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Degree attached = Degree.findDegree(this.id);
+            Degree attached = Degree.findDegree(this.id_);
             this.entityManager.remove(attached);
         }
     }

@@ -28,9 +28,9 @@ privileged aspect StudyMode_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM StudyMode o", StudyMode.class).getResultList();
     }
     
-    public static StudyMode StudyMode.findStudyMode(Long id) {
-        if (id == null) return null;
-        return entityManager().find(StudyMode.class, id);
+    public static StudyMode StudyMode.findStudyMode(Long id_) {
+        if (id_ == null) return null;
+        return entityManager().find(StudyMode.class, id_);
     }
     
     public static List<StudyMode> StudyMode.findStudyModeEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect StudyMode_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            StudyMode attached = StudyMode.findStudyMode(this.id);
+            StudyMode attached = StudyMode.findStudyMode(this.id_);
             this.entityManager.remove(attached);
         }
     }

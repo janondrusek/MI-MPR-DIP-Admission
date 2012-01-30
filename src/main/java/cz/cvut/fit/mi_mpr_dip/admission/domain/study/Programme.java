@@ -8,4 +8,8 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 public class Programme {
+	
+	private Long id;
+	
+	private String name;
 }

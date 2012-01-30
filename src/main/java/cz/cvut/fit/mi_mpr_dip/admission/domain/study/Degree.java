@@ -8,4 +8,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 public class Degree {
+
+	private Long id;
+	
+	private String name;
+
 }
