@@ -3,16 +3,25 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.GenderDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatusDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
@@ -23,15 +32,117 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
     
     private List<Person> PersonDataOnDemand.data;
     
+    @Autowired
+    private GenderDataOnDemand PersonDataOnDemand.genderDataOnDemand;
+    
+    @Autowired
+    private MaritalStatusDataOnDemand PersonDataOnDemand.maritalStatusDataOnDemand;
+    
     public Person PersonDataOnDemand.getNewTransientPerson(int index) {
         Person obj = new Person();
+        setBirthIdentificationNumber(obj, index);
+        setBirthdate(obj, index);
         setCitizenship(obj, index);
+        setCityOfBirth(obj, index);
+        setCountryOfBirth(obj, index);
+        setDisability(obj, index);
+        setEmail(obj, index);
+        setFirstname(obj, index);
+        setGender(obj, index);
+        setLastname(obj, index);
+        setMaidenname(obj, index);
+        setMaritalStatus(obj, index);
+        setMiddlename(obj, index);
+        setPermanentResidenceGranted(obj, index);
+        setPhone(obj, index);
+        setPrefix(obj, index);
+        setSuffix(obj, index);
         return obj;
+    }
+    
+    public void PersonDataOnDemand.setBirthIdentificationNumber(Person obj, int index) {
+        String birthIdentificationNumber = "birthIdentificationNumber_" + index;
+        obj.setBirthIdentificationNumber(birthIdentificationNumber);
+    }
+    
+    public void PersonDataOnDemand.setBirthdate(Person obj, int index) {
+        Date birthdate = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
+        obj.setBirthdate(birthdate);
     }
     
     public void PersonDataOnDemand.setCitizenship(Person obj, int index) {
         Country citizenship = null;
         obj.setCitizenship(citizenship);
+    }
+    
+    public void PersonDataOnDemand.setCityOfBirth(Person obj, int index) {
+        City cityOfBirth = null;
+        obj.setCityOfBirth(cityOfBirth);
+    }
+    
+    public void PersonDataOnDemand.setCountryOfBirth(Person obj, int index) {
+        Country countryOfBirth = null;
+        obj.setCountryOfBirth(countryOfBirth);
+    }
+    
+    public void PersonDataOnDemand.setDisability(Person obj, int index) {
+        Boolean disability = Boolean.TRUE;
+        obj.setDisability(disability);
+    }
+    
+    public void PersonDataOnDemand.setEmail(Person obj, int index) {
+        String email = "foo" + index + "@bar.com";
+        obj.setEmail(email);
+    }
+    
+    public void PersonDataOnDemand.setFirstname(Person obj, int index) {
+        String firstname = "firstname_" + index;
+        obj.setFirstname(firstname);
+    }
+    
+    public void PersonDataOnDemand.setGender(Person obj, int index) {
+        Gender gender = genderDataOnDemand.getRandomGender();
+        obj.setGender(gender);
+    }
+    
+    public void PersonDataOnDemand.setLastname(Person obj, int index) {
+        String lastname = "lastname_" + index;
+        obj.setLastname(lastname);
+    }
+    
+    public void PersonDataOnDemand.setMaidenname(Person obj, int index) {
+        String maidenname = "maidenname_" + index;
+        obj.setMaidenname(maidenname);
+    }
+    
+    public void PersonDataOnDemand.setMaritalStatus(Person obj, int index) {
+        MaritalStatus maritalStatus = maritalStatusDataOnDemand.getRandomMaritalStatus();
+        obj.setMaritalStatus(maritalStatus);
+    }
+    
+    public void PersonDataOnDemand.setMiddlename(Person obj, int index) {
+        String middlename = "middlename_" + index;
+        obj.setMiddlename(middlename);
+    }
+    
+    public void PersonDataOnDemand.setPermanentResidenceGranted(Person obj, int index) {
+        Boolean permanentResidenceGranted = Boolean.TRUE;
+        obj.setPermanentResidenceGranted(permanentResidenceGranted);
+    }
+    
+    public void PersonDataOnDemand.setPhone(Person obj, int index) {
+        String phone = "phone_" + index;
+        obj.setPhone(phone);
+    }
+    
+    public void PersonDataOnDemand.setPrefix(Person obj, int index) {
+        String prefix = "prefix_" + index;
+        obj.setPrefix(prefix);
+    }
+    
+    public void PersonDataOnDemand.setSuffix(Person obj, int index) {
+        String suffix = "suffix_" + index;
+        obj.setSuffix(suffix);
     }
     
     public Person PersonDataOnDemand.getSpecificPerson(int index) {

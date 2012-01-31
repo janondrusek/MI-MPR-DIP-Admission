@@ -24,7 +24,13 @@ privileged aspect MaritalStatusDataOnDemand_Roo_DataOnDemand {
     
     public MaritalStatus MaritalStatusDataOnDemand.getNewTransientMaritalStatus(int index) {
         MaritalStatus obj = new MaritalStatus();
+        setName(obj, index);
         return obj;
+    }
+    
+    public void MaritalStatusDataOnDemand.setName(MaritalStatus obj, int index) {
+        String name = "name_" + index;
+        obj.setName(name);
     }
     
     public MaritalStatus MaritalStatusDataOnDemand.getSpecificMaritalStatus(int index) {
@@ -36,14 +42,14 @@ privileged aspect MaritalStatusDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         MaritalStatus obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getMaritalStatusId();
         return MaritalStatus.findMaritalStatus(id);
     }
     
     public MaritalStatus MaritalStatusDataOnDemand.getRandomMaritalStatus() {
         init();
         MaritalStatus obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getMaritalStatusId();
         return MaritalStatus.findMaritalStatus(id);
     }
     

@@ -28,9 +28,9 @@ privileged aspect MaritalStatus_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM MaritalStatus o", MaritalStatus.class).getResultList();
     }
     
-    public static MaritalStatus MaritalStatus.findMaritalStatus(Long id) {
-        if (id == null) return null;
-        return entityManager().find(MaritalStatus.class, id);
+    public static MaritalStatus MaritalStatus.findMaritalStatus(Long maritalStatusId) {
+        if (maritalStatusId == null) return null;
+        return entityManager().find(MaritalStatus.class, maritalStatusId);
     }
     
     public static List<MaritalStatus> MaritalStatus.findMaritalStatusEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect MaritalStatus_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            MaritalStatus attached = MaritalStatus.findMaritalStatus(this.id);
+            MaritalStatus attached = MaritalStatus.findMaritalStatus(this.maritalStatusId);
             this.entityManager.remove(attached);
         }
     }

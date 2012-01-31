@@ -24,7 +24,13 @@ privileged aspect GenderDataOnDemand_Roo_DataOnDemand {
     
     public Gender GenderDataOnDemand.getNewTransientGender(int index) {
         Gender obj = new Gender();
+        setName(obj, index);
         return obj;
+    }
+    
+    public void GenderDataOnDemand.setName(Gender obj, int index) {
+        String name = "name_" + index;
+        obj.setName(name);
     }
     
     public Gender GenderDataOnDemand.getSpecificGender(int index) {
@@ -36,14 +42,14 @@ privileged aspect GenderDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         Gender obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getGenderId();
         return Gender.findGender(id);
     }
     
     public Gender GenderDataOnDemand.getRandomGender() {
         init();
         Gender obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getGenderId();
         return Gender.findGender(id);
     }
     

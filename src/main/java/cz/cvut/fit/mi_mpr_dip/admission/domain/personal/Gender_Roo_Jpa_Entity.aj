@@ -6,31 +6,15 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Version;
 
 privileged aspect Gender_Roo_Jpa_Entity {
     
     declare @type: Gender: @Entity;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long Gender.id;
-    
     @Version
     @Column(name = "version")
     private Integer Gender.version;
-    
-    public Long Gender.getId() {
-        return this.id;
-    }
-    
-    public void Gender.setId(Long id) {
-        this.id = id;
-    }
     
     public Integer Gender.getVersion() {
         return this.version;

@@ -3,73 +3,73 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
-privileged aspect Gender_Roo_Jpa_ActiveRecord {
+privileged aspect Document_Roo_Jpa_ActiveRecord {
     
     @PersistenceContext
-    transient EntityManager Gender.entityManager;
+    transient EntityManager Document.entityManager;
     
-    public static final EntityManager Gender.entityManager() {
-        EntityManager em = new Gender().entityManager;
+    public static final EntityManager Document.entityManager() {
+        EntityManager em = new Document().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long Gender.countGenders() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Gender o", Long.class).getSingleResult();
+    public static long Document.countDocuments() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM Document o", Long.class).getSingleResult();
     }
     
-    public static List<Gender> Gender.findAllGenders() {
-        return entityManager().createQuery("SELECT o FROM Gender o", Gender.class).getResultList();
+    public static List<Document> Document.findAllDocuments() {
+        return entityManager().createQuery("SELECT o FROM Document o", Document.class).getResultList();
     }
     
-    public static Gender Gender.findGender(Long genderId) {
-        if (genderId == null) return null;
-        return entityManager().find(Gender.class, genderId);
+    public static Document Document.findDocument(Long documentId) {
+        if (documentId == null) return null;
+        return entityManager().find(Document.class, documentId);
     }
     
-    public static List<Gender> Gender.findGenderEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Gender o", Gender.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<Document> Document.findDocumentEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM Document o", Document.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional
-    public void Gender.persist() {
+    public void Document.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void Gender.remove() {
+    public void Document.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Gender attached = Gender.findGender(this.genderId);
+            Document attached = Document.findDocument(this.documentId);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void Gender.flush() {
+    public void Document.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public void Gender.clear() {
+    public void Document.clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
     
     @Transactional
-    public Gender Gender.merge() {
+    public Document Document.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        Gender merged = this.entityManager.merge(this);
+        Document merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }

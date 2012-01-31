@@ -37,11 +37,11 @@ privileged aspect GenderIntegrationTest_Roo_IntegrationTest {
     public void GenderIntegrationTest.testFindGender() {
         Gender obj = dod.getRandomGender();
         Assert.assertNotNull("Data on demand for 'Gender' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getGenderId();
         Assert.assertNotNull("Data on demand for 'Gender' failed to provide an identifier", id);
         obj = Gender.findGender(id);
         Assert.assertNotNull("Find method for 'Gender' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'Gender' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'Gender' returned the incorrect identifier", id, obj.getGenderId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect GenderIntegrationTest_Roo_IntegrationTest {
     public void GenderIntegrationTest.testFlush() {
         Gender obj = dod.getRandomGender();
         Assert.assertNotNull("Data on demand for 'Gender' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getGenderId();
         Assert.assertNotNull("Data on demand for 'Gender' failed to provide an identifier", id);
         obj = Gender.findGender(id);
         Assert.assertNotNull("Find method for 'Gender' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect GenderIntegrationTest_Roo_IntegrationTest {
     public void GenderIntegrationTest.testMergeUpdate() {
         Gender obj = dod.getRandomGender();
         Assert.assertNotNull("Data on demand for 'Gender' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getGenderId();
         Assert.assertNotNull("Data on demand for 'Gender' failed to provide an identifier", id);
         obj = Gender.findGender(id);
         boolean modified =  dod.modifyGender(obj);
         Integer currentVersion = obj.getVersion();
         Gender merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getGenderId(), id);
         Assert.assertTrue("Version for 'Gender' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect GenderIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'Gender' failed to initialize correctly", dod.getRandomGender());
         Gender obj = dod.getNewTransientGender(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'Gender' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'Gender' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'Gender' identifier to be null", obj.getGenderId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'Gender' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'Gender' identifier to no longer be null", obj.getGenderId());
     }
     
     @Test
     public void GenderIntegrationTest.testRemove() {
         Gender obj = dod.getRandomGender();
         Assert.assertNotNull("Data on demand for 'Gender' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getGenderId();
         Assert.assertNotNull("Data on demand for 'Gender' failed to provide an identifier", id);
         obj = Gender.findGender(id);
         obj.remove();

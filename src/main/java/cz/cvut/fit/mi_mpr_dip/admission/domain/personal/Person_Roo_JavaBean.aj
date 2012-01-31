@@ -3,8 +3,14 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import java.util.Date;
+import java.util.List;
 
 privileged aspect Person_Roo_JavaBean {
     
@@ -22,6 +28,142 @@ privileged aspect Person_Roo_JavaBean {
     
     public void Person.setCitizenship(Country citizenship) {
         this.citizenship = citizenship;
+    }
+    
+    public String Person.getPrefix() {
+        return this.prefix;
+    }
+    
+    public void Person.setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+    
+    public String Person.getSuffix() {
+        return this.suffix;
+    }
+    
+    public void Person.setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+    
+    public String Person.getFirstname() {
+        return this.firstname;
+    }
+    
+    public void Person.setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+    
+    public String Person.getMiddlename() {
+        return this.middlename;
+    }
+    
+    public void Person.setMiddlename(String middlename) {
+        this.middlename = middlename;
+    }
+    
+    public String Person.getLastname() {
+        return this.lastname;
+    }
+    
+    public void Person.setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    
+    public String Person.getMaidenname() {
+        return this.maidenname;
+    }
+    
+    public void Person.setMaidenname(String maidenname) {
+        this.maidenname = maidenname;
+    }
+    
+    public MaritalStatus Person.getMaritalStatus() {
+        return this.maritalStatus;
+    }
+    
+    public void Person.setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+    
+    public Boolean Person.getPermanentResidenceGranted() {
+        return this.permanentResidenceGranted;
+    }
+    
+    public void Person.setPermanentResidenceGranted(Boolean permanentResidenceGranted) {
+        this.permanentResidenceGranted = permanentResidenceGranted;
+    }
+    
+    public List<Document> Person.getDocuments() {
+        return this.documents;
+    }
+    
+    public void Person.setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
+    
+    public Date Person.getBirthdate() {
+        return this.birthdate;
+    }
+    
+    public void Person.setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+    
+    public String Person.getBirthIdentificationNumber() {
+        return this.birthIdentificationNumber;
+    }
+    
+    public void Person.setBirthIdentificationNumber(String birthIdentificationNumber) {
+        this.birthIdentificationNumber = birthIdentificationNumber;
+    }
+    
+    public Gender Person.getGender() {
+        return this.gender;
+    }
+    
+    public void Person.setGender(Gender gender) {
+        this.gender = gender;
+    }
+    
+    public City Person.getCityOfBirth() {
+        return this.cityOfBirth;
+    }
+    
+    public void Person.setCityOfBirth(City cityOfBirth) {
+        this.cityOfBirth = cityOfBirth;
+    }
+    
+    public Country Person.getCountryOfBirth() {
+        return this.countryOfBirth;
+    }
+    
+    public void Person.setCountryOfBirth(Country countryOfBirth) {
+        this.countryOfBirth = countryOfBirth;
+    }
+    
+    public String Person.getPhone() {
+        return this.phone;
+    }
+    
+    public void Person.setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    public String Person.getEmail() {
+        return this.email;
+    }
+    
+    public void Person.setEmail(String email) {
+        this.email = email;
+    }
+    
+    public Boolean Person.getDisability() {
+        return this.disability;
+    }
+    
+    public void Person.setDisability(Boolean disability) {
+        this.disability = disability;
     }
     
 }

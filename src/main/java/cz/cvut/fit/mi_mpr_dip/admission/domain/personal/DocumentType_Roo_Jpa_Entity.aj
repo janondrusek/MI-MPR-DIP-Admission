@@ -3,24 +3,24 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Version;
 
-privileged aspect MaritalStatus_Roo_Jpa_Entity {
+privileged aspect DocumentType_Roo_Jpa_Entity {
     
-    declare @type: MaritalStatus: @Entity;
+    declare @type: DocumentType: @Entity;
     
     @Version
     @Column(name = "version")
-    private Integer MaritalStatus.version;
+    private Integer DocumentType.version;
     
-    public Integer MaritalStatus.getVersion() {
+    public Integer DocumentType.getVersion() {
         return this.version;
     }
     
-    public void MaritalStatus.setVersion(Integer version) {
+    public void DocumentType.setVersion(Integer version) {
         this.version = version;
     }
     

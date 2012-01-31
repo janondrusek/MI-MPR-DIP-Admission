@@ -37,11 +37,11 @@ privileged aspect MaritalStatusIntegrationTest_Roo_IntegrationTest {
     public void MaritalStatusIntegrationTest.testFindMaritalStatus() {
         MaritalStatus obj = dod.getRandomMaritalStatus();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getMaritalStatusId();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to provide an identifier", id);
         obj = MaritalStatus.findMaritalStatus(id);
         Assert.assertNotNull("Find method for 'MaritalStatus' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'MaritalStatus' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'MaritalStatus' returned the incorrect identifier", id, obj.getMaritalStatusId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect MaritalStatusIntegrationTest_Roo_IntegrationTest {
     public void MaritalStatusIntegrationTest.testFlush() {
         MaritalStatus obj = dod.getRandomMaritalStatus();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getMaritalStatusId();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to provide an identifier", id);
         obj = MaritalStatus.findMaritalStatus(id);
         Assert.assertNotNull("Find method for 'MaritalStatus' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect MaritalStatusIntegrationTest_Roo_IntegrationTest {
     public void MaritalStatusIntegrationTest.testMergeUpdate() {
         MaritalStatus obj = dod.getRandomMaritalStatus();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getMaritalStatusId();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to provide an identifier", id);
         obj = MaritalStatus.findMaritalStatus(id);
         boolean modified =  dod.modifyMaritalStatus(obj);
         Integer currentVersion = obj.getVersion();
         MaritalStatus merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getMaritalStatusId(), id);
         Assert.assertTrue("Version for 'MaritalStatus' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect MaritalStatusIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to initialize correctly", dod.getRandomMaritalStatus());
         MaritalStatus obj = dod.getNewTransientMaritalStatus(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'MaritalStatus' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'MaritalStatus' identifier to be null", obj.getMaritalStatusId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'MaritalStatus' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'MaritalStatus' identifier to no longer be null", obj.getMaritalStatusId());
     }
     
     @Test
     public void MaritalStatusIntegrationTest.testRemove() {
         MaritalStatus obj = dod.getRandomMaritalStatus();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getMaritalStatusId();
         Assert.assertNotNull("Data on demand for 'MaritalStatus' failed to provide an identifier", id);
         obj = MaritalStatus.findMaritalStatus(id);
         obj.remove();
