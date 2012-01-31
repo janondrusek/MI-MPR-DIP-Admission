@@ -1,9 +1,11 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -18,6 +20,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
+@XmlRootElement
 public class Admission {
 
 	@Id
@@ -26,18 +29,18 @@ public class Admission {
 
 	private String code;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Faculty faculty;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Degree degree;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private StudyMode studyMode;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Programme programme;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Person person;
 }
