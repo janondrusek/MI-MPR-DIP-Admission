@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<admission>
+	<code>123-456</code>
+	<faculty>
+		<name>FIT</name>
+	</faculty>
+	<degree>
+		<name>Bc.</name>
+	</degree>
+	<studyMode>
+		<name>presence</name>
+	</studyMode>
+	<programme>
+		<name>Informatics</name>
+	</programme>
+	<person>
+		<citizenship>
+			<name>Czech republic</name>
+		</citizenship>
+		<prefix>Don</prefix>
+		<suffix>Css</suffix>
+		<firstname>Benjamin</firstname>
+		<middlename>Azurit</middlename>
+		<lastname>Bukvica</lastname>
+		<maidenname>Trp</maidenname>
+		<maritalStatus>
+			<name>single</name>
+		</maritalStatus>
+		<permanentResidenceGranted>true</permanentResidenceGranted>
+		<documents>
+			<document>
+				<documentType>
+					<name>Passport</name>
+				</documentType>
+				<number>678-901</number>
+			</document>
+		</documents>
+		<birthdate>2000-01-01</birthdate>
+		<birthIdentificationNumber>000101/1234</birthIdentificationNumber>
+		<gender>
+			<name>M</name>
+		</gender>
+		<cityOfBirth>
+			<name>Prague</name>
+		</cityOfBirth>
+		<countryOfBirth>
+			<name>Czech republic</name>
+		</countryOfBirth>
+		<phone>603123456</phone>
+		<email>dyg@more.com</email>
+		<disability>false</disability>
+	</person>
+</admission>
