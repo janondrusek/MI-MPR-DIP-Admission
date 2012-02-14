@@ -4,24 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 privileged aspect Degree_Roo_Jpa_Entity {
     
     declare @type: Degree: @Entity;
-    
-    @Version
-    @Column(name = "version")
-    private Integer Degree.version;
-    
-    public Integer Degree.getVersion() {
-        return this.version;
-    }
-    
-    public void Degree.setVersion(Integer version) {
-        this.version = version;
-    }
     
 }

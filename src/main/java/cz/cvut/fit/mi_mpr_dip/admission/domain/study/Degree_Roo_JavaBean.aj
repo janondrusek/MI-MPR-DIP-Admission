@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 
 privileged aspect Degree_Roo_JavaBean {
     
+    public int Degree.getVersion() {
+        return this.version;
+    }
+    
+    public void Degree.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long Degree.getDegreeId() {
         return this.degreeId;
     }

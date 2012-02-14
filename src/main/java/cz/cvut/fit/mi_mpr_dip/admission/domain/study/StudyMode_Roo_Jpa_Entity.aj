@@ -4,24 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 privileged aspect StudyMode_Roo_Jpa_Entity {
     
     declare @type: StudyMode: @Entity;
-    
-    @Version
-    @Column(name = "version")
-    private Integer StudyMode.version;
-    
-    public Integer StudyMode.getVersion() {
-        return this.version;
-    }
-    
-    public void StudyMode.setVersion(Integer version) {
-        this.version = version;
-    }
     
 }

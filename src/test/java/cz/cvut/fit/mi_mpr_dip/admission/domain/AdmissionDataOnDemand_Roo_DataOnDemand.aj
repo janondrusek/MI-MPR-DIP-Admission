@@ -53,7 +53,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setDegree(Admission obj, int index) {
-        Degree degree = degreeDataOnDemand.getSpecificDegree(index);
+        Degree degree = degreeDataOnDemand.getRandomDegree();
         obj.setDegree(degree);
     }
     

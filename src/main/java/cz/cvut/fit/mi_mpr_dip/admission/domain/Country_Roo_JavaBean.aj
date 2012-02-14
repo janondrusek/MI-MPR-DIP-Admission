@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
 
 privileged aspect Country_Roo_JavaBean {
     
+    public int Country.getVersion() {
+        return this.version;
+    }
+    
+    public void Country.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long Country.getCountryId() {
         return this.countryId;
     }

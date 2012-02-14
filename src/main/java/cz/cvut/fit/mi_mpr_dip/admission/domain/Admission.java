@@ -7,8 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -24,10 +29,17 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 @RooToString
 @RooJpaActiveRecord
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Admission {
 
+	@Version
+	@Transient
+	@XmlTransient
+	private int version;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@XmlTransient
 	private Long admissionId;
 
 	@NotNull

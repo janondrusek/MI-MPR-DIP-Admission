@@ -4,24 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 privileged aspect Document_Roo_Jpa_Entity {
     
     declare @type: Document: @Entity;
-    
-    @Version
-    @Column(name = "version")
-    private Integer Document.version;
-    
-    public Integer Document.getVersion() {
-        return this.version;
-    }
-    
-    public void Document.setVersion(Integer version) {
-        this.version = version;
-    }
     
 }

@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.education.School;
 
 privileged aspect School_Roo_JavaBean {
     
+    public int School.getVersion() {
+        return this.version;
+    }
+    
+    public void School.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long School.getSchoolId() {
         return this.schoolId;
     }

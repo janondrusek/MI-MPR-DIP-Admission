@@ -4,24 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 privileged aspect City_Roo_Jpa_Entity {
     
     declare @type: City: @Entity;
-    
-    @Version
-    @Column(name = "version")
-    private Integer City.version;
-    
-    public Integer City.getVersion() {
-        return this.version;
-    }
-    
-    public void City.setVersion(Integer version) {
-        this.version = version;
-    }
     
 }

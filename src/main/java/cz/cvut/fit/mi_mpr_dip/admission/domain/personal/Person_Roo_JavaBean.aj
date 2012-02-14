@@ -14,6 +14,14 @@ import java.util.List;
 
 privileged aspect Person_Roo_JavaBean {
     
+    public int Person.getVersion() {
+        return this.version;
+    }
+    
+    public void Person.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long Person.getPersonId() {
         return this.personId;
     }

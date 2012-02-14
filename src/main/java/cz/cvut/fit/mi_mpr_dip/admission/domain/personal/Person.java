@@ -4,12 +4,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -21,10 +29,17 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
+	@Version
+	@Transient
+	@XmlTransient
+	private int version;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@XmlTransient
 	private Long personId;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -49,7 +64,10 @@ public class Person {
 
 	private Boolean permanentResidenceGranted;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElementWrapper(name = "documents")
+	// maps each member of this list to an XML element named appointment
+	@XmlElement(name = "document")
 	private List<Document> documents;
 
 	private Date birthdate;

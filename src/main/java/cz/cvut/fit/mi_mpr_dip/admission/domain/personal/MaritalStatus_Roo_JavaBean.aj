@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 
 privileged aspect MaritalStatus_Roo_JavaBean {
     
+    public int MaritalStatus.getVersion() {
+        return this.version;
+    }
+    
+    public void MaritalStatus.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long MaritalStatus.getMaritalStatusId() {
         return this.maritalStatusId;
     }

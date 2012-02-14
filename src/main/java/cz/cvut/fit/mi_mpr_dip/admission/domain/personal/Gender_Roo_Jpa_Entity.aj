@@ -4,24 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 privileged aspect Gender_Roo_Jpa_Entity {
     
     declare @type: Gender: @Entity;
-    
-    @Version
-    @Column(name = "version")
-    private Integer Gender.version;
-    
-    public Integer Gender.getVersion() {
-        return this.version;
-    }
-    
-    public void Gender.setVersion(Integer version) {
-        this.version = version;
-    }
     
 }

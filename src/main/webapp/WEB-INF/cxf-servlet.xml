@@ -36,5 +36,9 @@
 	<!-- </jaxrs:schemaLocations> -->
 	<!-- </jaxrs:server> -->
 
-	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingServiceImpl" />
+	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingServiceImpl">
+		<property name="admissionService" ref="admissionService" />
+	</bean>
+
+	<bean id="admissionService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionServiceImpl" />
 </beans>

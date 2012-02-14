@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
 privileged aspect StudyMode_Roo_JavaBean {
     
+    public int StudyMode.getVersion() {
+        return this.version;
+    }
+    
+    public void StudyMode.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long StudyMode.getStudyModeId() {
         return this.studyModeId;
     }

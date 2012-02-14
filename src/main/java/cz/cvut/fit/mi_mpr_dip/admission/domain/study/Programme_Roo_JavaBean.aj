@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 privileged aspect Programme_Roo_JavaBean {
     
+    public int Programme.getVersion() {
+        return this.version;
+    }
+    
+    public void Programme.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long Programme.getProgrammeId() {
         return this.programmeId;
     }

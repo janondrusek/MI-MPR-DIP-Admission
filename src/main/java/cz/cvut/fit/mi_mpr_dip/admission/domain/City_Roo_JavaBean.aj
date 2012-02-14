@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
 
 privileged aspect City_Roo_JavaBean {
     
+    public int City.getVersion() {
+        return this.version;
+    }
+    
+    public void City.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long City.getCityId() {
         return this.cityId;
     }

@@ -8,6 +8,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 
 privileged aspect Document_Roo_JavaBean {
     
+    public int Document.getVersion() {
+        return this.version;
+    }
+    
+    public void Document.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long Document.getDocumentId() {
         return this.documentId;
     }

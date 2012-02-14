@@ -7,6 +7,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 
 privileged aspect Gender_Roo_JavaBean {
     
+    public int Gender.getVersion() {
+        return this.version;
+    }
+    
+    public void Gender.setVersion(int version) {
+        this.version = version;
+    }
+    
     public Long Gender.getGenderId() {
         return this.genderId;
     }
