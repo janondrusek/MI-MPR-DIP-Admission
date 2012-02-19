@@ -10,6 +10,7 @@
 	<context:annotation-config />
 	<import resource="spring-roo.xml" />
 	<import resource="spring-persistence.xml" />
+	<import resource="spring-ldap.xml" />
 
 	<bean id="adminController" class="cz.cvut.fit.mi_mpr_dip.admission.controller.AdminController">
 		<property name="adminService" ref="adminService" />

@@ -22,8 +22,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
 import cz.cvut.fit.mi_mpr_dip.admission.validator.AdmissionValidator;
 
-@Path("/processing")
+@Path(ProcessingServiceImpl.ENDPOINT_PATH)
 public class ProcessingServiceImpl implements ProcessingService {
+
+	public static final String ADMISSION_PATH = "/admission";
+	public static final String ADMISSIONS_PATH = "/admissions";
+	public static final String ENDPOINT_PATH = "/processing";
 
 	private AdmissionService admissionService;
 
@@ -32,7 +36,7 @@ public class ProcessingServiceImpl implements ProcessingService {
 		binder.setValidator(new AdmissionValidator());
 	}
 
-	@Path("/admission/{id}")
+	@Path(ADMISSION_PATH + "/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
@@ -40,7 +44,7 @@ public class ProcessingServiceImpl implements ProcessingService {
 		return Admission.findAdmission(id);
 	}
 
-	@Path("/admissions")
+	@Path(ADMISSIONS_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
@@ -48,13 +52,13 @@ public class ProcessingServiceImpl implements ProcessingService {
 		return Admission.findAllAdmissions();
 	}
 
-	@Path("/admission")
+	@Path(ADMISSION_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
 	public Response addAdmission(@Valid Admission admission) throws URISyntaxException {
 		admissionService.deduplicateAndStore(admission);
-		URI uri = new URI(admission.getAdmissionId().toString());
+		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + "/" + admission.getAdmissionId().toString());
 		return Response.created(uri).build();
 	}
 
