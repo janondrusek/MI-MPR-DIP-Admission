@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -15,6 +16,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
+@Service
 public class AdmissionServiceImpl implements AdmissionService {
 
 	@Override

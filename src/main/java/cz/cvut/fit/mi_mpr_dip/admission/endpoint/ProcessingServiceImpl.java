@@ -14,7 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -22,6 +23,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
 import cz.cvut.fit.mi_mpr_dip.admission.validator.AdmissionValidator;
 
+@Service(value = "processingService")
 @Path(ProcessingServiceImpl.ENDPOINT_PATH)
 public class ProcessingServiceImpl implements ProcessingService {
 
@@ -29,6 +31,7 @@ public class ProcessingServiceImpl implements ProcessingService {
 	public static final String ADMISSIONS_PATH = "/admissions";
 	public static final String ENDPOINT_PATH = "/processing";
 
+	@Autowired
 	private AdmissionService admissionService;
 
 	@InitBinder
@@ -62,7 +65,6 @@ public class ProcessingServiceImpl implements ProcessingService {
 		return Response.created(uri).build();
 	}
 
-	@Required
 	public void setAdmissionService(AdmissionService admissionService) {
 		this.admissionService = admissionService;
 	}

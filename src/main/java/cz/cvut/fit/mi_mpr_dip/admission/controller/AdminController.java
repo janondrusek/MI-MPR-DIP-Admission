@@ -29,8 +29,4 @@ public class AdminController {
 		return adminService;
 	}
 
-	public void setAdminService(AdminService adminService) {
-		this.adminService = adminService;
-	}
-
 }

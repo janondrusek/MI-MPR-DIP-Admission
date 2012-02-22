@@ -19,6 +19,9 @@
 	http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<context:annotation-config />
+	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
+
 	<jaxrs:server id="restContainer" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="processingService" />
@@ -35,10 +38,4 @@
 	<!-- <jaxrs:schemaLocation>classpath:/xsd/admission-rest.xsd</jaxrs:schemaLocation> -->
 	<!-- </jaxrs:schemaLocations> -->
 	<!-- </jaxrs:server> -->
-
-	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingServiceImpl">
-		<property name="admissionService" ref="admissionService" />
-	</bean>
-
-	<bean id="admissionService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionServiceImpl" />
 </beans>

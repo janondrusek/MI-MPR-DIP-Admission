@@ -5,7 +5,9 @@ import org.springframework.ldap.core.DistinguishedName;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LdapServiceImpl implements LdapService {
 
 	@Autowired

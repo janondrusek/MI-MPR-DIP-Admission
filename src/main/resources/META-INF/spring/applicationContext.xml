@@ -8,13 +8,11 @@
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:annotation-config />
+	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
+	
 	<import resource="spring-roo.xml" />
 	<import resource="spring-persistence.xml" />
 	<import resource="spring-ldap.xml" />
-
-	<bean id="adminController" class="cz.cvut.fit.mi_mpr_dip.admission.controller.AdminController">
-		<property name="adminService" ref="adminService" />
-	</bean>
 
 	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdminServiceImpl">
 		<property name="exposablePropertyHolder" ref="propertyConfigurer" />
@@ -56,4 +54,8 @@
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:order="0" />
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	
+	<bean id="userIdentityService" class="cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityServiceImpl">
+		<property name="grantValidSeconds" value="${user.identity.grant.valid.seconds}" />
+	</bean>
 </beans>

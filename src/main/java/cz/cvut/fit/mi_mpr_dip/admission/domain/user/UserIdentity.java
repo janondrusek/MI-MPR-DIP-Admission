@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -47,6 +48,7 @@ public class UserIdentity {
 	private List<UserRole> roles;
 
 	@OneToMany(mappedBy = "userIdentity")
+	@OrderBy("grantValidTo DESC")
 	private List<UserSession> sessions;
 
 	private static final String[] excludeFields = new String[] { "userIdentityId", "roles", "sessions" };
