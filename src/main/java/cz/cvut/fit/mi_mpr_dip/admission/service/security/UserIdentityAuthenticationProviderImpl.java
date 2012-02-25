@@ -12,6 +12,12 @@ public class UserIdentityAuthenticationProviderImpl implements AuthenticationPro
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		return createAuthentication(authentication.getPrincipal().toString(), authentication.getCredentials()
+				.toString());
+	}
+
+	private Authentication createAuthentication(String principal, String credentials) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -25,7 +23,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UserRole {
+public class UserPermission {
 
 	@Version
 	@Transient
@@ -35,20 +33,16 @@ public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long userRoleId;
+	private Long userPermissionId;
 
 	@NotNull
 	@Column(unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "roles")
-	List<UserIdentity> identities;
+	@ManyToMany(mappedBy = "permissions")
+	List<UserRole> roles;
 
-	@ManyToMany
-	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id", referencedColumnName = "userPermissionId") })
-	private List<UserPermission> permissions;
-
-	private static final String[] excludeFields = new String[] { "userRoleId" };
+	private static final String[] excludeFields = new String[] { "userPermissionId" };
 
 	@Override
 	public boolean equals(Object obj) {

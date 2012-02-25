@@ -46,20 +46,20 @@ public class MobileServiceImpl implements MobileService {
 		return responseBuilder.build();
 	}
 
-	@Secured("ROLE_READ_PERSON")
+	@Secured("PERM_READ_PERSON")
 	@Override
 	public Response getPerson(String sessionId, String admissionCode) {
 		return null;
 	}
 
-	@Secured("ROLE_WRITE_RESULT")
+	@Secured("PERM_WRITE_RESULT")
 	@Override
 	public void saveResult(String sessionId, String admissionCode, Double result) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Secured("ROLE_WRITE_PHOTO")
+	@Secured("PERM_WRITE_PHOTO")
 	@Override
 	public void savePhoto(String sessionId, String admissionCode, String photo) {
 		// TODO Auto-generated method stub

@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSessionDataOnDemand;
 import java.security.SecureRandom;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect UserSessionDataOnDemand_Roo_DataOnDemand {
@@ -25,10 +28,14 @@ privileged aspect UserSessionDataOnDemand_Roo_DataOnDemand {
     
     private List<UserSession> UserSessionDataOnDemand.data;
     
+    @Autowired
+    private UserIdentityDataOnDemand UserSessionDataOnDemand.userIdentityDataOnDemand;
+    
     public UserSession UserSessionDataOnDemand.getNewTransientUserSession(int index) {
         UserSession obj = new UserSession();
         setGrantValidTo(obj, index);
         setIdentifier(obj, index);
+        setUserIdentity(obj, index);
         return obj;
     }
     
@@ -40,6 +47,11 @@ privileged aspect UserSessionDataOnDemand_Roo_DataOnDemand {
     public void UserSessionDataOnDemand.setIdentifier(UserSession obj, int index) {
         String identifier = "identifier_" + index;
         obj.setIdentifier(identifier);
+    }
+    
+    public void UserSessionDataOnDemand.setUserIdentity(UserSession obj, int index) {
+        UserIdentity userIdentity = userIdentityDataOnDemand.getRandomUserIdentity();
+        obj.setUserIdentity(userIdentity);
     }
     
     public UserSession UserSessionDataOnDemand.getSpecificUserSession(int index) {
