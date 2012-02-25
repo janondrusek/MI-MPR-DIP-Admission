@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 
 public interface MobileService {
 
-	public Response authenticate(String username, String password);
+	public Response getUserIdentity();
 
 	public Response getPerson(String sessionId, String admissionCode);
 

@@ -24,6 +24,7 @@
 
 	<jaxrs:server id="restContainer" address="/">
 		<jaxrs:serviceBeans>
+			<ref bean="mobileService" />
 			<ref bean="processingService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
