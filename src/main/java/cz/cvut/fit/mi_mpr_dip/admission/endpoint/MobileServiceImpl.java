@@ -5,8 +5,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -15,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
-import cz.cvut.fit.mi_mpr_dip.admission.service.LdapService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
 @Path(MobileServiceImpl.ENDPOINT_PATH)
@@ -26,9 +23,6 @@ public class MobileServiceImpl implements MobileService {
 	public static final String SAVE_RESULT_PATH = "/saveResult";
 	public static final String SAVE_PHOTO_PATH = "/savePhoto";
 	public static final String ENDPOINT_PATH = "/mobile";
-
-	@Autowired
-	private LdapService ldapService;
 
 	@Autowired
 	private UserIdentityService userIdentityService;
@@ -42,17 +36,7 @@ public class MobileServiceImpl implements MobileService {
 	@Override
 	public Response getUserIdentity() {
 		Authentication authentication = getAuthentication();
-		String username = authentication.getPrincipal().toString();
-		String password = authentication.getCredentials().toString();
-
-		boolean authentified = ldapService.authenticate(username, password);
-		ResponseBuilder responseBuilder = null;
-		if (authentified) {
-			responseBuilder = Response.ok(userIdentityService.getUserIdentity(username));
-		} else {
-			responseBuilder = Response.status(Status.UNAUTHORIZED);
-		}
-		return responseBuilder.build();
+		return Response.ok(userIdentityService.getUserIdentity(authentication.getPrincipal().toString())).build();
 	}
 
 	private Authentication getAuthentication() {
