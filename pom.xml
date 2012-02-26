@@ -37,6 +37,8 @@
 		<commons.dbcp.version>1.3</commons.dbcp.version>
 		<commons.lang3.version>3.1</commons.lang3.version>
 		<junit.version>4.9</junit.version>
+		<jbpm.version>5.2.0.Final</jbpm.version>
+		<drools-spring.version>5.3.1.Final</drools-spring.version>
 		<!-- Plugins -->
 		<maven.compiler.version>2.3.2</maven.compiler.version>
 		<maven.deploy.version>2.7</maven.deploy.version>
@@ -381,12 +383,12 @@
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-bpmn2</artifactId>
-			<version>5.2.0.Final</version>
+			<version>${jbpm.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-spring</artifactId>
-			<version>5.3.1.Final</version>
+			<version>${drools-spring.version}</version>
 		</dependency>
 	</dependencies>
 
