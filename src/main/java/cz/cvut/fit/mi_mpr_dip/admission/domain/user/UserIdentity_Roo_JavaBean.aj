@@ -6,7 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
-import java.util.List;
+import java.util.Set;
 
 privileged aspect UserIdentity_Roo_JavaBean {
     
@@ -34,19 +34,19 @@ privileged aspect UserIdentity_Roo_JavaBean {
         this.username = username;
     }
     
-    public List<UserRole> UserIdentity.getRoles() {
+    public Set<UserRole> UserIdentity.getRoles() {
         return this.roles;
     }
     
-    public void UserIdentity.setRoles(List<UserRole> roles) {
+    public void UserIdentity.setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
     
-    public List<UserSession> UserIdentity.getSessions() {
+    public Set<UserSession> UserIdentity.getSessions() {
         return this.sessions;
     }
     
-    public void UserIdentity.setSessions(List<UserSession> sessions) {
+    public void UserIdentity.setSessions(Set<UserSession> sessions) {
         this.sessions = sessions;
     }
     

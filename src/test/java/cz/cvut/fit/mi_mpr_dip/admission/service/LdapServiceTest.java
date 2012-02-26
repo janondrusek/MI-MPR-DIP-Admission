@@ -24,6 +24,6 @@ public class LdapServiceTest {
 
 	@Test
 	public void testAuthenticate() {
-		assertTrue(ldapService.authenticate("ondruja1", "asdfasdf"));
+		assertTrue(ldapService.authenticate("username", "asdfasdf"));
 	}
 }

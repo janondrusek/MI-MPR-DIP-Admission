@@ -2,12 +2,15 @@ package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -16,32 +19,40 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 
 	private Long grantValidSeconds;
 
+	@Autowired
+	private UserIdentityDao userIdentityDao;
+
 	@Transactional
 	@Override
 	public UserIdentity getUserIdentity(String username) {
-		UserIdentity userIdentity = UserIdentity.findUserIdentitysByUsernameEquals(username).getSingleResult();
-		if (userIdentity == null) {
-			userIdentity = createUserIdentity(username);
+		UserIdentity userIdentity = userIdentityDao.getUserIdentity(username);
+		if (userIdentity.getUsername() == null) {
+			userIdentity.setUsername(username);
 		}
 		ensureSession(userIdentity);
 		userIdentity.persist();
 		return userIdentity;
 	}
 
-	private UserIdentity createUserIdentity(String username) {
-		UserIdentity userIdentity = new UserIdentity();
-		userIdentity.setUsername(username);
-		return userIdentity;
-	}
-
 	private void ensureSession(UserIdentity userIdentity) {
-		List<UserSession> sessions = userIdentity.getSessions();
+		Set<UserSession> sessions = getSessions(userIdentity);
 		if (shouldCreateNewSession(sessions)) {
 			sessions.add(createSession());
 		}
 		deleteExpired(sessions);
 
 		userIdentity.setSessions(sessions);
+		for (UserSession session : sessions) {
+			session.setUserIdentity(userIdentity);
+		}
+	}
+
+	private Set<UserSession> getSessions(UserIdentity userIdentity) {
+		Set<UserSession> sessions = userIdentity.getSessions();
+		if (sessions == null) {
+			sessions = new TreeSet<UserSession>();
+		}
+		return sessions;
 	}
 
 	private UserSession createSession() {
@@ -53,31 +64,30 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	}
 
 	private Date getGrantValidTo() {
-		return new Date(getNow().getTime() + grantValidSeconds);
+		return new Date(getNow().getTime() + grantValidSeconds * 1000);
 	}
 
 	private String getRandomIdentifier() {
 		return UUID.randomUUID().toString().replaceAll(StringPool.DASH, StringPool.BLANK);
 	}
 
-	private void deleteExpired(List<UserSession> sessions) {
+	private void deleteExpired(Set<UserSession> sessions) {
 		Iterator<UserSession> iterator = sessions.iterator();
 		while (iterator.hasNext()) {
 			UserSession session = iterator.next();
 			if (isExpired(session)) {
 				sessions.remove(session);
-				session.remove();
 			}
 		}
-
 	}
 
 	private boolean isExpired(UserSession session) {
-		return session.getGrantValidTo().before(getNow());
+		Date now = getNow();
+		return session.getGrantValidTo().before(now);
 	}
 
-	private boolean shouldCreateNewSession(List<UserSession> sessions) {
-		return sessions.size() == 0;
+	private boolean shouldCreateNewSession(Set<UserSession> sessions) {
+		return sessions == null || sessions.isEmpty();
 	}
 
 	private Date getNow() {

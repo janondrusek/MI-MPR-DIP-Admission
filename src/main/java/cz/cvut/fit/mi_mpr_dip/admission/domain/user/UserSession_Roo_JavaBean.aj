@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import java.util.Date;
 
@@ -38,6 +39,14 @@ privileged aspect UserSession_Roo_JavaBean {
     
     public void UserSession.setGrantValidTo(Date grantValidTo) {
         this.grantValidTo = grantValidTo;
+    }
+    
+    public UserIdentity UserSession.getUserIdentity() {
+        return this.userIdentity;
+    }
+    
+    public void UserSession.setUserIdentity(UserIdentity userIdentity) {
+        this.userIdentity = userIdentity;
     }
     
 }

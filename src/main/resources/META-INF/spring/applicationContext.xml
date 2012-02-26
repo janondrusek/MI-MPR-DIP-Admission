@@ -9,7 +9,7 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
-	
+
 	<import resource="spring-roo.xml" />
 	<import resource="spring-persistence.xml" />
 	<import resource="spring-ldap.xml" />

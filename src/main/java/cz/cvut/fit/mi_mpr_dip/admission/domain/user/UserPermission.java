@@ -1,13 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -24,7 +23,8 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UserSession {
+public class UserPermission {
+
 	@Version
 	@Transient
 	@XmlTransient
@@ -33,21 +33,16 @@ public class UserSession {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long userSessionId;
+	private Long userPermissionId;
 
 	@NotNull
 	@Column(unique = true)
-	private String identifier;
+	private String name;
 
-	@NotNull
-	private Date grantValidTo;
+	@ManyToMany(mappedBy = "permissions")
+	Set<UserRole> roles;
 
-	@XmlTransient
-	@ManyToOne
-	@JoinColumn(name = "userIdentityId")
-	private UserIdentity userIdentity;
-
-	private static final String[] excludeFields = new String[] { "userSessionId", "grantValidTo", "userIdentity" };
+	private static final String[] excludeFields = new String[] { "userPermissionId" };
 
 	@Override
 	public boolean equals(Object obj) {

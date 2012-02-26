@@ -1,11 +1,15 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -41,6 +45,10 @@ public class UserRole {
 
 	@ManyToMany(mappedBy = "roles")
 	List<UserIdentity> identities;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id", referencedColumnName = "userPermissionId") })
+	private Set<UserPermission> permissions;
 
 	private static final String[] excludeFields = new String[] { "userRoleId" };
 
