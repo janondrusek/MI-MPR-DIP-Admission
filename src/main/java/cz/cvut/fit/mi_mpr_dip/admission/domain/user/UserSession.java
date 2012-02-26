@@ -42,6 +42,7 @@ public class UserSession {
 	@NotNull
 	private Date grantValidTo;
 
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name = "userIdentityId")
 	private UserIdentity userIdentity;

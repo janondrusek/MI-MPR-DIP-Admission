@@ -1,6 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -40,7 +40,7 @@ public class UserPermission {
 	private String name;
 
 	@ManyToMany(mappedBy = "permissions")
-	List<UserRole> roles;
+	Set<UserRole> roles;
 
 	private static final String[] excludeFields = new String[] { "userPermissionId" };
 

@@ -36,6 +36,10 @@
 		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
 	</bean>
 
+	<security:authentication-manager>
+		<security:authentication-provider ref="globalAuthenticationProvider" />
+	</security:authentication-manager>
+
 	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
 		<constructor-arg>
 			<list>

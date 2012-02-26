@@ -3,9 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.UserIdentityDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.UserIdentityIntegrationTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;

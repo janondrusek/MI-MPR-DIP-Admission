@@ -7,6 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPermission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import java.util.List;
+import java.util.Set;
 
 privileged aspect UserRole_Roo_JavaBean {
     
@@ -42,11 +43,11 @@ privileged aspect UserRole_Roo_JavaBean {
         this.identities = identities;
     }
     
-    public List<UserPermission> UserRole.getPermissions() {
+    public Set<UserPermission> UserRole.getPermissions() {
         return this.permissions;
     }
     
-    public void UserRole.setPermissions(List<UserPermission> permissions) {
+    public void UserRole.setPermissions(Set<UserPermission> permissions) {
         this.permissions = permissions;
     }
     
