@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,11 +37,11 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 
 	private void ensureSession(UserIdentity userIdentity) {
 		Set<UserSession> sessions = getSessions(userIdentity);
-		if (shouldCreateNewSession(sessions)) {
+
+		deleteExpired(sessions);
+		if (isNullOrEmpty(sessions)) {
 			sessions.add(createSession());
 		}
-		deleteExpired(sessions);
-
 		userIdentity.setSessions(sessions);
 		for (UserSession session : sessions) {
 			session.setUserIdentity(userIdentity);
@@ -49,10 +50,21 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 
 	private Set<UserSession> getSessions(UserIdentity userIdentity) {
 		Set<UserSession> sessions = userIdentity.getSessions();
-		if (sessions == null) {
+		if (isNullOrEmpty(sessions)) {
 			sessions = new TreeSet<UserSession>();
 		}
 		return sessions;
+	}
+
+	private void deleteExpired(Set<UserSession> sessions) {
+		Iterator<UserSession> iterator = sessions.iterator();
+		while (iterator.hasNext()) {
+			UserSession session = iterator.next();
+			if (isExpired(session)) {
+				sessions.remove(session);
+				session.remove();
+			}
+		}
 	}
 
 	private UserSession createSession() {
@@ -71,23 +83,13 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 		return UUID.randomUUID().toString().replaceAll(StringPool.DASH, StringPool.BLANK);
 	}
 
-	private void deleteExpired(Set<UserSession> sessions) {
-		Iterator<UserSession> iterator = sessions.iterator();
-		while (iterator.hasNext()) {
-			UserSession session = iterator.next();
-			if (isExpired(session)) {
-				sessions.remove(session);
-			}
-		}
-	}
-
 	private boolean isExpired(UserSession session) {
 		Date now = getNow();
 		return session.getGrantValidTo().before(now);
 	}
 
-	private boolean shouldCreateNewSession(Set<UserSession> sessions) {
-		return sessions == null || sessions.isEmpty();
+	private boolean isNullOrEmpty(Set<UserSession> sessions) {
+		return CollectionUtils.isEmpty(sessions);
 	}
 
 	private Date getNow() {
