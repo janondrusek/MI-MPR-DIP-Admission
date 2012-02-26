@@ -372,6 +372,11 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>5.2.0.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>
