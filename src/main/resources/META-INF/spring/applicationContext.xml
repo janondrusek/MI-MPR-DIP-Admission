@@ -14,6 +14,7 @@
 	<import resource="spring-persistence.xml" />
 	<import resource="spring-ldap.xml" />
 	<import resource="spring-security.xml" />
+	<import resource="jbpm-conf.xml"/>
 
 	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdminServiceImpl">
 		<property name="exposablePropertyHolder" ref="propertyConfigurer" />
