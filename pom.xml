@@ -387,6 +387,16 @@
 			<groupId>org.drools</groupId>
 			<artifactId>drools-spring</artifactId>
 			<version>5.3.1.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>ejb3-persistence</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>persistence-api</artifactId>
+					<groupId>javax.persistence</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
