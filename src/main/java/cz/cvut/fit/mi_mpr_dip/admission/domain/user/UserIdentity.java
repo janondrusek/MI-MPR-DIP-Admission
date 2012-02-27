@@ -51,7 +51,7 @@ public class UserIdentity {
 	@JoinTable(name = "user_identity_role", joinColumns = { @JoinColumn(name = "user_identity_id", referencedColumnName = "userIdentityId") }, inverseJoinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") })
 	private Set<UserRole> roles;
 
-	@OneToMany(mappedBy = "userIdentity", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "userIdentity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OrderBy("grantValidTo DESC")
 	private Set<UserSession> sessions;
 

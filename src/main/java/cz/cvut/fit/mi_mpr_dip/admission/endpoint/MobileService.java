@@ -6,10 +6,10 @@ public interface MobileService {
 
 	public Response getUserIdentity();
 
-	public Response getPerson(String sessionId, String admissionCode);
+	public Response getPerson(String admissionCode);
 
-	public void saveResult(String sessionId, String admissionCode, Double result);
+	public void saveResult(String admissionCode, Double result);
 
-	public void savePhoto(String sessionId, String admissionCode, String photo);
+	public void savePhoto(String admissionCode, String photo);
 
 }

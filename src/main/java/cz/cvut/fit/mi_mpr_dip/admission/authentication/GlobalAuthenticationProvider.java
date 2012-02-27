@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service.security;
+package cz.cvut.fit.mi_mpr_dip.admission.authentication;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

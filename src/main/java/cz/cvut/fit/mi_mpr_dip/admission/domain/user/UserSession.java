@@ -22,9 +22,10 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
+@RooJpaActiveRecord(finders = { "findUserSessionsByIdentifierEqualsAndGrantValidToGreaterThan" })
 public class UserSession {
+
 	@Version
 	@Transient
 	@XmlTransient

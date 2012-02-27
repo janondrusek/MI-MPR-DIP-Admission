@@ -20,9 +20,14 @@
 		factory-method="getContextHolderStrategy" />
 
 	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
-		<security:filter-chain-map path-type="ant">
-			<security:filter-chain pattern="/services/mobile/identity" filters="basicAuthenticationFilter,anonymousAuthFilter" />
-		</security:filter-chain-map>
+		<constructor-arg>
+			<list>
+				<security:filter-chain pattern="/services/mobile/identity"
+					filters="basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/mobile/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+			</list>
+		</constructor-arg>
 	</bean>
 
 	<bean id="anonymousAuthFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
@@ -32,8 +37,14 @@
 	</bean>
 
 	<bean id="basicAuthenticationFilter" class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
-		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+		<constructor-arg ref="authenticationManager" />
+		<constructor-arg ref="authenticationEntryPoint" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<constructor-arg>
+			<bean class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+		</constructor-arg>
 	</bean>
 
 	<security:authentication-manager>

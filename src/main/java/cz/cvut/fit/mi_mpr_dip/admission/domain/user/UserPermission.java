@@ -3,6 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,8 @@ public class UserPermission {
 	@Column(unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "permissions")
+	@ManyToMany(mappedBy = "permissions", fetch = FetchType.EAGER)
+	@XmlTransient
 	Set<UserRole> roles;
 
 	private static final String[] excludeFields = new String[] { "userPermissionId" };
