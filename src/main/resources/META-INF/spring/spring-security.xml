@@ -10,7 +10,24 @@
 		Security - http://static.springsource.org/spring-security/site/docs/3.1.x/reference/ns-config.html#ns-protect-pointcut - 
 		http://static.springsource.org/spring-security/site/docs/3.1.x/reference/appendix-namespace.html#d0e8651 See Spring Security 
 		3.1 Referecne 15.1.1 Common Built-In Expressions - http://static.springsource.org/spring-security/site/docs/3.1.x/reference/el-access.html -->
-	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
+	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"
+		access-decision-manager-ref="accessDecisionManager" />
+
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.access.prepost.PreInvocationAuthorizationAdviceVoter">
+					<constructor-arg>
+						<bean class="org.springframework.security.access.expression.method.ExpressionBasedPreInvocationAdvice" />
+					</constructor-arg>
+				</bean>
+				<bean class="org.springframework.security.access.vote.RoleVoter">
+					<property name="rolePrefix" value="${access.vote.role.prefix}" />
+				</bean>
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</list>
+		</constructor-arg>
+	</bean>
 
 	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.MobileServiceImpl">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
