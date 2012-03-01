@@ -5,11 +5,13 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
+import java.util.Set;
 
 privileged aspect Admission_Roo_JavaBean {
     
@@ -83,6 +85,14 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setPerson(Person person) {
         this.person = person;
+    }
+    
+    public Set<Photo> Admission.getPhotos() {
+        return this.photos;
+    }
+    
+    public void Admission.setPhotos(Set<Photo> photos) {
+        this.photos = photos;
     }
     
 }
