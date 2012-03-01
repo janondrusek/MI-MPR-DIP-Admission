@@ -1,9 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -51,7 +51,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	private Set<UserSession> getSessions(UserIdentity userIdentity) {
 		Set<UserSession> sessions = userIdentity.getSessions();
 		if (isNullOrEmpty(sessions)) {
-			sessions = new TreeSet<UserSession>();
+			sessions = new HashSet<UserSession>();
 		}
 		return sessions;
 	}
