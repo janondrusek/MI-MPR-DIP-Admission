@@ -15,6 +15,6 @@ public interface MobileEndpoint {
 
 	public Response saveResult(String admissionCode, AdmissionResult result) throws URISyntaxException;
 
-	public void savePhoto(String admissionCode, Photo photo);
+	public Response savePhoto(String admissionCode, Photo photo) throws URISyntaxException;
 
 }

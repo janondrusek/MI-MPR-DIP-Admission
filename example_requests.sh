@@ -7,7 +7,10 @@ curl -i -H "Accept: application/json" -H "Authorization: Basic bW9yZTptb3JlCg=="
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" http://localhost:9090/admission/services/mobile/admission/{admissionCode}
 
 # Mobile.saveResult
-cat example_admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}
+cat example_admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/result
+
+# Mobile.savePhoto
+cat example_admission_photo.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/photo
 
 # Processing.admission, uses example admission from XML file and PUT request to add it 
 cat example_admission.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/processing/admission

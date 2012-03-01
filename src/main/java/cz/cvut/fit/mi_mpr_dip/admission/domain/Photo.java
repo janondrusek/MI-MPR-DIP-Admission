@@ -4,11 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -20,6 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class Photo {
 
 	@Version
@@ -41,6 +44,7 @@ public class Photo {
 
 	@NotNull
 	@Column
+	@Lob
 	private String content;
 
 	private static final String[] excludeFields = new String[] { "photoId" };
