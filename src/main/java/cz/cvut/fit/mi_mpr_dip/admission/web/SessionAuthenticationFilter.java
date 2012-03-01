@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,11 +43,13 @@ public class SessionAuthenticationFilter extends GenericFilterBean {
 
 	private Authentication createAuthentication(String session) {
 		Authentication authentication = null;
-		UserSession userSession = userSessionDao.getUserSession(session);
-		if (userSession.getIdentifier() != null) {
-			UserIdentity userIdentity = userSession.getUserIdentity();
-			authentication = new UserAuthentication(userIdentity.getUsername(), userSession.getIdentifier(),
-					authenticationUtil.getAuthorities(userIdentity.getRoles()));
+		if (StringUtils.isNotBlank(session)) {
+			UserSession userSession = userSessionDao.getUserSession(session);
+			if (userSession.getIdentifier() != null) {
+				UserIdentity userIdentity = userSession.getUserIdentity();
+				authentication = new UserAuthentication(userIdentity.getUsername(), userSession.getIdentifier(),
+						authenticationUtil.getAuthorities(userIdentity.getRoles()));
+			}
 		}
 		return authentication;
 	}

@@ -43,6 +43,9 @@ public class Admission {
     @NotNull
     @Column(unique = true)
     private String code;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private AdmissionResult result;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Faculty faculty;

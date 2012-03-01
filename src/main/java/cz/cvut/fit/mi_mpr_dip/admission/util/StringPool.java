@@ -4,4 +4,5 @@ public interface StringPool {
 	public static final String BLANK = "";
 	public static final String COLON = ":";
 	public static final String DASH = "-";
+	public static final String SLASH = "/";
 }

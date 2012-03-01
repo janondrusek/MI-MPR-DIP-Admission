@@ -21,15 +21,19 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.validator.AdmissionValidator;
 
 @Service(value = "processingService")
-@Path(ProcessingServiceImpl.ENDPOINT_PATH)
-public class ProcessingServiceImpl implements ProcessingService {
+@Path(ProcessingEndpointImpl.ENDPOINT_PATH)
+public class ProcessingEndpointImpl implements ProcessingEndpoint {
 
 	public static final String ADMISSION_PATH = "/admission";
 	public static final String ADMISSIONS_PATH = "/admissions";
 	public static final String ENDPOINT_PATH = "/processing";
+
+	@Autowired
+	private AdmissionEndpoint admissionEndpoint;
 
 	@Autowired
 	private AdmissionService admissionService;
@@ -39,12 +43,12 @@ public class ProcessingServiceImpl implements ProcessingService {
 		binder.setValidator(new AdmissionValidator());
 	}
 
-	@Path(ADMISSION_PATH + "/{id}")
+	@Path(ADMISSION_PATH + "/{admissionCode}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
-	public Admission getAdmission(@PathParam("id") Long id) {
-		return Admission.findAdmission(id);
+	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
+		return admissionEndpoint.getAdmission(admissionCode);
 	}
 
 	@Path(ADMISSIONS_PATH)
@@ -61,7 +65,7 @@ public class ProcessingServiceImpl implements ProcessingService {
 	@Override
 	public Response addAdmission(@Valid Admission admission) throws URISyntaxException {
 		admissionService.deduplicateAndStore(admission);
-		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + "/" + admission.getAdmissionId().toString());
+		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getAdmissionId().toString());
 		return Response.created(uri).build();
 	}
 

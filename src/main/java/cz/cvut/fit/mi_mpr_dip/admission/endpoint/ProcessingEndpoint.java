@@ -7,9 +7,9 @@ import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 
-public interface ProcessingService {
+public interface ProcessingEndpoint {
 
-	public Admission getAdmission(Long id);
+	public Response getAdmission(String admissionCode);
 
 	public List<Admission> getAdmissions();
 

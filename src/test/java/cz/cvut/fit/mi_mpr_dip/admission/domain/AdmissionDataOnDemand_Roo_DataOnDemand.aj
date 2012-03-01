@@ -5,6 +5,8 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResultDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
@@ -36,6 +38,9 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     @Autowired
     private PersonDataOnDemand AdmissionDataOnDemand.personDataOnDemand;
     
+    @Autowired
+    private AdmissionResultDataOnDemand AdmissionDataOnDemand.admissionResultDataOnDemand;
+    
     public Admission AdmissionDataOnDemand.getNewTransientAdmission(int index) {
         Admission obj = new Admission();
         setCode(obj, index);
@@ -43,6 +48,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         setFaculty(obj, index);
         setPerson(obj, index);
         setProgramme(obj, index);
+        setResult(obj, index);
         setStudyMode(obj, index);
         return obj;
     }
@@ -70,6 +76,11 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public void AdmissionDataOnDemand.setProgramme(Admission obj, int index) {
         Programme programme = null;
         obj.setProgramme(programme);
+    }
+    
+    public void AdmissionDataOnDemand.setResult(Admission obj, int index) {
+        AdmissionResult result = admissionResultDataOnDemand.getSpecificAdmissionResult(index);
+        obj.setResult(result);
     }
     
     public void AdmissionDataOnDemand.setStudyMode(Admission obj, int index) {

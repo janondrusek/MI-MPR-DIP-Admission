@@ -1,6 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,19 +24,23 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
-@Path(MobileServiceImpl.ENDPOINT_PATH)
-public class MobileServiceImpl implements MobileService {
+@Path(MobileEndpointImpl.ENDPOINT_PATH)
+public class MobileEndpointImpl implements MobileEndpoint {
 
 	public static final String IDENTITY_PATH = "/identity";
-	public static final String PERSON_PATH = "/person";
-	public static final String SAVE_RESULT_PATH = "/saveResult";
+	public static final String ADMISSION_PATH = "/admission";
 	public static final String SAVE_PHOTO_PATH = "/savePhoto";
 	public static final String ENDPOINT_PATH = "/mobile";
 
 	@Autowired
 	private AdmissionDao admissionDao;
+
+	@Autowired
+	private AdmissionEndpoint admissionEndpoint;
 
 	@Autowired
 	private UserIdentityService userIdentityService;
@@ -52,25 +62,31 @@ public class MobileServiceImpl implements MobileService {
 	}
 
 	@Secured("PERM_READ_PERSON")
-	@Path(PERSON_PATH + "/{admissionCode}")
+	@Path(ADMISSION_PATH + "/{admissionCode}")
 	@GET
 	@Override
-	public Response getPerson(@PathParam("admissionCode") String admissionCode) {
+	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
+		return admissionEndpoint.getAdmission(admissionCode);
+	}
+
+	@Secured("PERM_WRITE_RESULT")
+	@Path(ADMISSION_PATH + "/{admissionCode}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
+	@Override
+	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid AdmissionResult result)
+			throws URISyntaxException {
 		Admission admission = admissionDao.getAdmission(admissionCode);
 		ResponseBuilder builder;
 		if (admission.getCode() == null) {
 			builder = Response.status(Status.NOT_FOUND);
 		} else {
-			builder = Response.ok(admission);
+			admission.setResult(result);
+			admission.merge();
+			builder = Response
+					.seeOther(new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode()));
 		}
 		return builder.build();
-	}
-
-	@Secured("PERM_WRITE_RESULT")
-	@Override
-	public void saveResult(String admissionCode, Double result) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Secured("PERM_WRITE_PHOTO")

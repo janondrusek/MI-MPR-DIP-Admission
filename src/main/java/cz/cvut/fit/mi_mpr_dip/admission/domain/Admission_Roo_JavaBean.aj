@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
@@ -34,6 +35,14 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setCode(String code) {
         this.code = code;
+    }
+    
+    public AdmissionResult Admission.getResult() {
+        return this.result;
+    }
+    
+    public void Admission.setResult(AdmissionResult result) {
+        this.result = result;
     }
     
     public Faculty Admission.getFaculty() {
