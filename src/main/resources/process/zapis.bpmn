@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_zap_action_01Item" structureRef="String" />
+  <itemDefinition id="_zap_action_02Item" structureRef="String" />
+  <itemDefinition id="_zap_action_03Item" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.zapis" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="zap_action_01" itemSubjectRef="_zap_action_01Item"/>
+    <property id="zap_action_02" itemSubjectRef="_zap_action_02Item"/>
+    <property id="zap_action_03" itemSubjectRef="_zap_action_03Item"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <scriptTask id="_2" name="Init Zapis" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("ZAPIS init");</script>
+    </scriptTask>
+    <scriptTask id="_3" name="Neprihlasen" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Neprihlasen k zapisu");</script>
+    </scriptTask>
+    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Converging" />
+    <scriptTask id="_6" name="Prihlaseni k zapisu" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Prihlaseni k zapisu 1");</script>
+    </scriptTask>
+    <scriptTask id="_7" name="Omluveni ze zapisu" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Omluva ze zapisu 1");</script>
+    </scriptTask>
+    <endEvent id="_8" name="End" />
+    <scriptTask id="_9" name="Prihlaseni k 2. zapisu" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Prihlaseni k zapisu 2");</script>
+    </scriptTask>
+    <exclusiveGateway id="_10" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_11" name="Prihlasen k ind. z‡pisu" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Prihlaseni k ind. zapisu");</script>
+    </scriptTask>
+    <scriptTask id="_12" name="Omluveni z 2. zapisu" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Omluveni ze zapisu 2");</script>
+    </scriptTask>
+    <exclusiveGateway id="_13" name="Gateway" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_14" name="Gateway" gatewayDirection="Converging" />
+    <scriptTask id="_15" name="Zapis" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("ZAPIS");</script>
+    </scriptTask>
+    <endEvent id="_16" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_5-_3" sourceRef="_5" targetRef="_3" />
+    <sequenceFlow id="_2-_4" sourceRef="_2" targetRef="_4" />
+    <sequenceFlow id="_10-_5" sourceRef="_10" targetRef="_5" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_13-_5" sourceRef="_13" targetRef="_5" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6" name="constraint_zap_prihl" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return zap_action_01.equals("prihlasen");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_4-_7" sourceRef="_4" targetRef="_7" name="constraint_zap_nepr" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return zap_action_01.equals("neprihlasen");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_15-_8" sourceRef="_15" targetRef="_8" />
+    <sequenceFlow id="_10-_9" sourceRef="_10" targetRef="_9" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return zap_action_02.equals("prihlasen");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_7-_10" sourceRef="_7" targetRef="_10" />
+    <sequenceFlow id="_13-_11" sourceRef="_13" targetRef="_11" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return zap_action_03.equals("prihlasen");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_10-_12" sourceRef="_10" targetRef="_12" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return zap_action_02.equals("neprihlasen");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_12-_13" sourceRef="_12" targetRef="_13" />
+    <sequenceFlow id="_6-_14" sourceRef="_6" targetRef="_14" />
+    <sequenceFlow id="_9-_14" sourceRef="_9" targetRef="_14" />
+    <sequenceFlow id="_11-_14" sourceRef="_11" targetRef="_14" />
+    <sequenceFlow id="_14-_15" sourceRef="_14" targetRef="_15" />
+    <sequenceFlow id="_3-_16" sourceRef="_3" targetRef="_16" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.zapis" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="352" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="336" y="96" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="399" y="661" width="113" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="352" y="176" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="431" y="580" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="16" y="257" width="144" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="302" y="257" width="148" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="163" y="822" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="115" y="418" width="144" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="352" y="337" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="214" y="580" width="157" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="291" y="418" width="138" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="336" y="499" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="163" y="661" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_15" >
+        <dc:Bounds x="147" y="742" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_16" >
+        <dc:Bounds x="431" y="742" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="376" y="40" />
+        <di:waypoint x="376" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_3" >
+        <di:waypoint x="455" y="604" />
+        <di:waypoint x="455" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_4" >
+        <di:waypoint x="376" y="120" />
+        <di:waypoint x="376" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_5" >
+        <di:waypoint x="376" y="361" />
+        <di:waypoint x="454" y="376" />
+        <di:waypoint x="455" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="376" y="200" />
+        <di:waypoint x="545" y="216" />
+        <di:waypoint x="455" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13-_5" >
+        <di:waypoint x="360" y="523" />
+        <di:waypoint x="455" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_6" >
+        <di:waypoint x="376" y="200" />
+        <di:waypoint x="88" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_7" >
+        <di:waypoint x="376" y="200" />
+        <di:waypoint x="376" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_15-_8" >
+        <di:waypoint x="187" y="766" />
+        <di:waypoint x="187" y="846" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_9" >
+        <di:waypoint x="376" y="361" />
+        <di:waypoint x="187" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_10" >
+        <di:waypoint x="376" y="281" />
+        <di:waypoint x="376" y="361" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13-_11" >
+        <di:waypoint x="360" y="523" />
+        <di:waypoint x="292" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_12" >
+        <di:waypoint x="376" y="361" />
+        <di:waypoint x="360" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_13" >
+        <di:waypoint x="360" y="442" />
+        <di:waypoint x="360" y="523" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_14" >
+        <di:waypoint x="88" y="281" />
+        <di:waypoint x="65" y="595" />
+        <di:waypoint x="187" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_14" >
+        <di:waypoint x="187" y="442" />
+        <di:waypoint x="187" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_14" >
+        <di:waypoint x="292" y="604" />
+        <di:waypoint x="187" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_14-_15" >
+        <di:waypoint x="187" y="685" />
+        <di:waypoint x="187" y="766" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_16" >
+        <di:waypoint x="455" y="685" />
+        <di:waypoint x="455" y="766" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
