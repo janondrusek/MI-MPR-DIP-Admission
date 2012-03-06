@@ -20,4 +20,13 @@ public class AdmissionDaoImpl extends AbstractDao implements AdmissionDao {
 		}
 		return admission;
 	}
+	
+	public void merge(Admission admission) {
+		admission.merge();
+		//jbpmProcessor.doSomething(admission);
+	}
+	
+	public void persist() {
+		
+	}
 }

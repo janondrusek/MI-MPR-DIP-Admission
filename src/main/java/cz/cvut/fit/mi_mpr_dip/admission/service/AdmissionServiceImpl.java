@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;

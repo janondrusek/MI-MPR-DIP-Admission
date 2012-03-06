@@ -8,6 +8,6 @@ import javax.persistence.Entity;
 
 privileged aspect AdmissionResult_Roo_Jpa_Entity {
     
-    declare @type: AdmissionResult: @Entity;
+    declare @type: Term: @Entity;
     
 }

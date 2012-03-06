@@ -3,8 +3,10 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Address;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
@@ -110,6 +112,14 @@ privileged aspect Person_Roo_JavaBean {
         this.documents = documents;
     }
     
+    public List<Address> Person.getAddresses() {
+        return this.addresses;
+    }
+    
+    public void Person.setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+    
     public Date Person.getBirthdate() {
         return this.birthdate;
     }
@@ -166,11 +176,11 @@ privileged aspect Person_Roo_JavaBean {
         this.email = email;
     }
     
-    public Boolean Person.getDisability() {
+    public DisabilityType Person.getDisability() {
         return this.disability;
     }
     
-    public void Person.setDisability(Boolean disability) {
+    public void Person.setDisability(DisabilityType disability) {
         this.disability = disability;
     }
     

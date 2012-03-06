@@ -5,6 +5,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
@@ -37,6 +38,118 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setCode(String code) {
         this.code = code;
+    }
+    
+    public String Admission.getType() {
+        return this.type;
+    }
+    
+    public void Admission.setType(String type) {
+        this.type = type;
+    }
+    
+    public boolean Admission.isAccepted() {
+        return this.accepted;
+    }
+    
+    public void Admission.setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+    
+    public boolean Admission.isAppeal() {
+        return this.appeal;
+    }
+    
+    public void Admission.setAppeal(boolean appeal) {
+        this.appeal = appeal;
+    }
+    
+    public int Admission.getH1() {
+        return this.h1;
+    }
+    
+    public void Admission.setH1(int h1) {
+        this.h1 = h1;
+    }
+    
+    public int Admission.getH2() {
+        return this.h2;
+    }
+    
+    public void Admission.setH2(int h2) {
+        this.h2 = h2;
+    }
+    
+    public int Admission.getH3() {
+        return this.h3;
+    }
+    
+    public void Admission.setH3(int h3) {
+        this.h3 = h3;
+    }
+    
+    public int Admission.getH4() {
+        return this.h4;
+    }
+    
+    public void Admission.setH4(int h4) {
+        this.h4 = h4;
+    }
+    
+    public int Admission.getH5() {
+        return this.h5;
+    }
+    
+    public void Admission.setH5(int h5) {
+        this.h5 = h5;
+    }
+    
+    public int Admission.getH6() {
+        return this.h6;
+    }
+    
+    public void Admission.setH6(int h6) {
+        this.h6 = h6;
+    }
+    
+    public int Admission.getH7() {
+        return this.h7;
+    }
+    
+    public void Admission.setH7(int h7) {
+        this.h7 = h7;
+    }
+    
+    public int Admission.getH8() {
+        return this.h8;
+    }
+    
+    public void Admission.setH8(int h8) {
+        this.h8 = h8;
+    }
+    
+    public int Admission.getH9() {
+        return this.h9;
+    }
+    
+    public void Admission.setH9(int h9) {
+        this.h9 = h9;
+    }
+    
+    public int Admission.getH10() {
+        return this.h10;
+    }
+    
+    public void Admission.setH10(int h10) {
+        this.h10 = h10;
+    }
+    
+    public AdmissionState Admission.getAdmissionState() {
+        return this.admissionState;
+    }
+    
+    public void Admission.setAdmissionState(AdmissionState admissionState) {
+        this.admissionState = admissionState;
     }
     
     public AdmissionResult Admission.getResult() {
@@ -93,6 +206,14 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setPhotos(Set<Photo> photos) {
         this.photos = photos;
+    }
+    
+    public boolean Admission.isDormitoryRequest() {
+        return this.dormitoryRequest;
+    }
+    
+    public void Admission.setDormitoryRequest(boolean dormitoryRequest) {
+        this.dormitoryRequest = dormitoryRequest;
     }
     
 }

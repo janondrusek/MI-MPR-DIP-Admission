@@ -7,6 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResultDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
@@ -43,14 +44,44 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     
     public Admission AdmissionDataOnDemand.getNewTransientAdmission(int index) {
         Admission obj = new Admission();
+        setAccepted(obj, index);
+        setAdmissionState(obj, index);
+        setAppeal(obj, index);
         setCode(obj, index);
         setDegree(obj, index);
+        setDormitoryRequest(obj, index);
         setFaculty(obj, index);
+        setH1(obj, index);
+        setH2(obj, index);
+        setH3(obj, index);
+        setH4(obj, index);
+        setH5(obj, index);
+        setH6(obj, index);
+        setH7(obj, index);
+        setH8(obj, index);
+        setH9(obj, index);
+        setH10(obj, index);
         setPerson(obj, index);
         setProgramme(obj, index);
         setResult(obj, index);
         setStudyMode(obj, index);
+        setType(obj, index);
         return obj;
+    }
+    
+    public void AdmissionDataOnDemand.setAccepted(Admission obj, int index) {
+        Boolean accepted = true;
+        obj.setAccepted(accepted);
+    }
+    
+    public void AdmissionDataOnDemand.setAdmissionState(Admission obj, int index) {
+        AdmissionState admissionState = null;
+        obj.setAdmissionState(admissionState);
+    }
+    
+    public void AdmissionDataOnDemand.setAppeal(Admission obj, int index) {
+        Boolean appeal = true;
+        obj.setAppeal(appeal);
     }
     
     public void AdmissionDataOnDemand.setCode(Admission obj, int index) {
@@ -63,9 +94,64 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         obj.setDegree(degree);
     }
     
+    public void AdmissionDataOnDemand.setDormitoryRequest(Admission obj, int index) {
+        Boolean dormitoryRequest = true;
+        obj.setDormitoryRequest(dormitoryRequest);
+    }
+    
     public void AdmissionDataOnDemand.setFaculty(Admission obj, int index) {
         Faculty faculty = null;
         obj.setFaculty(faculty);
+    }
+    
+    public void AdmissionDataOnDemand.setH1(Admission obj, int index) {
+        int h1 = index;
+        obj.setH1(h1);
+    }
+    
+    public void AdmissionDataOnDemand.setH2(Admission obj, int index) {
+        int h2 = index;
+        obj.setH2(h2);
+    }
+    
+    public void AdmissionDataOnDemand.setH3(Admission obj, int index) {
+        int h3 = index;
+        obj.setH3(h3);
+    }
+    
+    public void AdmissionDataOnDemand.setH4(Admission obj, int index) {
+        int h4 = index;
+        obj.setH4(h4);
+    }
+    
+    public void AdmissionDataOnDemand.setH5(Admission obj, int index) {
+        int h5 = index;
+        obj.setH5(h5);
+    }
+    
+    public void AdmissionDataOnDemand.setH6(Admission obj, int index) {
+        int h6 = index;
+        obj.setH6(h6);
+    }
+    
+    public void AdmissionDataOnDemand.setH7(Admission obj, int index) {
+        int h7 = index;
+        obj.setH7(h7);
+    }
+    
+    public void AdmissionDataOnDemand.setH8(Admission obj, int index) {
+        int h8 = index;
+        obj.setH8(h8);
+    }
+    
+    public void AdmissionDataOnDemand.setH9(Admission obj, int index) {
+        int h9 = index;
+        obj.setH9(h9);
+    }
+    
+    public void AdmissionDataOnDemand.setH10(Admission obj, int index) {
+        int h10 = index;
+        obj.setH10(h10);
     }
     
     public void AdmissionDataOnDemand.setPerson(Admission obj, int index) {
@@ -86,6 +172,11 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public void AdmissionDataOnDemand.setStudyMode(Admission obj, int index) {
         StudyMode studyMode = null;
         obj.setStudyMode(studyMode);
+    }
+    
+    public void AdmissionDataOnDemand.setType(Admission obj, int index) {
+        String type = "type_" + index;
+        obj.setType(type);
     }
     
     public Admission AdmissionDataOnDemand.getSpecificAdmission(int index) {

@@ -38,9 +38,6 @@
     <scriptTask id="_2" name="Zalozeni zadosti" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Importovani zadosti!");</script>
     </scriptTask>
-    <scriptTask id="_4" name="Rozhodnut’" scriptFormat="http://www.java.com/java" >
-      <script>System.out.println("Odeslani rozhodnuti!");</script>
-    </scriptTask>
     <endEvent id="_6" name="End" >
         <terminateEventDefinition/>
     </endEvent>
@@ -114,10 +111,77 @@
         <targetRef>_10_zap_action_01Input</targetRef>
       </dataInputAssociation>
     </callActivity>
+    <task id="_11" name="Email: za?azen’ do procesu p?i?’z" tns:taskName="Email" >
+      <ioSpecification>
+        <dataInput id="_11_BodyInput" name="Body" />
+        <dataInput id="_11_SubjectInput" name="Subject" />
+        <dataInput id="_11_ToInput" name="To" />
+        <dataInput id="_11_FromInput" name="From" />
+        <inputSet>
+          <dataInputRefs>_11_BodyInput</dataInputRefs>
+          <dataInputRefs>_11_SubjectInput</dataInputRefs>
+          <dataInputRefs>_11_ToInput</dataInputRefs>
+          <dataInputRefs>_11_FromInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_11_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </task>
+    <task id="_12" name="Email: pozv‡nka na PZ" tns:taskName="Email" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
+    <task id="_13" name="Email: info o p?ijet’ bez PZ" tns:taskName="Email" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
+    <callActivity id="_14" name="Rozhodnut’" calledElement="cz.cvut.fit.mi_mpr_dip.admission.roz" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </callActivity>
 
     <!-- connections -->
     <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
-    <sequenceFlow id="_9-_4" sourceRef="_9" targetRef="_4" />
     <sequenceFlow id="_10-_6" sourceRef="_10" targetRef="_6" />
     <sequenceFlow id="_8-_7" sourceRef="_8" targetRef="_7" name="pz" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
@@ -127,67 +191,77 @@
     <sequenceFlow id="_8-_9" sourceRef="_8" targetRef="_9" name="bez_pz" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return init.equals("pz_ok");</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_4-_10" sourceRef="_4" targetRef="_10" />
+    <sequenceFlow id="_14-_10" sourceRef="_14" targetRef="_10" />
+    <sequenceFlow id="_9-_14" sourceRef="_9" targetRef="_14" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.ld_process" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="145" y="16" width="48" height="48" />
+        <dc:Bounds x="261" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="105" y="96" width="129" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="118" y="419" width="103" height="48" />
+        <dc:Bounds x="221" y="96" width="129" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="145" y="579" width="48" height="48" />
+        <dc:Bounds x="261" y="579" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="16" y="257" width="127" height="49" />
+        <dc:Bounds x="132" y="257" width="127" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="145" y="176" width="48" height="48" />
+        <dc:Bounds x="261" y="176" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_9" >
-        <dc:Bounds x="145" y="338" width="48" height="48" />
+        <dc:Bounds x="261" y="338" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_10" >
-        <dc:Bounds x="114" y="499" width="110" height="48" />
+        <dc:Bounds x="230" y="499" width="110" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="361" y="96" width="213" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="78" y="186" width="162" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="303" y="258" width="186" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="230" y="419" width="110" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_1-_2" >
-        <di:waypoint x="169" y="40" />
-        <di:waypoint x="169" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_9-_4" >
-        <di:waypoint x="169" y="362" />
-        <di:waypoint x="169" y="443" />
+        <di:waypoint x="285" y="40" />
+        <di:waypoint x="285" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_10-_6" >
-        <di:waypoint x="169" y="523" />
-        <di:waypoint x="169" y="603" />
+        <di:waypoint x="285" y="523" />
+        <di:waypoint x="285" y="603" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_8-_7" >
-        <di:waypoint x="169" y="200" />
-        <di:waypoint x="79" y="281" />
+        <di:waypoint x="285" y="200" />
+        <di:waypoint x="195" y="281" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_2-_8" >
-        <di:waypoint x="169" y="120" />
-        <di:waypoint x="169" y="200" />
+        <di:waypoint x="285" y="120" />
+        <di:waypoint x="285" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_7-_9" >
-        <di:waypoint x="79" y="281" />
-        <di:waypoint x="169" y="362" />
+        <di:waypoint x="195" y="281" />
+        <di:waypoint x="285" y="362" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_8-_9" >
-        <di:waypoint x="169" y="200" />
-        <di:waypoint x="169" y="362" />
+        <di:waypoint x="285" y="200" />
+        <di:waypoint x="285" y="362" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_4-_10" >
-        <di:waypoint x="169" y="443" />
-        <di:waypoint x="169" y="523" />
+      <bpmndi:BPMNEdge bpmnElement="_14-_10" >
+        <di:waypoint x="285" y="443" />
+        <di:waypoint x="285" y="523" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_14" >
+        <di:waypoint x="285" y="362" />
+        <di:waypoint x="285" y="443" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

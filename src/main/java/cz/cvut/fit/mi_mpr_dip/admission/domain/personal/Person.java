@@ -23,8 +23,8 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.City;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 
 @RooJavaBean
 @RooToString
@@ -69,6 +69,12 @@ public class Person {
 	// maps each member of this list to an XML element named appointment
 	@XmlElement(name = "document")
 	private List<Document> documents;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElementWrapper(name = "addresses")
+	// maps each member of this list to an XML element named appointment
+	@XmlElement(name = "address")
+	private List<Address> addresses;
 
 	private Date birthdate;
 
@@ -87,5 +93,6 @@ public class Person {
 
 	private String email;
 
-	private Boolean disability;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private DisabilityType disability;
 }

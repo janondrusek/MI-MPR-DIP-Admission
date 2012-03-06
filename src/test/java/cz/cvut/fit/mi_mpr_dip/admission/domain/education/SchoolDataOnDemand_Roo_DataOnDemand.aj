@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.School;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.SchoolDataOnDemand;
 import java.security.SecureRandom;
@@ -24,13 +25,31 @@ privileged aspect SchoolDataOnDemand_Roo_DataOnDemand {
     
     public School SchoolDataOnDemand.getNewTransientSchool(int index) {
         School obj = new School();
+        setCountry(obj, index);
         setName(obj, index);
+        setSchoolCode(obj, index);
+        setSchoolFieldCode(obj, index);
         return obj;
+    }
+    
+    public void SchoolDataOnDemand.setCountry(School obj, int index) {
+        Country country = null;
+        obj.setCountry(country);
     }
     
     public void SchoolDataOnDemand.setName(School obj, int index) {
         String name = "name_" + index;
         obj.setName(name);
+    }
+    
+    public void SchoolDataOnDemand.setSchoolCode(School obj, int index) {
+        int schoolCode = index;
+        obj.setSchoolCode(schoolCode);
+    }
+    
+    public void SchoolDataOnDemand.setSchoolFieldCode(School obj, int index) {
+        int schoolFieldCode = index;
+        obj.setSchoolFieldCode(schoolFieldCode);
     }
     
     public School SchoolDataOnDemand.getSpecificSchool(int index) {

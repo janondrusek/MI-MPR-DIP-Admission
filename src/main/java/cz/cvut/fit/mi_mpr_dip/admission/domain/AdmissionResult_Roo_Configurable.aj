@@ -8,6 +8,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect AdmissionResult_Roo_Configurable {
     
-    declare @type: AdmissionResult: @Configurable;
+    declare @type: Term: @Configurable;
     
 }

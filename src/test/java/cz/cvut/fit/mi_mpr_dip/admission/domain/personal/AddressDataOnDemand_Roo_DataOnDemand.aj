@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.AddressDataOnDemand;
 import java.security.SecureRandom;
@@ -24,7 +26,85 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     
     public Address AddressDataOnDemand.getNewTransientAddress(int index) {
         Address obj = new Address();
+        setCity(obj, index);
+        setCityPart(obj, index);
+        setCountry(obj, index);
+        setHouseNumber(obj, index);
+        setIsContact(obj, index);
+        setPostNumber(obj, index);
+        setPostalCode(obj, index);
+        setPrintLine01(obj, index);
+        setPrintLine02(obj, index);
+        setPrintLine03(obj, index);
+        setPrintLine04(obj, index);
+        setPrintLine05(obj, index);
+        setStreet(obj, index);
         return obj;
+    }
+    
+    public void AddressDataOnDemand.setCity(Address obj, int index) {
+        City city = null;
+        obj.setCity(city);
+    }
+    
+    public void AddressDataOnDemand.setCityPart(Address obj, int index) {
+        String cityPart = "cityPart_" + index;
+        obj.setCityPart(cityPart);
+    }
+    
+    public void AddressDataOnDemand.setCountry(Address obj, int index) {
+        Country country = null;
+        obj.setCountry(country);
+    }
+    
+    public void AddressDataOnDemand.setHouseNumber(Address obj, int index) {
+        String houseNumber = "houseNumber_" + index;
+        obj.setHouseNumber(houseNumber);
+    }
+    
+    public void AddressDataOnDemand.setIsContact(Address obj, int index) {
+        Boolean isContact = true;
+        obj.setIsContact(isContact);
+    }
+    
+    public void AddressDataOnDemand.setPostNumber(Address obj, int index) {
+        int postNumber = index;
+        obj.setPostNumber(postNumber);
+    }
+    
+    public void AddressDataOnDemand.setPostalCode(Address obj, int index) {
+        String postalCode = "postalCode_" + index;
+        obj.setPostalCode(postalCode);
+    }
+    
+    public void AddressDataOnDemand.setPrintLine01(Address obj, int index) {
+        String printLine01 = "printLine01_" + index;
+        obj.setPrintLine01(printLine01);
+    }
+    
+    public void AddressDataOnDemand.setPrintLine02(Address obj, int index) {
+        String printLine02 = "printLine02_" + index;
+        obj.setPrintLine02(printLine02);
+    }
+    
+    public void AddressDataOnDemand.setPrintLine03(Address obj, int index) {
+        String printLine03 = "printLine03_" + index;
+        obj.setPrintLine03(printLine03);
+    }
+    
+    public void AddressDataOnDemand.setPrintLine04(Address obj, int index) {
+        String printLine04 = "printLine04_" + index;
+        obj.setPrintLine04(printLine04);
+    }
+    
+    public void AddressDataOnDemand.setPrintLine05(Address obj, int index) {
+        String printLine05 = "printLine05_" + index;
+        obj.setPrintLine05(printLine05);
+    }
+    
+    public void AddressDataOnDemand.setStreet(Address obj, int index) {
+        String street = "street_" + index;
+        obj.setStreet(street);
     }
     
     public Address AddressDataOnDemand.getSpecificAddress(int index) {
@@ -36,14 +116,14 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         Address obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getAddressId();
         return Address.findAddress(id);
     }
     
     public Address AddressDataOnDemand.getRandomAddress() {
         init();
         Address obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getAddressId();
         return Address.findAddress(id);
     }
     

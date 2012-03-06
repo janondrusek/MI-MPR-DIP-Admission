@@ -49,7 +49,41 @@ public class Admission {
 	@NotNull
 	@Column(unique = true)
 	private String code;
+	
+	// Maybe paper or electronic form
+	private String type;
+	
+	// Mark if attendant was successful in admission process
+	@XmlTransient
+	private boolean accepted;
+	
+	// Mark if attendant fails in admission process but appeals the decision
+	@XmlTransient
+	private boolean appeal;
+	
+	private int h1;
+	
+	private int h2;
+	
+	private int h3;
+	
+	private int h4;
 
+	private int h5;
+	
+	private int h6;
+	
+	private int h7;
+	
+	private int h8;
+	
+	private int h9;
+	
+	private int h10;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private AdmissionState admissionState;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private AdmissionResult result;
 
@@ -71,4 +105,6 @@ public class Admission {
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Photo> photos;
+	
+	private boolean dormitoryRequest;
 }

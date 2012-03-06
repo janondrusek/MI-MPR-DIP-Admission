@@ -37,11 +37,11 @@ privileged aspect AddressIntegrationTest_Roo_IntegrationTest {
     public void AddressIntegrationTest.testFindAddress() {
         Address obj = dod.getRandomAddress();
         Assert.assertNotNull("Data on demand for 'Address' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAddressId();
         Assert.assertNotNull("Data on demand for 'Address' failed to provide an identifier", id);
         obj = Address.findAddress(id);
         Assert.assertNotNull("Find method for 'Address' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'Address' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'Address' returned the incorrect identifier", id, obj.getAddressId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect AddressIntegrationTest_Roo_IntegrationTest {
     public void AddressIntegrationTest.testFlush() {
         Address obj = dod.getRandomAddress();
         Assert.assertNotNull("Data on demand for 'Address' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAddressId();
         Assert.assertNotNull("Data on demand for 'Address' failed to provide an identifier", id);
         obj = Address.findAddress(id);
         Assert.assertNotNull("Find method for 'Address' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect AddressIntegrationTest_Roo_IntegrationTest {
     public void AddressIntegrationTest.testMergeUpdate() {
         Address obj = dod.getRandomAddress();
         Assert.assertNotNull("Data on demand for 'Address' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAddressId();
         Assert.assertNotNull("Data on demand for 'Address' failed to provide an identifier", id);
         obj = Address.findAddress(id);
         boolean modified =  dod.modifyAddress(obj);
         Integer currentVersion = obj.getVersion();
         Address merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getAddressId(), id);
         Assert.assertTrue("Version for 'Address' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect AddressIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'Address' failed to initialize correctly", dod.getRandomAddress());
         Address obj = dod.getNewTransientAddress(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'Address' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'Address' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'Address' identifier to be null", obj.getAddressId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'Address' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'Address' identifier to no longer be null", obj.getAddressId());
     }
     
     @Test
     public void AddressIntegrationTest.testRemove() {
         Address obj = dod.getRandomAddress();
         Assert.assertNotNull("Data on demand for 'Address' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAddressId();
         Assert.assertNotNull("Data on demand for 'Address' failed to provide an identifier", id);
         obj = Address.findAddress(id);
         obj.remove();

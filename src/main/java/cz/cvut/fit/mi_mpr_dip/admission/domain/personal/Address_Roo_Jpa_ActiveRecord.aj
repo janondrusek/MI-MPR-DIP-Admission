@@ -28,9 +28,9 @@ privileged aspect Address_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Address o", Address.class).getResultList();
     }
     
-    public static Address Address.findAddress(Long id) {
-        if (id == null) return null;
-        return entityManager().find(Address.class, id);
+    public static Address Address.findAddress(Long addressId) {
+        if (addressId == null) return null;
+        return entityManager().find(Address.class, addressId);
     }
     
     public static List<Address> Address.findAddressEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect Address_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Address attached = Address.findAddress(this.id);
+            Address attached = Address.findAddress(this.addressId);
             this.entityManager.remove(attached);
         }
     }

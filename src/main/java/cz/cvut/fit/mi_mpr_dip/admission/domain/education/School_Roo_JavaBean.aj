@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.School;
 
 privileged aspect School_Roo_JavaBean {
@@ -21,6 +22,30 @@ privileged aspect School_Roo_JavaBean {
     
     public void School.setSchoolId(Long schoolId) {
         this.schoolId = schoolId;
+    }
+    
+    public Country School.getCountry() {
+        return this.country;
+    }
+    
+    public void School.setCountry(Country country) {
+        this.country = country;
+    }
+    
+    public int School.getSchoolCode() {
+        return this.schoolCode;
+    }
+    
+    public void School.setSchoolCode(int schoolCode) {
+        this.schoolCode = schoolCode;
+    }
+    
+    public int School.getSchoolFieldCode() {
+        return this.schoolFieldCode;
+    }
+    
+    public void School.setSchoolFieldCode(int schoolFieldCode) {
+        this.schoolFieldCode = schoolFieldCode;
     }
     
     public String School.getName() {

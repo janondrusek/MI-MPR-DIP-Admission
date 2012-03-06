@@ -17,23 +17,88 @@
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <endEvent id="_2" name="End" />
+    <scriptTask id="_3" name="Generovani rozhodnuti" />
+    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Converging" />
+    <scriptTask id="_5" name="Odeslani rozhodnuti" />
+    <exclusiveGateway id="_6" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_7" name="Odvolani k rozhodnuti" />
+    <task id="_8" name="Email: rozhodnuti" tns:taskName="Email" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
 
     <!-- connections -->
-    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_6-_2" sourceRef="_6" targetRef="_2" >
+      <conditionExpression xsi:type="tFormalExpression" />
+    </sequenceFlow>
+    <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" />
+    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
+    <sequenceFlow id="_7-_4" sourceRef="_7" targetRef="_4" />
+    <sequenceFlow id="_3-_5" sourceRef="_3" targetRef="_5" />
+    <sequenceFlow id="_5-_6" sourceRef="_5" targetRef="_6" />
+    <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" >
+      <conditionExpression xsi:type="tFormalExpression" />
+    </sequenceFlow>
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="45" y="45" width="48" height="48" />
+        <dc:Bounds x="41" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="126" y="235" width="48" height="48" />
+        <dc:Bounds x="181" y="418" width="48" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
-        <di:waypoint x="69" y="69" />
-        <di:waypoint x="150" y="259" />
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="16" y="177" width="163" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="73" y="96" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="25" y="257" width="154" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="181" y="337" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="121" y="16" width="169" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="3" y="315" width="142" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_6-_2" >
+        <di:waypoint x="205" y="361" />
+        <di:waypoint x="205" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_3" >
+        <di:waypoint x="97" y="120" />
+        <di:waypoint x="97" y="201" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
+        <di:waypoint x="65" y="40" />
+        <di:waypoint x="97" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_4" >
+        <di:waypoint x="205" y="40" />
+        <di:waypoint x="97" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_5" >
+        <di:waypoint x="97" y="201" />
+        <di:waypoint x="102" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_6" >
+        <di:waypoint x="102" y="281" />
+        <di:waypoint x="205" y="361" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_7" >
+        <di:waypoint x="205" y="361" />
+        <di:waypoint x="205" y="40" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
