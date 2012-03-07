@@ -65,11 +65,11 @@ privileged aspect Address_Roo_JavaBean {
         this.city = city;
     }
     
-    public int Address.getPostNumber() {
+    public String Address.getPostNumber() {
         return this.postNumber;
     }
     
-    public void Address.setPostNumber(int postNumber) {
+    public void Address.setPostNumber(String postNumber) {
         this.postNumber = postNumber;
     }
     

@@ -64,83 +64,83 @@ privileged aspect Admission_Roo_JavaBean {
         this.appeal = appeal;
     }
     
-    public int Admission.getH1() {
+    public String Admission.getH1() {
         return this.h1;
     }
     
-    public void Admission.setH1(int h1) {
+    public void Admission.setH1(String h1) {
         this.h1 = h1;
     }
     
-    public int Admission.getH2() {
+    public String Admission.getH2() {
         return this.h2;
     }
     
-    public void Admission.setH2(int h2) {
+    public void Admission.setH2(String h2) {
         this.h2 = h2;
     }
     
-    public int Admission.getH3() {
+    public String Admission.getH3() {
         return this.h3;
     }
     
-    public void Admission.setH3(int h3) {
+    public void Admission.setH3(String h3) {
         this.h3 = h3;
     }
     
-    public int Admission.getH4() {
+    public String Admission.getH4() {
         return this.h4;
     }
     
-    public void Admission.setH4(int h4) {
+    public void Admission.setH4(String h4) {
         this.h4 = h4;
     }
     
-    public int Admission.getH5() {
+    public String Admission.getH5() {
         return this.h5;
     }
     
-    public void Admission.setH5(int h5) {
+    public void Admission.setH5(String h5) {
         this.h5 = h5;
     }
     
-    public int Admission.getH6() {
+    public String Admission.getH6() {
         return this.h6;
     }
     
-    public void Admission.setH6(int h6) {
+    public void Admission.setH6(String h6) {
         this.h6 = h6;
     }
     
-    public int Admission.getH7() {
+    public String Admission.getH7() {
         return this.h7;
     }
     
-    public void Admission.setH7(int h7) {
+    public void Admission.setH7(String h7) {
         this.h7 = h7;
     }
     
-    public int Admission.getH8() {
+    public String Admission.getH8() {
         return this.h8;
     }
     
-    public void Admission.setH8(int h8) {
+    public void Admission.setH8(String h8) {
         this.h8 = h8;
     }
     
-    public int Admission.getH9() {
+    public String Admission.getH9() {
         return this.h9;
     }
     
-    public void Admission.setH9(int h9) {
+    public void Admission.setH9(String h9) {
         this.h9 = h9;
     }
     
-    public int Admission.getH10() {
+    public String Admission.getH10() {
         return this.h10;
     }
     
-    public void Admission.setH10(int h10) {
+    public void Admission.setH10(String h10) {
         this.h10 = h10;
     }
     

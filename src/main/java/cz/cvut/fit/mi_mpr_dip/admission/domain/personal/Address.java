@@ -49,7 +49,7 @@ public class Address {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private City city;
 	
-	private int postNumber;
+	private String postNumber;
 	
 	private String postalCode;
 	

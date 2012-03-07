@@ -61,25 +61,25 @@ public class Admission {
 	@XmlTransient
 	private boolean appeal;
 	
-	private int h1;
+	private String h1;
 	
-	private int h2;
+	private String h2;
 	
-	private int h3;
+	private String h3;
 	
-	private int h4;
+	private String h4;
 
-	private int h5;
+	private String h5;
 	
-	private int h6;
+	private String h6;
 	
-	private int h7;
+	private String h7;
 	
-	private int h8;
+	private String h8;
 	
-	private int h9;
+	private String h9;
 	
-	private int h10;
+	private String h10;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AdmissionState admissionState;

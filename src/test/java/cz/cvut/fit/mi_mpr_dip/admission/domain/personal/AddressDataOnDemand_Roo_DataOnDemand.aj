@@ -68,7 +68,7 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AddressDataOnDemand.setPostNumber(Address obj, int index) {
-        int postNumber = index;
+        String postNumber = "postNumber_" + index;
         obj.setPostNumber(postNumber);
     }
     
