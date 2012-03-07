@@ -22,10 +22,10 @@ public class TestClient {
 		this.baseURI = baseUrl;
 	}
 
-	public void testImport(Collection<Admission> collection) {
+	public Response testImport(Collection<Admission> collection) {
 		connect();
 
-		Response r = client.path("admissions/").accept("text/xml")
+		return client.path("admissions/").accept("text/xml")
 				.postCollection(collection, Admission.class);
 	}
 
