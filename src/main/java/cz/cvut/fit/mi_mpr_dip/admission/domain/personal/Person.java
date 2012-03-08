@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
@@ -68,13 +69,13 @@ public class Person {
 	@XmlElementWrapper(name = "documents")
 	// maps each member of this list to an XML element named appointment
 	@XmlElement(name = "document")
-	private List<Document> documents;
+	private Set<Document> documents;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "addresses")
 	// maps each member of this list to an XML element named appointment
 	@XmlElement(name = "address")
-	private List<Address> addresses;
+	private Set<Address> addresses;
 
 	private Date birthdate;
 

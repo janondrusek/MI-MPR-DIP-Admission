@@ -7,6 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.admission.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.admission.TermType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import java.util.Date;
+import java.util.List;
 
 privileged aspect Term_Roo_JavaBean {
     
@@ -66,11 +67,11 @@ privileged aspect Term_Roo_JavaBean {
         this.AppologyTo = AppologyTo;
     }
     
-    public Programme Term.getProgramme() {
+    public List<Programme> Term.getProgramme() {
         return this.programme;
     }
     
-    public void Term.setProgramme(Programme programme) {
+    public void Term.setProgramme(List<Programme> programme) {
         this.programme = programme;
     }
     

@@ -10,7 +10,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -24,6 +27,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -88,12 +92,13 @@ public class DataLoader {
 		Person p = new Person();
 		Document d = new Document();
 		DocumentType dt = new DocumentType();
-		List<Document> documents = new ArrayList<Document>();
+		Set<Document> documents = new HashSet<Document>();
 		Address adr = new Address();
 		Address contactAdr = new Address();
-		List<Address> addresses = new ArrayList<Address>(); 
+		Set<Address> addresses = new HashSet<Address>();
 		City c = new City();
 		Country co = new Country();
+		Faculty f = new Faculty();
 		Degree deg = new Degree();
 		StudyMode sm = new StudyMode();
 		Programme pr = new Programme();
@@ -101,9 +106,11 @@ public class DataLoader {
 		dt.setName("identityNumber");
 		as.setCode("S01");
 		as.setName("New");
+		f.setName("FIT");
 
 		a.setCode(data[0]);
 		a.setAdmissionState(as);
+		a.setFaculty(f);
 		//a.setAdmissionId(Long.valueOf(data[1]));
 		// Person
 		p.setFirstname(data[2]);

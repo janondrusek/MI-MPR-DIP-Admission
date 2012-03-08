@@ -52,25 +52,9 @@
     <scriptTask id="_15" name="Z‡pis ke studiu" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("ZAPIS");</script>
     </scriptTask>
-    <task id="_17" name="Email: potvrzeni prohlaseni" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
     <endEvent id="_16" name="End" >
         <terminateEventDefinition/>
     </endEvent>
-    <task id="_18" name="Email: potvrzeni omluvy" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
 
     <!-- connections -->
     <sequenceFlow id="_5-_3" sourceRef="_5" targetRef="_3" />
@@ -154,14 +138,8 @@
       <bpmndi:BPMNShape bpmnElement="_15" >
         <dc:Bounds x="133" y="662" width="109" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_17" >
-        <dc:Bounds x="11" y="67" width="183" height="48" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_16" >
         <dc:Bounds x="431" y="662" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_18" >
-        <dc:Bounds x="455" y="176" width="186" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_5-_3" >
         <di:waypoint x="455" y="524" />

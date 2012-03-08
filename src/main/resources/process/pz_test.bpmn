@@ -19,14 +19,6 @@
     <scriptTask id="_2" name="Kontrola identity pri testu" >
       <script></script>
     </scriptTask>
-    <task id="_4" name="Email: V?sledek prijimaciho testu" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
     <scriptTask id="_5" name="Kontrola doch‡zky uchaze?e" >
       <script></script>
     </scriptTask>
@@ -34,9 +26,13 @@
     <endEvent id="_7" name="End" >
         <terminateEventDefinition/>
     </endEvent>
-    <scriptTask id="_8" name="Odevzd‡n’ testu" />
+    <scriptTask id="_8" name="Odevzd‡n’ testu" >
+      <script></script>
+    </scriptTask>
     <endEvent id="_9" name="End" />
-    <scriptTask id="_10" name="Vyhodnocen’ testu" />
+    <scriptTask id="_10" name="Vyhodnocen’ testu" >
+      <script></script>
+    </scriptTask>
     <exclusiveGateway id="_11" name="Gateway" gatewayDirection="Diverging" />
     <exclusiveGateway id="_12" name="Gateway" gatewayDirection="Diverging" />
     <endEvent id="_13" name="End" >
@@ -80,9 +76,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
         <dc:Bounds x="122" y="257" width="177" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="117" y="637" width="224" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_5" >
         <dc:Bounds x="184" y="96" width="196" height="48" />

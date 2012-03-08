@@ -12,7 +12,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 privileged aspect Person_Roo_JavaBean {
     
@@ -104,19 +104,19 @@ privileged aspect Person_Roo_JavaBean {
         this.permanentResidenceGranted = permanentResidenceGranted;
     }
     
-    public List<Document> Person.getDocuments() {
+    public Set<Document> Person.getDocuments() {
         return this.documents;
     }
     
-    public void Person.setDocuments(List<Document> documents) {
+    public void Person.setDocuments(Set<Document> documents) {
         this.documents = documents;
     }
     
-    public List<Address> Person.getAddresses() {
+    public Set<Address> Person.getAddresses() {
         return this.addresses;
     }
     
-    public void Person.setAddresses(List<Address> addresses) {
+    public void Person.setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
     

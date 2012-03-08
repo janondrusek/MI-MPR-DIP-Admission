@@ -50,7 +50,7 @@ System.out.println("PRIHLASEN");</script>
     <scriptTask id="_13" name="Prihlasen k 2.PZ" >
       <script>System.out.println("PRIHLASEN 2PZ");</script>
     </scriptTask>
-    <callActivity id="_14" name="PZ test" >
+    <callActivity id="_14" name="PZ test" calledElement="" >
       <ioSpecification>
         <inputSet>
         </inputSet>
@@ -58,30 +58,6 @@ System.out.println("PRIHLASEN");</script>
         </outputSet>
       </ioSpecification>
     </callActivity>
-    <task id="_15" name="Email: potvrzeni prihlaseni" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
-    <task id="_17" name="Email: potvrzen’ prihlaseni" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
-    <task id="_16" name="Email:potvrzeni omluvy" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
 
     <!-- connections -->
     <sequenceFlow id="_14-_2" sourceRef="_14" targetRef="_2" />
@@ -148,15 +124,6 @@ return pz_action_01.equals("omluven");</conditionExpression>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_14" >
         <dc:Bounds x="20" y="500" width="110" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_15" >
-        <dc:Bounds x="3" y="67" width="186" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_17" >
-        <dc:Bounds x="155" y="391" width="183" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_16" >
-        <dc:Bounds x="296" y="177" width="165" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_14-_2" >
         <di:waypoint x="75" y="524" />

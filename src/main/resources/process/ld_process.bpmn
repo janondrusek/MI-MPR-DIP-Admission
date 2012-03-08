@@ -111,66 +111,6 @@
         <targetRef>_10_zap_action_01Input</targetRef>
       </dataInputAssociation>
     </callActivity>
-    <task id="_11" name="Email: za?azen’ do procesu p?i?’z" tns:taskName="Email" >
-      <ioSpecification>
-        <dataInput id="_11_BodyInput" name="Body" />
-        <dataInput id="_11_SubjectInput" name="Subject" />
-        <dataInput id="_11_ToInput" name="To" />
-        <dataInput id="_11_FromInput" name="From" />
-        <inputSet>
-          <dataInputRefs>_11_BodyInput</dataInputRefs>
-          <dataInputRefs>_11_SubjectInput</dataInputRefs>
-          <dataInputRefs>_11_ToInput</dataInputRefs>
-          <dataInputRefs>_11_FromInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <targetRef>_11_BodyInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_11_BodyInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <targetRef>_11_SubjectInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_11_SubjectInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <targetRef>_11_ToInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_11_ToInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <targetRef>_11_FromInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_11_FromInput</to>
-        </assignment>
-      </dataInputAssociation>
-    </task>
-    <task id="_12" name="Email: pozv‡nka na PZ" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
-    <task id="_13" name="Email: info o p?ijet’ bez PZ" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
     <callActivity id="_14" name="Rozhodnut’" calledElement="cz.cvut.fit.mi_mpr_dip.admission.roz" >
       <ioSpecification>
         <inputSet>
@@ -218,15 +158,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_10" >
         <dc:Bounds x="230" y="499" width="110" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_11" >
-        <dc:Bounds x="361" y="96" width="213" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_12" >
-        <dc:Bounds x="78" y="186" width="162" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_13" >
-        <dc:Bounds x="303" y="258" width="186" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_14" >
         <dc:Bounds x="230" y="419" width="110" height="48" />

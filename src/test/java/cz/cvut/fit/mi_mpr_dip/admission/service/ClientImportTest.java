@@ -28,7 +28,7 @@ public class ClientImportTest {
 	}
 
 	@Test
-	public void testGetBook() {
+	public void testImportCSVData() {
 		// load Admissions from csv
 		DataLoader dl = new DataLoader();
 		dl.readCSVFile(new File("_data/POCHOVA03022409(1).csv"), StringPool.SEMICOLON);

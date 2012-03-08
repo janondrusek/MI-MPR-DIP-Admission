@@ -17,23 +17,21 @@
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <endEvent id="_2" name="End" />
-    <scriptTask id="_3" name="Generovani rozhodnuti" />
+    <scriptTask id="_3" name="Generovani rozhodnuti" >
+      <script></script>
+    </scriptTask>
     <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Converging" />
-    <scriptTask id="_5" name="Odeslani rozhodnuti" />
+    <scriptTask id="_5" name="Odeslani rozhodnuti" >
+      <script></script>
+    </scriptTask>
     <exclusiveGateway id="_6" name="Gateway" gatewayDirection="Diverging" />
-    <scriptTask id="_7" name="Odvolani k rozhodnuti" />
-    <task id="_8" name="Email: rozhodnuti" tns:taskName="Email" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </task>
+    <scriptTask id="_7" name="Odvolani k rozhodnuti" >
+      <script></script>
+    </scriptTask>
 
     <!-- connections -->
     <sequenceFlow id="_6-_2" sourceRef="_6" targetRef="_2" >
-      <conditionExpression xsi:type="tFormalExpression" />
+      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" />
     <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
@@ -41,7 +39,7 @@
     <sequenceFlow id="_3-_5" sourceRef="_3" targetRef="_5" />
     <sequenceFlow id="_5-_6" sourceRef="_5" targetRef="_6" />
     <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" >
-      <conditionExpression xsi:type="tFormalExpression" />
+      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
     </sequenceFlow>
 
   </process>
@@ -68,9 +66,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_7" >
         <dc:Bounds x="121" y="16" width="169" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="3" y="315" width="142" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_6-_2" >
         <di:waypoint x="205" y="361" />
