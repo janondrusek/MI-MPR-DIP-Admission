@@ -39,12 +39,12 @@ privileged aspect AdmissionState_Roo_JavaBean {
         this.name = name;
     }
     
-    public String AdmissionState.getDesc() {
-        return this.desc;
+    public String AdmissionState.getDesciption() {
+        return this.desciption;
     }
     
-    public void AdmissionState.setDesc(String desc) {
-        this.desc = desc;
+    public void AdmissionState.setDesciption(String desciption) {
+        this.desciption = desciption;
     }
     
 }

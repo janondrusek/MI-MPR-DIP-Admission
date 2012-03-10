@@ -49,62 +49,44 @@ public class Admission {
 	@NotNull
 	@Column(unique = true)
 	private String code;
-	
+
 	// Maybe paper or electronic form
 	private String type;
-	
-	// Mark if attendant was successful in admission process
-	@XmlTransient
-	private boolean accepted;
-	
-	// Mark if attendant fails in admission process but appeals the decision
-	@XmlTransient
-	private boolean appeal;
-	
-	private String h1;
-	
-	private String h2;
-	
-	private String h3;
-	
-	private String h4;
 
-	private String h5;
-	
-	private String h6;
-	
-	private String h7;
-	
-	private String h8;
-	
-	private String h9;
-	
-	private String h10;
-	
+	// Mark if attendant was successful in admission process
+	private Boolean accepted;
+
+	// Mark if attendant fails in admission process but appeals the decision
+	private Boolean appeal;
+
+	private Boolean dormitoryRequest;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AdmissionState admissionState;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private AdmissionResult result;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Degree degree;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Evaluation> evaluations;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Faculty faculty;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Degree degree;
-
-	@ManyToOne(cascade = CascadeType.ALL)
 	private StudyMode studyMode;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Programme programme;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Person person;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Programme programme;
+
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Photo> photos;
-	
-	private boolean dormitoryRequest;
+
 }

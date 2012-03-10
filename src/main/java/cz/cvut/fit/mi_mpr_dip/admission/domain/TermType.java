@@ -9,6 +9,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -18,9 +19,10 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AdmissionState {
+@XmlRootElement
+@RooJpaActiveRecord
+public class TermType {
 
 	@Version
 	@Transient
@@ -30,18 +32,13 @@ public class AdmissionState {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long admissionStateId;
+	private Long termTypeId;
 
 	@NotNull
 	@Column(unique = true)
-	private String code;
-	
-	@NotNull
 	private String name;
 	
-	private String desciption;
-
-	private static final String[] excludeFields = new String[] { "admissionStateId" };
+	private static final String[] excludeFields = new String[] { "termTypeId" };
 
 	@Override
 	public boolean equals(Object obj) {

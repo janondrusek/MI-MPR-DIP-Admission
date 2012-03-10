@@ -176,12 +176,12 @@ privileged aspect Person_Roo_JavaBean {
         this.email = email;
     }
     
-    public DisabilityType Person.getDisability() {
-        return this.disability;
+    public Set<DisabilityType> Person.getDisabilities() {
+        return this.disabilities;
     }
     
-    public void Person.setDisability(DisabilityType disability) {
-        this.disability = disability;
+    public void Person.setDisabilities(Set<DisabilityType> disabilities) {
+        this.disabilities = disabilities;
     }
     
 }

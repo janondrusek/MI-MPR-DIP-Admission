@@ -51,16 +51,6 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         setDegree(obj, index);
         setDormitoryRequest(obj, index);
         setFaculty(obj, index);
-        setH1(obj, index);
-        setH2(obj, index);
-        setH3(obj, index);
-        setH4(obj, index);
-        setH5(obj, index);
-        setH6(obj, index);
-        setH7(obj, index);
-        setH8(obj, index);
-        setH9(obj, index);
-        setH10(obj, index);
         setPerson(obj, index);
         setProgramme(obj, index);
         setResult(obj, index);
@@ -70,7 +60,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setAccepted(Admission obj, int index) {
-        Boolean accepted = true;
+        Boolean accepted = Boolean.TRUE;
         obj.setAccepted(accepted);
     }
     
@@ -80,7 +70,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setAppeal(Admission obj, int index) {
-        Boolean appeal = true;
+        Boolean appeal = Boolean.TRUE;
         obj.setAppeal(appeal);
     }
     
@@ -95,63 +85,13 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setDormitoryRequest(Admission obj, int index) {
-        Boolean dormitoryRequest = true;
+        Boolean dormitoryRequest = Boolean.TRUE;
         obj.setDormitoryRequest(dormitoryRequest);
     }
     
     public void AdmissionDataOnDemand.setFaculty(Admission obj, int index) {
         Faculty faculty = null;
         obj.setFaculty(faculty);
-    }
-    
-    public void AdmissionDataOnDemand.setH1(Admission obj, int index) {
-        String h1 = "h1_" + index;
-        obj.setH1(h1);
-    }
-    
-    public void AdmissionDataOnDemand.setH2(Admission obj, int index) {
-        String h2 = "h2_" + index;
-        obj.setH2(h2);
-    }
-    
-    public void AdmissionDataOnDemand.setH3(Admission obj, int index) {
-        String h3 = "h3_" + index;
-        obj.setH3(h3);
-    }
-    
-    public void AdmissionDataOnDemand.setH4(Admission obj, int index) {
-        String h4 = "h4_" + index;
-        obj.setH4(h4);
-    }
-    
-    public void AdmissionDataOnDemand.setH5(Admission obj, int index) {
-        String h5 = "h5_" + index;
-        obj.setH5(h5);
-    }
-    
-    public void AdmissionDataOnDemand.setH6(Admission obj, int index) {
-        String h6 = "h6_" + index;
-        obj.setH6(h6);
-    }
-    
-    public void AdmissionDataOnDemand.setH7(Admission obj, int index) {
-        String h7 = "h7_" + index;
-        obj.setH7(h7);
-    }
-    
-    public void AdmissionDataOnDemand.setH8(Admission obj, int index) {
-        String h8 = "h8_" + index;
-        obj.setH8(h8);
-    }
-    
-    public void AdmissionDataOnDemand.setH9(Admission obj, int index) {
-        String h9 = "h9_" + index;
-        obj.setH9(h9);
-    }
-    
-    public void AdmissionDataOnDemand.setH10(Admission obj, int index) {
-        String h10 = "h10_" + index;
-        obj.setH10(h10);
     }
     
     public void AdmissionDataOnDemand.setPerson(Admission obj, int index) {

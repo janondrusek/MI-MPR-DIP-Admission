@@ -5,7 +5,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.GenderDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
@@ -46,7 +45,6 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
         setCitizenship(obj, index);
         setCityOfBirth(obj, index);
         setCountryOfBirth(obj, index);
-        setDisability(obj, index);
         setEmail(obj, index);
         setFirstname(obj, index);
         setGender(obj, index);
@@ -84,11 +82,6 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
     public void PersonDataOnDemand.setCountryOfBirth(Person obj, int index) {
         Country countryOfBirth = null;
         obj.setCountryOfBirth(countryOfBirth);
-    }
-    
-    public void PersonDataOnDemand.setDisability(Person obj, int index) {
-        DisabilityType disability = null;
-        obj.setDisability(disability);
     }
     
     public void PersonDataOnDemand.setEmail(Person obj, int index) {

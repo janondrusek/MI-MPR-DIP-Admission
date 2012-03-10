@@ -1,9 +1,15 @@
-package cz.cvut.fit.mi_mpr_dip.admission.domain.admission;
+package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import javax.persistence.Column;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -17,12 +23,14 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+
 @RooJavaBean
 @RooToString
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
-public class TermType {
+public class Term {
 
 	@Version
 	@Transient
@@ -32,13 +40,30 @@ public class TermType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long termTypeId;
+	private Long termId;
 
 	@NotNull
-	@Column(unique = true)
-	private String name;
+	private String room;
 	
-	private static final String[] excludeFields = new String[] { "termTypeId" };
+	@NotNull
+	private int capacity;
+	
+	@NotNull
+	private Date registerFrom;
+	
+	@NotNull
+	private Date registerTo;
+	
+	@NotNull
+	private Date appologyTo;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Programme> programs;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private TermType termType;
+	
+	private static final String[] excludeFields = new String[] { "termId" };
 
 	@Override
 	public boolean equals(Object obj) {
