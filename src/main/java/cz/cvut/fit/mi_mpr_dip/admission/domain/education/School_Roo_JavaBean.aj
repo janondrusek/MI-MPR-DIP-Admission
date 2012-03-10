@@ -32,19 +32,19 @@ privileged aspect School_Roo_JavaBean {
         this.country = country;
     }
     
-    public int School.getSchoolCode() {
+    public Integer School.getSchoolCode() {
         return this.schoolCode;
     }
     
-    public void School.setSchoolCode(int schoolCode) {
+    public void School.setSchoolCode(Integer schoolCode) {
         this.schoolCode = schoolCode;
     }
     
-    public int School.getSchoolFieldCode() {
+    public Integer School.getSchoolFieldCode() {
         return this.schoolFieldCode;
     }
     
-    public void School.setSchoolFieldCode(int schoolFieldCode) {
+    public void School.setSchoolFieldCode(Integer schoolFieldCode) {
         this.schoolFieldCode = schoolFieldCode;
     }
     

@@ -1,10 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,8 +32,10 @@ public class SchoolType {
 	@XmlTransient
 	private Long schoolTypeId;
 
+	@NotNull
+	@Column(unique = true)
 	private String name;
-	
+
 	private static final String[] excludeFields = new String[] { "schoolTypeId" };
 
 	@Override

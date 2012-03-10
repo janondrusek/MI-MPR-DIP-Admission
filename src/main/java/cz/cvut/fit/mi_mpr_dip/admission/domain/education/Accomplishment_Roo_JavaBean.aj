@@ -23,12 +23,12 @@ privileged aspect Accomplishment_Roo_JavaBean {
         this.accomplishmentId = accomplishmentId;
     }
     
-    public int Accomplishment.getMaturityExamYear() {
-        return this.maturityExamYear;
+    public Integer Accomplishment.getGraduationYear() {
+        return this.graduationYear;
     }
     
-    public void Accomplishment.setMaturityExamYear(int maturityExamYear) {
-        this.maturityExamYear = maturityExamYear;
+    public void Accomplishment.setGraduationYear(Integer graduationYear) {
+        this.graduationYear = graduationYear;
     }
     
     public String Accomplishment.getUniversityStudy() {
@@ -47,11 +47,11 @@ privileged aspect Accomplishment_Roo_JavaBean {
         this.olympAchievements = olympAchievements;
     }
     
-    public boolean Accomplishment.isMathSCIO() {
+    public Boolean Accomplishment.getMathSCIO() {
         return this.mathSCIO;
     }
     
-    public void Accomplishment.setMathSCIO(boolean mathSCIO) {
+    public void Accomplishment.setMathSCIO(Boolean mathSCIO) {
         this.mathSCIO = mathSCIO;
     }
     

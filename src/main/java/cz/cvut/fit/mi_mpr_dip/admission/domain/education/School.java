@@ -1,12 +1,14 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -23,7 +25,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class School {
-	
+
 	@Version
 	@Transient
 	@XmlTransient
@@ -33,17 +35,21 @@ public class School {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
 	private Long schoolId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Country country;
-	
-	private int schoolCode;
-	
-	private int schoolFieldCode;
-	
+
+	@NotNull
+	@Column(unique = true)
+	private Integer schoolCode;
+
+	@NotNull
+	private Integer schoolFieldCode;
+
+	@NotNull
 	private String name;
-	
-	private static final String[] excludeFields = new String[] { "name" };
+
+	private static final String[] excludeFields = new String[] { "schoolId" };
 
 	@Override
 	public boolean equals(Object obj) {

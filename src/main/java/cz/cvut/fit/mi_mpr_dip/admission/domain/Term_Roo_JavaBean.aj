@@ -35,11 +35,11 @@ privileged aspect Term_Roo_JavaBean {
         this.room = room;
     }
     
-    public int Term.getCapacity() {
+    public Integer Term.getCapacity() {
         return this.capacity;
     }
     
-    public void Term.setCapacity(int capacity) {
+    public void Term.setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
     

@@ -46,7 +46,7 @@ public class Term {
 	private String room;
 	
 	@NotNull
-	private int capacity;
+	private Integer capacity;
 	
 	@NotNull
 	private Date registerFrom;

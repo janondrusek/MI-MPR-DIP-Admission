@@ -43,12 +43,12 @@ privileged aspect SchoolDataOnDemand_Roo_DataOnDemand {
     }
     
     public void SchoolDataOnDemand.setSchoolCode(School obj, int index) {
-        int schoolCode = index;
+        Integer schoolCode = new Integer(index);
         obj.setSchoolCode(schoolCode);
     }
     
     public void SchoolDataOnDemand.setSchoolFieldCode(School obj, int index) {
-        int schoolFieldCode = index;
+        Integer schoolFieldCode = new Integer(index);
         obj.setSchoolFieldCode(schoolFieldCode);
     }
     

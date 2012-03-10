@@ -30,13 +30,13 @@ public class Accomplishment {
 	@XmlTransient
 	private Long accomplishmentId;
 
-	private int maturityExamYear;
-	
+	private Integer graduationYear;
+
 	private String universityStudy;
-	
+
 	private String olympAchievements;
-	
-	private boolean mathSCIO;
+
+	private Boolean mathSCIO;
 
 	private static final String[] excludeFields = new String[] { "accomplishmentId" };
 
