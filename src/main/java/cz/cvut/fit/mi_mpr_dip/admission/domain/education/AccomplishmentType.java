@@ -1,20 +1,14 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -26,7 +20,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Accomplishment {
+public class AccomplishmentType {
 
 	@Version
 	@Transient
@@ -36,17 +30,13 @@ public class Accomplishment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long accomplishmentId;
+	private Long accomplishmentTypeId;
 
-	@OneToOne
-	private AccomplishmentType accomplishmentType;
+	@NotNull
+	@Column(unique = true)
+	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@XmlElementWrapper(name = "accomplishmentValues")
-	@XmlElement(name = "accomplishmentValue")
-	private Set<AccomplishmentValue> accomplishmentValues;
-
-	private static final String[] excludeFields = new String[] { "accomplishmentId" };
+	private static final String[] excludeFields = new String[] { "accomplishmentTypeId" };
 
 	@Override
 	public boolean equals(Object obj) {

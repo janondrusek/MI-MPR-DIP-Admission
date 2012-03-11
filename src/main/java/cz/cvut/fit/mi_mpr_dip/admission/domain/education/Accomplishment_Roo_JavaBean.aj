@@ -4,6 +4,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentValue;
+import java.util.Set;
 
 privileged aspect Accomplishment_Roo_JavaBean {
     
@@ -23,36 +26,20 @@ privileged aspect Accomplishment_Roo_JavaBean {
         this.accomplishmentId = accomplishmentId;
     }
     
-    public Integer Accomplishment.getGraduationYear() {
-        return this.graduationYear;
+    public AccomplishmentType Accomplishment.getAccomplishmentType() {
+        return this.accomplishmentType;
     }
     
-    public void Accomplishment.setGraduationYear(Integer graduationYear) {
-        this.graduationYear = graduationYear;
+    public void Accomplishment.setAccomplishmentType(AccomplishmentType accomplishmentType) {
+        this.accomplishmentType = accomplishmentType;
     }
     
-    public String Accomplishment.getUniversityStudy() {
-        return this.universityStudy;
+    public Set<AccomplishmentValue> Accomplishment.getAccomplishmentValues() {
+        return this.accomplishmentValues;
     }
     
-    public void Accomplishment.setUniversityStudy(String universityStudy) {
-        this.universityStudy = universityStudy;
-    }
-    
-    public String Accomplishment.getOlympAchievements() {
-        return this.olympAchievements;
-    }
-    
-    public void Accomplishment.setOlympAchievements(String olympAchievements) {
-        this.olympAchievements = olympAchievements;
-    }
-    
-    public Boolean Accomplishment.getMathSCIO() {
-        return this.mathSCIO;
-    }
-    
-    public void Accomplishment.setMathSCIO(Boolean mathSCIO) {
-        this.mathSCIO = mathSCIO;
+    public void Accomplishment.setAccomplishmentValues(Set<AccomplishmentValue> accomplishmentValues) {
+        this.accomplishmentValues = accomplishmentValues;
     }
     
 }

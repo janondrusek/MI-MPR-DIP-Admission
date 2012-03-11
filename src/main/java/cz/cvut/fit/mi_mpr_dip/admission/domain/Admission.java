@@ -25,6 +25,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
@@ -57,6 +58,11 @@ public class Admission {
 
 	// Mark if attendant was successful in admission process
 	private Boolean accepted;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElementWrapper(name = "accomplishments")
+	@XmlElement(name = "accomplishment")
+	private Set<Accomplishment> accomplishments;
 
 	// Mark if attendant fails in admission process but appeals the decision
 	private Boolean appeal;

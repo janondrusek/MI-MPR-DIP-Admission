@@ -8,6 +8,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
@@ -55,6 +56,14 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setAccepted(Boolean accepted) {
         this.accepted = accepted;
+    }
+    
+    public Set<Accomplishment> Admission.getAccomplishments() {
+        return this.accomplishments;
+    }
+    
+    public void Admission.setAccomplishments(Set<Accomplishment> accomplishments) {
+        this.accomplishments = accomplishments;
     }
     
     public Boolean Admission.getAppeal() {
