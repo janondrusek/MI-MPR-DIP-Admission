@@ -16,6 +16,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -71,6 +73,8 @@ public class Admission {
 	private Degree degree;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElementWrapper(name = "evaluations")
+	@XmlElement(name = "evaluation")
 	private Set<Evaluation> evaluations;
 
 	@ManyToOne(cascade = CascadeType.ALL)

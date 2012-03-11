@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <admission>
 	<code>123-456</code>
-	<faculty>
-		<name>FIT</name>
-	</faculty>
+	<!-- Maybe paper or electronic form -->
+	<type />
+	<!-- Mark if attendant was successful in admission process -->
+	<accepted />
+	<!-- Mark if attendant fails in admission process but appeals the decision -->
+	<appeal />
+	<dormitoryRequest>true</dormitoryRequest>
+	<admissionState>
+		<code>state-123-456</code>
+		<name>new</name>
+		<description>new and better</description>
+	</admissionState>
 	<degree>
 		<name>Bc.</name>
 	</degree>
+	<evaluations>
+		<evaluation>
+			<evaluationType>
+				<name>h1</name>
+			</evaluationType>
+			<value>10.2</value>
+		</evaluation>
+		<evaluation>
+			<evaluationType>
+				<name>h2</name>
+			</evaluationType>
+			<value>4.47</value>
+		</evaluation>
+	</evaluations>
+	<faculty>
+		<name>FIT</name>
+	</faculty>
 	<studyMode>
 		<name>presence</name>
 	</studyMode>
-	<programme>
-		<name>Informatics</name>
-	</programme>
 	<person>
 		<citizenship>
 			<name>Czech republic</name>
@@ -35,7 +58,39 @@
 				<number>678-901</number>
 			</document>
 		</documents>
-		<birthdate>2000-01-01</birthdate>
+		<addresses>
+			<address>
+				<street>Gagarinova</street>
+				<houseNumber>1</houseNumber>
+				<city>
+					<name>Žigulov</name>
+				</city>
+				<postNumber>123 45</postNumber>
+				<postalCode>543 21</postalCode>
+				<country>
+					<name>Bahrajn</name>
+				</country>
+				<printLines>
+					<printLine>
+						<name>pl_1</name>
+						<value>Don Benjamin Azurit Bukvica</value>
+					</printLine>
+					<printLine>
+						<name>pl_2</name>
+						<value>Gagarinova 1</value>
+					</printLine>
+					<printLine>
+						<name>pl_3</name>
+						<value>123 45 Žigulov</value>
+					</printLine>
+					<printLine>
+						<name>pl_4</name>
+						<value>Bahrajn</value>
+					</printLine>
+				</printLines>
+			</address>
+		</addresses>
+		<birthdate>2000-05-30T00:00:00Z</birthdate>
 		<birthIdentificationNumber>000101/1234</birthIdentificationNumber>
 		<gender>
 			<name>M</name>
@@ -48,6 +103,19 @@
 		</countryOfBirth>
 		<phone>603123456</phone>
 		<email>dyg@more.com</email>
-		<disability>false</disability>
+		<disabilities>
+			<disability>
+				<name>blind</name>
+			</disability>
+			<disability>
+				<name>deaf</name>
+			</disability>
+			<disability>
+				<name>dumb</name>
+			</disability>
+		</disabilities>
 	</person>
+	<programme>
+		<name>Informatics</name>
+	</programme>
 </admission>

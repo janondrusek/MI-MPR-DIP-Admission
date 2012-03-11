@@ -23,6 +23,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 
@@ -66,13 +67,11 @@ public class Person {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "documents")
-	// maps each member of this list to an XML element named appointment
 	@XmlElement(name = "document")
 	private Set<Document> documents;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "addresses")
-	// maps each member of this list to an XML element named appointment
 	@XmlElement(name = "address")
 	private Set<Address> addresses;
 
@@ -93,9 +92,8 @@ public class Person {
 
 	private String email;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "disabilities")
-	// maps each member of this list to an XML element named appointment
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElement(name = "disability")
 	private Set<DisabilityType> disabilities;
 }

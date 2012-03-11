@@ -3,9 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;

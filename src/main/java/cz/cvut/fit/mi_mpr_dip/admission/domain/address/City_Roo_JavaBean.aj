@@ -31,4 +31,12 @@ privileged aspect City_Roo_JavaBean {
         this.name = name;
     }
     
+    public String City.getPart() {
+        return this.part;
+    }
+    
+    public void City.setPart(String part) {
+        this.part = part;
+    }
+    
 }
