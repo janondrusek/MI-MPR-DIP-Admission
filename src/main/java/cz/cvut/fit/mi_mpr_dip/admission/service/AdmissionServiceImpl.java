@@ -23,18 +23,23 @@ public class AdmissionServiceImpl implements AdmissionService {
 	@Override
 	@Transactional
 	public void deduplicateAndStore(Admission admission) {
+		deduplicateAccomplishments(admission);
+		deduplicateEvaluations(admission);
 		deduplicateFaculty(admission);
 		deduplicatePerson(admission.getPerson());
-		deduplicateProgramme(admission.getProgramme());
+		deduplicateProgramme(admission);
 
 		admission.persist();
 	}
-	
-	private void deduplicateDegree(Programme programme) {
-		List<Degree> degrees = Degree.findDegreesByNameEquals(programme.getDegree().getName()).getResultList();
-		if (degrees.size() > 0) {
-			programme.setDegree(degrees.get(0));
-		}
+
+	private void deduplicateAccomplishments(Admission admission) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void deduplicateEvaluations(Admission admission) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void deduplicateFaculty(Admission admission) {
@@ -107,7 +112,7 @@ public class AdmissionServiceImpl implements AdmissionService {
 	}
 
 	private void deduplicateDocuments(Person person) {
-
+		// TODO: 
 	}
 
 	private void deduplicateGender(Person person) {
@@ -125,12 +130,34 @@ public class AdmissionServiceImpl implements AdmissionService {
 		}
 	}
 
-	private void deduplicateProgramme(Programme programme) {
-		deduplicateDegree(programme);
-		deduplicateStudyMode(programme);
-		deduplicateLanguage(programme);
+	private void deduplicateProgramme(Admission admission) {
+		Programme programme = admission.getProgramme();
+		admission.setProgramme(deduplicate(programme));
 	}
-	
+
+	private Programme deduplicate(Programme programme) {
+		if (programme != null) {
+			List<Programme> programs = Programme.findProgrammesByNameEquals(programme.getName()).getResultList();
+			if (programs.size() > 0) {
+				if (programme.equals(programs.get(0))) {
+					programme = programs.get(0);
+				}
+			} else {
+				deduplicateDegree(programme);
+				deduplicateStudyMode(programme);
+				deduplicateLanguage(programme);
+			}
+		}
+		return programme;
+	}
+
+	private void deduplicateDegree(Programme programme) {
+		List<Degree> degrees = Degree.findDegreesByNameEquals(programme.getDegree().getName()).getResultList();
+		if (degrees.size() > 0) {
+			programme.setDegree(degrees.get(0));
+		}
+	}
+
 	private void deduplicateStudyMode(Programme programme) {
 		List<StudyMode> studyModes = StudyMode.findStudyModesByNameEquals(programme.getStudyMode().getName())
 				.getResultList();
@@ -138,9 +165,10 @@ public class AdmissionServiceImpl implements AdmissionService {
 			programme.setStudyMode(studyModes.get(0));
 		}
 	}
-	
+
 	private void deduplicateLanguage(Programme programme) {
-		List<Language> languages = Language.findLanguagesByNameEquals(programme.getLanguage().getName()).getResultList();
+		List<Language> languages = Language.findLanguagesByNameEquals(programme.getLanguage().getName())
+				.getResultList();
 		if (languages.size() > 0) {
 			programme.setLanguage(languages.get(0));
 		}

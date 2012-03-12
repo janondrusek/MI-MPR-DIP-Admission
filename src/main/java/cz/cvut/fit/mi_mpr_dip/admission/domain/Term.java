@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

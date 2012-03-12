@@ -27,10 +27,8 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
 @RooJavaBean
 @RooToString
