@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
@@ -25,6 +26,14 @@ privileged aspect Address_Roo_JavaBean {
     
     public void Address.setAddressId(Long addressId) {
         this.addressId = addressId;
+    }
+    
+    public AddressType Address.getAddressType() {
+        return this.addressType;
+    }
+    
+    public void Address.setAddressType(AddressType addressType) {
+        this.addressType = addressType;
     }
     
     public String Address.getStreet() {

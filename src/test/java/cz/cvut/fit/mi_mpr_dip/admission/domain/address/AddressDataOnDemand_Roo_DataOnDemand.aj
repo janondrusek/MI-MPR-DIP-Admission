@@ -5,6 +5,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import java.security.SecureRandom;
@@ -26,6 +27,7 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     
     public Address AddressDataOnDemand.getNewTransientAddress(int index) {
         Address obj = new Address();
+        setAddressType(obj, index);
         setCity(obj, index);
         setCountry(obj, index);
         setHouseNumber(obj, index);
@@ -33,6 +35,11 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
         setPostalCode(obj, index);
         setStreet(obj, index);
         return obj;
+    }
+    
+    public void AddressDataOnDemand.setAddressType(Address obj, int index) {
+        AddressType addressType = null;
+        obj.setAddressType(addressType);
     }
     
     public void AddressDataOnDemand.setCity(Address obj, int index) {

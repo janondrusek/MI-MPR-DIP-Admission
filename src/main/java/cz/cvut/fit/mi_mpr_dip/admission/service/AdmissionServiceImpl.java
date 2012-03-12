@@ -13,6 +13,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
@@ -22,19 +23,17 @@ public class AdmissionServiceImpl implements AdmissionService {
 	@Override
 	@Transactional
 	public void deduplicateAndStore(Admission admission) {
-		deduplicateDegree(admission);
 		deduplicateFaculty(admission);
 		deduplicatePerson(admission.getPerson());
-		deduplicateProgramme(admission);
-		deduplicateStudyMode(admission);
+		deduplicateProgramme(admission.getProgramme());
 
 		admission.persist();
 	}
-
-	private void deduplicateDegree(Admission admission) {
-		List<Degree> degrees = Degree.findDegreesByNameEquals(admission.getDegree().getName()).getResultList();
+	
+	private void deduplicateDegree(Programme programme) {
+		List<Degree> degrees = Degree.findDegreesByNameEquals(programme.getDegree().getName()).getResultList();
 		if (degrees.size() > 0) {
-			admission.setDegree(degrees.get(0));
+			programme.setDegree(degrees.get(0));
 		}
 	}
 
@@ -126,19 +125,24 @@ public class AdmissionServiceImpl implements AdmissionService {
 		}
 	}
 
-	private void deduplicateProgramme(Admission admission) {
-		List<Programme> programmes = Programme.findProgrammesByNameEquals(admission.getProgramme().getName())
-				.getResultList();
-		if (programmes.size() > 0) {
-			admission.setProgramme(programmes.get(0));
-		}
+	private void deduplicateProgramme(Programme programme) {
+		deduplicateDegree(programme);
+		deduplicateStudyMode(programme);
+		deduplicateLanguage(programme);
 	}
-
-	private void deduplicateStudyMode(Admission admission) {
-		List<StudyMode> studyModes = StudyMode.findStudyModesByNameEquals(admission.getStudyMode().getName())
+	
+	private void deduplicateStudyMode(Programme programme) {
+		List<StudyMode> studyModes = StudyMode.findStudyModesByNameEquals(programme.getStudyMode().getName())
 				.getResultList();
 		if (studyModes.size() > 0) {
-			admission.setStudyMode(studyModes.get(0));
+			programme.setStudyMode(studyModes.get(0));
+		}
+	}
+	
+	private void deduplicateLanguage(Programme programme) {
+		List<Language> languages = Language.findLanguagesByNameEquals(programme.getLanguage().getName()).getResultList();
+		if (languages.size() > 0) {
+			programme.setLanguage(languages.get(0));
 		}
 	}
 

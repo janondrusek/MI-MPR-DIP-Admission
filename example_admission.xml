@@ -13,9 +13,6 @@
 		<name>new</name>
 		<description>new and better</description>
 	</admissionState>
-	<degree>
-		<name>Bc.</name>
-	</degree>
 	<evaluations>
 		<evaluation>
 			<evaluationType>
@@ -33,9 +30,6 @@
 	<faculty>
 		<name>FIT</name>
 	</faculty>
-	<studyMode>
-		<name>presence</name>
-	</studyMode>
 	<person>
 		<citizenship>
 			<name>Czech republic</name>
@@ -60,6 +54,9 @@
 		</documents>
 		<addresses>
 			<address>
+				<addressType>
+					<name>contact</name>
+				</addressType>
 				<street>Gagarinova</street>
 				<houseNumber>1</houseNumber>
 				<city>
@@ -116,6 +113,15 @@
 		</disabilities>
 	</person>
 	<programme>
-		<name>Informatics</name>
+		<name>MI</name>
+		<degree>
+			<name>Bc.</name>
+		</degree>
+		<studyMode>
+			<name>presence</name>
+		</studyMode>
+		<language>
+			<name>czech</name>
+		</language>
 	</programme>
 </admission>

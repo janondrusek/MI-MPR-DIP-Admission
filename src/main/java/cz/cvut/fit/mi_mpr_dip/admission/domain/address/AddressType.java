@@ -1,11 +1,9 @@
-package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
+package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -20,9 +18,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(finders = { "findProgrammesByNameEquals" })
+@RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Programme {
+public class AddressType {
 
 	@Version
 	@Transient
@@ -32,22 +30,13 @@ public class Programme {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long programmeId;
+	private Long addressTypeId;
 
 	@NotNull
 	@Column(unique = true)
 	private String name;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private StudyMode studyMode;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Degree degree;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Language language;
 
-	private static final String[] excludeFields = new String[] { "programmeId" };
+	private static final String[] excludeFields = new String[] { "addressTypeId" };
 
 	@Override
 	public boolean equals(Object obj) {

@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
@@ -58,7 +59,10 @@ public class Term {
 	private Date appologyTo;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Programme> programs;
+	private Set<Programme> programs;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Admission> admissions;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private TermType termType;

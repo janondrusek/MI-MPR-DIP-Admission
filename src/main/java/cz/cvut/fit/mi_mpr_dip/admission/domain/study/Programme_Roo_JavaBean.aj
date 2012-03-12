@@ -3,7 +3,10 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
 privileged aspect Programme_Roo_JavaBean {
     
@@ -29,6 +32,30 @@ privileged aspect Programme_Roo_JavaBean {
     
     public void Programme.setName(String name) {
         this.name = name;
+    }
+    
+    public StudyMode Programme.getStudyMode() {
+        return this.studyMode;
+    }
+    
+    public void Programme.setStudyMode(StudyMode studyMode) {
+        this.studyMode = studyMode;
+    }
+    
+    public Degree Programme.getDegree() {
+        return this.degree;
+    }
+    
+    public void Programme.setDegree(Degree degree) {
+        this.degree = degree;
+    }
+    
+    public Language Programme.getLanguage() {
+        return this.language;
+    }
+    
+    public void Programme.setLanguage(Language language) {
+        this.language = language;
     }
     
 }

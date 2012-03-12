@@ -3,11 +3,12 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 privileged aspect Term_Roo_JavaBean {
     
@@ -67,12 +68,20 @@ privileged aspect Term_Roo_JavaBean {
         this.appologyTo = appologyTo;
     }
     
-    public List<Programme> Term.getPrograms() {
+    public Set<Programme> Term.getPrograms() {
         return this.programs;
     }
     
-    public void Term.setPrograms(List<Programme> programs) {
+    public void Term.setPrograms(Set<Programme> programs) {
         this.programs = programs;
+    }
+    
+    public Set<Admission> Term.getAdmissions() {
+        return this.admissions;
+    }
+    
+    public void Term.setAdmissions(Set<Admission> admissions) {
+        this.admissions = admissions;
     }
     
     public TermType Term.getTermType() {

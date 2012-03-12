@@ -10,11 +10,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResultDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.DegreeDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,9 +31,6 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     private List<Admission> AdmissionDataOnDemand.data;
     
     @Autowired
-    private DegreeDataOnDemand AdmissionDataOnDemand.degreeDataOnDemand;
-    
-    @Autowired
     private PersonDataOnDemand AdmissionDataOnDemand.personDataOnDemand;
     
     @Autowired
@@ -48,13 +42,11 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         setAdmissionState(obj, index);
         setAppeal(obj, index);
         setCode(obj, index);
-        setDegree(obj, index);
         setDormitoryRequest(obj, index);
         setFaculty(obj, index);
         setPerson(obj, index);
         setProgramme(obj, index);
         setResult(obj, index);
-        setStudyMode(obj, index);
         setType(obj, index);
         return obj;
     }
@@ -77,11 +69,6 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public void AdmissionDataOnDemand.setCode(Admission obj, int index) {
         String code = "code_" + index;
         obj.setCode(code);
-    }
-    
-    public void AdmissionDataOnDemand.setDegree(Admission obj, int index) {
-        Degree degree = degreeDataOnDemand.getRandomDegree();
-        obj.setDegree(degree);
     }
     
     public void AdmissionDataOnDemand.setDormitoryRequest(Admission obj, int index) {
@@ -107,11 +94,6 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public void AdmissionDataOnDemand.setResult(Admission obj, int index) {
         AdmissionResult result = admissionResultDataOnDemand.getSpecificAdmissionResult(index);
         obj.setResult(result);
-    }
-    
-    public void AdmissionDataOnDemand.setStudyMode(Admission obj, int index) {
-        StudyMode studyMode = null;
-        obj.setStudyMode(studyMode);
     }
     
     public void AdmissionDataOnDemand.setType(Admission obj, int index) {

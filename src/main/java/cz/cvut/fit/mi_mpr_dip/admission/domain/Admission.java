@@ -75,9 +75,6 @@ public class Admission {
 	@OneToOne(cascade = CascadeType.ALL)
 	private AdmissionResult result;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Degree degree;
-
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "evaluations")
 	@XmlElement(name = "evaluation")
@@ -85,9 +82,6 @@ public class Admission {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Faculty faculty;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	private StudyMode studyMode;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Person person;
