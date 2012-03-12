@@ -53,6 +53,8 @@ public class AdmissionServiceImpl implements AdmissionService {
 		deduplicateCity(person);
 		deduplicateCountries(person);
 		deduplicateDocuments(person);
+		deduplicateAddresses(person);
+		deduplicateDisabilities(person);
 		deduplicateGender(person);
 		deduplicateMaritalStatus(person);
 	}
@@ -112,7 +114,17 @@ public class AdmissionServiceImpl implements AdmissionService {
 	}
 
 	private void deduplicateDocuments(Person person) {
-		// TODO: 
+		// TODO:
+	}
+
+	private void deduplicateAddresses(Person person) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void deduplicateDisabilities(Person person) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void deduplicateGender(Person person) {
