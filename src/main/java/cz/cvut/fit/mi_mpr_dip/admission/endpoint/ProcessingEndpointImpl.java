@@ -70,7 +70,9 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint {
 			admissionService.deduplicateAndStore(admission);
 		}
 		URI uri = new URI(ENDPOINT_PATH + ADMISSIONS_PATH);
-		return Response.created(uri).build();
+		// PAGINATION TODO
+		//return Response.created(uri).build();
+		return Response.ok().build();
 	}
 
 	@Path(ADMISSION_PATH)
