@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_nameItem" structureRef="String" />
+  <itemDefinition id="_surnameItem" structureRef="String" />
+  <itemDefinition id="_pz_action_01Item" structureRef="String" />
+  <itemDefinition id="_pz_action_02Item" structureRef="String" />
+  <itemDefinition id="_pz_date_01Item" structureRef="java.util.Date" />
+  <itemDefinition id="_attendantItem" structureRef="Attendant" />
+  <itemDefinition id="_initItem" structureRef="String" />
+  <itemDefinition id="_zap_action_01Item" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.ld_process" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="name" itemSubjectRef="_nameItem"/>
+    <property id="surname" itemSubjectRef="_surnameItem"/>
+    <property id="pz_action_01" itemSubjectRef="_pz_action_01Item"/>
+    <property id="pz_action_02" itemSubjectRef="_pz_action_02Item"/>
+    <property id="pz_date_01" itemSubjectRef="_pz_date_01Item"/>
+    <property id="attendant" itemSubjectRef="_attendantItem"/>
+    <property id="init" itemSubjectRef="_initItem"/>
+    <property id="zap_action_01" itemSubjectRef="_zap_action_01Item"/>
+
+    <!-- nodes -->
+    <task id="_17" name="Email: Invitation for AT" tns:taskName="Email" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
+    <task id="_16" name="Email: Accepted without AT" tns:taskName="Email" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
+    <startEvent id="_1" name="StartProcess" />
+    <endEvent id="_6" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <callActivity id="_7" name="Admission test" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Prijimaci zkouska!");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_7_pz_date_01Input" name="pz_date_01" />
+        <dataInput id="_7_attendantInput" name="attendant" />
+        <dataInput id="_7_nameInput" name="name" />
+        <dataInput id="_7_surnameInput" name="surname" />
+        <dataInput id="_7_pz_action_01Input" name="pz_action_01" />
+        <dataInput id="_7_pz_action_02Input" name="pz_action_02" />
+        <inputSet>
+          <dataInputRefs>_7_pz_date_01Input</dataInputRefs>
+          <dataInputRefs>_7_attendantInput</dataInputRefs>
+          <dataInputRefs>_7_nameInput</dataInputRefs>
+          <dataInputRefs>_7_surnameInput</dataInputRefs>
+          <dataInputRefs>_7_pz_action_01Input</dataInputRefs>
+          <dataInputRefs>_7_pz_action_02Input</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>pz_date_01</sourceRef>
+        <targetRef>_7_pz_date_01Input</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>attendant</sourceRef>
+        <targetRef>_7_attendantInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>name</sourceRef>
+        <targetRef>_7_nameInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>surname</sourceRef>
+        <targetRef>_7_surnameInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>pz_action_01</sourceRef>
+        <targetRef>_7_pz_action_01Input</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>pz_action_02</sourceRef>
+        <targetRef>_7_pz_action_02Input</targetRef>
+      </dataInputAssociation>
+    </callActivity>
+    <exclusiveGateway id="_8" name="Gateway - prijet bez PZ?" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_9" name="Gateway" gatewayDirection="Converging" />
+    <callActivity id="_10" name="Registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
+      <extensionElements>
+        <tns:onEntry-script>
+          <script>System.out.println("Zapis do studia!");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_10_zap_action_01Input" name="zap_action_01" />
+        <inputSet>
+          <dataInputRefs>_10_zap_action_01Input</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>zap_action_01</sourceRef>
+        <targetRef>_10_zap_action_01Input</targetRef>
+      </dataInputAssociation>
+    </callActivity>
+    <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.roz" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </callActivity>
+    <task id="_15" name="Email: Start admission" tns:taskName="Email" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Email: proces start!");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_15_BodyInput" name="Body" />
+        <dataInput id="_15_SubjectInput" name="Subject" />
+        <dataInput id="_15_ToInput" name="To" />
+        <dataInput id="_15_FromInput" name="From" />
+        <inputSet>
+          <dataInputRefs>_15_BodyInput</dataInputRefs>
+          <dataInputRefs>_15_SubjectInput</dataInputRefs>
+          <dataInputRefs>_15_ToInput</dataInputRefs>
+          <dataInputRefs>_15_FromInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_15_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_15_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_15_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_15_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_15_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </task>
+
+    <!-- connections -->
+    <sequenceFlow id="_8-_17" sourceRef="_8" targetRef="_17" name="to_admission_test" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_8-_16" sourceRef="_8" targetRef="_16" name="without_admission_test" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_10-_6" sourceRef="_10" targetRef="_6" />
+    <sequenceFlow id="_17-_7" sourceRef="_17" targetRef="_7" />
+    <sequenceFlow id="_15-_8" sourceRef="_15" targetRef="_8" />
+    <sequenceFlow id="_7-_9" sourceRef="_7" targetRef="_9" />
+    <sequenceFlow id="_16-_9" sourceRef="_16" targetRef="_9" />
+    <sequenceFlow id="_14-_10" sourceRef="_14" targetRef="_10" />
+    <sequenceFlow id="_9-_14" sourceRef="_9" targetRef="_14" />
+    <sequenceFlow id="_1-_15" sourceRef="_1" targetRef="_15" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.ld_process" >
+      <bpmndi:BPMNShape bpmnElement="_17" >
+        <dc:Bounds x="16" y="257" width="151" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_16" >
+        <dc:Bounds x="199" y="257" width="182" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="166" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="266" y="659" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="128" y="337" width="127" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="166" y="176" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="266" y="418" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="235" y="579" width="110" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="235" y="499" width="110" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_15" >
+        <dc:Bounds x="115" y="96" width="150" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_8-_17" >
+        <di:waypoint x="190" y="200" />
+        <di:waypoint x="91" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_16" >
+        <di:waypoint x="190" y="200" />
+        <di:waypoint x="290" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_6" >
+        <di:waypoint x="290" y="603" />
+        <di:waypoint x="290" y="683" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_17-_7" >
+        <di:waypoint x="91" y="281" />
+        <di:waypoint x="191" y="361" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_15-_8" >
+        <di:waypoint x="190" y="120" />
+        <di:waypoint x="190" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_9" >
+        <di:waypoint x="191" y="361" />
+        <di:waypoint x="290" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16-_9" >
+        <di:waypoint x="290" y="281" />
+        <di:waypoint x="290" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_14-_10" >
+        <di:waypoint x="290" y="523" />
+        <di:waypoint x="290" y="603" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_14" >
+        <di:waypoint x="290" y="442" />
+        <di:waypoint x="290" y="523" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_15" >
+        <di:waypoint x="190" y="40" />
+        <di:waypoint x="190" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
