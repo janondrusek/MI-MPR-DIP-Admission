@@ -49,6 +49,10 @@
 		<aspectj.maven.version>1.2</aspectj.maven.version>
 		<maven.resources.version>2.5</maven.resources.version>
 		<maven.surefire.version>2.9</maven.surefire.version>
+		<maven.tomcat7.version>2.0-beta-1</maven.tomcat7.version>
+		<maven.tomcat7.url>pririz.is.fit.cvut.cz:9090/manager/html</maven.tomcat7.url>
+		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
+		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
 		<maven.assembly.version>2.2.1</maven.assembly.version>
 		<maven.jaxb2.schemagen.version>1.3.1</maven.jaxb2.schemagen.version>
 	</properties>
@@ -429,7 +433,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven.war.version}</version>
-				<!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
+				<configuration>
+					<warName>admission</warName>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -582,6 +588,19 @@
 						<include>cz/cvut/fit/mi_mpr_dip/admission/domain/*.java</include>
 						<include>cz/cvut/fit/mi_mpr_dip/admission/domain/*/*.java</include>
 					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${maven.tomcat7.version}</version>
+				<configuration>
+					<url>${maven.tomcat7.url}</url>
+					<update>true</update>
+					<warFile>target/admission.war</warFile>
+					<path>/admission</path>
+					<username>${maven.tomcat7.username}</username>
+					<password>${maven.tomcat7.password}</password>
 				</configuration>
 			</plugin>
 		</plugins>
