@@ -19,6 +19,8 @@
 		<cxf.version>2.5.0</cxf.version>
 		<easymock.version>3.1</easymock.version>
 		<freemarker.version>2.3.18</freemarker.version>
+		<geronimo.2.5.version>1.1.2</geronimo.2.5.version>
+		<geronimo.3.0.version>1.0</geronimo.3.0.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
 		<hibernate.version>4.0.0.Final</hibernate.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
@@ -144,6 +146,18 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-policy</artifactId>
 			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_3.0_spec</artifactId>
+			<version>${geronimo.3.0.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_2.5_spec</artifactId>
+			<version>${geronimo.2.5.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Spring start -->
 		<dependency>
@@ -562,14 +576,6 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
 				<version>${maven.jaxb2.schemagen.version}</version>
-				<executions>
-					<execution>
-						<id>schemagen</id>
-						<goals>
-							<goal>schemagen</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<outputDirectory>${project.build.directory}/generated-resources/schemas</outputDirectory>
 					<includes>
