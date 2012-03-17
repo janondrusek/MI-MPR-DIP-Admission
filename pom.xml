@@ -19,6 +19,8 @@
 		<cxf.version>2.5.0</cxf.version>
 		<easymock.version>3.1</easymock.version>
 		<freemarker.version>2.3.18</freemarker.version>
+		<geronimo.2.5.version>1.1.2</geronimo.2.5.version>
+		<geronimo.3.0.version>1.0</geronimo.3.0.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
 		<hibernate.version>4.0.0.Final</hibernate.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
@@ -47,6 +49,10 @@
 		<aspectj.maven.version>1.2</aspectj.maven.version>
 		<maven.resources.version>2.5</maven.resources.version>
 		<maven.surefire.version>2.9</maven.surefire.version>
+		<maven.tomcat7.version>2.0-beta-1</maven.tomcat7.version>
+		<maven.tomcat7.url>pririz.is.fit.cvut.cz:9090/manager/html</maven.tomcat7.url>
+		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
+		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
 		<maven.assembly.version>2.2.1</maven.assembly.version>
 		<maven.jaxb2.schemagen.version>1.3.1</maven.jaxb2.schemagen.version>
 		<maven.jaxb2.maven.version>1.3.1</maven.jaxb2.maven.version>
@@ -147,6 +153,18 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-policy</artifactId>
 			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_3.0_spec</artifactId>
+			<version>${geronimo.3.0.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_2.5_spec</artifactId>
+			<version>${geronimo.2.5.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Spring start -->
 		<dependency>
@@ -430,17 +448,17 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven.war.version}</version>
-				<!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
+				<configuration>
+					<warName>admission</warName>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
 				<version>${aspectj.maven.version}</version>
-				<!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 and do not use 1.4 
-					due to declare parents issue -->
+				<!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 and do not use 1.4 due to declare parents issue -->
 				<dependencies>
-					<!-- NB: You must use Maven 2.0.9 or above or these are ignored (see 
-						MNG-2972) -->
+					<!-- NB: You must use Maven 2.0.9 or above or these are ignored (see MNG-2972) -->
 					<dependency>
 						<groupId>org.aspectj</groupId>
 						<artifactId>aspectjrt</artifactId>
@@ -579,21 +597,25 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
 				<version>${maven.jaxb2.schemagen.version}</version>
-				<executions>
-					<execution>
-						<id>schemagen</id>
-						<goals>
-							<goal>schemagen</goal>
-						</goals>
-						<phase>generate-resources</phase>
-					</execution>
-				</executions>
 				<configuration>
 					<outputDirectory>${project.build.directory}/generated-resources/schemas</outputDirectory>
 					<includes>
 						<include>cz/cvut/fit/mi_mpr_dip/admission/domain/*.java</include>
 						<include>cz/cvut/fit/mi_mpr_dip/admission/domain/*/*.java</include>
 					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${maven.tomcat7.version}</version>
+				<configuration>
+					<url>${maven.tomcat7.url}</url>
+					<update>true</update>
+					<warFile>target/admission.war</warFile>
+					<path>/admission</path>
+					<username>${maven.tomcat7.username}</username>
+					<password>${maven.tomcat7.password}</password>
 				</configuration>
 			</plugin>
 		</plugins>
