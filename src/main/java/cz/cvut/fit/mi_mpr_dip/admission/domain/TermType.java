@@ -12,13 +12,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "termTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
@@ -37,11 +38,4 @@ public class TermType {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-	
-	private static final String[] excludeFields = new String[] { "termTypeId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

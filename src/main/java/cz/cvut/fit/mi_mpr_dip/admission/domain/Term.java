@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -27,6 +27,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "termId" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
@@ -44,32 +45,25 @@ public class Term {
 
 	@NotNull
 	private String room;
-	
+
 	@NotNull
 	private Integer capacity;
-	
+
 	@NotNull
 	private Date registerFrom;
-	
+
 	@NotNull
 	private Date registerTo;
-	
+
 	@NotNull
 	private Date appologyTo;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Programme> programs;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Admission> admissions;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private TermType termType;
-	
-	private static final String[] excludeFields = new String[] { "termId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

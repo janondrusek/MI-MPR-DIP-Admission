@@ -11,15 +11,16 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooEquals(excludeFields = { "accomplishmentTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
+@RooJpaActiveRecord(finders = { "findAccomplishmentTypesByNameEquals" })
 public class AccomplishmentType {
 
 	@Version
@@ -35,11 +36,4 @@ public class AccomplishmentType {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-
-	private static final String[] excludeFields = new String[] { "accomplishmentTypeId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

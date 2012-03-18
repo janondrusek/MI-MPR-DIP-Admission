@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdminServiceImpl">
+		<property name="exposablePropertyHolder" ref="propertyConfigurer" />
+		<property name="buildNumber" value="${build.number}" />
+	</bean>
+
+	<bean id="userIdentityService" class="cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityServiceImpl">
+		<property name="grantValidSeconds" value="${user.identity.grant.valid.seconds}" />
+	</bean>
+</beans>

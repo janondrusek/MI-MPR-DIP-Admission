@@ -18,13 +18,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "addressId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
@@ -38,7 +39,7 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
 	private Long addressId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AddressType addressType;
 
@@ -62,11 +63,4 @@ public class Address {
 	@XmlElementWrapper(name = "printLines")
 	@XmlElement(name = "printLine")
 	private Set<PrintLine> printLines;
-
-	private static final String[] excludeFields = new String[] { "addressId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -29,6 +30,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "personId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Person {

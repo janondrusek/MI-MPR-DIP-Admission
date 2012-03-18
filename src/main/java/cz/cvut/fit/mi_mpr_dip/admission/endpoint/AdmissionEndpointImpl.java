@@ -34,6 +34,19 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	}
 
 	@Override
+	public Response deleteAdmission(String admissionCode) {
+		Admission admission = admissionDao.getAdmission(admissionCode);
+		ResponseBuilder builder;
+		if (admission.getCode() == null) {
+			builder = Response.status(Status.NOT_FOUND);
+		} else {
+			admission.remove();
+			builder = Response.ok();
+		}
+		return builder.build();
+	}
+
+	@Override
 	public <T> Response mergeAdmission(String admissionCode, String baseLocation, T actor, AdmissionAction<T> action)
 			throws URISyntaxException {
 		Admission admission = admissionDao.getAdmission(admissionCode);

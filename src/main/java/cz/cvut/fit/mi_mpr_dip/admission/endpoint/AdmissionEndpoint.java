@@ -10,6 +10,8 @@ public interface AdmissionEndpoint {
 
 	public Response getAdmission(String admissionCode);
 
+	public Response deleteAdmission(String admissionCode);
+
 	public <T> Response mergeAdmission(String admissionCode, String baseLocation, T actor, AdmissionAction<T> action)
 			throws URISyntaxException;
 }

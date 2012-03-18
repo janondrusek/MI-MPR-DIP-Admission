@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -32,6 +33,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "admissionId" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAdmissionsByCodeEquals" })
@@ -56,7 +58,7 @@ public class Admission {
 
 	// Mark if attendant was successful in admission process
 	private Boolean accepted;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "accomplishments")
 	@XmlElement(name = "accomplishment")
@@ -90,5 +92,4 @@ public class Admission {
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Photo> photos;
-
 }
