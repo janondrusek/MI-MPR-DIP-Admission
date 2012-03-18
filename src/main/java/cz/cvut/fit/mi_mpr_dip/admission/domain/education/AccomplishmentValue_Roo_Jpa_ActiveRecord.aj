@@ -28,9 +28,9 @@ privileged aspect AccomplishmentValue_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM AccomplishmentValue o", AccomplishmentValue.class).getResultList();
     }
     
-    public static AccomplishmentValue AccomplishmentValue.findAccomplishmentValue(Long id) {
-        if (id == null) return null;
-        return entityManager().find(AccomplishmentValue.class, id);
+    public static AccomplishmentValue AccomplishmentValue.findAccomplishmentValue(Long accomplishmentValueId) {
+        if (accomplishmentValueId == null) return null;
+        return entityManager().find(AccomplishmentValue.class, accomplishmentValueId);
     }
     
     public static List<AccomplishmentValue> AccomplishmentValue.findAccomplishmentValueEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect AccomplishmentValue_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            AccomplishmentValue attached = AccomplishmentValue.findAccomplishmentValue(this.id);
+            AccomplishmentValue attached = AccomplishmentValue.findAccomplishmentValue(this.accomplishmentValueId);
             this.entityManager.remove(attached);
         }
     }

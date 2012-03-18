@@ -18,8 +18,8 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
+@RooJpaActiveRecord(finders = { "findAccomplishmentTypesByNameEquals" })
 public class AccomplishmentType {
 
 	@Version

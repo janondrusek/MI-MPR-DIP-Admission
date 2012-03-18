@@ -37,11 +37,11 @@ privileged aspect AccomplishmentValueIntegrationTest_Roo_IntegrationTest {
     public void AccomplishmentValueIntegrationTest.testFindAccomplishmentValue() {
         AccomplishmentValue obj = dod.getRandomAccomplishmentValue();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAccomplishmentValueId();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to provide an identifier", id);
         obj = AccomplishmentValue.findAccomplishmentValue(id);
         Assert.assertNotNull("Find method for 'AccomplishmentValue' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'AccomplishmentValue' returned the incorrect identifier", id, obj.getId());
+        Assert.assertEquals("Find method for 'AccomplishmentValue' returned the incorrect identifier", id, obj.getAccomplishmentValueId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect AccomplishmentValueIntegrationTest_Roo_IntegrationTest {
     public void AccomplishmentValueIntegrationTest.testFlush() {
         AccomplishmentValue obj = dod.getRandomAccomplishmentValue();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAccomplishmentValueId();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to provide an identifier", id);
         obj = AccomplishmentValue.findAccomplishmentValue(id);
         Assert.assertNotNull("Find method for 'AccomplishmentValue' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect AccomplishmentValueIntegrationTest_Roo_IntegrationTest {
     public void AccomplishmentValueIntegrationTest.testMergeUpdate() {
         AccomplishmentValue obj = dod.getRandomAccomplishmentValue();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAccomplishmentValueId();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to provide an identifier", id);
         obj = AccomplishmentValue.findAccomplishmentValue(id);
         boolean modified =  dod.modifyAccomplishmentValue(obj);
         Integer currentVersion = obj.getVersion();
         AccomplishmentValue merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getAccomplishmentValueId(), id);
         Assert.assertTrue("Version for 'AccomplishmentValue' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect AccomplishmentValueIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to initialize correctly", dod.getRandomAccomplishmentValue());
         AccomplishmentValue obj = dod.getNewTransientAccomplishmentValue(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'AccomplishmentValue' identifier to be null", obj.getId());
+        Assert.assertNull("Expected 'AccomplishmentValue' identifier to be null", obj.getAccomplishmentValueId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'AccomplishmentValue' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'AccomplishmentValue' identifier to no longer be null", obj.getAccomplishmentValueId());
     }
     
     @Test
     public void AccomplishmentValueIntegrationTest.testRemove() {
         AccomplishmentValue obj = dod.getRandomAccomplishmentValue();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to initialize correctly", obj);
-        Long id = obj.getId();
+        Long id = obj.getAccomplishmentValueId();
         Assert.assertNotNull("Data on demand for 'AccomplishmentValue' failed to provide an identifier", id);
         obj = AccomplishmentValue.findAccomplishmentValue(id);
         obj.remove();

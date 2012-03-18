@@ -4,40 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentValue;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
 
 privileged aspect AccomplishmentValue_Roo_Jpa_Entity {
     
     declare @type: AccomplishmentValue: @Entity;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long AccomplishmentValue.id;
-    
-    @Version
-    @Column(name = "version")
-    private Integer AccomplishmentValue.version;
-    
-    public Long AccomplishmentValue.getId() {
-        return this.id;
-    }
-    
-    public void AccomplishmentValue.setId(Long id) {
-        this.id = id;
-    }
-    
-    public Integer AccomplishmentValue.getVersion() {
-        return this.version;
-    }
-    
-    public void AccomplishmentValue.setVersion(Integer version) {
-        this.version = version;
-    }
     
 }

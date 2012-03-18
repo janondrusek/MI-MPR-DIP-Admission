@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="admissionBuilder" class="cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilderImpl" scope="prototype">
+		<property name="limit" value="${admissions.limit.default}" />
+		<property name="maxLimit" value="${admissions.limit.max}" />
+	</bean>
+</beans>

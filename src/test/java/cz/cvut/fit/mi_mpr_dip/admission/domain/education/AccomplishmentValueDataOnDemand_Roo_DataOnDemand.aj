@@ -24,7 +24,13 @@ privileged aspect AccomplishmentValueDataOnDemand_Roo_DataOnDemand {
     
     public AccomplishmentValue AccomplishmentValueDataOnDemand.getNewTransientAccomplishmentValue(int index) {
         AccomplishmentValue obj = new AccomplishmentValue();
+        setValue(obj, index);
         return obj;
+    }
+    
+    public void AccomplishmentValueDataOnDemand.setValue(AccomplishmentValue obj, int index) {
+        String value = "value_" + index;
+        obj.setValue(value);
     }
     
     public AccomplishmentValue AccomplishmentValueDataOnDemand.getSpecificAccomplishmentValue(int index) {
@@ -36,14 +42,14 @@ privileged aspect AccomplishmentValueDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         AccomplishmentValue obj = data.get(index);
-        Long id = obj.getId();
+        Long id = obj.getAccomplishmentValueId();
         return AccomplishmentValue.findAccomplishmentValue(id);
     }
     
     public AccomplishmentValue AccomplishmentValueDataOnDemand.getRandomAccomplishmentValue() {
         init();
         AccomplishmentValue obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getId();
+        Long id = obj.getAccomplishmentValueId();
         return AccomplishmentValue.findAccomplishmentValue(id);
     }
     
