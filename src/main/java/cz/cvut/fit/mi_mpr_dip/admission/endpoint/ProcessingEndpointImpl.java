@@ -2,7 +2,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -17,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -71,7 +71,7 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 
 	private Admissions buildAdmissions(Integer count, Integer page) {
 		AdmissionsBuilder admissionsBuilder = getAdmissionsBuilder();
-		
+
 		admissionsBuilder.createNew();
 		admissionsBuilder.buildLimit(count, page);
 		admissionsBuilder.buildAdmissions();
@@ -83,19 +83,13 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Admissions importAdmissions(List<Admission> admissions) throws URISyntaxException {
-		for (Admission admission : admissions) {
-			deduplicationService.deduplicateAndStore(admission);
+	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException {
+		if (CollectionUtils.isNotEmpty(admissions.getAdmissions())) {
+			for (Admission admission : admissions.getAdmissions()) {
+				deduplicationService.deduplicateAndStore(admission);
+			}
 		}
-		return buildAdmissions(admissions);
-	}
-
-	private Admissions buildAdmissions(List<Admission> admissions) {
-		AdmissionsBuilder admissionsBuilder = getAdmissionsBuilder();
-		
-		admissionsBuilder.createNew();
-		admissionsBuilder.buildAdmissions(admissions);
-		return admissionsBuilder.get();
+		return admissions;
 	}
 
 	private AdmissionsBuilder getAdmissionsBuilder() {

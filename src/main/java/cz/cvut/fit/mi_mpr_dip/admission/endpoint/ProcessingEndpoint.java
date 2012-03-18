@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import java.net.URISyntaxException;
-import java.util.List;
 
 import javax.ws.rs.core.Response;
 
@@ -14,7 +13,7 @@ public interface ProcessingEndpoint {
 
 	public Admissions getAdmissions(Integer count, Integer page);
 
-	public Admissions importAdmissions(List<Admission> admissions) throws URISyntaxException;
+	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException;
 
 	public Response addAdmission(Admission admission) throws URISyntaxException;
 
