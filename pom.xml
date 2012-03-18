@@ -54,11 +54,9 @@
 		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
 		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
 		<maven.assembly.version>2.2.1</maven.assembly.version>
-		<maven.jaxb2.schemagen.version>1.3.1</maven.jaxb2.schemagen.version>
-		<maven.jaxb2.maven.version>1.3.1</maven.jaxb2.maven.version>
-		<maven.jbpm.human.task.version>5.2.0.Final</maven.jbpm.human.task.version>
-		<maven.jbpm.test.version>5.2.0.Final</maven.jbpm.test.version>
-		<maven.jbpm.workitems.version>5.2.0.Final</maven.jbpm.workitems.version>
+		<jaxb2.schemagen.version>1.3.1</jaxb2.schemagen.version>
+		<jaxb2.maven.version>1.3.1</jaxb2.maven.version>
+		<jbpm.workitems.version>5.2.0.Final</jbpm.workitems.version>
 	</properties>
 
 	<repositories>
@@ -426,13 +424,13 @@
 		<dependency>
 			<groupId>org.codehaus.mojo</groupId>
 			<artifactId>jaxb2-maven-plugin</artifactId>
-			<version>${maven.jaxb2.maven.version}</version>
+			<version>${jaxb2.maven.version}</version>
 			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-workitems</artifactId>
-			<version>${maven.jbpm.workitems.version}</version>
+			<version>${jbpm.workitems.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -590,7 +588,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>${maven.jaxb2.schemagen.version}</version>
+				<version>${jaxb2.schemagen.version}</version>
 				<configuration>
 					<outputDirectory>${project.build.directory}/generated-resources/schemas</outputDirectory>
 					<includes>
