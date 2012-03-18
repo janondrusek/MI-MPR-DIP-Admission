@@ -14,6 +14,8 @@
 			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_test.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_decision.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_registration.bpmn" />
+			
+			<jbpm:resource type="BPMN2" source="classpath:test/test_email.bpmn" />
 		</jbpm:resources>
 	</jbpm:kbase>
 

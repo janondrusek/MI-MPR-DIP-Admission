@@ -105,12 +105,16 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 
 	@Test
 	public void testProcess() {
-		// admission = setTestAdmission();
-
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
 
 		processService.runProcess(parameters);
+	}
+	
+	@Test
+	public void testEmailHandler() {
+		// TODO
+		processService.runEmailProcess();
 	}
 
 	@Test
