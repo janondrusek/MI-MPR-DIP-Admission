@@ -9,13 +9,14 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "printLineId" })
 @RooJpaActiveRecord
 public class PrintLine {
 
@@ -35,11 +36,4 @@ public class PrintLine {
 
 	@NotNull
 	private String value;
-
-	private static final String[] excludeFields = new String[] { "printLineId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

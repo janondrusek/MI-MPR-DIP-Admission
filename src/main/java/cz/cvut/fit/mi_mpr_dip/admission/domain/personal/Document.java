@@ -12,13 +12,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "documentId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Document {
@@ -39,11 +40,4 @@ public class Document {
 
 	@NotNull
 	private String number;
-
-	private static final String[] excludeFields = new String[] { "documentId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

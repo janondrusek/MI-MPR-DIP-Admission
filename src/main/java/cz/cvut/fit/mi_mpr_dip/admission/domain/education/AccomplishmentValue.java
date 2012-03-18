@@ -10,13 +10,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "accomplishmentValueId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccomplishmentValue {
@@ -33,11 +34,4 @@ public class AccomplishmentValue {
 
 	@NotNull
 	private String value;
-
-	private static final String[] excludeFields = new String[] { "accomplishmentValueId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

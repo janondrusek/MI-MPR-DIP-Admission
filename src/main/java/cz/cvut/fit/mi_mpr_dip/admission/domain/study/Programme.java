@@ -13,13 +13,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "programmeId" })
 @RooJpaActiveRecord(finders = { "findProgrammesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Programme {
@@ -37,20 +38,13 @@ public class Programme {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private StudyMode studyMode;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Degree degree;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Language language;
-
-	private static final String[] excludeFields = new String[] { "programmeId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

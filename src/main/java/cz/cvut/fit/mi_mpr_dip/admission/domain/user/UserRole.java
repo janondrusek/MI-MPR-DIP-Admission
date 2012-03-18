@@ -19,13 +19,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "userRoleId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserRole {
@@ -51,11 +52,4 @@ public class UserRole {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id", referencedColumnName = "userPermissionId") })
 	private Set<UserPermission> permissions;
-
-	private static final String[] excludeFields = new String[] { "userRoleId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }

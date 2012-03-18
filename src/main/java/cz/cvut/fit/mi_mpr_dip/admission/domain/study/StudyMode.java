@@ -11,13 +11,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
+@RooEquals(excludeFields = { "studyModeId" })
 @RooJpaActiveRecord(finders = { "findStudyModesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StudyMode {
@@ -35,11 +36,4 @@ public class StudyMode {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-
-	private static final String[] excludeFields = new String[] { "studyModeId" };
-
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excludeFields);
-	}
 }
