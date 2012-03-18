@@ -12,176 +12,125 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
-  <process processType="Private" isExecutable="true" id="com.sample.bpmn" name="Sample Process" tns:packageName="defaultPackage" >
+  <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_test" name="Sample Process" tns:packageName="defaultPackage" >
 
     <!-- nodes -->
+    <exclusiveGateway id="_16" name="Gateway" gatewayDirection="Converging" />
     <startEvent id="_1" name="StartProcess" />
-    <scriptTask id="_2" name="Identity Check" >
-      <script></script>
+    <scriptTask id="_19" name="(HT) Attendance check" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Attendant come to the test and result list was paired");</script>
     </scriptTask>
+    <scriptTask id="_2" name="Identity Check" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Attendant identity was checked.");</script>
+    </scriptTask>
+    <exclusiveGateway id="_18" name="Gateway" gatewayDirection="Diverging" />
+    <intermediateCatchEvent id="_20" name="Signal" >
+      <signalEventDefinition signalRef="identity_check"/>
+    </intermediateCatchEvent>
     <exclusiveGateway id="_6" name="Gateway" gatewayDirection="Diverging" />
-    <endEvent id="_7" name="End" >
-        <terminateEventDefinition/>
-    </endEvent>
-    <scriptTask id="_8" name="Finish test" >
-      <script></script>
+    <endEvent id="_7" name="End" />
+    <scriptTask id="_8" name="(HT) Test evaluation" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Test evaluation");</script>
     </scriptTask>
     <endEvent id="_9" name="End" />
-    <scriptTask id="_10" name="Test evaluation" >
-      <script></script>
-    </scriptTask>
-    <exclusiveGateway id="_12" name="Gateway" gatewayDirection="Diverging" />
-    <endEvent id="_13" name="End" >
-        <terminateEventDefinition/>
-    </endEvent>
-    <endEvent id="_14" name="End" >
-        <terminateEventDefinition/>
-    </endEvent>
-    <userTask id="_15" name="Attendance check" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </userTask>
-    <exclusiveGateway id="_17" name="Gateway" gatewayDirection="Diverging" />
-    <exclusiveGateway id="_16" name="Gateway" gatewayDirection="Converging" />
-    <exclusiveGateway id="_18" name="Gateway" gatewayDirection="Diverging" />
+    <endEvent id="_13" name="End" />
 
     <!-- connections -->
-    <sequenceFlow id="_17-_2" sourceRef="_17" targetRef="_2" >
-      <conditionExpression xsi:type="tFormalExpression" />
+    <sequenceFlow id="_18-_16" sourceRef="_18" targetRef="_16" name="identity_ok" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_15-_6" sourceRef="_15" targetRef="_6" />
+    <sequenceFlow id="_6-_16" sourceRef="_6" targetRef="_16" name="came_to" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_1-_19" sourceRef="_1" targetRef="_19" />
+    <sequenceFlow id="_20-_2" sourceRef="_20" targetRef="_2" />
+    <sequenceFlow id="_2-_18" sourceRef="_2" targetRef="_18" />
+    <sequenceFlow id="_19-_6" sourceRef="_19" targetRef="_6" />
     <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" name="failed_to" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_16-_8" sourceRef="_16" targetRef="_8" />
-    <sequenceFlow id="_10-_9" sourceRef="_10" targetRef="_9" />
-    <sequenceFlow id="_12-_10" sourceRef="_12" targetRef="_10" name="odevzdal" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_8-_12" sourceRef="_8" targetRef="_12" />
+    <sequenceFlow id="_8-_9" sourceRef="_8" targetRef="_9" />
     <sequenceFlow id="_18-_13" sourceRef="_18" targetRef="_13" name="identity_err" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_12-_14" sourceRef="_12" targetRef="_14" name="neodevzdal" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_1-_15" sourceRef="_1" targetRef="_15" />
-    <sequenceFlow id="_6-_17" sourceRef="_6" targetRef="_17" name="came_to" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_17-_16" sourceRef="_17" targetRef="_16" >
-      <conditionExpression xsi:type="tFormalExpression" />
-    </sequenceFlow>
-    <sequenceFlow id="_18-_16" sourceRef="_18" targetRef="_16" name="identity_ok" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" ></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_2-_18" sourceRef="_2" targetRef="_18" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn" >
+    <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_test" >
+      <bpmndi:BPMNShape bpmnElement="_16" >
+        <dc:Bounds x="171" y="257" width="48" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="155" y="16" width="48" height="48" />
+        <dc:Bounds x="72" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_19" >
+        <dc:Bounds x="16" y="96" width="160" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="16" y="338" width="177" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="155" y="176" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="115" y="257" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="142" y="580" width="154" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_9" >
-        <dc:Bounds x="133" y="821" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_10" >
-        <dc:Bounds x="90" y="741" width="135" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_12" >
-        <dc:Bounds x="195" y="660" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_13" >
-        <dc:Bounds x="115" y="499" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_14" >
-        <dc:Bounds x="257" y="741" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_15" >
-        <dc:Bounds x="114" y="96" width="130" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_17" >
-        <dc:Bounds x="195" y="257" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_16" >
-        <dc:Bounds x="195" y="499" width="48" height="48" />
+        <dc:Bounds x="208" y="96" width="177" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_18" >
-        <dc:Bounds x="115" y="418" width="48" height="48" />
+        <dc:Bounds x="252" y="176" width="48" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_17-_2" >
-        <di:waypoint x="219" y="281" />
-        <di:waypoint x="104" y="362" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_15-_6" >
-        <di:waypoint x="179" y="120" />
-        <di:waypoint x="179" y="200" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_6-_7" >
-        <di:waypoint x="179" y="200" />
-        <di:waypoint x="139" y="281" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_16-_8" >
-        <di:waypoint x="219" y="523" />
-        <di:waypoint x="219" y="604" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_10-_9" >
-        <di:waypoint x="157" y="765" />
-        <di:waypoint x="157" y="845" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_12-_10" >
-        <di:waypoint x="219" y="684" />
-        <di:waypoint x="157" y="765" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_8-_12" >
-        <di:waypoint x="219" y="604" />
-        <di:waypoint x="219" y="684" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_18-_13" >
-        <di:waypoint x="139" y="442" />
-        <di:waypoint x="139" y="523" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_12-_14" >
-        <di:waypoint x="219" y="684" />
-        <di:waypoint x="281" y="765" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_1-_15" >
-        <di:waypoint x="179" y="40" />
-        <di:waypoint x="179" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_6-_17" >
-        <di:waypoint x="179" y="200" />
-        <di:waypoint x="219" y="281" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_17-_16" >
-        <di:waypoint x="219" y="281" />
-        <di:waypoint x="219" y="523" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="_20" >
+        <dc:Bounds x="272" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="91" y="176" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="91" y="257" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="118" y="338" width="154" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="171" y="418" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="252" y="257" width="48" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_18-_16" >
-        <di:waypoint x="139" y="442" />
-        <di:waypoint x="219" y="523" />
+        <di:waypoint x="276" y="200" />
+        <di:waypoint x="195" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_16" >
+        <di:waypoint x="115" y="200" />
+        <di:waypoint x="195" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_19" >
+        <di:waypoint x="96" y="40" />
+        <di:waypoint x="96" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20-_2" >
+        <di:waypoint x="296" y="40" />
+        <di:waypoint x="296" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_2-_18" >
-        <di:waypoint x="104" y="362" />
-        <di:waypoint x="139" y="442" />
+        <di:waypoint x="296" y="120" />
+        <di:waypoint x="276" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19-_6" >
+        <di:waypoint x="96" y="120" />
+        <di:waypoint x="115" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_7" >
+        <di:waypoint x="115" y="200" />
+        <di:waypoint x="115" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16-_8" >
+        <di:waypoint x="195" y="281" />
+        <di:waypoint x="195" y="362" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_9" >
+        <di:waypoint x="195" y="362" />
+        <di:waypoint x="195" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18-_13" >
+        <di:waypoint x="276" y="200" />
+        <di:waypoint x="276" y="281" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

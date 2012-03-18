@@ -25,6 +25,41 @@
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
+    <endEvent id="_6" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <callActivity id="_7" name="Admission test" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </callActivity>
+    <exclusiveGateway id="_8" name="Gateway - admission test check" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_9" name="Gateway" gatewayDirection="Converging" />
+    <callActivity id="_10" name="Registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </callActivity>
+    <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
+      <ioSpecification>
+        <dataInput id="_14_admissionInput" name="admission" />
+        <inputSet>
+          <dataInputRefs>_14_admissionInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_14_admissionInput</targetRef>
+      </dataInputAssociation>
+    </callActivity>
     <scriptTask id="_19" name="Intivation for AT" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Email: Invitation for AT.");
 //admission.setType("newType");</script>
@@ -32,128 +67,174 @@
     <scriptTask id="_18" name="Email: Process start" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Email: Process started for admission: " + admission.getCode() + " !");</script>
     </scriptTask>
+    <exclusiveGateway id="_21" name="Gateway - document check" gatewayDirection="Diverging" />
     <scriptTask id="_20" name="Accepted without AT" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Email: Accepted without AT.");</script>
     </scriptTask>
-    <endEvent id="_6" name="End" >
+    <scriptTask id="_23" name="Email: Required docs" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Email: Required documents was accepted!");</script>
+    </scriptTask>
+    <scriptTask id="_25" name="(HT) Docs delivery" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Email: Request for needed documents delivery!");
+
+EvaluationType type = new EvaluationType();
+type.setName("H3");
+
+Evaluation evaluation = new Evaluation();
+evaluation.setEvaluationType(type);
+evaluation.setValue("1");
+
+admission.getEvaluations().add(evaluation);</script>
+    </scriptTask>
+    <endEvent id="_26" name="End" >
         <terminateEventDefinition/>
     </endEvent>
-    <callActivity id="_7" name="Admission test" calledElement="cz.cvut.fit.mi_mpr_dip.admission.blank" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </callActivity>
-    <exclusiveGateway id="_8" name="Gateway - AT" gatewayDirection="Diverging" />
-    <exclusiveGateway id="_9" name="Gateway" gatewayDirection="Converging" />
-    <callActivity id="_10" name="Registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.blank" >
-      <extensionElements>
-        <tns:onEntry-script>
-          <script>System.out.println("Zapis do studia!");</script>
-        </tns:onEntry-script>
-      </extensionElements>
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </callActivity>
-    <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.blank" >
-      <ioSpecification>
-        <inputSet>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-    </callActivity>
 
     <!-- connections -->
-    <sequenceFlow id="_8-_19" sourceRef="_8" targetRef="_19" name="with_AT" tns:priority="2" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_1-_18" sourceRef="_1" targetRef="_18" />
-    <sequenceFlow id="_8-_20" sourceRef="_8" targetRef="_20" name="without_AT" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >//Boolean bo = new Boolean(false);
-boolean bo = false;
-System.out.println("COUNTER: " + admission.getEvaluations().size());
-for (Evaluation evaluation : admission.getEvaluations()) {
-	String value = evaluation.getValue();
-	String type = evaluation.getEvaluationType().getName().toUpperCase(); 
-	System.out.println("value: " + value + " type: " + type);
-}
-
-System.out.println("bo: " + bo);
-
-return bo;</conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="_10-_6" sourceRef="_10" targetRef="_6" />
     <sequenceFlow id="_19-_7" sourceRef="_19" targetRef="_7" />
     <sequenceFlow id="_18-_8" sourceRef="_18" targetRef="_8" />
     <sequenceFlow id="_7-_9" sourceRef="_7" targetRef="_9" />
     <sequenceFlow id="_20-_9" sourceRef="_20" targetRef="_9" />
     <sequenceFlow id="_14-_10" sourceRef="_14" targetRef="_10" />
-    <sequenceFlow id="_9-_14" sourceRef="_9" targetRef="_14" />
+    <sequenceFlow id="_23-_14" sourceRef="_23" targetRef="_14" />
+    <sequenceFlow id="_8-_19" sourceRef="_8" targetRef="_19" name="with_AT" tns:priority="2" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_1-_18" sourceRef="_1" targetRef="_18" />
+    <sequenceFlow id="_9-_21" sourceRef="_9" targetRef="_21" />
+    <sequenceFlow id="_8-_20" sourceRef="_8" targetRef="_20" name="without_AT" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
+		if (admission.getAccepted()) { b = true; return true; }
+		//System.out.println("COUNTER: " + admission.getEvaluations().size());		
+		for (Evaluation evaluation : admission.getEvaluations()) {
+			String value = evaluation.getValue();
+			String type = evaluation.getEvaluationType().getName();
+			System.out.println("value: " + value + " type: " + type);
+			
+			if (type.equals("H5") &amp;&amp; value.length() &gt; 0) { 
+				System.out.println("prijat z duvodu: [" + type + "] OLYMPIADA - " + value);
+				b = true;
+				return true;
+			} else if (type.equals("H6") &amp;&amp; Double.valueOf(value) &gt;= 80) {
+				System.out.println("prijat z duvodu: [" + type + "] ST. M. Z MAT. - " + value);
+				b = true;
+				return true;
+			} else if (type.equals("H7") &amp;&amp; Double.valueOf(value) &gt;= 90) {
+				System.out.println("prijat z duvodu: [" + type + "] SCIO - " + value);
+				b = true;
+				return true;
+			}
+		}
+if (b) {
+	System.out.println("PRIJAT BEZ PZ");
+} else {
+	System.out.println("POZVAN K PZ");
+}
+		
+return b;		
+</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_21-_23" sourceRef="_21" targetRef="_23" name="docs_ok" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
+		boolean b_1 = false;
+		boolean b_2 = false;
+		if (admission.getAccepted()) { b = true; return true; }
+
+		for (Evaluation evaluation : admission.getEvaluations()) {
+			String value = evaluation.getValue();
+			String type = evaluation.getEvaluationType().getName();
+			String citizenship = admission.getPerson().getCitizenship().getName();
+
+			if (!citizenship.isEmpty()) {			
+				if (type.equals("H3") &amp;&amp; Double.valueOf(value) &gt; 0) {
+					System.out.println("1 dokumenty ok: [" + type + "] MV, DIPLOM, ... - " + value);
+					b = true; return true;
+				}
+			} else {
+				if (type.equals("H3") &amp;&amp; Double.valueOf(value) &gt; 0) {
+					System.out.println("2 dokumenty ok: [" + type + "] MV, DIPLOM, ... - " + value);
+					b_1 = true;
+				}
+				if (type.equals("H4") &amp;&amp; Double.valueOf(value) &gt; 0) {
+					System.out.println("3 dokumenty ok: [" + type + "] ZKOUSKA z CJ - " + value);
+					b_2 = true;
+				}
+			}
+		}
+		if (b_1 &amp;&amp; b_2) {
+			b = true;// return true;
+		}
+		if (b) {
+			System.out.println("DOKUMENTY V PORADKU");
+		} else {
+			System.out.println("DODAT DOKUMENTY");
+		}
+
+		return b;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_21-_25" sourceRef="_21" targetRef="_25" name="docs_needed" tns:priority="2" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_25-_26" sourceRef="_25" targetRef="_26" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_main" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="146" y="16" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_19" >
-        <dc:Bounds x="16" y="257" width="139" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_18" >
-        <dc:Bounds x="93" y="96" width="154" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_20" >
-        <dc:Bounds x="187" y="257" width="139" height="48" />
+        <dc:Bounds x="147" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="232" y="659" width="48" height="48" />
+        <dc:Bounds x="143" y="821" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_7" >
         <dc:Bounds x="103" y="337" width="127" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="146" y="176" width="48" height="48" />
+        <dc:Bounds x="147" y="176" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_9" >
         <dc:Bounds x="232" y="418" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_10" >
-        <dc:Bounds x="201" y="579" width="110" height="48" />
+        <dc:Bounds x="112" y="741" width="110" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_14" >
-        <dc:Bounds x="201" y="499" width="110" height="48" />
+        <dc:Bounds x="112" y="661" width="110" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_8-_19" >
-        <di:waypoint x="170" y="200" />
-        <di:waypoint x="85" y="281" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_1-_18" >
-        <di:waypoint x="170" y="40" />
-        <di:waypoint x="170" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_8-_20" >
-        <di:waypoint x="170" y="200" />
-        <di:waypoint x="256" y="281" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="_19" >
+        <dc:Bounds x="16" y="257" width="139" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_18" >
+        <dc:Bounds x="94" y="96" width="154" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_21" >
+        <dc:Bounds x="232" y="499" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_20" >
+        <dc:Bounds x="187" y="257" width="139" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_23" >
+        <dc:Bounds x="93" y="580" width="148" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_25" >
+        <dc:Bounds x="273" y="580" width="142" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_26" >
+        <dc:Bounds x="320" y="661" width="48" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_10-_6" >
-        <di:waypoint x="256" y="603" />
-        <di:waypoint x="256" y="683" />
+        <di:waypoint x="167" y="765" />
+        <di:waypoint x="167" y="845" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_19-_7" >
         <di:waypoint x="85" y="281" />
         <di:waypoint x="166" y="361" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_18-_8" >
-        <di:waypoint x="170" y="120" />
-        <di:waypoint x="170" y="200" />
+        <di:waypoint x="171" y="120" />
+        <di:waypoint x="171" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_7-_9" >
         <di:waypoint x="166" y="361" />
@@ -164,12 +245,40 @@ return bo;</conditionExpression>
         <di:waypoint x="256" y="442" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_14-_10" >
-        <di:waypoint x="256" y="523" />
-        <di:waypoint x="256" y="603" />
+        <di:waypoint x="167" y="685" />
+        <di:waypoint x="167" y="765" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_9-_14" >
+      <bpmndi:BPMNEdge bpmnElement="_23-_14" >
+        <di:waypoint x="167" y="604" />
+        <di:waypoint x="167" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_19" >
+        <di:waypoint x="171" y="200" />
+        <di:waypoint x="85" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_18" >
+        <di:waypoint x="171" y="40" />
+        <di:waypoint x="171" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_21" >
         <di:waypoint x="256" y="442" />
         <di:waypoint x="256" y="523" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_20" >
+        <di:waypoint x="171" y="200" />
+        <di:waypoint x="256" y="281" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_23" >
+        <di:waypoint x="256" y="523" />
+        <di:waypoint x="167" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_25" >
+        <di:waypoint x="256" y="523" />
+        <di:waypoint x="344" y="604" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25-_26" >
+        <di:waypoint x="344" y="604" />
+        <di:waypoint x="344" y="685" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
