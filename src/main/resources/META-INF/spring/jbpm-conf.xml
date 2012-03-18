@@ -7,7 +7,13 @@
 	<jbpm:kbase id="kbase">
 		<jbpm:resources>
 			<jbpm:resource type="BPMN2" source="classpath:process/blank.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/register_to_study.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/apology_approval.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_main.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_admission_test.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_test.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_decision.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_registration.bpmn" />
 		</jbpm:resources>
 	</jbpm:kbase>
 

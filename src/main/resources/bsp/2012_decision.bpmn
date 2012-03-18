@@ -12,88 +12,145 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
-  <process processType="Private" isExecutable="true" id="com.sample.bpmn" name="Sample Process" tns:packageName="defaultPackage" >
+  <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
+
+  <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="admission" itemSubjectRef="_admissionItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <endEvent id="_2" name="End" />
-    <scriptTask id="_3" name="Generovani rozhodnuti" >
-      <script></script>
+    <scriptTask id="_3" name="Decision generate" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Generating decision ...");
+if (admission.getAccepted() &amp;&amp; admission.getAppeal()) {
+	System.out.println("&gt; ROZHODNUTI O PRIJETI (NA ODVOLANI)");
+} else if (admission.getAccepted() &amp;&amp; !admission.getAppeal()) {
+	System.out.println("&gt; ROZHODNUTI O PRIJETI");
+} else if (!admission.getAccepted() &amp;&amp; admission.getAppeal()) {
+	System.out.println("&gt; ROZHODNUTI O NEPRIJETI (NA ODVOLANI)");
+} else if (!admission.getAccepted() &amp;&amp; !admission.getAppeal()) {
+	System.out.println("&gt; ROZHODNUTI O NEPRIJETI");
+}</script>
     </scriptTask>
     <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Converging" />
-    <scriptTask id="_5" name="Odeslani rozhodnuti" >
-      <script></script>
+    <scriptTask id="_5" name="(HT) Decision sent" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Sent decision ...");</script>
     </scriptTask>
-    <exclusiveGateway id="_6" name="Gateway" gatewayDirection="Diverging" />
-    <scriptTask id="_7" name="Odvolani k rozhodnuti" >
-      <script></script>
+    <exclusiveGateway id="_6" name="Gateway - appeal possibility check" gatewayDirection="Diverging" />
+    <scriptTask id="_7" name="(HT) Appeal for decision" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Possibility of appeal!");
+admission.setAppeal(true);</script>
     </scriptTask>
+    <scriptTask id="_8" name="(HT) Appeal approval" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Appeal approval!");
+admission.setAccepted(true);</script>
+    </scriptTask>
+    <endEvent id="_9" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <scriptTask id="_10" name="Not accepted" />
 
     <!-- connections -->
-    <sequenceFlow id="_6-_2" sourceRef="_6" targetRef="_2" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_6-_2" sourceRef="_6" targetRef="_2" name="to_registration" tns:priority="2" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
+		if (admission.getAccepted()) {
+			b = true;
+		}
+		return b;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" />
     <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
-    <sequenceFlow id="_7-_4" sourceRef="_7" targetRef="_4" />
+    <sequenceFlow id="_8-_4" sourceRef="_8" targetRef="_4" />
     <sequenceFlow id="_3-_5" sourceRef="_3" targetRef="_5" />
     <sequenceFlow id="_5-_6" sourceRef="_5" targetRef="_6" />
-    <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" name="to_appeal" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
+		if (!admission.getAccepted() &amp;&amp; !admission.getAppeal()) {
+			b = true;
+		}
+		return b;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_7-_8" sourceRef="_7" targetRef="_8" />
+    <sequenceFlow id="_10-_9" sourceRef="_10" targetRef="_9" />
+    <sequenceFlow id="_6-_10" sourceRef="_6" targetRef="_10" name="not_accepted" tns:priority="3" >
+      <conditionExpression xsi:type="tFormalExpression" >return true;</conditionExpression>
     </sequenceFlow>
 
   </process>
 
   <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn" >
+    <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="41" y="16" width="48" height="48" />
+        <dc:Bounds x="180" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="181" y="418" width="48" height="48" />
+        <dc:Bounds x="162" y="418" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="16" y="177" width="163" height="48" />
+        <dc:Bounds x="136" y="177" width="133" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="73" y="96" width="48" height="48" />
+        <dc:Bounds x="180" y="96" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_5" >
-        <dc:Bounds x="25" y="257" width="154" height="48" />
+        <dc:Bounds x="132" y="257" width="138" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="181" y="337" width="48" height="48" />
+        <dc:Bounds x="175" y="337" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="121" y="16" width="169" height="48" />
+        <dc:Bounds x="242" y="418" width="185" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="260" y="16" width="148" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="49" y="498" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="16" y="418" width="114" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_6-_2" >
-        <di:waypoint x="205" y="361" />
-        <di:waypoint x="205" y="442" />
+        <di:waypoint x="199" y="361" />
+        <di:waypoint x="186" y="442" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_4-_3" >
-        <di:waypoint x="97" y="120" />
-        <di:waypoint x="97" y="201" />
+        <di:waypoint x="204" y="120" />
+        <di:waypoint x="202" y="201" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_4" >
-        <di:waypoint x="65" y="40" />
-        <di:waypoint x="97" y="120" />
+        <di:waypoint x="204" y="40" />
+        <di:waypoint x="204" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_7-_4" >
-        <di:waypoint x="205" y="40" />
-        <di:waypoint x="97" y="120" />
+      <bpmndi:BPMNEdge bpmnElement="_8-_4" >
+        <di:waypoint x="334" y="40" />
+        <di:waypoint x="204" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_3-_5" >
-        <di:waypoint x="97" y="201" />
-        <di:waypoint x="102" y="281" />
+        <di:waypoint x="202" y="201" />
+        <di:waypoint x="201" y="281" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_5-_6" >
-        <di:waypoint x="102" y="281" />
-        <di:waypoint x="205" y="361" />
+        <di:waypoint x="201" y="281" />
+        <di:waypoint x="199" y="361" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_6-_7" >
-        <di:waypoint x="205" y="361" />
-        <di:waypoint x="205" y="40" />
+        <di:waypoint x="199" y="361" />
+        <di:waypoint x="334" y="442" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_8" >
+        <di:waypoint x="334" y="442" />
+        <di:waypoint x="334" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_9" >
+        <di:waypoint x="73" y="442" />
+        <di:waypoint x="73" y="522" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_10" >
+        <di:waypoint x="199" y="361" />
+        <di:waypoint x="73" y="442" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
