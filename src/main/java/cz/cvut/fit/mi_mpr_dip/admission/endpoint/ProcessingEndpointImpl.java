@@ -41,9 +41,6 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	public static final String ENDPOINT_PATH = "/processing";
 
 	@Autowired
-	private AdmissionsBuilder admissionsBuilder;
-
-	@Autowired
 	private AdmissionEndpoint admissionEndpoint;
 
 	@Autowired
@@ -73,8 +70,11 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	}
 
 	private Admissions buildAdmissions(Integer count, Integer page) {
+		AdmissionsBuilder admissionsBuilder = getAdmissionsBuilder();
+		
 		admissionsBuilder.createNew();
 		admissionsBuilder.buildLimit(count, page);
+		admissionsBuilder.buildAdmissions();
 
 		return admissionsBuilder.get();
 	}
@@ -91,9 +91,15 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	}
 
 	private Admissions buildAdmissions(List<Admission> admissions) {
+		AdmissionsBuilder admissionsBuilder = getAdmissionsBuilder();
+		
 		admissionsBuilder.createNew();
 		admissionsBuilder.buildAdmissions(admissions);
 		return admissionsBuilder.get();
+	}
+
+	private AdmissionsBuilder getAdmissionsBuilder() {
+		return applicationContext.getBean(AdmissionsBuilder.class);
 	}
 
 	@Path(ADMISSION_PATH)

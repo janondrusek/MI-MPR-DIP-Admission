@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.builder;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Required;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -47,7 +48,11 @@ public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 
 	@Override
 	public void buildAdmissions() {
-		admissions.setAdmissions(Admission.findAdmissionEntries(offset, limit));
+		List<Admission> admissions = Admission.findAdmissionEntries(offset, limit);
+		Integer count = CollectionUtils.isNotEmpty(admissions) ? admissions.size() : 0;
+		get().setAdmissions(admissions);
+		get().setCount(count.longValue());
+		get().setTotalCount(Admission.countAdmissions());
 	}
 
 	@Override
