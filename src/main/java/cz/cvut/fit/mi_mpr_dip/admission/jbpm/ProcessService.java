@@ -11,6 +11,7 @@ import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
+import org.jbpm.process.workitem.email.EmailWorkItemHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,17 @@ public class ProcessService {
 		logger.close();
 		
 		return processInstance;
+	}
+	
+	public ProcessInstance runEmailProcess() {
+		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
+		
+//		emailHandler.setConnection("host", "port", "username", "password");
+		emailHandler.setConnection("localhost", "25", null, null);
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
+		
+		return ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
 	}
 	
 	// WARNING
