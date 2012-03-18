@@ -40,7 +40,7 @@ public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 	}
 
 	private void assignOffset(Integer page) {
-		if (page > 1) {
+		if (page != null && page > 1) {
 			offset = (page - 1) * limit;
 		}
 	}
