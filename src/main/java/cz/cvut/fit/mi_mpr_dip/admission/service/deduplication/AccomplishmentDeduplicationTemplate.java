@@ -26,6 +26,18 @@ public class AccomplishmentDeduplicationTemplate implements AdmissionDeduplicati
 	private void deduplicateAccomplishments(Set<Accomplishment> accomplishments) {
 		Set<AccomplishmentType> accomplishmentTypes = collectAccomplishmentTypes(accomplishments);
 		deduplicateAccomplishmentTypes(accomplishmentTypes);
+		deduplicateAccomplishments(accomplishments, accomplishmentTypes);
+	}
+
+	private void deduplicateAccomplishments(Set<Accomplishment> accomplishments,
+			Set<AccomplishmentType> accomplishmentTypes) {
+		for (AccomplishmentType accomplishmentType : accomplishmentTypes) {
+			for (Accomplishment accomplishment : accomplishments) {
+				if (accomplishment.getAccomplishmentType().equals(accomplishmentType)) {
+					accomplishment.setAccomplishmentType(accomplishmentType);
+				}
+			}
+		}
 	}
 
 	private Set<AccomplishmentType> collectAccomplishmentTypes(Set<Accomplishment> accomplishments) {
