@@ -49,16 +49,17 @@ public class AccomplishmentDeduplicationTemplate implements AdmissionDeduplicati
 	}
 
 	private void deduplicateAccomplishmentTypes(Set<AccomplishmentType> accomplishmentTypes) {
+		Set<AccomplishmentType> replacements = new HashSet<AccomplishmentType>();
 		Iterator<AccomplishmentType> iterator = accomplishmentTypes.iterator();
 		while (iterator.hasNext()) {
 			AccomplishmentType accomplishmentType = iterator.next();
 			List<AccomplishmentType> dbAccomplishmentTypes = AccomplishmentType.findAccomplishmentTypesByNameEquals(
 					accomplishmentType.getName()).getResultList();
 			if (CollectionUtils.isNotEmpty(dbAccomplishmentTypes)) {
-				accomplishmentTypes.remove(accomplishmentType);
-				accomplishmentTypes.add(dbAccomplishmentTypes.get(0));
+				iterator.remove();
+				replacements.add(dbAccomplishmentTypes.get(0));
 			}
 		}
-
+		accomplishmentTypes.addAll(replacements);
 	}
 }
