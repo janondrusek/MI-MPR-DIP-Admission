@@ -8,7 +8,6 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -17,20 +16,20 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooEquals(excludeFields = { "evaluationTypeId" })
-@RooJpaActiveRecord
+@RooJpaActiveRecord(finders = { "findEvaluationTypesByNameEquals" })
 public class EvaluationType {
 
-	@Version
-	@Transient
-	@XmlTransient
-	private int version;
+    @Version
+    @Transient
+    @XmlTransient
+    private int version;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlTransient
-	private Long evaluationTypeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlTransient
+    private Long evaluationTypeId;
 
-	@NotNull
-	@Column(unique = true)
-	private String name;
+    @NotNull
+    @Column(unique = true)
+    private String name;
 }
