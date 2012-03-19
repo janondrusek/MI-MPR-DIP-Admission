@@ -24,8 +24,6 @@ public class DeduplicationServiceImpl implements DeduplicationService {
 		deduplicate(admission);
 		deduplicate(admission.getPerson());
 
-		deduplicateEvaluations(admission);
-
 		admission.persist();
 	}
 
@@ -33,11 +31,6 @@ public class DeduplicationServiceImpl implements DeduplicationService {
 		for (AdmissionDeduplicationTemplate deduplicationTemplate : admissionDeduplicationTemplates) {
 			deduplicationTemplate.deduplicate(admission);
 		}
-	}
-
-	private void deduplicateEvaluations(Admission admission) {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void deduplicate(Person person) {
