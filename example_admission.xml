@@ -5,6 +5,47 @@
 	<type />
 	<!-- Mark if attendant was successful in admission process -->
 	<accepted />
+	<accomplishments>
+		<accomplishment>
+			<accomplishmentType>
+				<name>SCIO</name>
+			</accomplishmentType>
+			<accomplishmentValues>
+				<accomplishmentValue>
+					<value>10</value>
+				</accomplishmentValue>
+				<accomplishmentValue>
+					<value>20</value>
+				</accomplishmentValue>
+			</accomplishmentValues>
+		</accomplishment>
+		<accomplishment>
+			<accomplishmentType>
+				<name>SCIO</name>
+			</accomplishmentType>
+			<accomplishmentValues>
+				<accomplishmentValue>
+					<value>10.5</value>
+				</accomplishmentValue>
+				<accomplishmentValue>
+					<value>20.56</value>
+				</accomplishmentValue>
+			</accomplishmentValues>
+		</accomplishment>
+		<accomplishment>
+			<accomplishmentType>
+				<name>English A2</name>
+			</accomplishmentType>
+			<accomplishmentValues>
+				<accomplishmentValue>
+					<value>50.5</value>
+				</accomplishmentValue>
+				<accomplishmentValue>
+					<value>79.00</value>
+				</accomplishmentValue>
+			</accomplishmentValues>
+		</accomplishment>
+	</accomplishments>
 	<!-- Mark if attendant fails in admission process but appeals the decision -->
 	<appeal />
 	<dormitoryRequest>true</dormitoryRequest>
@@ -19,6 +60,12 @@
 				<name>h1</name>
 			</evaluationType>
 			<value>10.2</value>
+		</evaluation>
+		<evaluation>
+			<evaluationType>
+				<name>h1</name>
+			</evaluationType>
+			<value>11.2</value>
 		</evaluation>
 		<evaluation>
 			<evaluationType>
