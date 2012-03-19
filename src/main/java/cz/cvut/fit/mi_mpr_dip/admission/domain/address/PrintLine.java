@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.roo.addon.equals.RooEquals;
@@ -18,6 +20,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooEquals(excludeFields = { "printLineId" })
 @RooJpaActiveRecord
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PrintLine {
 
 	@Version
