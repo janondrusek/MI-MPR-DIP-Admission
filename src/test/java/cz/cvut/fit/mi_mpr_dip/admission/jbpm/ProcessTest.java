@@ -5,8 +5,26 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import junit.framework.TestCase;
 
+import org.drools.SystemEventListener;
+import org.drools.SystemEventListenerFactory;
+import org.drools.logger.KnowledgeRuntimeLogger;
+import org.drools.logger.KnowledgeRuntimeLoggerFactory;
+import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.process.ProcessInstance;
+import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
+import org.jbpm.task.User;
+import org.jbpm.task.service.TaskClient;
+import org.jbpm.task.service.TaskServer;
+import org.jbpm.task.service.TaskService;
+import org.jbpm.task.service.TaskServiceSession;
+import org.jbpm.task.service.mina.MinaTaskClientConnector;
+import org.jbpm.task.service.mina.MinaTaskClientHandler;
+import org.jbpm.task.service.mina.MinaTaskServer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,62 +59,27 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 	@Autowired
 	ProcessService processService;
 
-	private Admission admission;
+	@Autowired
+	private StatefulKnowledgeSession ksession;
 
+	private Admission admission;
+	private final String processName = "2012_BSP_main";
+	private TaskServer taskServer;
+
+	@Override
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
 	}
 
 	@Test
-	public void testRunProcess() {
+	public void testRunBlankProcess() {
 		processService.runProcess();
 	}
 
-	/*@Test
-	public void testCondition() {
-		boolean b = false;
-		boolean b_1 = false;
-		boolean b_2 = false;
-		if (admission.getAccepted()) {
-			b = true;
-			//return true;
-		}
-
-		for (Evaluation evaluation : admission.getEvaluations()) {
-			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
-			String citizenship = admission.getPerson().getCitizenship().getName();
-			
-			if (!citizenship.isEmpty()) {
-				if (type.equals("H3") && Double.valueOf(value) > 0) {
-					System.out.println("1 dokumenty ok: [" + type + "] MV, DIPLOM, ... - " + value);
-					b = true;
-					//return true;
-				}
-			} else {
-				if (type.equals("H3") && Double.valueOf(value) > 0) {
-					System.out.println("2 dokumenty ok: [" + type + "] MV, DIPLOM, ... - " + value);
-					b_1 = true;
-				}
-				if (type.equals("H4") && Double.valueOf(value) > 0) {
-					System.out.println("3 dokumenty ok: [" + type + "] ZKOUSKA z CJ - " + value);
-					b_2 = true;
-				}
-			}
-		}
-		if (b_1 && b_2) {
-			b = true;// return true;
-		}
-		if (b) {
-			System.out.println("DOKUMENTY V PORADKU");
-		} else {
-			System.out.println("DODAT DOKUMENTY");
-		}
-
-		// return b;
-		assertTrue(b);
-	}*/
+	/*
+	 * @Test public void testCondition() { boolean b = false; // return b; }
+	 */
 
 	@Test
 	public void testValidAdmissionData() {
@@ -105,22 +88,50 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 
 	@Test
 	public void testProcess() {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("admission", admission);
+		try {
+//			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
+//			TaskService taskService = new TaskService(emf, SystemEventListenerFactory.getSystemEventListener());
+//
+//			/* Start Mina server for HT */
+//			MinaTaskServer server = new MinaTaskServer(taskService);
+//			Thread thread = new Thread(server);
+//			thread.start();
+//			System.out.println("Server started ...");
 
-		processService.runProcess(parameters);
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("admission", admission);
+
+			KnowledgeRuntimeLogger logger = createLogger(ksession);
+
+			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+			// ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
+			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
+					parameters);
+
+//			SystemEventListenerFactory.setSystemEventListener(new SystemEventListener());
+//			TaskClient taskClient = new TaskClient(new MinaTaskClientConnector("MinaConnector",
+//					new MinaTaskClientHandler(SystemEventListenerFactory.getSystemEventListener())));
+//			taskClient.connect("127.0.0.1", 9123);
+
+			Thread.sleep(1000);
+
+			logger.close();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Test
 	public void testEmailHandler() {
 		// TODO
-		processService.runEmailProcess();
+		// processService.runEmailProcess();
 	}
 
 	@Test
 	public void testProcessWithDataFromDB() {
 		// TODO
-		
+
 	}
 
 	private Admission setTestAdmission() {
@@ -267,8 +278,8 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 		Set<Evaluation> evaluations = new HashSet<Evaluation>();
 		evaluations.add(e1);
 		evaluations.add(e3);
-//		evaluations.add(e5);
-//		evaluations.add(e7);
+		// evaluations.add(e5);
+		// evaluations.add(e7);
 
 		a.setEvaluations(evaluations);
 
@@ -350,5 +361,47 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 		assertNotNull(evaluation.getEvaluationType().getName());
 		assertEquals(2, evaluation.getEvaluationType().getName().length());
 		assertEquals('H', evaluation.getEvaluationType().getName().charAt(0));
+	}
+
+	private KnowledgeRuntimeLogger createLogger(StatefulKnowledgeSession ksession) {
+		int logIntervalInMilliseconds = 500;
+		String logName = processName;
+		KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, logName,
+				logIntervalInMilliseconds);
+		return logger;
+	}
+
+	private static class SystemEventListener implements org.drools.SystemEventListener {
+		@Override
+		public void debug(String arg0) {
+		}
+
+		@Override
+		public void debug(String arg0, Object arg1) {
+		}
+
+		@Override
+		public void exception(Throwable arg0) {
+		}
+
+		@Override
+		public void exception(String arg0, Throwable arg1) {
+		}
+
+		@Override
+		public void info(String arg0) {
+		}
+
+		@Override
+		public void info(String arg0, Object arg1) {
+		}
+
+		@Override
+		public void warning(String arg0) {
+		}
+
+		@Override
+		public void warning(String arg0, Object arg1) {
+		}
 	}
 }
