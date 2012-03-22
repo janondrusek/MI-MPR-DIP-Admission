@@ -17,11 +17,11 @@ privileged aspect AdmissionState_Roo_Equals {
             return true;
         }
         AdmissionState rhs = (AdmissionState) obj;
-        return new EqualsBuilder().append(code, rhs.code).append(desciption, rhs.desciption).append(name, rhs.name).isEquals();
+        return new EqualsBuilder().append(code, rhs.code).isEquals();
     }
     
     public int AdmissionState.hashCode() {
-        return new HashCodeBuilder().append(code).append(desciption).append(name).toHashCode();
+        return new HashCodeBuilder().append(code).toHashCode();
     }
     
 }

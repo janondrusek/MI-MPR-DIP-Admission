@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <admission>
-	<code>123-456</code>
+	<code>123-456-02</code>
 	<!-- Maybe paper or electronic form -->
 	<type />
 	<!-- Mark if attendant was successful in admission process -->
@@ -12,10 +12,10 @@
 			</accomplishmentType>
 			<accomplishmentValues>
 				<accomplishmentValue>
-					<value>10</value>
+					<value>10.02</value>
 				</accomplishmentValue>
 				<accomplishmentValue>
-					<value>20</value>
+					<value>20.02</value>
 				</accomplishmentValue>
 			</accomplishmentValues>
 		</accomplishment>
@@ -25,10 +25,10 @@
 			</accomplishmentType>
 			<accomplishmentValues>
 				<accomplishmentValue>
-					<value>10.5</value>
+					<value>10.02</value>
 				</accomplishmentValue>
 				<accomplishmentValue>
-					<value>20.56</value>
+					<value>20.02</value>
 				</accomplishmentValue>
 			</accomplishmentValues>
 		</accomplishment>
@@ -38,10 +38,10 @@
 			</accomplishmentType>
 			<accomplishmentValues>
 				<accomplishmentValue>
-					<value>50.5</value>
+					<value>50.02</value>
 				</accomplishmentValue>
 				<accomplishmentValue>
-					<value>79.00</value>
+					<value>79.02</value>
 				</accomplishmentValue>
 			</accomplishmentValues>
 		</accomplishment>
@@ -50,7 +50,7 @@
 	<appeal />
 	<dormitoryRequest>true</dormitoryRequest>
 	<admissionState>
-		<code>state-123-456</code>
+		<code>state-123-456-02</code>
 		<name>new</name>
 		<description>new and better</description>
 	</admissionState>
@@ -59,19 +59,19 @@
 			<evaluationType>
 				<name>h1</name>
 			</evaluationType>
-			<value>10.2</value>
+			<value>10.02</value>
 		</evaluation>
 		<evaluation>
 			<evaluationType>
 				<name>h1</name>
 			</evaluationType>
-			<value>11.2</value>
+			<value>11.02</value>
 		</evaluation>
 		<evaluation>
 			<evaluationType>
 				<name>h2</name>
 			</evaluationType>
-			<value>4.47</value>
+			<value>4.02</value>
 		</evaluation>
 	</evaluations>
 	<faculty>
@@ -79,7 +79,7 @@
 	</faculty>
 	<person>
 		<citizenship>
-			<name>Czech republic</name>
+			<name>Hungary</name>
 		</citizenship>
 		<prefix>Don</prefix>
 		<suffix>Css</suffix>
@@ -90,13 +90,13 @@
 		<maritalStatus>
 			<name>single</name>
 		</maritalStatus>
-		<permanentResidenceGranted>true</permanentResidenceGranted>
+		<permanentResidenceGranted>false</permanentResidenceGranted>
 		<documents>
 			<document>
 				<documentType>
-					<name>Passport</name>
+					<name>National ID</name>
 				</documentType>
-				<number>678-901</number>
+				<number>678-901-02</number>
 			</document>
 		</documents>
 		<addresses>
@@ -140,13 +140,13 @@
 			<name>M</name>
 		</gender>
 		<cityOfBirth>
-			<name>Prague</name>
+			<name>Brno</name>
 		</cityOfBirth>
 		<countryOfBirth>
-			<name>Czech republic</name>
+			<name>Hungary</name>
 		</countryOfBirth>
 		<phone>603123456</phone>
-		<email>dyg@more.com</email>
+		<email>you@he.com</email>
 		<disabilities>
 			<disability>
 				<name>blind</name>
@@ -160,12 +160,12 @@
 		</disabilities>
 	</person>
 	<programme>
-		<name>MI</name>
+		<name>ET</name>
 		<degree>
-			<name>Bc.</name>
+			<name>Mgr.</name>
 		</degree>
 		<studyMode>
-			<name>presence</name>
+			<name>combined</name>
 		</studyMode>
 		<language>
 			<name>czech</name>

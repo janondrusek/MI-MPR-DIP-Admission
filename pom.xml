@@ -54,6 +54,7 @@
 		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
 		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
 		<maven.assembly.version>2.2.1</maven.assembly.version>
+		<maven.jrebel.version>1.1.1</maven.jrebel.version>
 		<jaxb2.schemagen.version>1.3.1</jaxb2.schemagen.version>
 		<jaxb2.maven.version>1.3.1</jaxb2.maven.version>
 		<jbpm.workitems.version>5.2.0.Final</jbpm.workitems.version>
@@ -419,6 +420,14 @@
 					<artifactId>persistence-api</artifactId>
 					<groupId>javax.persistence</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-commons-annotations</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -543,7 +552,7 @@
 					<webAppConfig>
 						<contextPath>/admission</contextPath>
 					</webAppConfig>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<scanIntervalSeconds>0</scanIntervalSeconds>
 					<stopPort>9005</stopPort>
 					<stopKey>STOP</stopKey>
 					<connectors>
@@ -609,6 +618,20 @@
 					<username>${maven.tomcat7.username}</username>
 					<password>${maven.tomcat7.password}</password>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.zeroturnaround</groupId>
+				<artifactId>jrebel-maven-plugin</artifactId>
+				<version>${maven.jrebel.version}</version>
+				<executions>
+					<execution>
+						<id>generate-rebel-xml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
