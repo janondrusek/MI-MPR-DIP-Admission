@@ -12,6 +12,7 @@ import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.email.EmailWorkItemHandler;
+import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +53,8 @@ public class ProcessService {
 	public ProcessInstance runProcess(Map<String, Object> parameters) {
 		KnowledgeRuntimeLogger logger = createLogger(ksession);
 
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
-		
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+//		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);		
 		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
 
 		logger.close();
@@ -63,9 +64,7 @@ public class ProcessService {
 	
 	public ProcessInstance runEmailProcess() {
 		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
-		
-//		emailHandler.setConnection("host", "port", "username", "password");
-		emailHandler.setConnection("localhost", "25", null, null);
+		emailHandler.setConnection("${mail.smtp.host}", "${mail.smtp.port}", "${mail.username}", "${mail.password}");
 
 		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
 		
