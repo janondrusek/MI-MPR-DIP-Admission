@@ -50,7 +50,7 @@
 		<maven.resources.version>2.5</maven.resources.version>
 		<maven.surefire.version>2.9</maven.surefire.version>
 		<maven.tomcat7.version>2.0-beta-1</maven.tomcat7.version>
-		<maven.tomcat7.url>pririz.is.fit.cvut.cz:9090/manager/html</maven.tomcat7.url>
+		<maven.tomcat7.url>http://pririz.is.fit.cvut.cz:9090/manager/html</maven.tomcat7.url>
 		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
 		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
 		<maven.assembly.version>2.2.1</maven.assembly.version>
