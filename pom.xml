@@ -468,6 +468,14 @@
 					<artifactId>ejb3-persistence</artifactId>
 					<groupId>org.hibernate</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-commons-annotations</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 	</dependencies>
