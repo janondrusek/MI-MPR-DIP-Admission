@@ -16,10 +16,10 @@ Implements entire admission process to master studies.
 * Conduct tests - acceptance test, unit tests at least for core parts and stress tests. Assumed number of concurrent users is 250, total number of users is 2500.
 
 ## Installation
-* download **Spring Roo** latest GA version [from here](http://www.springsource.org/spring-roo) and follow its installation steps.
+* download **Spring Roo** [latest GA version](http://www.springsource.org/spring-roo) and follow its installation steps.
 
 * download and install [maven](http://maven.apache.org/download.html) and follow installation steps.
 
-* if you are using Eclipse IDE, run **eclipse:eclipse** command from console in project directory.
+* if you are using Eclipse IDE, run **mvn eclipse:eclipse** command from console in project directory.
 
 * otherwise, do what you gotta do :P
