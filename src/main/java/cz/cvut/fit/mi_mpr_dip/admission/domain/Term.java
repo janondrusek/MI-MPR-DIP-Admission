@@ -45,6 +45,9 @@ public class Term {
 
 	@NotNull
 	private String room;
+	
+	@NotNull
+	private Date datetime;
 
 	@NotNull
 	private Integer capacity;
