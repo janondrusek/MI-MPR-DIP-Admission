@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.config.AccessiblePropertyPlaceholderConfigurer;
 
-public class AdminServiceImpl implements AdminService {
+public class DefaultAdminService implements AdminService {
 
 	private AccessiblePropertyPlaceholderConfigurer exposablePropertyHolder;
 

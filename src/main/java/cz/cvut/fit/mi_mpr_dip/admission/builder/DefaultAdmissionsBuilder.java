@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Required;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 
-public class AdmissionsBuilderImpl implements AdmissionsBuilder {
+public class DefaultAdmissionsBuilder implements AdmissionsBuilder {
 
 	private Admissions admissions;
 

@@ -11,7 +11,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 @Service
-public class ProgrammeDeduplicationTemplateImpl implements AdmissionDeduplicationTemplate {
+public class DefaultProgrammeDeduplicationTemplate implements AdmissionDeduplicationTemplate {
 
 	@Autowired
 	private Set<ProgrammeDeduplicationTemplate> deduplicationTemplates;

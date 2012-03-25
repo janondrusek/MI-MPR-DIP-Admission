@@ -29,7 +29,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.MobileEndpointImpl">
+	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 	</bean>
 

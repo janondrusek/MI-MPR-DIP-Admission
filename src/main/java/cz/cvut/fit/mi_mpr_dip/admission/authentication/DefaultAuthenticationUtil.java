@@ -12,7 +12,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPermission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 
 @Component
-public class AuthenticationUtilImpl implements AuthenticationUtil {
+public class DefaultAuthenticationUtil implements AuthenticationUtil {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(Set<UserRole> roles) {

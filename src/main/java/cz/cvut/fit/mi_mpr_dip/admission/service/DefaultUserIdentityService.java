@@ -16,7 +16,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
-public class UserIdentityServiceImpl implements UserIdentityService {
+public class DefaultUserIdentityService implements UserIdentityService {
 
 	private Long grantValidSeconds;
 

@@ -14,7 +14,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.LdapService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Service("userIdentityAuthenticationProvider")
-public class UserIdentityAuthenticationProviderImpl implements AuthenticationProvider {
+public class UserIdentityAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private AuthenticationUtil authenticationUtil;

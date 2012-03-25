@@ -8,9 +8,9 @@
      http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd     
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
-	<jdbc:initialize-database data-source="dataSource">
-		<jdbc:script location="classpath:META-INF/sql/admission-test-data.sql" />
-	</jdbc:initialize-database>
+<!-- 	<jdbc:initialize-database data-source="dataSource"> -->
+<!-- 		<jdbc:script location="classpath:META-INF/sql/admission-test-data.sql" /> -->
+<!-- 	</jdbc:initialize-database> -->
 
 	<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
 		<property name="driverClassName" value="${database.driverClassName}" />
@@ -24,14 +24,17 @@
 		<property name="numTestsPerEvictionRun" value="3" />
 		<property name="minEvictableIdleTimeMillis" value="1800000" />
 	</bean>
+
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
+
 	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
 		<property name="persistenceUnitName" value="persistenceUnit" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+
+	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
 
 	<!-- <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource"> -->
 	<!-- <property name="driverClassName" value="${database.driverClassName}" /> -->
