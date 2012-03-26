@@ -2,29 +2,19 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import junit.framework.TestCase;
-
-import org.drools.SystemEventListener;
-import org.drools.SystemEventListenerFactory;
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
-import org.jbpm.task.User;
-import org.jbpm.task.service.TaskClient;
-import org.jbpm.task.service.TaskServer;
+import org.jbpm.task.query.TaskSummary;
 import org.jbpm.task.service.TaskService;
-import org.jbpm.task.service.TaskServiceSession;
-import org.jbpm.task.service.mina.MinaTaskClientConnector;
-import org.jbpm.task.service.mina.MinaTaskClientHandler;
-import org.jbpm.task.service.mina.MinaTaskServer;
+import org.jbpm.test.JBPMHelper;
+import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +44,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/META-INF/spring/applicationContext.xml" })
-public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
+public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { // extends JbpmJUnitTestCase {
 
 	@Autowired
 	ProcessService processService;
@@ -64,22 +54,14 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 
 	private Admission admission;
 	private final String processName = "2012_BSP_main";
-	private TaskServer taskServer;
+	private TaskService taskService;
 
 	@Override
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
+		//taskService = (TaskService) getTaskService(ksession);
 	}
-
-	@Test
-	public void testRunBlankProcess() {
-		processService.runProcess();
-	}
-
-	/*
-	 * @Test public void testCondition() { boolean b = false; // return b; }
-	 */
 
 	@Test
 	public void testValidAdmissionData() {
@@ -87,39 +69,34 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 	}
 
 	@Test
+	public void testRunBlankProcess() {
+		processService.runBlankProcess();
+	}
+
+	@Test
 	public void testProcess() {
-		try {
-//			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
-//			TaskService taskService = new TaskService(emf, SystemEventListenerFactory.getSystemEventListener());
-//
-//			/* Start Mina server for HT */
-//			MinaTaskServer server = new MinaTaskServer(taskService);
-//			Thread thread = new Thread(server);
-//			thread.start();
-//			System.out.println("Server started ...");
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
 
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("admission", admission);
+//		JBPMHelper.startTaskService();
+//		TaskService taskService = (TaskService) getTaskService(ksession);
 
-			KnowledgeRuntimeLogger logger = createLogger(ksession);
+		KnowledgeRuntimeLogger logger = createLogger(ksession);
 
-			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
-			// ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
-			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
-					parameters);
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+		// ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
+				parameters);
 
-//			SystemEventListenerFactory.setSystemEventListener(new SystemEventListener());
-//			TaskClient taskClient = new TaskClient(new MinaTaskClientConnector("MinaConnector",
-//					new MinaTaskClientHandler(SystemEventListenerFactory.getSystemEventListener())));
-//			taskClient.connect("127.0.0.1", 9123);
+//		assertProcessInstanceActive(processInstance.getId(), ksession);
+//		assertNodeTriggered(processInstance.getId(), "Start");
 
-			Thread.sleep(1000);
+		// let john execute Task 1
+//		List<TaskSummary> list = ((org.jbpm.task.TaskService) taskService).getTasksAssignedAsPotentialOwner("john", "en-UK");
+//		TaskSummary task = list.get(0);
+//		System.out.println("John is executing task " + task.getName());
 
-			logger.close();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		logger.close();
 	}
 
 	@Test
@@ -369,39 +346,5 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 		KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, logName,
 				logIntervalInMilliseconds);
 		return logger;
-	}
-
-	private static class SystemEventListener implements org.drools.SystemEventListener {
-		@Override
-		public void debug(String arg0) {
-		}
-
-		@Override
-		public void debug(String arg0, Object arg1) {
-		}
-
-		@Override
-		public void exception(Throwable arg0) {
-		}
-
-		@Override
-		public void exception(String arg0, Throwable arg1) {
-		}
-
-		@Override
-		public void info(String arg0) {
-		}
-
-		@Override
-		public void info(String arg0, Object arg1) {
-		}
-
-		@Override
-		public void warning(String arg0) {
-		}
-
-		@Override
-		public void warning(String arg0, Object arg1) {
-		}
 	}
 }

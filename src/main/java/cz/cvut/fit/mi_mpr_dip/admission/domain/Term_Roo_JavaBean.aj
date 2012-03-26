@@ -36,12 +36,12 @@ privileged aspect Term_Roo_JavaBean {
         this.room = room;
     }
     
-    public Date Term.getDatetime() {
-        return this.datetime;
+    public Date Term.getDateAndTimeDate() {
+        return this.dateAndTimeDate;
     }
     
-    public void Term.setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void Term.setDateAndTimeDate(Date dateAndTimeDate) {
+        this.dateAndTimeDate = dateAndTimeDate;
     }
     
     public Integer Term.getCapacity() {
