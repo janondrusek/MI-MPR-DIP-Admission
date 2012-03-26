@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,7 +11,9 @@ import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
+import org.jbpm.task.query.TaskSummary;
 import org.jbpm.task.service.TaskService;
+import org.jbpm.test.JBPMHelper;
 import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +31,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -36,7 +38,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
-import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 /**
  * This is a sample file to launch a process.
@@ -144,7 +145,7 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
 
 		AddressType adt2 = new AddressType();
 		adt2.setName("contact");
-		
+
 		Set<PrintLine> printLines = createPrintLines();
 
 		Address ad = new Address();
