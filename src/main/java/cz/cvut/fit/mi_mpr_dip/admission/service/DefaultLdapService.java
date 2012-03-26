@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Required;
 
 import cz.cvut.fit.mi_mpr_dip.admission.adapter.LdapAdapter;
 
-public class LdapServiceImpl implements LdapService {
+public class DefaultLdapService implements LdapService {
 
 	private LdapAdapter ldapAdapter;
 

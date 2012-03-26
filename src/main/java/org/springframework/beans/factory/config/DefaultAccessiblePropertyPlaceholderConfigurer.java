@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.springframework.beans.BeansException;
 
-public class AccessiblePropertyPlaceholderConfigurerImpl extends PropertyPlaceholderConfigurer implements
+public class DefaultAccessiblePropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements
 		AccessiblePropertyPlaceholderConfigurer {
 
 	private Map<String, String> propertiesMap;

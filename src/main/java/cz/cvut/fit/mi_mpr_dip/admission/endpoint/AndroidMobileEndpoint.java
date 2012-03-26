@@ -25,8 +25,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
-@Path(MobileEndpointImpl.ENDPOINT_PATH)
-public class MobileEndpointImpl implements MobileEndpoint {
+@Path(AndroidMobileEndpoint.ENDPOINT_PATH)
+public class AndroidMobileEndpoint implements MobileEndpoint {
 
 	public static final String IDENTITY_PATH = "/identity";
 	public static final String ADMISSION_PATH = "/admission";

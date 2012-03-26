@@ -6,7 +6,7 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 
-public class LdapAdapterImpl implements LdapAdapter {
+public class DefaultLdapAdapter implements LdapAdapter {
 
 	@Autowired
 	private LdapTemplate ldapTemplate;

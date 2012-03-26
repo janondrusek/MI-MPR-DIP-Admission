@@ -33,8 +33,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.validator.AdmissionValidator;
 
 @Service(value = "processingService")
-@Path(ProcessingEndpointImpl.ENDPOINT_PATH)
-public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationContextAware {
+@Path(DefaultProcessingEndpoint.ENDPOINT_PATH)
+public class DefaultProcessingEndpoint implements ProcessingEndpoint, ApplicationContextAware {
 
 	public static final String ADMISSION_PATH = "/admission";
 	public static final String ADMISSIONS_PATH = "/admissions";

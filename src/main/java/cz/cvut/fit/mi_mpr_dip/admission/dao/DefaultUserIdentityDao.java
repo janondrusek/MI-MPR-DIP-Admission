@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
 @Repository
-public class UserIdentityDaoImpl extends AbstractDao implements UserIdentityDao {
+public class DefaultUserIdentityDao extends AbstractDao implements UserIdentityDao {
 
 	@Transactional(readOnly = true)
 	@Override

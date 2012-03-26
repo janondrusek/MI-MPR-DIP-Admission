@@ -10,7 +10,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
 @Service
-public class DeduplicationServiceImpl implements DeduplicationService {
+public class DefaultDeduplicationService implements DeduplicationService {
 
 	@Autowired
 	private Set<AdmissionDeduplicationTemplate> admissionDeduplicationTemplates;

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 
 @Repository
-public class UserSessionDaoImpl extends AbstractDao implements UserSessionDao {
+public class DefaultUserSessionDao extends AbstractDao implements UserSessionDao {
 
 	@Transactional(readOnly = true)
 	@Override
