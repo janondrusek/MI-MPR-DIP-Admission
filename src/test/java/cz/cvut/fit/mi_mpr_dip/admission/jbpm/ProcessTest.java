@@ -5,26 +5,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import junit.framework.TestCase;
-
-import org.drools.SystemEventListener;
-import org.drools.SystemEventListenerFactory;
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
-import org.jbpm.task.User;
-import org.jbpm.task.service.TaskClient;
-import org.jbpm.task.service.TaskServer;
 import org.jbpm.task.service.TaskService;
-import org.jbpm.task.service.TaskServiceSession;
-import org.jbpm.task.service.mina.MinaTaskClientConnector;
-import org.jbpm.task.service.mina.MinaTaskClientHandler;
-import org.jbpm.task.service.mina.MinaTaskServer;
+import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +28,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -48,13 +36,16 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 /**
  * This is a sample file to launch a process.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/META-INF/spring/applicationContext.xml" })
-public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
+public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
+													// extends JbpmJUnitTestCase
+													// {
 
 	@Autowired
 	ProcessService processService;
@@ -64,22 +55,14 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 
 	private Admission admission;
 	private final String processName = "2012_BSP_main";
-	private TaskServer taskServer;
+	private TaskService taskService;
 
 	@Override
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
+		// taskService = (TaskService) getTaskService(ksession);
 	}
-
-	@Test
-	public void testRunBlankProcess() {
-		processService.runProcess();
-	}
-
-	/*
-	 * @Test public void testCondition() { boolean b = false; // return b; }
-	 */
 
 	@Test
 	public void testValidAdmissionData() {
@@ -87,39 +70,35 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 	}
 
 	@Test
+	public void testRunBlankProcess() {
+		processService.runBlankProcess();
+	}
+
+	@Test
 	public void testProcess() {
-		try {
-//			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
-//			TaskService taskService = new TaskService(emf, SystemEventListenerFactory.getSystemEventListener());
-//
-//			/* Start Mina server for HT */
-//			MinaTaskServer server = new MinaTaskServer(taskService);
-//			Thread thread = new Thread(server);
-//			thread.start();
-//			System.out.println("Server started ...");
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
 
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("admission", admission);
+		// JBPMHelper.startTaskService();
+		// TaskService taskService = (TaskService) getTaskService(ksession);
 
-			KnowledgeRuntimeLogger logger = createLogger(ksession);
+		KnowledgeRuntimeLogger logger = createLogger(ksession);
 
-			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
-			// ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
-			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
-					parameters);
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+		// ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
+				parameters);
 
-//			SystemEventListenerFactory.setSystemEventListener(new SystemEventListener());
-//			TaskClient taskClient = new TaskClient(new MinaTaskClientConnector("MinaConnector",
-//					new MinaTaskClientHandler(SystemEventListenerFactory.getSystemEventListener())));
-//			taskClient.connect("127.0.0.1", 9123);
+		// assertProcessInstanceActive(processInstance.getId(), ksession);
+		// assertNodeTriggered(processInstance.getId(), "Start");
 
-			Thread.sleep(1000);
+		// let john execute Task 1
+		// List<TaskSummary> list = ((org.jbpm.task.TaskService)
+		// taskService).getTasksAssignedAsPotentialOwner("john", "en-UK");
+		// TaskSummary task = list.get(0);
+		// System.out.println("John is executing task " + task.getName());
 
-			logger.close();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		logger.close();
 	}
 
 	@Test
@@ -165,33 +144,8 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 
 		AddressType adt2 = new AddressType();
 		adt2.setName("contact");
-
-		PrintLine pl1 = new PrintLine();
-		pl1.setName("1. řádek");
-		pl1.setValue("František Vomáčka");
-
-		PrintLine pl2 = new PrintLine();
-		pl2.setName("2. řádek");
-		pl2.setValue("Ulice 37");
-
-		PrintLine pl3 = new PrintLine();
-		pl3.setName("3. řádek");
-		pl3.setValue("99988 Město v ČR");
-
-		PrintLine pl4 = new PrintLine();
-		pl4.setName("4. řádek");
-		pl4.setValue("");
-
-		PrintLine pl5 = new PrintLine();
-		pl5.setName("5. řádek");
-		pl5.setValue("");
-
-		Set<PrintLine> printLines = new HashSet<PrintLine>();
-		printLines.add(pl1);
-		printLines.add(pl2);
-		printLines.add(pl3);
-		printLines.add(pl4);
-		printLines.add(pl5);
+		
+		Set<PrintLine> printLines = createPrintLines();
 
 		Address ad = new Address();
 		ad.setStreet("Ulice");
@@ -286,6 +240,29 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 		return a;
 	}
 
+	private Set<PrintLine> createPrintLines() {
+		String[][] printLines = { { "1. řádek", "František Vomáčka" }, { "2. řádek", "Ulice 37" },
+				{ "3. řádek", "99988 Město v ČR" }, { "4. řádek", StringPool.BLANK }, { "5. řádek", StringPool.BLANK } };
+
+		return createPrintLines(printLines);
+	}
+
+	private Set<PrintLine> createPrintLines(String[][] lines) {
+		Set<PrintLine> printLines = new HashSet<PrintLine>();
+		for (String[] line : lines) {
+			printLines.add(createPrintLine(line));
+		}
+		return printLines;
+	}
+
+	private PrintLine createPrintLine(String[] line) {
+		PrintLine printLine = new PrintLine();
+		printLine.setPrintLineType(new PrintLineType());
+		printLine.getPrintLineType().setName(line[0]);
+		printLine.setValue(line[1]);
+		return printLine;
+	}
+
 	private void isAdmissionValid(Admission admission) {
 		assertNotNull(admission);
 		assertNotNull(admission.getCode());
@@ -369,39 +346,5 @@ public class ProcessTest extends TestCase { // extends JbpmJUnitTestCase {
 		KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, logName,
 				logIntervalInMilliseconds);
 		return logger;
-	}
-
-	private static class SystemEventListener implements org.drools.SystemEventListener {
-		@Override
-		public void debug(String arg0) {
-		}
-
-		@Override
-		public void debug(String arg0, Object arg1) {
-		}
-
-		@Override
-		public void exception(Throwable arg0) {
-		}
-
-		@Override
-		public void exception(String arg0, Throwable arg1) {
-		}
-
-		@Override
-		public void info(String arg0) {
-		}
-
-		@Override
-		public void info(String arg0, Object arg1) {
-		}
-
-		@Override
-		public void warning(String arg0) {
-		}
-
-		@Override
-		public void warning(String arg0, Object arg1) {
-		}
 	}
 }

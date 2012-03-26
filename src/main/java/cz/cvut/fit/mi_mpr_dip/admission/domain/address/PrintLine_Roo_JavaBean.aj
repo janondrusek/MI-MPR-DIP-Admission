@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
 
 privileged aspect PrintLine_Roo_JavaBean {
     
@@ -23,12 +24,12 @@ privileged aspect PrintLine_Roo_JavaBean {
         this.printLineId = printLineId;
     }
     
-    public String PrintLine.getName() {
-        return this.name;
+    public PrintLineType PrintLine.getPrintLineType() {
+        return this.printLineType;
     }
     
-    public void PrintLine.setName(String name) {
-        this.name = name;
+    public void PrintLine.setPrintLineType(PrintLineType printLineType) {
+        this.printLineType = printLineType;
     }
     
     public String PrintLine.getValue() {

@@ -26,7 +26,8 @@ public class ProcessService {
 	@Autowired
 	private StatefulKnowledgeSession ksession;
 
-	private final String processName = "2012_BSP_main";
+	private final String processNameBSP = "2012_BSP_main";
+	private final String processNameMSP = "2012_MSP_main";
 
 	public void setSession(StatefulKnowledgeSession ksession) {
 		this.ksession = ksession;
@@ -46,20 +47,8 @@ public class ProcessService {
 		ksession = kbase.newStatefulKnowledgeSession();
 	}
 
-	public ProcessInstance runProcess() {
+	public ProcessInstance runBlankProcess() {
 		return ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
-	}
-
-	public ProcessInstance runProcess(Map<String, Object> parameters) {
-		KnowledgeRuntimeLogger logger = createLogger(ksession);
-
-		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);		
-		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
-
-		logger.close();
-		
-		return processInstance;
 	}
 	
 	public ProcessInstance runEmailProcess() {
@@ -70,15 +59,38 @@ public class ProcessService {
 		
 		return ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
 	}
+
+	public ProcessInstance runProcessBSP(Map<String, Object> parameters) {
+		KnowledgeRuntimeLogger logger = createLogger(ksession, processNameBSP);
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+//		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);		
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
+
+		logger.close();
+		
+		return processInstance;
+	}
+	
+	public ProcessInstance runProcessMSP(Map<String, Object> parameters) {
+		KnowledgeRuntimeLogger logger = createLogger(ksession, processNameMSP);
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+//		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);		
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
+
+		logger.close();
+		
+		return processInstance;
+	}
 	
 	// WARNING
 	public void disposeSession() {
 		ksession.dispose();
 	}
 
-	private KnowledgeRuntimeLogger createLogger(StatefulKnowledgeSession ksession) {
+	private KnowledgeRuntimeLogger createLogger(StatefulKnowledgeSession ksession, String logName) {
 		int logIntervalInMilliseconds = 500;
-		String logName = processName;
 		KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, logName,
 				logIntervalInMilliseconds);
 		return logger;

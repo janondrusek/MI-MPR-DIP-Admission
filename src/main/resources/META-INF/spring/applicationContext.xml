@@ -25,9 +25,7 @@
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:META-INF/deployment.properties</value>
-				<value>classpath:META-INF/build-number.properties</value>
-				<value>classpath:META-INF/database.properties</value>
+				<value>classpath:META-INF/properties.properties</value>
 			</list>
 		</property>
 	</bean>

@@ -37,23 +37,5 @@ public class DefaultDeduplicationService implements DeduplicationService {
 		for (PersonDeduplicationTemplate deduplicationTemplate : personDeduplicationTemplates) {
 			deduplicationTemplate.deduplicate(person);
 		}
-		deduplicateDocuments(person);
-		deduplicateAddresses(person);
-		deduplicateDisabilities(person);
 	}
-
-	private void deduplicateDocuments(Person person) {
-		// TODO:
-	}
-
-	private void deduplicateAddresses(Person person) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void deduplicateDisabilities(Person person) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
