@@ -12,42 +12,60 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
-  <itemDefinition id="_zap_action_01Item" structureRef="String" />
-  <itemDefinition id="_zap_action_02Item" structureRef="String" />
-  <itemDefinition id="_zap_action_03Item" structureRef="String" />
-
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" name="Sample Process" tns:packageName="defaultPackage" >
 
-    <!-- process variables -->
-    <property id="zap_action_01" itemSubjectRef="_zap_action_01Item"/>
-    <property id="zap_action_02" itemSubjectRef="_zap_action_02Item"/>
-    <property id="zap_action_03" itemSubjectRef="_zap_action_03Item"/>
-
     <!-- nodes -->
+    <task id="_34" name="Registration" tns:taskName="Email" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Registration was successful! You are STUDENT now!");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
     <startEvent id="_1" name="StartProcess" />
+    <userTask id="_32" name="Register for RR" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Register / Apology for regular ragistration term.");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <userTask id="_33" name="Register for AR" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Register / Apology for alternative ragistration term.");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
     <scriptTask id="_3" name="Non-registered" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Neprihlasen k zapisu");</script>
     </scriptTask>
     <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
-    <scriptTask id="_7" name="(HT) Register for AR" scriptFormat="http://www.java.com/java" >
-      <script>System.out.println("Omluva ze zapisu 1");</script>
-    </scriptTask>
     <endEvent id="_8" name="End" />
     <exclusiveGateway id="_10" name="Gateway" gatewayDirection="Diverging" />
     <exclusiveGateway id="_14" name="Gateway" gatewayDirection="Converging" />
-    <scriptTask id="_15" name="Email: Registration" scriptFormat="http://www.java.com/java" >
-      <script>System.out.println("Registration was successful! You are STUDENT now!");</script>
-    </scriptTask>
-    <scriptTask id="_17" name="(HT) Register for RR" scriptFormat="http://www.java.com/java" >
-      <script>System.out.println("Register / Apology for regular ragistration term.");</script>
-    </scriptTask>
     <endEvent id="_16" name="End" >
         <terminateEventDefinition/>
     </endEvent>
     <exclusiveGateway id="_19" name="Gateway" gatewayDirection="Converging" />
-    <intermediateCatchEvent id="_18" name="Signal A" >
-      <signalEventDefinition signalRef="expired_time_for_registration_1"/>
-    </intermediateCatchEvent>
     <callActivity id="_21" name="Alternative registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.blank" >
       <ioSpecification>
         <inputSet>
@@ -80,7 +98,7 @@
         </outputSet>
       </ioSpecification>
     </callActivity>
-    <exclusiveGateway id="_25" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_25" name="Gateway - RR" gatewayDirection="Converging" />
     <exclusiveGateway id="_27" name="Gateway" gatewayDirection="Diverging" />
     <callActivity id="_26" name="Apology approval 2" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
       <ioSpecification>
@@ -90,32 +108,31 @@
         </outputSet>
       </ioSpecification>
     </callActivity>
-    <exclusiveGateway id="_29" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_29" name="Gateway - AR" gatewayDirection="Converging" />
     <exclusiveGateway id="_28" name="Gateway" gatewayDirection="Diverging" />
     <intermediateCatchEvent id="_31" name="Signal B" >
-      <signalEventDefinition signalRef="expired_time_for_registration_2"/>
+      <signalEventDefinition signalRef="expired_time_for_registration"/>
     </intermediateCatchEvent>
     <intermediateCatchEvent id="_30" name="Signal C" >
-      <signalEventDefinition signalRef="expired_time_for_registration_3"/>
+      <signalEventDefinition signalRef="registartion_failed"/>
     </intermediateCatchEvent>
 
     <!-- connections -->
+    <sequenceFlow id="_14-_34" sourceRef="_14" targetRef="_34" />
+    <sequenceFlow id="_25-_32" sourceRef="_25" targetRef="_32" />
+    <sequenceFlow id="_29-_33" sourceRef="_29" targetRef="_33" />
     <sequenceFlow id="_19-_3" sourceRef="_19" targetRef="_3" />
-    <sequenceFlow id="_17-_4" sourceRef="_17" targetRef="_4" />
-    <sequenceFlow id="_29-_7" sourceRef="_29" targetRef="_7" />
-    <sequenceFlow id="_15-_8" sourceRef="_15" targetRef="_8" />
-    <sequenceFlow id="_7-_10" sourceRef="_7" targetRef="_10" />
+    <sequenceFlow id="_32-_4" sourceRef="_32" targetRef="_4" />
+    <sequenceFlow id="_34-_8" sourceRef="_34" targetRef="_8" />
+    <sequenceFlow id="_33-_10" sourceRef="_33" targetRef="_10" />
     <sequenceFlow id="_20-_14" sourceRef="_20" targetRef="_14" />
     <sequenceFlow id="_21-_14" sourceRef="_21" targetRef="_14" />
     <sequenceFlow id="_22-_14" sourceRef="_22" targetRef="_14" />
-    <sequenceFlow id="_14-_15" sourceRef="_14" targetRef="_15" />
-    <sequenceFlow id="_25-_17" sourceRef="_25" targetRef="_17" />
     <sequenceFlow id="_3-_16" sourceRef="_3" targetRef="_16" />
-    <sequenceFlow id="_18-_19" sourceRef="_18" targetRef="_19" />
     <sequenceFlow id="_30-_19" sourceRef="_30" targetRef="_19" />
     <sequenceFlow id="_31-_19" sourceRef="_31" targetRef="_19" />
-    <sequenceFlow id="_10-_21" sourceRef="_10" targetRef="_21" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_10-_21" sourceRef="_10" targetRef="_21" name="to_registration_2" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_4-_20" sourceRef="_4" targetRef="_20" name="to_registration_1" tns:priority="2" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
@@ -123,22 +140,23 @@
     <sequenceFlow id="_4-_23" sourceRef="_4" targetRef="_23" name="apology" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_28-_22" sourceRef="_28" targetRef="_22" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_28-_22" sourceRef="_28" targetRef="_22" name="apology_approved" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_27-_25" sourceRef="_27" targetRef="_25" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_27-_25" sourceRef="_27" targetRef="_25" name="appology_not_approved" tns:priority="2" >
+      <conditionExpression xsi:type="tFormalExpression" >return false;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_1-_25" sourceRef="_1" targetRef="_25" />
     <sequenceFlow id="_23-_27" sourceRef="_23" targetRef="_27" />
-    <sequenceFlow id="_10-_26" sourceRef="_10" targetRef="_26" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_10-_26" sourceRef="_10" targetRef="_26" name="apology_2" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_27-_29" sourceRef="_27" targetRef="_29" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_27-_29" sourceRef="_27" targetRef="_29" name="apology_approved" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_28-_29" sourceRef="_28" targetRef="_29" >
-      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    <sequenceFlow id="_28-_29" sourceRef="_28" targetRef="_29" name="apology_not_approved" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return false;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_26-_28" sourceRef="_26" targetRef="_28" />
 
@@ -146,174 +164,167 @@
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
+      <bpmndi:BPMNShape bpmnElement="_34" >
+        <dc:Bounds x="423" y="502" width="118" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="97" y="16" width="48" height="48" />
+        <dc:Bounds x="160" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_32" >
+        <dc:Bounds x="110" y="178" width="148" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_33" >
+        <dc:Bounds x="367" y="178" width="148" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="725" y="178" width="148" height="49" />
+        <dc:Bounds x="726" y="178" width="148" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="178" y="259" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="363" y="178" width="148" height="49" />
+        <dc:Bounds x="160" y="259" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="460" y="582" width="48" height="48" />
+        <dc:Bounds x="458" y="582" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_10" >
-        <dc:Bounds x="455" y="259" width="48" height="48" />
+        <dc:Bounds x="458" y="259" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_14" >
-        <dc:Bounds x="460" y="421" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_15" >
-        <dc:Bounds x="409" y="502" width="150" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_17" >
-        <dc:Bounds x="128" y="178" width="148" height="49" />
+        <dc:Bounds x="458" y="421" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_16" >
-        <dc:Bounds x="775" y="259" width="48" height="48" />
+        <dc:Bounds x="776" y="259" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_19" >
-        <dc:Bounds x="775" y="97" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_18" >
-        <dc:Bounds x="694" y="16" width="48" height="48" />
+        <dc:Bounds x="776" y="97" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_21" >
-        <dc:Bounds x="399" y="340" width="161" height="49" />
+        <dc:Bounds x="402" y="340" width="161" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_20" >
-        <dc:Bounds x="209" y="340" width="158" height="49" />
+        <dc:Bounds x="16" y="340" width="161" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_23" >
-        <dc:Bounds x="16" y="340" width="158" height="49" />
+        <dc:Bounds x="209" y="340" width="161" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_22" >
-        <dc:Bounds x="508" y="97" width="158" height="49" />
+        <dc:Bounds x="510" y="97" width="158" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_25" >
-        <dc:Bounds x="178" y="97" width="48" height="48" />
+        <dc:Bounds x="160" y="97" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_27" >
-        <dc:Bounds x="178" y="16" width="48" height="48" />
+        <dc:Bounds x="265" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_26" >
-        <dc:Bounds x="613" y="340" width="158" height="49" />
+        <dc:Bounds x="616" y="340" width="161" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_29" >
-        <dc:Bounds x="371" y="97" width="48" height="48" />
+        <dc:Bounds x="375" y="97" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_28" >
-        <dc:Bounds x="568" y="16" width="48" height="48" />
+        <dc:Bounds x="570" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_31" >
-        <dc:Bounds x="775" y="16" width="48" height="48" />
+        <dc:Bounds x="735" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_30" >
-        <dc:Bounds x="855" y="16" width="48" height="48" />
+        <dc:Bounds x="816" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_14-_34" >
+        <di:waypoint x="482" y="445" />
+        <di:waypoint x="482" y="526" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25-_32" >
+        <di:waypoint x="184" y="121" />
+        <di:waypoint x="184" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_29-_33" >
+        <di:waypoint x="399" y="121" />
+        <di:waypoint x="441" y="202" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_19-_3" >
-        <di:waypoint x="799" y="121" />
-        <di:waypoint x="799" y="202" />
+        <di:waypoint x="800" y="121" />
+        <di:waypoint x="800" y="202" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_17-_4" >
-        <di:waypoint x="202" y="202" />
-        <di:waypoint x="202" y="283" />
+      <bpmndi:BPMNEdge bpmnElement="_32-_4" >
+        <di:waypoint x="184" y="202" />
+        <di:waypoint x="184" y="283" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_29-_7" >
-        <di:waypoint x="395" y="121" />
-        <di:waypoint x="437" y="202" />
+      <bpmndi:BPMNEdge bpmnElement="_34-_8" >
+        <di:waypoint x="482" y="526" />
+        <di:waypoint x="482" y="606" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_15-_8" >
-        <di:waypoint x="484" y="526" />
-        <di:waypoint x="484" y="606" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_7-_10" >
-        <di:waypoint x="437" y="202" />
-        <di:waypoint x="479" y="283" />
+      <bpmndi:BPMNEdge bpmnElement="_33-_10" >
+        <di:waypoint x="441" y="202" />
+        <di:waypoint x="482" y="283" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_20-_14" >
-        <di:waypoint x="288" y="364" />
-        <di:waypoint x="484" y="445" />
+        <di:waypoint x="96" y="364" />
+        <di:waypoint x="482" y="445" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_21-_14" >
-        <di:waypoint x="479" y="364" />
-        <di:waypoint x="484" y="445" />
+        <di:waypoint x="482" y="364" />
+        <di:waypoint x="482" y="445" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_22-_14" >
-        <di:waypoint x="587" y="121" />
-        <di:waypoint x="484" y="445" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_14-_15" >
-        <di:waypoint x="484" y="445" />
-        <di:waypoint x="484" y="526" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_25-_17" >
-        <di:waypoint x="202" y="121" />
-        <di:waypoint x="202" y="202" />
+        <di:waypoint x="589" y="121" />
+        <di:waypoint x="482" y="445" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_3-_16" >
-        <di:waypoint x="799" y="202" />
-        <di:waypoint x="799" y="283" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_18-_19" >
-        <di:waypoint x="718" y="40" />
-        <di:waypoint x="799" y="121" />
+        <di:waypoint x="800" y="202" />
+        <di:waypoint x="800" y="283" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_30-_19" >
-        <di:waypoint x="879" y="40" />
-        <di:waypoint x="799" y="121" />
+        <di:waypoint x="840" y="40" />
+        <di:waypoint x="800" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_31-_19" >
-        <di:waypoint x="799" y="40" />
-        <di:waypoint x="799" y="121" />
+        <di:waypoint x="759" y="40" />
+        <di:waypoint x="800" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_10-_21" >
-        <di:waypoint x="479" y="283" />
-        <di:waypoint x="479" y="364" />
+        <di:waypoint x="482" y="283" />
+        <di:waypoint x="482" y="364" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_4-_20" >
-        <di:waypoint x="202" y="283" />
-        <di:waypoint x="288" y="364" />
+        <di:waypoint x="184" y="283" />
+        <di:waypoint x="96" y="364" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_4-_23" >
-        <di:waypoint x="202" y="283" />
-        <di:waypoint x="95" y="364" />
+        <di:waypoint x="184" y="283" />
+        <di:waypoint x="289" y="364" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_28-_22" >
-        <di:waypoint x="592" y="40" />
-        <di:waypoint x="587" y="121" />
+        <di:waypoint x="594" y="40" />
+        <di:waypoint x="589" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_27-_25" >
-        <di:waypoint x="202" y="40" />
-        <di:waypoint x="202" y="121" />
+        <di:waypoint x="289" y="40" />
+        <di:waypoint x="184" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_25" >
-        <di:waypoint x="121" y="40" />
-        <di:waypoint x="202" y="121" />
+        <di:waypoint x="184" y="40" />
+        <di:waypoint x="184" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_23-_27" >
-        <di:waypoint x="95" y="364" />
-        <di:waypoint x="202" y="40" />
+        <di:waypoint x="289" y="364" />
+        <di:waypoint x="289" y="40" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_10-_26" >
-        <di:waypoint x="479" y="283" />
-        <di:waypoint x="692" y="364" />
+        <di:waypoint x="482" y="283" />
+        <di:waypoint x="696" y="364" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_27-_29" >
-        <di:waypoint x="202" y="40" />
-        <di:waypoint x="395" y="121" />
+        <di:waypoint x="289" y="40" />
+        <di:waypoint x="399" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_28-_29" >
-        <di:waypoint x="592" y="40" />
-        <di:waypoint x="395" y="121" />
+        <di:waypoint x="594" y="40" />
+        <di:waypoint x="399" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_26-_28" >
-        <di:waypoint x="692" y="364" />
-        <di:waypoint x="592" y="40" />
+        <di:waypoint x="696" y="364" />
+        <di:waypoint x="594" y="40" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

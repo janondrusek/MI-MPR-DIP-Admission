@@ -16,35 +16,45 @@
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
-    <scriptTask id="_2" name="(HT) Decision for approve" scriptFormat="http://www.java.com/java" >
-      <script>System.out.println("Decision of approve apology.");</script>
-    </scriptTask>
     <endEvent id="_3" name="End" />
+    <userTask id="_4" name="Decision for apology" >
+      <extensionElements>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Decision of approve apology.");</script>
+        </tns:onExit-script>
+      </extensionElements>
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
 
     <!-- connections -->
-    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
-    <sequenceFlow id="_2-_3" sourceRef="_2" targetRef="_3" />
+    <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" />
+    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="73" y="16" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="16" y="96" width="163" height="48" />
+        <dc:Bounds x="71" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="73" y="176" width="48" height="48" />
+        <dc:Bounds x="71" y="176" width="48" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
-        <di:waypoint x="97" y="40" />
-        <di:waypoint x="97" y="120" />
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="16" y="96" width="159" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_4-_3" >
+        <di:waypoint x="95" y="120" />
+        <di:waypoint x="95" y="200" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_2-_3" >
-        <di:waypoint x="97" y="120" />
-        <di:waypoint x="97" y="200" />
+      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
+        <di:waypoint x="95" y="40" />
+        <di:waypoint x="95" y="120" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

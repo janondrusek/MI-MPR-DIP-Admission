@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
+
+  <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.document_request" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <extensionElements>
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation" />
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType" />
+    </extensionElements>
+    <!-- process variables -->
+    <property id="admission" itemSubjectRef="_admissionItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <endEvent id="_2" name="End" />
+    <task id="_3" name="Docs delivery notification" tns:taskName="Email" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Email: Request for needed documents delivery!");</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </task>
+    <userTask id="_4" name="Docs delivery" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>EvaluationType type = new EvaluationType();
+type.setName("H3");
+
+Evaluation evaluation = new Evaluation();
+evaluation.setEvaluationType(type);
+evaluation.setValue("1");
+
+admission.getEvaluations().add(evaluation);</script>
+        </tns:onEntry-script>
+      </extensionElements>
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Converging" />
+    <intermediateCatchEvent id="_6" name="Signal" >
+      <signalEventDefinition signalRef="expired_time_for_docs_delivery"/>
+    </intermediateCatchEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_5-_2" sourceRef="_5" targetRef="_2" />
+    <sequenceFlow id="_1-_3" sourceRef="_1" targetRef="_3" />
+    <sequenceFlow id="_3-_4" sourceRef="_3" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" />
+    <sequenceFlow id="_6-_5" sourceRef="_6" targetRef="_5" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.document_request" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="74" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="133" y="337" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="16" y="96" width="165" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="37" y="176" width="123" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="133" y="256" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="192" y="176" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_5-_2" >
+        <di:waypoint x="157" y="280" />
+        <di:waypoint x="157" y="361" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_3" >
+        <di:waypoint x="98" y="40" />
+        <di:waypoint x="98" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_4" >
+        <di:waypoint x="98" y="120" />
+        <di:waypoint x="98" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="98" y="200" />
+        <di:waypoint x="157" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_5" >
+        <di:waypoint x="216" y="200" />
+        <di:waypoint x="157" y="280" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

@@ -11,6 +11,7 @@ import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItem;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
+import org.jbpm.process.workitem.email.EmailWorkItemHandler;
 import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
 import org.jbpm.task.query.TaskSummary;
 import org.jbpm.task.service.TaskService;
@@ -51,13 +52,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Autowired
-	ProcessService processService;
-
-	@Autowired
 	private StatefulKnowledgeSession ksession;
-	
-	@Autowired
-	private TaskService taskService;
 
 	private Admission admission;
 	private final String processName = "2012_BSP_main";
@@ -75,7 +70,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Test
 	public void testRunBlankProcess() {
-		processService.runBlankProcess();
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
 	}
 
 	@Test
@@ -83,20 +78,23 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
 
-		// JBPMHelper.startTaskService();
-		// TaskService taskService = (TaskService) getTaskService(ksession);
-
-		KnowledgeRuntimeLogger logger = createLogger(ksession);
-
 		TestWorkItemHandler testHandler = new TestWorkItemHandler();
 
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler()); // 
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
 		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
 				parameters);
 
-//		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
-//		ksession.getWorkItemManager().abortWorkItem(workItem.getId());
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+		// Email start process
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		// Email about AT
+		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		//
+		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 
 		// assertProcessInstanceActive(processInstance.getId(), ksession);
 		// assertNodeTriggered(processInstance.getId(), "Start");
@@ -111,8 +109,6 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 		// TaskSummary task = list.get(0);
 		// System.out.println("John is executing task " + task.getName());
-
-		logger.close();
 	}
 
 	@Test
@@ -126,6 +122,11 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		// TODO
 
 	}
+
+	@Test
+	public void testTaskServiceRun() {
+		// TODO
+	} 
 
 	private Admission setTestAdmission() {
 		Admission a = new Admission();
@@ -226,6 +227,8 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		h5.setName("H5");
 		EvaluationType h7 = new EvaluationType();
 		h7.setName("H7");
+		EvaluationType h8 = new EvaluationType();
+		h8.setName("H8");
 
 		Evaluation e1 = new Evaluation();
 		e1.setEvaluationType(h1);
@@ -243,11 +246,16 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		e7.setEvaluationType(h7);
 		e7.setValue("90");
 
+		Evaluation e8 = new Evaluation();
+		e8.setEvaluationType(h8);
+		e8.setValue("1.9");
+
 		Set<Evaluation> evaluations = new HashSet<Evaluation>();
 		evaluations.add(e1);
 		evaluations.add(e3);
 		// evaluations.add(e5);
 		// evaluations.add(e7);
+		evaluations.add(e8);
 
 		a.setEvaluations(evaluations);
 
