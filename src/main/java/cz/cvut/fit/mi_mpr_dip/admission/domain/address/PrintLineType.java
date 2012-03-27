@@ -1,10 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -19,10 +18,10 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "printLineId" })
 @RooJpaActiveRecord
+@RooEquals(excludeFields = { "printLineTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PrintLine {
+public class PrintLineType {
 
 	@Version
 	@Transient
@@ -32,12 +31,9 @@ public class PrintLine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long printLineId;
+	private Long printLineTypeId;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
-	private PrintLineType printLineType;
-
-	@NotNull
-	private String value;
+	@Column(unique = true)
+	private String name;
 }

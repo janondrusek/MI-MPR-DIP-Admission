@@ -5,6 +5,8 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineTypeDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect PrintLineDataOnDemand_Roo_DataOnDemand {
@@ -22,16 +25,19 @@ privileged aspect PrintLineDataOnDemand_Roo_DataOnDemand {
     
     private List<PrintLine> PrintLineDataOnDemand.data;
     
+    @Autowired
+    private PrintLineTypeDataOnDemand PrintLineDataOnDemand.printLineTypeDataOnDemand;
+    
     public PrintLine PrintLineDataOnDemand.getNewTransientPrintLine(int index) {
         PrintLine obj = new PrintLine();
-        setName(obj, index);
+        setPrintLineType(obj, index);
         setValue(obj, index);
         return obj;
     }
     
-    public void PrintLineDataOnDemand.setName(PrintLine obj, int index) {
-        String name = "name_" + index;
-        obj.setName(name);
+    public void PrintLineDataOnDemand.setPrintLineType(PrintLine obj, int index) {
+        PrintLineType printLineType = printLineTypeDataOnDemand.getRandomPrintLineType();
+        obj.setPrintLineType(printLineType);
     }
     
     public void PrintLineDataOnDemand.setValue(PrintLine obj, int index) {

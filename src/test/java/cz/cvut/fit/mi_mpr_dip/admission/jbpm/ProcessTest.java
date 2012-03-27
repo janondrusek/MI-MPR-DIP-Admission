@@ -46,7 +46,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/META-INF/spring/applicationContext.xml" })
-public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { // extends JbpmJUnitTestCase {
+public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
+													// extends JbpmJUnitTestCase
+													// {
 
 	@Autowired
 	ProcessService processService;
@@ -82,6 +84,12 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { // ext
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
 
+<<<<<<< HEAD
+=======
+		// JBPMHelper.startTaskService();
+		// TaskService taskService = (TaskService) getTaskService(ksession);
+
+>>>>>>> 447a98f39c0d5c13c3dfebb1abefd82f3450eb26
 		KnowledgeRuntimeLogger logger = createLogger(ksession);
 
 		TestWorkItemHandler testHandler = new TestWorkItemHandler();
@@ -91,15 +99,23 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { // ext
 		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
 				parameters);
 
+<<<<<<< HEAD
 //		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
 //		ksession.getWorkItemManager().abortWorkItem(workItem.getId());
 
+=======
+>>>>>>> 447a98f39c0d5c13c3dfebb1abefd82f3450eb26
 		// assertProcessInstanceActive(processInstance.getId(), ksession);
 		// assertNodeTriggered(processInstance.getId(), "Start");
 
 		// let john execute Task 1
+<<<<<<< HEAD
 		// List<TaskSummary> list = ((org.jbpm.task.TaskService) taskService).getTasksAssignedAsPotentialOwner("john",
 		// "en-UK");
+=======
+		// List<TaskSummary> list = ((org.jbpm.task.TaskService)
+		// taskService).getTasksAssignedAsPotentialOwner("john", "en-UK");
+>>>>>>> 447a98f39c0d5c13c3dfebb1abefd82f3450eb26
 		// TaskSummary task = list.get(0);
 		// System.out.println("John is executing task " + task.getName());
 
@@ -150,32 +166,7 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { // ext
 		AddressType adt2 = new AddressType();
 		adt2.setName("contact");
 
-		PrintLine pl1 = new PrintLine();
-		pl1.setName("1. řádek");
-		pl1.setValue("František Vomáčka");
-
-		PrintLine pl2 = new PrintLine();
-		pl2.setName("2. řádek");
-		pl2.setValue("Ulice 37");
-
-		PrintLine pl3 = new PrintLine();
-		pl3.setName("3. řádek");
-		pl3.setValue("99988 Město v ČR");
-
-		PrintLine pl4 = new PrintLine();
-		pl4.setName("4. řádek");
-		pl4.setValue("");
-
-		PrintLine pl5 = new PrintLine();
-		pl5.setName("5. řádek");
-		pl5.setValue("");
-
-		Set<PrintLine> printLines = new HashSet<PrintLine>();
-		printLines.add(pl1);
-		printLines.add(pl2);
-		printLines.add(pl3);
-		printLines.add(pl4);
-		printLines.add(pl5);
+		Set<PrintLine> printLines = createPrintLines();
 
 		Address ad = new Address();
 		ad.setStreet("Ulice");
@@ -268,6 +259,29 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { // ext
 		a.setEvaluations(evaluations);
 
 		return a;
+	}
+
+	private Set<PrintLine> createPrintLines() {
+		String[][] printLines = { { "1. řádek", "František Vomáčka" }, { "2. řádek", "Ulice 37" },
+				{ "3. řádek", "99988 Město v ČR" }, { "4. řádek", StringPool.BLANK }, { "5. řádek", StringPool.BLANK } };
+
+		return createPrintLines(printLines);
+	}
+
+	private Set<PrintLine> createPrintLines(String[][] lines) {
+		Set<PrintLine> printLines = new HashSet<PrintLine>();
+		for (String[] line : lines) {
+			printLines.add(createPrintLine(line));
+		}
+		return printLines;
+	}
+
+	private PrintLine createPrintLine(String[] line) {
+		PrintLine printLine = new PrintLine();
+		printLine.setPrintLineType(new PrintLineType());
+		printLine.getPrintLineType().setName(line[0]);
+		printLine.setValue(line[1]);
+		return printLine;
 	}
 
 	private void isAdmissionValid(Admission admission) {

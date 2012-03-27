@@ -17,11 +17,11 @@ privileged aspect PrintLine_Roo_Equals {
             return true;
         }
         PrintLine rhs = (PrintLine) obj;
-        return new EqualsBuilder().append(name, rhs.name).append(value, rhs.value).isEquals();
+        return new EqualsBuilder().append(printLineType, rhs.printLineType).append(value, rhs.value).isEquals();
     }
     
     public int PrintLine.hashCode() {
-        return new HashCodeBuilder().append(name).append(value).toHashCode();
+        return new HashCodeBuilder().append(printLineType).append(value).toHashCode();
     }
     
 }

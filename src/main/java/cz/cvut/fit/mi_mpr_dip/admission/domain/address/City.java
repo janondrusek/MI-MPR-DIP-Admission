@@ -1,10 +1,11 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -21,6 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "cityId" })
 @RooJpaActiveRecord(finders = { "findCitysByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "name", "part" }))
 public class City {
 
 	@Version
@@ -34,7 +36,6 @@ public class City {
 	private Long cityId;
 
 	@NotNull
-	@Column(unique = true)
 	private String name;
 
 	private String part;
