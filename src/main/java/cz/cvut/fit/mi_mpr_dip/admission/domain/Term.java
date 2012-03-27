@@ -44,10 +44,10 @@ public class Term {
 	private Long termId;
 
 	@NotNull
-	private String room;
+	private Date dateOfTerm;
 	
 	@NotNull
-	private Date dateAndTime;
+	private String room;
 
 	@NotNull
 	private Integer capacity;

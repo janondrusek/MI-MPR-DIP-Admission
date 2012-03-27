@@ -89,11 +89,24 @@ admission.getEvaluations().add(evaluation);</script>
     <endEvent id="_26" name="End" >
         <terminateEventDefinition/>
     </endEvent>
+    <userTask id="_28" name="User Task" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>john</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
 
     <!-- connections -->
     <sequenceFlow id="_10-_6" sourceRef="_10" targetRef="_6" />
     <sequenceFlow id="_19-_7" sourceRef="_19" targetRef="_7" />
-    <sequenceFlow id="_18-_8" sourceRef="_18" targetRef="_8" />
+    <sequenceFlow id="_28-_8" sourceRef="_28" targetRef="_8" />
     <sequenceFlow id="_7-_9" sourceRef="_7" targetRef="_9" />
     <sequenceFlow id="_20-_9" sourceRef="_20" targetRef="_9" />
     <sequenceFlow id="_14-_10" sourceRef="_14" targetRef="_10" />
@@ -177,6 +190,7 @@ return b;
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_25-_26" sourceRef="_25" targetRef="_26" />
+    <sequenceFlow id="_18-_28" sourceRef="_18" targetRef="_28" />
 
   </process>
 
@@ -224,6 +238,9 @@ return b;
       <bpmndi:BPMNShape bpmnElement="_26" >
         <dc:Bounds x="320" y="661" width="48" height="48" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_28" >
+        <dc:Bounds x="399" y="89" width="100" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_10-_6" >
         <di:waypoint x="167" y="765" />
         <di:waypoint x="167" y="845" />
@@ -232,8 +249,8 @@ return b;
         <di:waypoint x="85" y="281" />
         <di:waypoint x="166" y="361" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_18-_8" >
-        <di:waypoint x="171" y="120" />
+      <bpmndi:BPMNEdge bpmnElement="_28-_8" >
+        <di:waypoint x="449" y="113" />
         <di:waypoint x="171" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_7-_9" >
@@ -279,6 +296,10 @@ return b;
       <bpmndi:BPMNEdge bpmnElement="_25-_26" >
         <di:waypoint x="344" y="604" />
         <di:waypoint x="344" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18-_28" >
+        <di:waypoint x="171" y="120" />
+        <di:waypoint x="449" y="113" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

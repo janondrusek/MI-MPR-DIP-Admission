@@ -28,20 +28,20 @@ privileged aspect Term_Roo_JavaBean {
         this.termId = termId;
     }
     
+    public Date Term.getDateOfTerm() {
+        return this.dateOfTerm;
+    }
+    
+    public void Term.setDateOfTerm(Date dateOfTerm) {
+        this.dateOfTerm = dateOfTerm;
+    }
+    
     public String Term.getRoom() {
         return this.room;
     }
     
     public void Term.setRoom(String room) {
         this.room = room;
-    }
-    
-    public Date Term.getDateAndTime() {
-        return this.dateAndTime;
-    }
-    
-    public void Term.setDateAndTime(Date dateAndTime) {
-        this.dateAndTime = dateAndTime;
     }
     
     public Integer Term.getCapacity() {
