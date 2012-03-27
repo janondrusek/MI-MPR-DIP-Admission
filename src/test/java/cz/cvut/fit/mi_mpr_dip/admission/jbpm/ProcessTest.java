@@ -33,6 +33,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -40,15 +41,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 /**
  * This is a sample file to launch a process.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/META-INF/spring/applicationContext.xml" })
-public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
-													// extends JbpmJUnitTestCase
-													// {
+public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Autowired
 	ProcessService processService;
@@ -66,7 +66,6 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
-		// taskService = (TaskService) getTaskService(ksession);
 	}
 
 	@Test
@@ -84,12 +83,9 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
 
-<<<<<<< HEAD
-=======
 		// JBPMHelper.startTaskService();
 		// TaskService taskService = (TaskService) getTaskService(ksession);
 
->>>>>>> 447a98f39c0d5c13c3dfebb1abefd82f3450eb26
 		KnowledgeRuntimeLogger logger = createLogger(ksession);
 
 		TestWorkItemHandler testHandler = new TestWorkItemHandler();
@@ -99,23 +95,20 @@ public class ProcessTest extends JbpmJUnitTestCase {// extends TestCase { //
 		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
 				parameters);
 
-<<<<<<< HEAD
 //		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
 //		ksession.getWorkItemManager().abortWorkItem(workItem.getId());
 
-=======
->>>>>>> 447a98f39c0d5c13c3dfebb1abefd82f3450eb26
 		// assertProcessInstanceActive(processInstance.getId(), ksession);
 		// assertNodeTriggered(processInstance.getId(), "Start");
 
 		// let john execute Task 1
-<<<<<<< HEAD
+
 		// List<TaskSummary> list = ((org.jbpm.task.TaskService) taskService).getTasksAssignedAsPotentialOwner("john",
 		// "en-UK");
-=======
+
 		// List<TaskSummary> list = ((org.jbpm.task.TaskService)
 		// taskService).getTasksAssignedAsPotentialOwner("john", "en-UK");
->>>>>>> 447a98f39c0d5c13c3dfebb1abefd82f3450eb26
+
 		// TaskSummary task = list.get(0);
 		// System.out.println("John is executing task " + task.getName());
 
