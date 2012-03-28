@@ -47,42 +47,42 @@ public class ProcessService {
 		ksession = kbase.newStatefulKnowledgeSession();
 	}
 
-	public ProcessInstance runBlankProcess() {
-		return ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
-	}
+//	public ProcessInstance runBlankProcess() {
+//		return knowSession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
+//	}
 	
-	public ProcessInstance runEmailProcess() {
-		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
-		emailHandler.setConnection("${mail.smtp.host}", "${mail.smtp.port}", "${mail.username}", "${mail.password}");
+//	public ProcessInstance runEmailProcess() {
+//		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
+//		emailHandler.setConnection("${mail.smtp.host}", "${mail.smtp.port}", "${mail.username}", "${mail.password}");
+//
+//		knowSession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
+//		
+//		return knowSession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
+//	}
 
-		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
-		
-		return ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
-	}
-
-	public ProcessInstance runProcessBSP(Map<String, Object> parameters) {
-		KnowledgeRuntimeLogger logger = createLogger(ksession, processNameBSP);
-
-		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+//	public ProcessInstance runProcessBSP(Map<String, Object> parameters) {
+//		KnowledgeRuntimeLogger logger = createLogger(knowSession, processNameBSP);
+//
+//		knowSession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
 //		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);		
-		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
-
-		logger.close();
-		
-		return processInstance;
-	}
+//		ProcessInstance processInstance = knowSession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
+//
+//		logger.close();
+//		
+//		return processInstance;
+//	}
 	
-	public ProcessInstance runProcessMSP(Map<String, Object> parameters) {
-		KnowledgeRuntimeLogger logger = createLogger(ksession, processNameMSP);
-
-		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+//	public ProcessInstance runProcessMSP(Map<String, Object> parameters) {
+//		KnowledgeRuntimeLogger logger = createLogger(knowSession, processNameMSP);
+//
+//		knowSession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
 //		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);		
-		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
-
-		logger.close();
-		
-		return processInstance;
-	}
+//		ProcessInstance processInstance = knowSession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main", parameters);
+//
+//		logger.close();
+//		
+//		return processInstance;
+//	}
 	
 	// WARNING
 	public void disposeSession() {

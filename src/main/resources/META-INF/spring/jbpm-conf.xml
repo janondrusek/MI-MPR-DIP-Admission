@@ -9,7 +9,6 @@
 			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_bsp_main.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:msp/2012_msp_main.bpmn" />
 			
-			<jbpm:resource type="BPMN2" source="classpath:process/blank.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:process/register_to_study.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:process/apology_approval.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:process/document_request.bpmn" />
@@ -18,24 +17,27 @@
 			<jbpm:resource type="BPMN2" source="classpath:process/2012_test.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:process/2012_decision.bpmn" />
 
+			<jbpm:resource type="BPMN2" source="classpath:test/blank.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:test/test_email.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:test/test_user_task.bpmn" />
+			
 		</jbpm:resources>
 	</jbpm:kbase>
 
 	<jbpm:ksession id="ksession" type="stateful" kbase="kbase">
-		<!--   <jbpm:configuration>
-			<jbpm:jpa-persistence>
-				<jbpm:entity-manager-factory ref="entityManagerFactory" />
-				<jbpm:transaction-manager ref="transactionManager" />
-			</jbpm:jpa-persistence>
-		</jbpm:configuration>-->
+<!-- 		<jbpm:configuration> -->
+<!-- 			<jbpm:jpa-persistence> -->
+<!-- 				<jbpm:entity-manager-factory ref="entityManagerFactory" /> -->
+<!-- 				<jbpm:transaction-manager ref="transactionManager" /> -->
+<!-- 			</jbpm:jpa-persistence> -->
+<!-- 		</jbpm:configuration> -->
 	</jbpm:ksession>
  
 	<bean id="processService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService">
 		<property name="session" ref="ksession" />
 	</bean>
  
-	<!-- Declare a TaskServer -->
+	<!-- Declare a TaskServer 
 	<bean class="org.jbpm.task.service.TaskService" id="taskService">
 		<constructor-arg ref="entityManagerFactory" />
 		<constructor-arg>
@@ -48,12 +50,13 @@
 			<value>${jbpm.task.server.port}</value>
 		</constructor-arg>
 	</bean>
-	<!-- And start TaskServer on the configured port -->
+	-->
+	<!-- And start TaskServer on the configured port
 	<bean class="java.lang.Thread" id="taskServerThread" init-method="start">
 		<constructor-arg ref="taskServer" />
 	</bean>
-
-	<!-- Declare a TaskClient -->
+ -->
+	<!-- Declare a TaskClient
 	<bean class="org.jbpm.task.service.mina.MinaTaskClientConnector" id="taskClientConnector">
 		<constructor-arg value="taskClient" />
 		<constructor-arg>
@@ -67,8 +70,8 @@
 	<bean class="org.jbpm.task.service.TaskClient" id="taskClient">
 		<constructor-arg ref="taskClientConnector" />
 	</bean>
-
-	<!-- Declare a HumanTaskHandler. It uses previously created TaskClient -->
+ -->
+	<!-- Declare a HumanTaskHandler. It uses previously created TaskClient
 	<bean class="org.jbpm.task.service.AsyncTaskServiceWrapper" id="humanTaskClient">
 		<constructor-arg ref="taskClient" />
 	</bean>
@@ -76,8 +79,8 @@
 		<constructor-arg ref="humanTaskClient" />
 		<constructor-arg ref="ksession" />
 	</bean>
-	
-	<!-- Configure its connection to the local server -->
+	 -->
+	<!-- Configure its connection to the local server
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="humanTaskHandler" id="setConnection">
 		<property name="targetObject" ref="humanTaskHandler" />
 		<property name="targetMethod" value="setConnection" />
@@ -88,13 +91,13 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!-- And connect HumanTaskHandler (implicit TaskClient connection) -->
+	 -->
+	<!-- And connect HumanTaskHandler (implicit TaskClient connection) 
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="setConnection">
 		<property name="targetObject" ref="humanTaskHandler" />
 		<property name="targetMethod" value="connect" />
 	</bean>
-
+-->
 	<!-- Finnaly, register HumanTaskHandler in the session
 	<bean factory-bean="ksession" factory-method="getWorkItemManager" id="workItemManager" />
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">

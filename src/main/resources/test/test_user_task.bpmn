@@ -19,7 +19,7 @@
     <endEvent id="_4" name="End" >
         <terminateEventDefinition/>
     </endEvent>
-    <userTask id="_7" name="Prihlaseni na PZ" >
+    <userTask id="_7" name="User Task" >
       <ioSpecification>
         <dataInput id="_7_CommentInput" name="Comment" />
         <dataInput id="_7_SkippableInput" name="Skippable" />
@@ -82,7 +82,7 @@
       </dataInputAssociation>
       <potentialOwner>
         <resourceAssignmentExpression>
-          <formalExpression>#{userIdentity}</formalExpression>
+          <formalExpression>krisv</formalExpression>
         </resourceAssignmentExpression>
       </potentialOwner>
     </userTask>

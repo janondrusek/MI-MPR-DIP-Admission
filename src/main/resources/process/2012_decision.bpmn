@@ -48,6 +48,11 @@ if (admission.getAccepted() &amp;&amp; admission.getAppeal()) {
           <script>System.out.println("Possibility of appeal!");
 admission.setAppeal(true);</script>
         </tns:onEntry-script>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>//if (appealToRector) {
+	admission.setAccepted(true);
+//}</script>
+        </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
         <inputSet>
@@ -59,8 +64,10 @@ admission.setAppeal(true);</script>
     <userTask id="_13" name="Appeal approval" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>System.out.println("Appeal approval!");
-admission.setAccepted(true);</script>
+          <script>System.out.println("Appeal approval!");</script>
+        </tns:onEntry-script>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>//appealToRector = true;</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
@@ -107,7 +114,7 @@ admission.setAccepted(true);</script>
     <sequenceFlow id="_16-_10" sourceRef="_16" targetRef="_10" />
     <sequenceFlow id="_6-_11" sourceRef="_6" targetRef="_11" name="to_appeal" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
-		if (!admission.getAccepted() &amp;&amp; !admission.getAppeal()) {
+		if (!admission.getAccepted() &amp;&amp; !admission.getAppeal()) { //&amp;&amp; appealToRector
 			b = true;
 		}
 		return b;</conditionExpression>

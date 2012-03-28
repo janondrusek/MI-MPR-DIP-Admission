@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItem;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.email.EmailWorkItemHandler;
-import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
 import org.jbpm.task.query.TaskSummary;
 import org.jbpm.task.service.TaskService;
-import org.jbpm.task.service.mina.MinaTaskServer;
-import org.jbpm.test.JBPMHelper;
 import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,6 +74,47 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	}
 
 	@Test
+	public void testEmailProcess() {
+		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
+		emailHandler.setConnection("relay.fit.cvut.cz", "25", null, null);
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
+
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
+	}
+
+	@Test
+	public void testHumanTaskProcess() {
+		/*
+		 * * Create EntityManagerFactory and register it in the environment
+		 */
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
+
+		/*
+		 * Create the knowledge session that uses JPA to persists runtime state
+		 */
+		// StatefulKnowledgeSession ksession = JbpmAPIUtil.createKnowledgeSession("HelloProcess.bpmn",emf);
+		TaskService tservice = JbpmAPIUtil.getService(emf);
+
+		/*
+		 * Get the local task service
+		 */
+		TaskService taskService = (TaskService) JbpmAPIUtil.getTaskService(ksession, tservice, emf);
+
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
+		
+		/*
+		 * Retrive the tasks owned by a user
+		 */
+		List<TaskSummary> list = ((org.jbpm.task.TaskService) taskService).getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+		TaskSummary task = list.get(0);
+		
+		System.out.println("krisv is executing task " + task.getName());
+		((org.jbpm.task.TaskService) taskService).start(task.getId(), "krisv");
+		((org.jbpm.task.TaskService) taskService).complete(task.getId(), "krisv", null);
+	}
+
+	@Test
 	public void testProcess() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
@@ -82,19 +123,19 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
 		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
-				parameters);
+		// ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
+		// parameters);
 
 		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
 		// Email start process
-		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		// ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
 		// Email about AT
-		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 		//
-		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 
 		// assertProcessInstanceActive(processInstance.getId(), ksession);
 		// assertNodeTriggered(processInstance.getId(), "Start");
@@ -112,9 +153,127 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	}
 
 	@Test
-	public void testEmailHandler() {
-		// TODO
-		// processService.runEmailProcess();
+	public void testAdmissionTestSubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+		// Email start process
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+	}
+
+	@Test
+	public void testTestSubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_test", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+	}
+
+	@Test
+	public void testDecisionSubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_decision", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+	}
+
+	@Test
+	public void testRegistrationSubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_registration", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+		// Email start process
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+	}
+
+	@Test
+	public void testApologyApprovalSubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.apology_approval", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+	}
+
+	@Test
+	public void testRegisterToStudySubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.register_to_study", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+	}
+
+	@Test
+	public void testDocumentRequestSubprocess() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("admission", admission);
+
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.document_request", parameters);
+
+		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
+
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
+		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
 	}
 
 	@Test
@@ -122,11 +281,6 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		// TODO
 
 	}
-
-	@Test
-	public void testTaskServiceRun() {
-		// TODO
-	} 
 
 	private Admission setTestAdmission() {
 		Admission a = new Admission();
