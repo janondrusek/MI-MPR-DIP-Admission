@@ -155,16 +155,61 @@ Great!</from>
         </assignment>
       </dataInputAssociation>
     </task>
+    <task id="_8" name="Email" tns:taskName="Email" >
+      <ioSpecification>
+        <dataInput id="_8_BodyInput" name="Body" />
+        <dataInput id="_8_SubjectInput" name="Subject" />
+        <dataInput id="_8_ToInput" name="To" />
+        <dataInput id="_8_FromInput" name="From" />
+        <inputSet>
+          <dataInputRefs>_8_BodyInput</dataInputRefs>
+          <dataInputRefs>_8_SubjectInput</dataInputRefs>
+          <dataInputRefs>_8_ToInput</dataInputRefs>
+          <dataInputRefs>_8_FromInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_8_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">emailu</from>
+          <to xsi:type="tFormalExpression">_8_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_8_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Test druheho</from>
+          <to xsi:type="tFormalExpression">_8_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_8_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">chobodav@fit.cvut.cz</from>
+          <to xsi:type="tFormalExpression">_8_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_8_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
+          <to xsi:type="tFormalExpression">_8_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </task>
 
     <!-- connections -->
     <sequenceFlow id="_4-_2" sourceRef="_4" targetRef="_2" />
-    <sequenceFlow id="_5-_3" sourceRef="_5" targetRef="_3" />
+    <sequenceFlow id="_8-_3" sourceRef="_8" targetRef="_3" />
     <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
     <sequenceFlow id="_2-_5" sourceRef="_2" targetRef="_5" />
     <sequenceFlow id="_6-_5" sourceRef="_6" targetRef="_5" />
     <sequenceFlow id="_7-_5" sourceRef="_7" targetRef="_5" />
     <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6" />
     <sequenceFlow id="_4-_7" sourceRef="_4" targetRef="_7" />
+    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8" />
 
   </process>
 
@@ -177,7 +222,7 @@ Great!</from>
         <dc:Bounds x="177" y="16" width="166" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="456" y="96" width="48" height="48" />
+        <dc:Bounds x="588" y="96" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
         <dc:Bounds x="96" y="96" width="48" height="48" />
@@ -191,13 +236,16 @@ Great!</from>
       <bpmndi:BPMNShape bpmnElement="_7" >
         <dc:Bounds x="177" y="176" width="166" height="48" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="456" y="96" width="100" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_4-_2" >
         <di:waypoint x="120" y="120" />
         <di:waypoint x="260" y="40" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_5-_3" >
-        <di:waypoint x="399" y="120" />
-        <di:waypoint x="480" y="120" />
+      <bpmndi:BPMNEdge bpmnElement="_8-_3" >
+        <di:waypoint x="506" y="120" />
+        <di:waypoint x="612" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_4" >
         <di:waypoint x="40" y="120" />
@@ -222,6 +270,10 @@ Great!</from>
       <bpmndi:BPMNEdge bpmnElement="_4-_7" >
         <di:waypoint x="120" y="120" />
         <di:waypoint x="260" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_8" >
+        <di:waypoint x="399" y="120" />
+        <di:waypoint x="506" y="120" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

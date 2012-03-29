@@ -36,14 +36,22 @@
 	<bean id="processService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService">
 		<property name="session" ref="ksession" />
 	</bean>
+	
+	<bean id="jbpmTaskService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.JbpmTaskServiceImpl">
+		<constructor-arg ref="ksession" />
+		<constructor-arg ref="taskService" />
+		<constructor-arg ref="entityManagerFactory" />
+	</bean>
  
-	<!-- Declare a TaskServer 
+	<!-- Declare a TaskServer -->
 	<bean class="org.jbpm.task.service.TaskService" id="taskService">
 		<constructor-arg ref="entityManagerFactory" />
 		<constructor-arg>
 			<bean class="org.drools.SystemEventListenerFactory" factory-method="getSystemEventListener" />
 		</constructor-arg>
 	</bean>
+	
+	<!-- 
 	<bean class="org.jbpm.task.service.mina.MinaTaskServer" id="taskServer">
 		<constructor-arg ref="taskService" />
 		<constructor-arg>

@@ -6,17 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItem;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.email.EmailWorkItemHandler;
+import org.jbpm.task.TaskService;
 import org.jbpm.task.query.TaskSummary;
-import org.jbpm.task.service.TaskService;
 import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,8 +49,10 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Autowired
-	private StatefulKnowledgeSession ksession;
+	private JbpmTaskServiceImpl jbpmTaskService;
 
+	private StatefulKnowledgeSession ksession;
+	
 	private Admission admission;
 	private final String processName = "2012_BSP_main";
 
@@ -61,6 +60,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
+		ksession = jbpmTaskService.knowledgeSession;
 	}
 
 	@Test
@@ -86,32 +86,22 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	@Test
 	public void testHumanTaskProcess() {
 		/*
-		 * * Create EntityManagerFactory and register it in the environment
-		 */
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
-
-		/*
-		 * Create the knowledge session that uses JPA to persists runtime state
-		 */
-		// StatefulKnowledgeSession ksession = JbpmAPIUtil.createKnowledgeSession("HelloProcess.bpmn",emf);
-		TaskService tservice = JbpmAPIUtil.getService(emf);
-
-		/*
 		 * Get the local task service
 		 */
-		TaskService taskService = (TaskService) JbpmAPIUtil.getTaskService(ksession, tservice, emf);
+		TaskService taskService = jbpmTaskService.getTaskService();
 
 		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
-		
+
 		/*
 		 * Retrive the tasks owned by a user
 		 */
-		List<TaskSummary> list = ((org.jbpm.task.TaskService) taskService).getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+		List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv",
+				"en-UK");
 		TaskSummary task = list.get(0);
-		
+
 		System.out.println("krisv is executing task " + task.getName());
-		((org.jbpm.task.TaskService) taskService).start(task.getId(), "krisv");
-		((org.jbpm.task.TaskService) taskService).complete(task.getId(), "krisv", null);
+		taskService.start(task.getId(), "krisv");
+		taskService.complete(task.getId(), "krisv", null);
 	}
 
 	@Test
@@ -119,37 +109,18 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
 
-		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-
-		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-		// ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
-		// parameters);
-
-		WorkItem workItem = (WorkItem) testHandler.getWorkItem();
-		// Email start process
-		// ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
-		// Email about AT
-		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		//
-		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-
-		// assertProcessInstanceActive(processInstance.getId(), ksession);
-		// assertNodeTriggered(processInstance.getId(), "Start");
-
-		// let john execute Task 1
-
-		// List<TaskSummary> list = ((org.jbpm.task.TaskService) taskService).getTasksAssignedAsPotentialOwner("john",
-		// "en-UK");
-
-		// List<TaskSummary> list = ((org.jbpm.task.TaskService)
-		// taskService).getTasksAssignedAsPotentialOwner("john", "en-UK");
-
-		// TaskSummary task = list.get(0);
-		// System.out.println("John is executing task " + task.getName());
+//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+//
+//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+//		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+//		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
+//				parameters);
+//
+//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 	}
 
 	@Test
