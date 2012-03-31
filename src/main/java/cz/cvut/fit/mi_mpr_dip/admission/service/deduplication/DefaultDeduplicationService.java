@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.person.PersonDeduplicationTemplate;
 
 @Service
 public class DefaultDeduplicationService implements DeduplicationService {

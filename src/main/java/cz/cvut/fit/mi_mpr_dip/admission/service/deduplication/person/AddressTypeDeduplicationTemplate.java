@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication;
+package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.person;
 
 import java.util.HashSet;
 import java.util.Iterator;

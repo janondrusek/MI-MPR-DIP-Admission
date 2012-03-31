@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.programme.ProgrammeDeduplicationTemplate;
 
 @Service
 public class DefaultProgrammeDeduplicationTemplate implements AdmissionDeduplicationTemplate {
