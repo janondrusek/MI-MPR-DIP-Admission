@@ -29,7 +29,7 @@
 		<class>org.jbpm.task.User</class>
 
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.dialect" value="${hibernate.dialect}" />
 			<!-- value="create" to build a new database on each run; value="update" to modify an existing database; value="create-drop" 
 				means the same as "create" but also drops tables when Hibernate closes; value="validate" makes no changes to the database -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />

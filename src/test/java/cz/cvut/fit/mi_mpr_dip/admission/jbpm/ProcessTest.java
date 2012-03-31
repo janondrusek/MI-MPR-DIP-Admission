@@ -7,17 +7,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
-import org.drools.process.instance.WorkItem;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.email.EmailWorkItemHandler;
@@ -54,7 +47,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
  * This is a sample file to launch a process.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/META-INF/spring/applicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:META-INF/spring/applicationContext-test.xml" })
 public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Autowired
