@@ -116,20 +116,28 @@
 				</country>
 				<printLines>
 					<printLine>
-						<name>pl_1</name>
 						<value>Don Benjamin Azurit Bukvica</value>
+						<printLineType>
+							<name>1st line</name>
+						</printLineType>
 					</printLine>
 					<printLine>
-						<name>pl_2</name>
 						<value>Gagarinova 1</value>
+						<printLineType>
+							<name>2nd line</name>
+						</printLineType>
 					</printLine>
 					<printLine>
-						<name>pl_3</name>
 						<value>123 45 Žigulov</value>
+						<printLineType>
+							<name>3rd line</name>
+						</printLineType>
 					</printLine>
 					<printLine>
-						<name>pl_4</name>
 						<value>Bahrajn</value>
+						<printLineType>
+							<name>4th line</name>
+						</printLineType>
 					</printLine>
 				</printLines>
 			</address>
