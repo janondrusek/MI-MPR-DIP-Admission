@@ -6,6 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItem;
@@ -52,7 +61,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	private JbpmTaskServiceImpl jbpmTaskService;
 
 	private StatefulKnowledgeSession ksession;
-	
+
 	private Admission admission;
 	private final String processName = "2012_BSP_main";
 
@@ -80,28 +89,38 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
 
-		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
+//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
 	}
 
 	@Test
 	public void testHumanTaskProcess() {
-		/*
-		 * Get the local task service
-		 */
-		TaskService taskService = jbpmTaskService.getTaskService();
+		try {
+			UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+			ut.begin();
+			
+			/*
+			 * Get the local task service
+			 */
+			TaskService taskService = jbpmTaskService.getTaskService();
 
-		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
+			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
 
-		/*
-		 * Retrive the tasks owned by a user
-		 */
-		List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv",
-				"en-UK");
-		TaskSummary task = list.get(0);
+			/*
+			 * Retrive the tasks owned by a user
+			 */
+			List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+			TaskSummary task = list.get(0);
 
-		System.out.println("krisv is executing task " + task.getName());
-		taskService.start(task.getId(), "krisv");
-		taskService.complete(task.getId(), "krisv", null);
+			System.out.println("krisv is executing task " + task.getName());
+			taskService.start(task.getId(), "krisv");
+			taskService.complete(task.getId(), "krisv", null);
+
+			
+			ut.commit();
+		} catch (Throwable t) {
+			// TODO Auto-generated catch block
+			t.printStackTrace();
+		}
 	}
 
 	@Test
@@ -109,20 +128,24 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
 
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
-//				parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 TestWorkItemHandler testHandler = new TestWorkItemHandler();
+		
+		 ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		 ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+		 ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
+		 parameters);
+		
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 	}
-
+/*
 	@Test
 	public void testAdmissionTestSubprocess() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
@@ -246,7 +269,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
 		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
 	}
-
+*/
 	@Test
 	public void testProcessWithDataFromDB() {
 		// TODO

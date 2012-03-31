@@ -5,7 +5,5 @@ import org.jbpm.task.TaskService;
 public interface JbpmTaskService {
 	
 	public TaskService getTaskService();
-	
-	
 
 }

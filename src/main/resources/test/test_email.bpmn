@@ -66,7 +66,7 @@ Great!</from>
         <terminateEventDefinition/>
     </endEvent>
     <parallelGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
-    <parallelGateway id="_5" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Converging" />
     <task id="_6" name="Email: myGmail domain" tns:taskName="Email" >
       <ioSpecification>
         <dataInput id="_6_BodyInput" name="Body" />
