@@ -6,6 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressTypeDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import java.security.SecureRandom;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
@@ -24,6 +26,9 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     private Random AddressDataOnDemand.rnd = new SecureRandom();
     
     private List<Address> AddressDataOnDemand.data;
+    
+    @Autowired
+    private AddressTypeDataOnDemand AddressDataOnDemand.addressTypeDataOnDemand;
     
     public Address AddressDataOnDemand.getNewTransientAddress(int index) {
         Address obj = new Address();
@@ -38,7 +43,7 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AddressDataOnDemand.setAddressType(Address obj, int index) {
-        AddressType addressType = null;
+        AddressType addressType = addressTypeDataOnDemand.getRandomAddressType();
         obj.setAddressType(addressType);
     }
     

@@ -3,73 +3,73 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
-privileged aspect Photo_Roo_Jpa_ActiveRecord {
+privileged aspect Appeal_Roo_Jpa_ActiveRecord {
     
     @PersistenceContext
-    transient EntityManager Photo.entityManager;
+    transient EntityManager Appeal.entityManager;
     
-    public static final EntityManager Photo.entityManager() {
-        EntityManager em = new Photo().entityManager;
+    public static final EntityManager Appeal.entityManager() {
+        EntityManager em = new Appeal().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long Photo.countPhotos() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Photo o", Long.class).getSingleResult();
+    public static long Appeal.countAppeals() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM Appeal o", Long.class).getSingleResult();
     }
     
-    public static List<Photo> Photo.findAllPhotos() {
-        return entityManager().createQuery("SELECT o FROM Photo o", Photo.class).getResultList();
+    public static List<Appeal> Appeal.findAllAppeals() {
+        return entityManager().createQuery("SELECT o FROM Appeal o", Appeal.class).getResultList();
     }
     
-    public static Photo Photo.findPhoto(Long photoId) {
-        if (photoId == null) return null;
-        return entityManager().find(Photo.class, photoId);
+    public static Appeal Appeal.findAppeal(Long appealId) {
+        if (appealId == null) return null;
+        return entityManager().find(Appeal.class, appealId);
     }
     
-    public static List<Photo> Photo.findPhotoEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Photo o", Photo.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<Appeal> Appeal.findAppealEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM Appeal o", Appeal.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional
-    public void Photo.persist() {
+    public void Appeal.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void Photo.remove() {
+    public void Appeal.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Photo attached = Photo.findPhoto(this.photoId);
+            Appeal attached = Appeal.findAppeal(this.appealId);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void Photo.flush() {
+    public void Appeal.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public void Photo.clear() {
+    public void Appeal.clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
     
     @Transactional
-    public Photo Photo.merge() {
+    public Appeal Appeal.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        Photo merged = this.entityManager.merge(this);
+        Appeal merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }

@@ -3,11 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
-import org.springframework.beans.factory.annotation.Configurable;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Apology;
+import javax.persistence.Entity;
 
-privileged aspect Photo_Roo_Configurable {
+privileged aspect Apology_Roo_Jpa_Entity {
     
-    declare @type: Photo: @Configurable;
+    declare @type: Apology: @Entity;
     
 }

@@ -1,10 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -20,11 +22,11 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "photoId" })
+@RooEquals(excludeFields = { "attachmentId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class Photo {
+public class Attachmnt {
 
 	@Version
 	@Transient
@@ -34,7 +36,7 @@ public class Photo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long photoId;
+	private Long attachmentId;
 
 	@Column
 	private String filename;
@@ -47,4 +49,7 @@ public class Photo {
 	@Column
 	@Lob
 	private String content;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private AttachmentType attachmentType;
 }

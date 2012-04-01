@@ -1,15 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -23,15 +17,13 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
-
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "termId" })
+@RooEquals(excludeFields = { "appealTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
-public class Term {
+public class AppealType {
 
 	@Version
 	@Transient
@@ -41,32 +33,9 @@ public class Term {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long termId;
+	private Long appealTypeId;
 
 	@NotNull
-	private Date dateOfTerm;
-	
-	@NotNull
-	private String room;
-
-	@NotNull
-	private Integer capacity;
-
-	@NotNull
-	private Date registerFrom;
-
-	@NotNull
-	private Date registerTo;
-
-	@NotNull
-	private Date appologyTo;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Programme> programs;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<TermRegistration> registrations;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	private TermType termType;
+	@Column(unique = true)
+	private String name;
 }

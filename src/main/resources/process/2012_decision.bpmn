@@ -24,13 +24,13 @@
     <endEvent id="_2" name="End" />
     <scriptTask id="_3" name="Decision generate" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Generating decision ...");
-if (admission.getAccepted() &amp;&amp; admission.getAppeal()) {
+if (admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
 	System.out.println("&gt; ROZHODNUTI O PRIJETI (NA ODVOLANI)");
-} else if (admission.getAccepted() &amp;&amp; !admission.getAppeal()) {
+} else if (admission.getAccepted()) {//&amp;&amp; !admission.getAppeal()) {
 	System.out.println("&gt; ROZHODNUTI O PRIJETI");
-} else if (!admission.getAccepted() &amp;&amp; admission.getAppeal()) {
+} else if (!admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
 	System.out.println("&gt; ROZHODNUTI O NEPRIJETI (NA ODVOLANI)");
-} else if (!admission.getAccepted() &amp;&amp; !admission.getAppeal()) {
+} else if (!admission.getAccepted()) {//&amp;&amp; !admission.getAppeal()) {
 	System.out.println("&gt; ROZHODNUTI O NEPRIJETI");
 }</script>
     </scriptTask>
@@ -45,13 +45,10 @@ if (admission.getAccepted() &amp;&amp; admission.getAppeal()) {
     <userTask id="_11" name="Appeal for decision" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>System.out.println("Possibility of appeal!");
-admission.setAppeal(true);</script>
+          <script>System.out.println("Possibility of appeal!");</script>
         </tns:onEntry-script>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>//if (appealToRector) {
-	admission.setAccepted(true);
-//}</script>
+          <script>admission.setAccepted(true);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
@@ -67,7 +64,7 @@ admission.setAppeal(true);</script>
           <script>System.out.println("Appeal approval!");</script>
         </tns:onEntry-script>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>//appealToRector = true;</script>
+          <script></script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
@@ -114,7 +111,7 @@ admission.setAppeal(true);</script>
     <sequenceFlow id="_16-_10" sourceRef="_16" targetRef="_10" />
     <sequenceFlow id="_6-_11" sourceRef="_6" targetRef="_11" name="to_appeal" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
-		if (!admission.getAccepted() &amp;&amp; !admission.getAppeal()) { //&amp;&amp; appealToRector
+		if (!admission.getAccepted()) { //&amp;&amp; !admission.getAppeal()) { //&amp;&amp; appealToRector
 			b = true;
 		}
 		return b;</conditionExpression>

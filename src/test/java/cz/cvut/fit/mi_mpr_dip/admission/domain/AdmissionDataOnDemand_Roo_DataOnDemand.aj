@@ -45,7 +45,6 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         Admission obj = new Admission();
         setAccepted(obj, index);
         setAdmissionState(obj, index);
-        setAppeal(obj, index);
         setCode(obj, index);
         setDormitoryRequest(obj, index);
         setFaculty(obj, index);
@@ -65,11 +64,6 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public void AdmissionDataOnDemand.setAdmissionState(Admission obj, int index) {
         AdmissionState admissionState = null;
         obj.setAdmissionState(admissionState);
-    }
-    
-    public void AdmissionDataOnDemand.setAppeal(Admission obj, int index) {
-        Boolean appeal = Boolean.TRUE;
-        obj.setAppeal(appeal);
     }
     
     public void AdmissionDataOnDemand.setCode(Admission obj, int index) {
