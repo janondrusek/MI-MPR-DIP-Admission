@@ -17,7 +17,7 @@
 	<import resource="spring-web.xml" />
 	<import resource="builders.xml" />
 	<import resource="services.xml" />
-	<import resource="jbpm-conf.xml" />
+	<import resource="jbpm.xml" />
 
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.DefaultAccessiblePropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
