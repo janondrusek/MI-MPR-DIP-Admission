@@ -1,16 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.person;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.collections.CollectionUtils;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
-public abstract class CommonPersonDeduplicationTemplate<T> implements PersonDeduplicationTemplate {
+public abstract class CommonPersonDeduplicationTemplate<T> extends AddressDeduplicationTemplate<T> {
 
 	@Override
 	public void deduplicate(Person person) {
@@ -27,31 +23,6 @@ public abstract class CommonPersonDeduplicationTemplate<T> implements PersonDedu
 	}
 
 	abstract protected Set<T> collectDirectlyDescendant(Person person);
-
-	private Set<T> collect(Set<Address> addresses) {
-		Set<T> collected = new HashSet<T>();
-		for (Address address : addresses) {
-			collected.add(collect(address));
-		}
-		return collected;
-	}
-
-	abstract protected T collect(Address address);
-
-	private void deduplicate(Set<T> collected) {
-		Set<T> replacements = new HashSet<T>();
-		for (Iterator<T> iterator = collected.iterator(); iterator.hasNext();) {
-			T item = iterator.next();
-			List<T> items = findByNameEquals(item);
-			if (CollectionUtils.isNotEmpty(items)) {
-				iterator.remove();
-				replacements.add(items.get(0));
-			}
-		}
-		collected.addAll(replacements);
-	}
-
-	abstract protected List<T> findByNameEquals(T item);
 
 	private void deduplicatePerson(Person person, Set<T> collected) {
 		for (T item : collected) {
@@ -71,6 +42,4 @@ public abstract class CommonPersonDeduplicationTemplate<T> implements PersonDedu
 			deduplicateAddress(item, address);
 		}
 	}
-
-	abstract protected void deduplicateAddress(T item, Address address);
 }

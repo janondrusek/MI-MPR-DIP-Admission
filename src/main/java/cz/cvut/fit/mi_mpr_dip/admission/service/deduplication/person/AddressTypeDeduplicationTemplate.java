@@ -1,61 +1,30 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.person;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
-public class AddressTypeDeduplicationTemplate implements PersonDeduplicationTemplate {
+@Service
+public class AddressTypeDeduplicationTemplate extends AddressDeduplicationTemplate<AddressType> {
 
 	@Override
-	public void deduplicate(Person person) {
-		Set<Address> addresses = person.getAddresses();
-		if (CollectionUtils.isNotEmpty(addresses)) {
-			deduplicateAddresses(addresses);
-		}
+	protected Set<AddressType> collect(Address address) {
+		return collect(address.getAddressType());
 	}
 
-	private void deduplicateAddresses(Set<Address> addresses) {
-		Set<AddressType> addressTypes = collectAddressTypes(addresses);
-		deduplicateAddressTypes(addressTypes);
-		deduplicateAddresses(addresses, addressTypes);
+	@Override
+	protected List<AddressType> findByNameEquals(AddressType addressType) {
+		return AddressType.findAddressTypesByNameEquals(addressType.getName()).getResultList();
 	}
 
-	private Set<AddressType> collectAddressTypes(Set<Address> addresses) {
-		Set<AddressType> addressTypes = new HashSet<AddressType>();
-		for (Address address : addresses) {
-			addressTypes.add(address.getAddressType());
-		}
-		return addressTypes;
-	}
-
-	private void deduplicateAddressTypes(Set<AddressType> addressTypes) {
-		Set<AddressType> replacements = new HashSet<AddressType>();
-		for (Iterator<AddressType> iterator = addressTypes.iterator(); iterator.hasNext();) {
-			AddressType addressType = iterator.next();
-			List<AddressType> dbAddressTypes = AddressType.findAddressTypesByNameEquals(addressType.getName())
-					.getResultList();
-			if (CollectionUtils.isNotEmpty(dbAddressTypes)) {
-				iterator.remove();
-				replacements.add(dbAddressTypes.get(0));
-			}
-		}
-		addressTypes.addAll(replacements);
-	}
-
-	private void deduplicateAddresses(Set<Address> addresses, Set<AddressType> addressTypes) {
-		for (AddressType addressType : addressTypes) {
-			for (Address address : addresses) {
-				if (address.getAddressType().equals(addressType)) {
-					address.setAddressType(addressType);
-				}
-			}
+	@Override
+	protected void deduplicateAddress(AddressType addressType, Address address) {
+		if (address.getAddressType().equals(addressType)) {
+			address.setAddressType(addressType);
 		}
 	}
 }

@@ -22,8 +22,8 @@ public class CountryDeduplicationTemplate extends CommonPersonDeduplicationTempl
 	}
 
 	@Override
-	protected Country collect(Address address) {
-		return address.getCountry();
+	protected Set<Country> collect(Address address) {
+		return collect(address.getCountry());
 	}
 
 	@Override

@@ -21,8 +21,8 @@ public class CityDeduplicationTemplate extends CommonPersonDeduplicationTemplate
 	}
 
 	@Override
-	protected City collect(Address address) {
-		return address.getCity();
+	protected Set<City> collect(Address address) {
+		return collect(address.getCity());
 	}
 
 	@Override
