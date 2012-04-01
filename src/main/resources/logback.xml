@@ -6,13 +6,6 @@
 		</layout>
 	</appender>
 
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>admission.log</file>
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %msg%n</Pattern>
-		</layout>
-	</appender>
-
 	<logger name="org.springframework.beans" level="INFO" />
 	<logger name="org.hibernate" level="INFO" />
 	<logger name="cz.cvut" level="DEBUG" />
