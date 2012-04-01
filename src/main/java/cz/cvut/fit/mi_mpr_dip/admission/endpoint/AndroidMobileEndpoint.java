@@ -21,7 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
@@ -86,14 +86,14 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Photo photo)
+	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Attachmnt photo)
 			throws URISyntaxException {
 		return admissionEndpoint.mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
 
-		new AdmissionAction<Photo>() {
+		new AdmissionAction<Attachmnt>() {
 
 			@Override
-			public void performAction(Admission admission, Photo actor) {
+			public void performAction(Admission admission, Attachmnt actor) {
 				admission.getPhotos().add(photo);
 			}
 		});

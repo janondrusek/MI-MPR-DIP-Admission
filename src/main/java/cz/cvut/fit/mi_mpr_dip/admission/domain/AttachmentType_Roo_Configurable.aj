@@ -3,11 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.PhotoDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AttachmentType;
 import org.springframework.beans.factory.annotation.Configurable;
 
-privileged aspect PhotoDataOnDemand_Roo_Configurable {
+privileged aspect AttachmentType_Roo_Configurable {
     
-    declare @type: PhotoDataOnDemand: @Configurable;
+    declare @type: AttachmentType: @Configurable;
     
 }

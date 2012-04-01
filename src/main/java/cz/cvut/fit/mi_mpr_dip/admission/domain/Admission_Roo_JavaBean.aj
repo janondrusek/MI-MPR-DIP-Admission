@@ -7,8 +7,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -130,11 +130,11 @@ privileged aspect Admission_Roo_JavaBean {
         this.programme = programme;
     }
     
-    public Set<Photo> Admission.getPhotos() {
+    public Set<Attachmnt> Admission.getPhotos() {
         return this.photos;
     }
     
-    public void Admission.setPhotos(Set<Photo> photos) {
+    public void Admission.setPhotos(Set<Attachmnt> photos) {
         this.photos = photos;
     }
     

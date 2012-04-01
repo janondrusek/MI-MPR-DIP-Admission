@@ -3,11 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.PhotoIntegrationTest;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
 import org.springframework.beans.factory.annotation.Configurable;
 
-privileged aspect PhotoIntegrationTest_Roo_Configurable {
+privileged aspect Attachmnt_Roo_Configurable {
     
-    declare @type: PhotoIntegrationTest: @Configurable;
+    declare @type: Attachmnt: @Configurable;
     
 }

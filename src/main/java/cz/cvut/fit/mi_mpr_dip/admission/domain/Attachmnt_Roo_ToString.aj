@@ -3,13 +3,13 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-privileged aspect Photo_Roo_ToString {
+privileged aspect Attachmnt_Roo_ToString {
     
-    public String Photo.toString() {
+    public String Attachmnt.toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
     

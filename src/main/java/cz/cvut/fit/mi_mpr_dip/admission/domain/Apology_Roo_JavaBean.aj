@@ -4,7 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Apology;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachment;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import java.util.Set;
 
@@ -50,12 +50,12 @@ privileged aspect Apology_Roo_JavaBean {
         this.text = text;
     }
     
-    public Set<Attachment> Apology.getAttachments() {
-        return this.attachments;
+    public Set<Attachmnt> Apology.getFiles() {
+        return this.files;
     }
     
-    public void Apology.setAttachments(Set<Attachment> attachments) {
-        this.attachments = attachments;
+    public void Apology.setFiles(Set<Attachmnt> files) {
+        this.files = files;
     }
     
 }

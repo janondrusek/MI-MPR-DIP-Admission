@@ -3,73 +3,73 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Photo;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
-privileged aspect Photo_Roo_Jpa_ActiveRecord {
+privileged aspect Attachmnt_Roo_Jpa_ActiveRecord {
     
     @PersistenceContext
-    transient EntityManager Photo.entityManager;
+    transient EntityManager Attachmnt.entityManager;
     
-    public static final EntityManager Photo.entityManager() {
-        EntityManager em = new Photo().entityManager;
+    public static final EntityManager Attachmnt.entityManager() {
+        EntityManager em = new Attachmnt().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long Photo.countPhotos() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Photo o", Long.class).getSingleResult();
+    public static long Attachmnt.countAttachmnts() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM Attachmnt o", Long.class).getSingleResult();
     }
     
-    public static List<Photo> Photo.findAllPhotos() {
-        return entityManager().createQuery("SELECT o FROM Photo o", Photo.class).getResultList();
+    public static List<Attachmnt> Attachmnt.findAllAttachmnts() {
+        return entityManager().createQuery("SELECT o FROM Attachmnt o", Attachmnt.class).getResultList();
     }
     
-    public static Photo Photo.findPhoto(Long photoId) {
-        if (photoId == null) return null;
-        return entityManager().find(Photo.class, photoId);
+    public static Attachmnt Attachmnt.findAttachmnt(Long attachmentId) {
+        if (attachmentId == null) return null;
+        return entityManager().find(Attachmnt.class, attachmentId);
     }
     
-    public static List<Photo> Photo.findPhotoEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Photo o", Photo.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<Attachmnt> Attachmnt.findAttachmntEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM Attachmnt o", Attachmnt.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional
-    public void Photo.persist() {
+    public void Attachmnt.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void Photo.remove() {
+    public void Attachmnt.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Photo attached = Photo.findPhoto(this.photoId);
+            Attachmnt attached = Attachmnt.findAttachmnt(this.attachmentId);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void Photo.flush() {
+    public void Attachmnt.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public void Photo.clear() {
+    public void Attachmnt.clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
     
     @Transactional
-    public Photo Photo.merge() {
+    public Attachmnt Attachmnt.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        Photo merged = this.entityManager.merge(this);
+        Attachmnt merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }
