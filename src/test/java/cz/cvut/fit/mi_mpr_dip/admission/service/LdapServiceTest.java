@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class LdapServiceTest {
 
 	@Autowired
-	LdapService ldapService;
+	AuthenticationService ldapService;
 
 	@Before
 	public void setUp() {

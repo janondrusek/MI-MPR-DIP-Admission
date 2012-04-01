@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.validator.AdmissionValidator;
@@ -45,6 +46,9 @@ public class DefaultProcessingEndpoint implements ProcessingEndpoint, Applicatio
 
 	@Autowired
 	private DeduplicationService deduplicationService;
+	
+	@Autowired
+	private UserIdentityService userIdentityService;
 
 	private ApplicationContext applicationContext;
 
@@ -86,7 +90,7 @@ public class DefaultProcessingEndpoint implements ProcessingEndpoint, Applicatio
 	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException {
 		if (CollectionUtils.isNotEmpty(admissions.getAdmissions())) {
 			for (Admission admission : admissions.getAdmissions()) {
-				deduplicationService.deduplicateAndStore(admission);
+				deduplicateAndStore(admission);
 			}
 		}
 		return admissions;
@@ -101,9 +105,14 @@ public class DefaultProcessingEndpoint implements ProcessingEndpoint, Applicatio
 	@PUT
 	@Override
 	public Response addAdmission(@Valid Admission admission) throws URISyntaxException {
-		deduplicationService.deduplicateAndStore(admission);
-		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getAdmissionId().toString());
+		deduplicateAndStore(admission);
+		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode().toString());
 		return Response.created(uri).build();
+	}
+
+	private void deduplicateAndStore(Admission admission) {
+		userIdentityService.buildUserIdentity(admission);
+		deduplicationService.deduplicateAndStore(admission);
 	}
 
 	@Path(ADMISSION_PATH + "/{admissionCode}")

@@ -12,7 +12,7 @@
 
 	<import resource="spring-roo.xml" />
 	<import resource="spring-persistence.xml" />
-	<import resource="spring-ldap.xml" />
+	<import resource="spring-auth.xml" />
 	<import resource="spring-security.xml" />
 	<import resource="spring-web.xml" />
 	<import resource="builders.xml" />

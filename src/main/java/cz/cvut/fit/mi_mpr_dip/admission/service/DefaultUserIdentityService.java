@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -27,9 +28,6 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	@Override
 	public UserIdentity getUserIdentity(String username) {
 		UserIdentity userIdentity = userIdentityDao.getUserIdentity(username);
-		if (userIdentity.getUsername() == null) {
-			userIdentity.setUsername(username);
-		}
 		ensureSession(userIdentity);
 		userIdentity.persist();
 		return userIdentity;
@@ -94,6 +92,11 @@ public class DefaultUserIdentityService implements UserIdentityService {
 
 	private Date getNow() {
 		return new Date();
+	}
+
+	@Override
+	public void buildUserIdentity(Admission admission) {
+
 	}
 
 	@Required

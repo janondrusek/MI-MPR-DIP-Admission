@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-   http://www.springframework.org/schema/security 
-   http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+	xmlns:security="http://www.springframework.org/schema/security" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- To allow standards-based @Secured annotation, enable secured-annotations See Spring Security 3.1 Reference 2.4 Method 
 		Security - http://static.springsource.org/spring-security/site/docs/3.1.x/reference/ns-config.html#ns-protect-pointcut - 
@@ -78,5 +77,17 @@
 
 	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
 		<property name="realmName" value="${auth.basic.realm.name}" />
+	</bean>
+
+	<util:constant id="LDAP" static-field="cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication.LDAP" />
+	<util:constant id="PWD" static-field="cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication.PWD" />
+
+	<bean id="userIdentityAuthenticationProvider" class="cz.cvut.fit.mi_mpr_dip.admission.authentication.UserIdentityAuthenticationProvider">
+		<property name="authenticationServices">
+			<map>
+				<entry key-ref="LDAP" value-ref="ldapService" />
+				<entry key-ref="PWD" value-ref="pwdService" />
+			</map>
+		</property>
 	</bean>
 </beans>
