@@ -17,11 +17,11 @@ privileged aspect Admission_Roo_Equals {
             return true;
         }
         Admission rhs = (Admission) obj;
-        return new EqualsBuilder().append(accepted, rhs.accepted).append(admissionState, rhs.admissionState).append(appeal, rhs.appeal).append(code, rhs.code).append(dormitoryRequest, rhs.dormitoryRequest).append(faculty, rhs.faculty).append(person, rhs.person).append(programme, rhs.programme).append(result, rhs.result).append(type, rhs.type).isEquals();
+        return new EqualsBuilder().append(accepted, rhs.accepted).append(admissionState, rhs.admissionState).append(code, rhs.code).append(dormitoryRequest, rhs.dormitoryRequest).append(faculty, rhs.faculty).append(person, rhs.person).append(programme, rhs.programme).append(result, rhs.result).append(type, rhs.type).isEquals();
     }
     
     public int Admission.hashCode() {
-        return new HashCodeBuilder().append(accepted).append(admissionState).append(appeal).append(code).append(dormitoryRequest).append(faculty).append(person).append(programme).append(result).append(type).toHashCode();
+        return new HashCodeBuilder().append(accepted).append(admissionState).append(code).append(dormitoryRequest).append(faculty).append(person).append(programme).append(result).append(type).toHashCode();
     }
     
 }

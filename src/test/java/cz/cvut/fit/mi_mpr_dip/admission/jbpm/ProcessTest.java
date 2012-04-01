@@ -26,6 +26,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
@@ -274,7 +276,16 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		a.setCode("73935282");
 		a.setType("P");
 		a.setAccepted(false);
-		a.setAppeal(false);
+		
+		Appeal ap = new Appeal();
+		AppealType apt = new AppealType();
+		apt.setName("Odvolání k děkanovi");
+		
+		ap.setAppealType(apt);
+		ap.setAccepted(false);
+		
+		Set<Appeal> appeals = new HashSet<Appeal>();		
+		a.setAppeals(appeals);
 
 		AdmissionState state = new AdmissionState();
 		state.setCode("S01");

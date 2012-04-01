@@ -57,6 +57,7 @@ public class Admission {
 	private String type;
 
 	// Mark if attendant was successful in admission process
+	@NotNull
 	private Boolean accepted;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -64,8 +65,10 @@ public class Admission {
 	@XmlElement(name = "accomplishment")
 	private Set<Accomplishment> accomplishments;
 
-	// Mark if attendant fails in admission process but appeals the decision
-	private Boolean appeal;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@XmlElementWrapper(name = "appeals")
+	@XmlElement(name = "appeal")
+	private Set<Appeal> appeals;
 
 	private Boolean dormitoryRequest;
 
@@ -92,4 +95,7 @@ public class Admission {
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Photo> photos;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<TermRegistration> registrations;
 }
