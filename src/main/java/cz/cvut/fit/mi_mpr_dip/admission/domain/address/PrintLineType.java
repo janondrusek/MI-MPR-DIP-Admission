@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -18,22 +17,22 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
 @RooEquals(excludeFields = { "printLineTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
+@RooJpaActiveRecord(finders = { "findPrintLineTypesByNameEquals" })
 public class PrintLineType {
 
-	@Version
-	@Transient
-	@XmlTransient
-	private int version;
+    @Version
+    @Transient
+    @XmlTransient
+    private int version;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlTransient
-	private Long printLineTypeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlTransient
+    private Long printLineTypeId;
 
-	@NotNull
-	@Column(unique = true)
-	private String name;
+    @NotNull
+    @Column(unique = true)
+    private String name;
 }

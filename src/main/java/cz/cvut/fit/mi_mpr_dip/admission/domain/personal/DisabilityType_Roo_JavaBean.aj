@@ -4,6 +4,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import java.util.Set;
 
 privileged aspect DisabilityType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect DisabilityType_Roo_JavaBean {
     
     public void DisabilityType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Person> DisabilityType.getPersons() {
+        return this.persons;
+    }
+    
+    public void DisabilityType.setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
     
 }

@@ -12,6 +12,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,6 +38,9 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     @Autowired
     private AdmissionResultDataOnDemand AdmissionDataOnDemand.admissionResultDataOnDemand;
     
+    @Autowired
+    private UserIdentityDataOnDemand AdmissionDataOnDemand.userIdentityDataOnDemand;
+    
     public Admission AdmissionDataOnDemand.getNewTransientAdmission(int index) {
         Admission obj = new Admission();
         setAccepted(obj, index);
@@ -48,6 +53,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         setProgramme(obj, index);
         setResult(obj, index);
         setType(obj, index);
+        setUserIdentity(obj, index);
         return obj;
     }
     
@@ -99,6 +105,11 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public void AdmissionDataOnDemand.setType(Admission obj, int index) {
         String type = "type_" + index;
         obj.setType(type);
+    }
+    
+    public void AdmissionDataOnDemand.setUserIdentity(Admission obj, int index) {
+        UserIdentity userIdentity = userIdentityDataOnDemand.getSpecificUserIdentity(index);
+        obj.setUserIdentity(userIdentity);
     }
     
     public Admission AdmissionDataOnDemand.getSpecificAdmission(int index) {

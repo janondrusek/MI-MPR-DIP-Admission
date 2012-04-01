@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -95,7 +98,8 @@ public class Person {
 	private String email;
 
 	@XmlElementWrapper(name = "disabilities")
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "person_disability_type", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "disability_type_id", referencedColumnName = "disabilityTypeId") })
 	@XmlElement(name = "disability")
 	private Set<DisabilityType> disabilities;
 }

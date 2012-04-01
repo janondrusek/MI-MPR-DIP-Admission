@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -14,6 +15,16 @@ privileged aspect UserIdentity_Roo_Finder {
         EntityManager em = UserIdentity.entityManager();
         TypedQuery<UserIdentity> q = em.createQuery("SELECT o FROM UserIdentity AS o WHERE o.username = :username", UserIdentity.class);
         q.setParameter("username", username);
+        return q;
+    }
+    
+    public static TypedQuery<UserIdentity> UserIdentity.findUserIdentitysByUsernameEqualsAndAuthenticationEquals(String username, UserIdentityAuthentication authentication) {
+        if (username == null || username.length() == 0) throw new IllegalArgumentException("The username argument is required");
+        if (authentication == null) throw new IllegalArgumentException("The authentication argument is required");
+        EntityManager em = UserIdentity.entityManager();
+        TypedQuery<UserIdentity> q = em.createQuery("SELECT o FROM UserIdentity AS o WHERE o.username = :username  AND o.authentication = :authentication", UserIdentity.class);
+        q.setParameter("username", username);
+        q.setParameter("authentication", authentication);
         return q;
     }
     

@@ -12,6 +12,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import java.util.Set;
 
 privileged aspect Admission_Roo_JavaBean {
@@ -134,6 +135,14 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setPhotos(Set<Photo> photos) {
         this.photos = photos;
+    }
+    
+    public UserIdentity Admission.getUserIdentity() {
+        return this.userIdentity;
+    }
+    
+    public void Admission.setUserIdentity(UserIdentity userIdentity) {
+        this.userIdentity = userIdentity;
     }
     
 }

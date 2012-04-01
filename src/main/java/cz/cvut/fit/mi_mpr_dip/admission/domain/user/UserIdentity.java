@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -31,7 +32,8 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "userIdentityId", "roles", "sessions" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@RooJpaActiveRecord(finders = { "findUserIdentitysByUsernameEquals" })
+@RooJpaActiveRecord(finders = { "findUserIdentitysByUsernameEquals",
+		"findUserIdentitysByUsernameEqualsAndAuthenticationEquals" })
 public class UserIdentity {
 
 	@Version
@@ -55,4 +57,11 @@ public class UserIdentity {
 	@OneToMany(mappedBy = "userIdentity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OrderBy("grantValidTo DESC")
 	private Set<UserSession> sessions;
+
+	@NotNull
+	private UserIdentityAuthentication authentication;
+
+	@XmlTransient
+	@OneToOne(mappedBy = "userIdentity", cascade = CascadeType.ALL)
+	private UserPassword userPassword;
 }

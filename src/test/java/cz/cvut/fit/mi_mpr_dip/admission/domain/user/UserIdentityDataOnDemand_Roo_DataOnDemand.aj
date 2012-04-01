@@ -4,7 +4,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPasswordDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect UserIdentityDataOnDemand_Roo_DataOnDemand {
@@ -22,10 +26,25 @@ privileged aspect UserIdentityDataOnDemand_Roo_DataOnDemand {
     
     private List<UserIdentity> UserIdentityDataOnDemand.data;
     
+    @Autowired
+    private UserPasswordDataOnDemand UserIdentityDataOnDemand.userPasswordDataOnDemand;
+    
     public UserIdentity UserIdentityDataOnDemand.getNewTransientUserIdentity(int index) {
         UserIdentity obj = new UserIdentity();
+        setAuthentication(obj, index);
+        setUserPassword(obj, index);
         setUsername(obj, index);
         return obj;
+    }
+    
+    public void UserIdentityDataOnDemand.setAuthentication(UserIdentity obj, int index) {
+        UserIdentityAuthentication authentication = null;
+        obj.setAuthentication(authentication);
+    }
+    
+    public void UserIdentityDataOnDemand.setUserPassword(UserIdentity obj, int index) {
+        UserPassword userPassword = userPasswordDataOnDemand.getSpecificUserPassword(index);
+        obj.setUserPassword(userPassword);
     }
     
     public void UserIdentityDataOnDemand.setUsername(UserIdentity obj, int index) {

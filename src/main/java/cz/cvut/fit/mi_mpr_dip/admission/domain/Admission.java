@@ -30,6 +30,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
 @RooJavaBean
 @RooToString
@@ -92,4 +93,7 @@ public class Admission {
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Photo> photos;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private UserIdentity userIdentity;
 }

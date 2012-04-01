@@ -1,9 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -36,4 +40,8 @@ public class DisabilityType {
 	@NotNull
 	@Column(unique = true)
 	private String name;
+
+	@ManyToMany(mappedBy = "disabilities", fetch = FetchType.EAGER)
+	@XmlTransient
+	private Set<Person> persons;
 }
