@@ -20,8 +20,9 @@
 			<jbpm:resource type="BPMN2" source="classpath:process/2012_decision.bpmn" />
 
 			<jbpm:resource type="BPMN2" source="classpath:test/blank.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:test/test_email.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:test/test_user_task.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:test/send_email.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:test/execute_user_task.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:test/fire_signal_event.bpmn" />
 			
 		</jbpm:resources>
 	</jbpm:kbase>

@@ -105,7 +105,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 			 */
 			List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
 			TaskSummary task = list.get(0);
-
+			
 			System.out.println("krisv is executing task " + task.getName());
 			taskService.start(task.getId(), "krisv");
 			taskService.complete(task.getId(), "krisv", null);
@@ -265,6 +265,18 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
 	}
 */
+	@Test
+	public void testFireSignalEvent() {
+		 TestWorkItemHandler testHandler = new TestWorkItemHandler();
+		
+		 ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		 ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.signal_event");
+
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		 processInstance.signalEvent("backToUserAction", null);
+		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+	}
+	
 	@Test
 	public void testProcessWithDataFromDB() {
 		// TODO
