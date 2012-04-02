@@ -18,7 +18,7 @@ public class AdmissionStateDeduplicationTemplate implements AdmissionDeduplicati
 			List<AdmissionState> admissionStates = AdmissionState.findAdmissionStatesByCodeEquals(
 					admissionState.getCode()).getResultList();
 			if (CollectionUtils.isNotEmpty(admissionStates)) {
-				admissionState.setAdmissionStateId(admissionStates.get(0).getAdmissionStateId());
+				admission.setAdmissionState(admissionStates.get(0));
 			}
 		}
 	}
