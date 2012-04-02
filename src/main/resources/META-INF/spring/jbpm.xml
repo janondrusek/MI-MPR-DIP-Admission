@@ -23,7 +23,7 @@
 			<jbpm:resource type="BPMN2" source="classpath:test/send_email.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:test/execute_user_task.bpmn" />
 			<jbpm:resource type="BPMN2" source="classpath:test/fire_signal_event.bpmn" />
-			
+			<jbpm:resource type="BPMN2" source="classpath:test/gateway_method.bpmn" />
 		</jbpm:resources>
 	</jbpm:kbase>
 

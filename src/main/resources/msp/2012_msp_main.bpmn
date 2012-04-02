@@ -13,6 +13,7 @@
              xmlns:tns="http://www.jboss.org/drools">
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
+  <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main" name="Sample Process" tns:packageName="defaultPackage" >
 
@@ -22,6 +23,7 @@
     </extensionElements>
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
+    <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -29,15 +31,15 @@
       <ioSpecification>
         <dataInput id="_36_CommentInput" name="Comment" />
         <dataInput id="_36_SkippableInput" name="Skippable" />
-        <dataInput id="_36_TaskNameInput" name="TaskName" />
         <dataInput id="_36_ContentInput" name="Content" />
+        <dataInput id="_36_TaskNameInput" name="TaskName" />
         <dataInput id="_36_GroupIdInput" name="GroupId" />
         <dataInput id="_36_PriorityInput" name="Priority" />
         <inputSet>
           <dataInputRefs>_36_CommentInput</dataInputRefs>
           <dataInputRefs>_36_SkippableInput</dataInputRefs>
-          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
           <dataInputRefs>_36_ContentInput</dataInputRefs>
+          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
           <dataInputRefs>_36_GroupIdInput</dataInputRefs>
           <dataInputRefs>_36_PriorityInput</dataInputRefs>
         </inputSet>
@@ -59,17 +61,17 @@
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
-        <targetRef>_36_TaskNameInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <targetRef>_36_ContentInput</targetRef>
         <assignment>
           <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_36_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
@@ -282,28 +284,7 @@
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_8-_30" sourceRef="_8" targetRef="_30" name="without_AT" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
-		if (admission.getAccepted()) { b = true; return true; }
-		//System.out.println("COUNTER: " + admission.getEvaluations().size());		
-		for (Evaluation evaluation : admission.getEvaluations()) {
-			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
-			System.out.println("value: " + value + " type: " + type);
-			
-			if (type.equals("H8") &amp;&amp; Double.valueOf(value) &lt;= 1.9) { 
-				System.out.println("prijat z duvodu: [" + type + "] Studijni prumer pred. studia - " + value);
-				b = true;
-				return true;
-			}
-		}
-if (b) {
-	System.out.println("PRIJAT BEZ PZ");
-} else {
-	System.out.println("POZVAN K PZ");
-}
-		
-return b;		
-</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalAcceptWithoutAT(admission);</conditionExpression>
     </sequenceFlow>
 
   </process>
