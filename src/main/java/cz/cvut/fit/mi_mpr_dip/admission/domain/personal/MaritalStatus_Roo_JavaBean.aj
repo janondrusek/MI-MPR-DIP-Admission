@@ -4,6 +4,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import java.util.Set;
 
 privileged aspect MaritalStatus_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect MaritalStatus_Roo_JavaBean {
     
     public void MaritalStatus.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Person> MaritalStatus.getPersons() {
+        return this.persons;
+    }
+    
+    public void MaritalStatus.setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
     
 }

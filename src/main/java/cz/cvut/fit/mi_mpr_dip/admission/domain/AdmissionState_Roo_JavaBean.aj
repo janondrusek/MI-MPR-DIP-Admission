@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
+import java.util.Set;
 
 privileged aspect AdmissionState_Roo_JavaBean {
     
@@ -45,6 +47,14 @@ privileged aspect AdmissionState_Roo_JavaBean {
     
     public void AdmissionState.setDesciption(String desciption) {
         this.desciption = desciption;
+    }
+    
+    public Set<Admission> AdmissionState.getAdmissions() {
+        return this.admissions;
+    }
+    
+    public void AdmissionState.setAdmissions(Set<Admission> admissions) {
+        this.admissions = admissions;
     }
     
 }

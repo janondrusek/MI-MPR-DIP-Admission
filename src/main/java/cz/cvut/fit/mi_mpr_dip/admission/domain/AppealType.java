@@ -1,9 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -38,4 +42,8 @@ public class AppealType {
 	@NotNull
 	@Column(unique = true)
 	private String name;
+
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "appealType")
+	@XmlTransient
+	private Set<Appeal> appeals;
 }

@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermType;
+import java.util.Set;
 
 privileged aspect TermType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect TermType_Roo_JavaBean {
     
     public void TermType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Term> TermType.getTerms() {
+        return this.terms;
+    }
+    
+    public void TermType.setTerms(Set<Term> terms) {
+        this.terms = terms;
     }
     
 }

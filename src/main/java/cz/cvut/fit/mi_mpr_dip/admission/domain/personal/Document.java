@@ -35,7 +35,7 @@ public class Document {
 	private Long documentId;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private DocumentType documentType;
 
 	@NotNull

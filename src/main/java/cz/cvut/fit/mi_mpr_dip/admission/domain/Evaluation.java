@@ -34,7 +34,7 @@ public class Evaluation {
 	@XmlTransient
 	private Long evaluationId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private EvaluationType evaluationType;
 
 	@NotNull

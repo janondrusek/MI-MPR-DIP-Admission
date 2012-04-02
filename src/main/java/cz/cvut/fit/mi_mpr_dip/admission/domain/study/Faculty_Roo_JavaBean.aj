@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
+import java.util.Set;
 
 privileged aspect Faculty_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect Faculty_Roo_JavaBean {
     
     public void Faculty.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Admission> Faculty.getAdmissions() {
+        return this.admissions;
+    }
+    
+    public void Faculty.setAdmissions(Set<Admission> admissions) {
+        this.admissions = admissions;
     }
     
 }

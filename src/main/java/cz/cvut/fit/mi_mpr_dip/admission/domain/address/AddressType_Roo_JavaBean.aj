@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
+import java.util.Set;
 
 privileged aspect AddressType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect AddressType_Roo_JavaBean {
     
     public void AddressType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Address> AddressType.getAddresses() {
+        return this.addresses;
+    }
+    
+    public void AddressType.setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
     
 }
