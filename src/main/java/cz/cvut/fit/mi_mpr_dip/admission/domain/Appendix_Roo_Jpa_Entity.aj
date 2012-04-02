@@ -3,11 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AttachmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import javax.persistence.Entity;
 
-privileged aspect AttachmentType_Roo_Jpa_Entity {
+privileged aspect Appendix_Roo_Jpa_Entity {
     
-    declare @type: AttachmentType: @Entity;
+    declare @type: Appendix: @Entity;
     
 }

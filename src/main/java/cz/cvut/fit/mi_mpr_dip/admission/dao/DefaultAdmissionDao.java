@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 
 @Repository
 public class DefaultAdmissionDao extends AbstractDao implements AdmissionDao {
@@ -16,7 +16,7 @@ public class DefaultAdmissionDao extends AbstractDao implements AdmissionDao {
 	public Admission getAdmission(String code) {
 		Admission admission = uniqueResult(Admission.class, Admission.findAdmissionsByCodeEquals(code));
 		if (admission.getPhotos() == null) {
-			admission.setPhotos(new HashSet<Attachmnt>());
+			admission.setPhotos(new HashSet<Appendix>());
 		}
 		return admission;
 	}

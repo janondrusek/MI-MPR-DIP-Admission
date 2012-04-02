@@ -59,7 +59,7 @@ public class Term {
 	private Date registerTo;
 
 	@NotNull
-	private Date appologyTo;
+	private Date apologyTo;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	private Set<Programme> programs;

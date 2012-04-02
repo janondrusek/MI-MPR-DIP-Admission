@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 
 public interface MobileEndpoint {
 
@@ -15,6 +15,6 @@ public interface MobileEndpoint {
 
 	public Response saveResult(String admissionCode, AdmissionResult result) throws URISyntaxException;
 
-	public Response savePhoto(String admissionCode, Attachmnt photo) throws URISyntaxException;
+	public Response savePhoto(String admissionCode, Appendix photo) throws URISyntaxException;
 
 }

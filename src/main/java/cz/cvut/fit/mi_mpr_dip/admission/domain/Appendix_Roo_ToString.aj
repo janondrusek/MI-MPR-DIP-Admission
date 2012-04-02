@@ -3,13 +3,13 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AttachmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-privileged aspect AttachmentType_Roo_ToString {
+privileged aspect Appendix_Roo_ToString {
     
-    public String AttachmentType.toString() {
+    public String Appendix.toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
     

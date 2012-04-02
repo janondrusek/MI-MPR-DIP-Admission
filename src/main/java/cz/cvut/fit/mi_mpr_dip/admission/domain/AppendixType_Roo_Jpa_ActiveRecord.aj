@@ -3,73 +3,73 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AttachmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixType;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
-privileged aspect AttachmentType_Roo_Jpa_ActiveRecord {
+privileged aspect AppendixType_Roo_Jpa_ActiveRecord {
     
     @PersistenceContext
-    transient EntityManager AttachmentType.entityManager;
+    transient EntityManager AppendixType.entityManager;
     
-    public static final EntityManager AttachmentType.entityManager() {
-        EntityManager em = new AttachmentType().entityManager;
+    public static final EntityManager AppendixType.entityManager() {
+        EntityManager em = new AppendixType().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long AttachmentType.countAttachmentTypes() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM AttachmentType o", Long.class).getSingleResult();
+    public static long AppendixType.countAppendixTypes() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM AppendixType o", Long.class).getSingleResult();
     }
     
-    public static List<AttachmentType> AttachmentType.findAllAttachmentTypes() {
-        return entityManager().createQuery("SELECT o FROM AttachmentType o", AttachmentType.class).getResultList();
+    public static List<AppendixType> AppendixType.findAllAppendixTypes() {
+        return entityManager().createQuery("SELECT o FROM AppendixType o", AppendixType.class).getResultList();
     }
     
-    public static AttachmentType AttachmentType.findAttachmentType(Long attachmentTypeId) {
+    public static AppendixType AppendixType.findAppendixType(Long attachmentTypeId) {
         if (attachmentTypeId == null) return null;
-        return entityManager().find(AttachmentType.class, attachmentTypeId);
+        return entityManager().find(AppendixType.class, attachmentTypeId);
     }
     
-    public static List<AttachmentType> AttachmentType.findAttachmentTypeEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM AttachmentType o", AttachmentType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<AppendixType> AppendixType.findAppendixTypeEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM AppendixType o", AppendixType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional
-    public void AttachmentType.persist() {
+    public void AppendixType.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void AttachmentType.remove() {
+    public void AppendixType.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            AttachmentType attached = AttachmentType.findAttachmentType(this.attachmentTypeId);
+            AppendixType attached = AppendixType.findAppendixType(this.attachmentTypeId);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void AttachmentType.flush() {
+    public void AppendixType.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public void AttachmentType.clear() {
+    public void AppendixType.clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
     
     @Transactional
-    public AttachmentType AttachmentType.merge() {
+    public AppendixType AppendixType.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        AttachmentType merged = this.entityManager.merge(this);
+        AppendixType merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }

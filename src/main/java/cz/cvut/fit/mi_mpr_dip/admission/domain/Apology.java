@@ -49,5 +49,5 @@ public class Apology {
 
 	@XmlTransient
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
-	private Set<Attachmnt> files;
+	private Set<Appendix> files;
 }
