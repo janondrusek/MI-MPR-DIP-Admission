@@ -3,11 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import org.springframework.beans.factory.annotation.Configurable;
 
-privileged aspect Attachmnt_Roo_Configurable {
+privileged aspect Appendix_Roo_Configurable {
     
-    declare @type: Attachmnt: @Configurable;
+    declare @type: Appendix: @Configurable;
     
 }

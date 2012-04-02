@@ -3,73 +3,73 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
-privileged aspect Attachmnt_Roo_Jpa_ActiveRecord {
+privileged aspect Appendix_Roo_Jpa_ActiveRecord {
     
     @PersistenceContext
-    transient EntityManager Attachmnt.entityManager;
+    transient EntityManager Appendix.entityManager;
     
-    public static final EntityManager Attachmnt.entityManager() {
-        EntityManager em = new Attachmnt().entityManager;
+    public static final EntityManager Appendix.entityManager() {
+        EntityManager em = new Appendix().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long Attachmnt.countAttachmnts() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Attachmnt o", Long.class).getSingleResult();
+    public static long Appendix.countAppendixes() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM Appendix o", Long.class).getSingleResult();
     }
     
-    public static List<Attachmnt> Attachmnt.findAllAttachmnts() {
-        return entityManager().createQuery("SELECT o FROM Attachmnt o", Attachmnt.class).getResultList();
+    public static List<Appendix> Appendix.findAllAppendixes() {
+        return entityManager().createQuery("SELECT o FROM Appendix o", Appendix.class).getResultList();
     }
     
-    public static Attachmnt Attachmnt.findAttachmnt(Long attachmentId) {
+    public static Appendix Appendix.findAppendix(Long attachmentId) {
         if (attachmentId == null) return null;
-        return entityManager().find(Attachmnt.class, attachmentId);
+        return entityManager().find(Appendix.class, attachmentId);
     }
     
-    public static List<Attachmnt> Attachmnt.findAttachmntEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Attachmnt o", Attachmnt.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<Appendix> Appendix.findAppendixEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM Appendix o", Appendix.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional
-    public void Attachmnt.persist() {
+    public void Appendix.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void Attachmnt.remove() {
+    public void Appendix.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Attachmnt attached = Attachmnt.findAttachmnt(this.attachmentId);
+            Appendix attached = Appendix.findAppendix(this.attachmentId);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void Attachmnt.flush() {
+    public void Appendix.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public void Attachmnt.clear() {
+    public void Appendix.clear() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.clear();
     }
     
     @Transactional
-    public Attachmnt Attachmnt.merge() {
+    public Appendix Appendix.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        Attachmnt merged = this.entityManager.merge(this);
+        Appendix merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }

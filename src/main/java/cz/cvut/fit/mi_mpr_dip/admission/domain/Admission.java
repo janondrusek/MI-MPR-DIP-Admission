@@ -95,7 +95,7 @@ public class Admission {
 
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Attachmnt> photos;
+	private Set<Appendix> photos;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TermRegistration> registrations;

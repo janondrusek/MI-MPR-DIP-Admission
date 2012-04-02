@@ -26,7 +26,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class Attachmnt {
+public class Appendix {
 
 	@Version
 	@Transient
@@ -51,5 +51,5 @@ public class Attachmnt {
 	private String content;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	private AttachmentType attachmentType;
+	private AppendixType attachmentType;
 }

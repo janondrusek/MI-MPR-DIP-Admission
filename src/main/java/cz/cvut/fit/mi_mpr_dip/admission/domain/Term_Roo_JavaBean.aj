@@ -68,12 +68,12 @@ privileged aspect Term_Roo_JavaBean {
         this.registerTo = registerTo;
     }
     
-    public Date Term.getAppologyTo() {
-        return this.appologyTo;
+    public Date Term.getApologyTo() {
+        return this.apologyTo;
     }
     
-    public void Term.setAppologyTo(Date appologyTo) {
-        this.appologyTo = appologyTo;
+    public void Term.setApologyTo(Date apologyTo) {
+        this.apologyTo = apologyTo;
     }
     
     public Set<Programme> Term.getPrograms() {

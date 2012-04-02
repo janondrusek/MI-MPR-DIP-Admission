@@ -3,24 +3,24 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-privileged aspect Attachmnt_Roo_Equals {
+privileged aspect Appendix_Roo_Equals {
     
-    public boolean Attachmnt.equals(Object obj) {
-        if (!(obj instanceof Attachmnt)) {
+    public boolean Appendix.equals(Object obj) {
+        if (!(obj instanceof Appendix)) {
             return false;
         }
         if (this == obj) {
             return true;
         }
-        Attachmnt rhs = (Attachmnt) obj;
+        Appendix rhs = (Appendix) obj;
         return new EqualsBuilder().append(attachmentType, rhs.attachmentType).append(content, rhs.content).append(filename, rhs.filename).append(mimeType, rhs.mimeType).isEquals();
     }
     
-    public int Attachmnt.hashCode() {
+    public int Appendix.hashCode() {
         return new HashCodeBuilder().append(attachmentType).append(content).append(filename).append(mimeType).toHashCode();
     }
     

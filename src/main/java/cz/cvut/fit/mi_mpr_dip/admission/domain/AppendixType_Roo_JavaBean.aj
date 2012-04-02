@@ -3,31 +3,31 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AttachmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixType;
 
-privileged aspect AttachmentType_Roo_JavaBean {
+privileged aspect AppendixType_Roo_JavaBean {
     
-    public int AttachmentType.getVersion() {
+    public int AppendixType.getVersion() {
         return this.version;
     }
     
-    public void AttachmentType.setVersion(int version) {
+    public void AppendixType.setVersion(int version) {
         this.version = version;
     }
     
-    public Long AttachmentType.getAttachmentTypeId() {
+    public Long AppendixType.getAttachmentTypeId() {
         return this.attachmentTypeId;
     }
     
-    public void AttachmentType.setAttachmentTypeId(Long attachmentTypeId) {
+    public void AppendixType.setAttachmentTypeId(Long attachmentTypeId) {
         this.attachmentTypeId = attachmentTypeId;
     }
     
-    public String AttachmentType.getName() {
+    public String AppendixType.getName() {
         return this.name;
     }
     
-    public void AttachmentType.setName(String name) {
+    public void AppendixType.setName(String name) {
         this.name = name;
     }
     

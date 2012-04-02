@@ -20,7 +20,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "attachmentTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
-public class AttachmentType {
+public class AppendixType {
 
 	@Version
 	@Transient
