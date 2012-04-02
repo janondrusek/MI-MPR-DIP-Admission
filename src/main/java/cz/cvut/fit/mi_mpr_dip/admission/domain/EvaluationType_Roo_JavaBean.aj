@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType;
+import java.util.Set;
 
 privileged aspect EvaluationType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect EvaluationType_Roo_JavaBean {
     
     public void EvaluationType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Evaluation> EvaluationType.getEvaluations() {
+        return this.evaluations;
+    }
+    
+    public void EvaluationType.setEvaluations(Set<Evaluation> evaluations) {
+        this.evaluations = evaluations;
     }
     
 }

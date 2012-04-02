@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
+import java.util.Set;
 
 privileged aspect DocumentType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect DocumentType_Roo_JavaBean {
     
     public void DocumentType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Document> DocumentType.getDocuments() {
+        return this.documents;
+    }
+    
+    public void DocumentType.setDocuments(Set<Document> documents) {
+        this.documents = documents;
     }
     
 }

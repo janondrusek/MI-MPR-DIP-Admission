@@ -57,7 +57,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setAccepted(Admission obj, int index) {
-        Boolean accepted = Boolean.TRUE;
+        Boolean accepted = Boolean.FALSE;
         obj.setAccepted(accepted);
     }
     

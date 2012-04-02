@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealType;
+import java.util.Set;
 
 privileged aspect AppealType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect AppealType_Roo_JavaBean {
     
     public void AppealType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Appeal> AppealType.getAppeals() {
+        return this.appeals;
+    }
+    
+    public void AppealType.setAppeals(Set<Appeal> appeals) {
+        this.appeals = appeals;
     }
     
 }

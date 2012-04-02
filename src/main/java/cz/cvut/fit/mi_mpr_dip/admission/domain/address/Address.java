@@ -40,7 +40,7 @@ public class Address {
 	@XmlTransient
 	private Long addressId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private AddressType addressType;
 
 	private String street;
@@ -48,7 +48,7 @@ public class Address {
 	private String houseNumber;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private City city;
 
 	private String postNumber;
@@ -56,7 +56,7 @@ public class Address {
 	private String postalCode;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Country country;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

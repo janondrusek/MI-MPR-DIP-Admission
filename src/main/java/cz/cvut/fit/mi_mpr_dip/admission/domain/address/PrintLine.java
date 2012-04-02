@@ -35,7 +35,7 @@ public class PrintLine {
 	private Long printLineId;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private PrintLineType printLineType;
 
 	@NotNull

@@ -4,6 +4,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import java.util.Set;
 
 privileged aspect Gender_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect Gender_Roo_JavaBean {
     
     public void Gender.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Person> Gender.getPersons() {
+        return this.persons;
+    }
+    
+    public void Gender.setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
     
 }

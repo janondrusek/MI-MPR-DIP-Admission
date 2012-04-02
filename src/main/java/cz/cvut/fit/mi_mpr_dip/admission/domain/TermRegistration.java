@@ -36,15 +36,15 @@ public class TermRegistration {
 	private Long termRegistrationId;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Admission admission;
-	
+
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Term term;
-	
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Apology apology;
-	
+
 	private Boolean attendance;
 }

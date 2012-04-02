@@ -50,6 +50,6 @@ public class Attachmnt {
 	@Lob
 	private String content;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private AttachmentType attachmentType;
 }

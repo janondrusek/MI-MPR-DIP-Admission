@@ -4,6 +4,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AttachmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Attachmnt;
+import java.util.Set;
 
 privileged aspect AttachmentType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect AttachmentType_Roo_JavaBean {
     
     public void AttachmentType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Attachmnt> AttachmentType.getAttachmnts() {
+        return this.attachmnts;
+    }
+    
+    public void AttachmentType.setAttachmnts(Set<Attachmnt> attachmnts) {
+        this.attachmnts = attachmnts;
     }
     
 }

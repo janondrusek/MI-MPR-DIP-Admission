@@ -1,9 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -22,22 +26,26 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJpaActiveRecord(finders = { "findAdmissionStatesByCodeEquals" })
 public class AdmissionState {
 
-    @Version
-    @Transient
-    @XmlTransient
-    private int version;
+	@Version
+	@Transient
+	@XmlTransient
+	private int version;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlTransient
-    private Long admissionStateId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@XmlTransient
+	private Long admissionStateId;
 
-    @NotNull
-    @Column(unique = true)
-    private String code;
+	@NotNull
+	@Column(unique = true)
+	private String code;
 
-    @NotNull
-    private String name;
+	@NotNull
+	private String name;
 
-    private String desciption;
+	private String desciption;
+
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "admissionState")
+	@XmlTransient
+	private Set<Admission> admissions;
 }

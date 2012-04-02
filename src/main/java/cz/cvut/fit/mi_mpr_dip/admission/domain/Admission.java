@@ -59,7 +59,7 @@ public class Admission {
 
 	// Mark if attendant was successful in admission process
 	@NotNull
-	private Boolean accepted;
+	private Boolean accepted = Boolean.FALSE;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@XmlElementWrapper(name = "accomplishments")
@@ -73,7 +73,7 @@ public class Admission {
 
 	private Boolean dormitoryRequest;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private AdmissionState admissionState;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -84,19 +84,19 @@ public class Admission {
 	@XmlElement(name = "evaluation")
 	private Set<Evaluation> evaluations;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Faculty faculty;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Person person;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Programme programme;
 
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Attachmnt> photos;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TermRegistration> registrations;
 

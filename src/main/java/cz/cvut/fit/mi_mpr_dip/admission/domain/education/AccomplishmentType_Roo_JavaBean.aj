@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentType;
+import java.util.Set;
 
 privileged aspect AccomplishmentType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect AccomplishmentType_Roo_JavaBean {
     
     public void AccomplishmentType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Accomplishment> AccomplishmentType.getAccomplishments() {
+        return this.accomplishments;
+    }
+    
+    public void AccomplishmentType.setAccomplishments(Set<Accomplishment> accomplishments) {
+        this.accomplishments = accomplishments;
     }
     
 }

@@ -43,11 +43,11 @@ public class Apology {
 
 	@NotNull
 	private Boolean approved;
-	
+
 	@NotNull
 	private String text;
-	
+
 	@XmlTransient
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	private Set<Attachmnt> files;
 }

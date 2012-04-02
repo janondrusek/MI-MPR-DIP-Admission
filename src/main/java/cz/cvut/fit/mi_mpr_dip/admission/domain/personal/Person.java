@@ -48,7 +48,7 @@ public class Person {
 	@XmlTransient
 	private Long personId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Country citizenship;
 
 	private String prefix;
@@ -65,7 +65,7 @@ public class Person {
 
 	private String maidenname;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private MaritalStatus maritalStatus;
 
 	private Boolean permanentResidenceGranted;
@@ -84,13 +84,13 @@ public class Person {
 
 	private String birthIdentificationNumber;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Gender gender;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private City cityOfBirth;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Country countryOfBirth;
 
 	private String phone;
@@ -98,7 +98,7 @@ public class Person {
 	private String email;
 
 	@XmlElementWrapper(name = "disabilities")
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinTable(name = "person_disability_type", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "disability_type_id", referencedColumnName = "disabilityTypeId") })
 	@XmlElement(name = "disability")
 	private Set<DisabilityType> disabilities;

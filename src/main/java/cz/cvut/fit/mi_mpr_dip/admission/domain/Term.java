@@ -45,7 +45,7 @@ public class Term {
 
 	@NotNull
 	private Date dateOfTerm;
-	
+
 	@NotNull
 	private String room;
 
@@ -61,12 +61,12 @@ public class Term {
 	@NotNull
 	private Date appologyTo;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	private Set<Programme> programs;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	private Set<TermRegistration> registrations;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private TermType termType;
 }

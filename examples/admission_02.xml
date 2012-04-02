@@ -4,7 +4,6 @@
 	<!-- Maybe paper or electronic form -->
 	<type />
 	<!-- Mark if attendant was successful in admission process -->
-	<accepted />
 	<accomplishments>
 		<accomplishment>
 			<accomplishmentType>

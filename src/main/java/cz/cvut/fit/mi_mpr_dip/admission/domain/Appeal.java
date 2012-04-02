@@ -39,7 +39,7 @@ public class Appeal {
 	@NotNull
 	private Boolean accepted;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private AppealType appealType;
 
 }

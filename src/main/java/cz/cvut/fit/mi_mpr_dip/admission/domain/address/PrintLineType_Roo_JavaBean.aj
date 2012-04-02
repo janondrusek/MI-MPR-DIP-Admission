@@ -3,7 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
+import java.util.Set;
 
 privileged aspect PrintLineType_Roo_JavaBean {
     
@@ -29,6 +31,14 @@ privileged aspect PrintLineType_Roo_JavaBean {
     
     public void PrintLineType.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<PrintLine> PrintLineType.getPrintLines() {
+        return this.printLines;
+    }
+    
+    public void PrintLineType.setPrintLines(Set<PrintLine> printLines) {
+        this.printLines = printLines;
     }
     
 }

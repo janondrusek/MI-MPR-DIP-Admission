@@ -42,7 +42,7 @@ public class Accomplishment {
 	private Long accomplishmentId;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private AccomplishmentType accomplishmentType;
 
 	@NotNull
