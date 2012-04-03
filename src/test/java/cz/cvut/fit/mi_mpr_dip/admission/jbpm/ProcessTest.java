@@ -43,6 +43,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
+import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.MSPProcessEvaluator;
+import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.TestGatewayEvaluator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 /**
@@ -77,51 +79,52 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
 	}
 
-	@Test
-	public void testEmailProcess() {
-		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
-		emailHandler.setConnection("relay.fit.cvut.cz", "25", null, null);
-
-		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
-
+//	@Test
+//	public void testEmailProcess() {
+//		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
+//		emailHandler.setConnection("relay.fit.cvut.cz", "25", null, null);
+//
+//		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
+//
 //		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
-	}
+//	}
 
-	@Test
-	public void testHumanTaskProcess() {
-		try {
-			UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
-			ut.begin();
-			
-			/*
-			 * Get the local task service
-			 */
-			TaskService taskService = jbpmTaskService.getTaskService();
-
-			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
-
-			/*
-			 * Retrive the tasks owned by a user
-			 */
-			List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
-			TaskSummary task = list.get(0);
-			
-			System.out.println("krisv is executing task " + task.getName());
-			taskService.start(task.getId(), "krisv");
-			taskService.complete(task.getId(), "krisv", null);
-
-			
-			ut.commit();
-		} catch (Throwable t) {
-			// TODO Auto-generated catch block
-			t.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testHumanTaskProcess() {
+//		try {
+//			UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+//			ut.begin();
+//			
+//			/*
+//			 * Get the local task service
+//			 */
+//			TaskService taskService = jbpmTaskService.getTaskService();
+//
+//			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
+//
+//			/*
+//			 * Retrive the tasks owned by a user
+//			 */
+//			List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+//			TaskSummary task = list.get(0);
+//			
+//			System.out.println("krisv is executing task " + task.getName());
+//			taskService.start(task.getId(), "krisv");
+//			taskService.complete(task.getId(), "krisv", null);
+//
+//			
+//			ut.commit();
+//		} catch (Throwable t) {
+//			// TODO Auto-generated catch block
+//			t.printStackTrace();
+//		}
+//	}
 
 	@Test
 	public void testProcess() {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("admission", admission);
+		parameters.put("evaluator", new MSPProcessEvaluator());
 
 		 TestWorkItemHandler testHandler = new TestWorkItemHandler();
 		
@@ -265,17 +268,25 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		ksession.getWorkItemManager().completeWorkItem(workItem.getId(), null);
 	}
 */
-	@Test
-	public void testFireSignalEvent() {
-		 TestWorkItemHandler testHandler = new TestWorkItemHandler();
-		
-		 ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-		 ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.signal_event");
-
-		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		 processInstance.signalEvent("backToUserAction", null);
-		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-	}
+//	@Test
+//	public void testFireSignalEvent() {
+//		 TestWorkItemHandler testHandler = new TestWorkItemHandler();
+//		
+//		 ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+//		 ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.signal_event");
+//
+//		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//		 processInstance.signalEvent("backToUserAction", null);
+//		 ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//	}
+	
+//	@Test
+//	public void testGatewayMethod() {
+//		Map<String, Object> parameters = new HashMap<String, Object>();
+//		parameters.put("evaluator", new TestGatewayEvaluator());
+//		
+//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.gateway_method", parameters);
+//	}
 	
 	@Test
 	public void testProcessWithDataFromDB() {
@@ -296,7 +307,8 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		ap.setAppealType(apt);
 		ap.setAccepted(false);
 		
-		Set<Appeal> appeals = new HashSet<Appeal>();		
+		Set<Appeal> appeals = new HashSet<Appeal>();	
+		appeals.add(ap);
 		a.setAppeals(appeals);
 
 		AdmissionState state = new AdmissionState();
@@ -417,9 +429,9 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		Set<Evaluation> evaluations = new HashSet<Evaluation>();
 		evaluations.add(e1);
 		evaluations.add(e3);
-		// evaluations.add(e5);
-		// evaluations.add(e7);
-		evaluations.add(e8);
+//		evaluations.add(e5);
+//		evaluations.add(e7);
+//		evaluations.add(e8);
 
 		a.setEvaluations(evaluations);
 
