@@ -16,7 +16,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Service
-public class AdmissionEndpointHelper implements AdmissionEndpoint {
+public class AdmissionEndpointHelper implements EndpointHelper {
 
 	@Autowired
 	private AdmissionDao admissionDao;

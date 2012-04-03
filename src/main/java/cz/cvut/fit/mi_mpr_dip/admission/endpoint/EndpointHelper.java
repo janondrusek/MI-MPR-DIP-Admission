@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 
-public interface AdmissionEndpoint {
+public interface EndpointHelper {
 
 	public Response getAdmission(String admissionCode);
 

@@ -31,15 +31,15 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationServi
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Service(value = "processingService")
-@Path(DefaultProcessingEndpoint.ENDPOINT_PATH)
-public class DefaultProcessingEndpoint implements ProcessingEndpoint, ApplicationContextAware {
+@Path(AdmissionProcessingEndpoint.ENDPOINT_PATH)
+public class AdmissionProcessingEndpoint implements ProcessingEndpoint, ApplicationContextAware {
 
 	public static final String ADMISSION_PATH = "/admission";
 	public static final String ADMISSIONS_PATH = "/admissions";
 	public static final String ENDPOINT_PATH = "/processing";
 
 	@Autowired
-	private AdmissionEndpoint admissionEndpoint;
+	private EndpointHelper endpointHelper;
 
 	@Autowired
 	private DeduplicationService deduplicationService;
@@ -54,7 +54,7 @@ public class DefaultProcessingEndpoint implements ProcessingEndpoint, Applicatio
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return admissionEndpoint.getAdmission(admissionCode);
+		return endpointHelper.getAdmission(admissionCode);
 	}
 
 	@Path(ADMISSIONS_PATH)
@@ -112,7 +112,7 @@ public class DefaultProcessingEndpoint implements ProcessingEndpoint, Applicatio
 	@DELETE
 	@Override
 	public Response deleteAdmission(@PathParam("admissionCode") String admissionCode) {
-		return admissionEndpoint.deleteAdmission(admissionCode);
+		return endpointHelper.deleteAdmission(admissionCode);
 	}
 
 	@Override
