@@ -12,11 +12,20 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
+  <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
+
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_test" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <extensionElements>
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation" />
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType" />
+    </extensionElements>
+    <!-- process variables -->
+    <property id="admission" itemSubjectRef="_admissionItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
-    <exclusiveGateway id="_16" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_16" name="Gateway - AT evaluated" gatewayDirection="Converging" />
     <userTask id="_21" name="Attendance check" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
@@ -38,6 +47,16 @@
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Test evaluation");</script>
         </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>EvaluationType h2 = new EvaluationType();
+h2.setName("H2");
+
+Evaluation e2 = new Evaluation();
+e2.setEvaluationType(h2);
+e2.setValue("81");
+
+admission.getEvaluations().add(e2);</script>
+        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <inputSet>

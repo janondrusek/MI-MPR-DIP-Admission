@@ -42,14 +42,14 @@
     <userTask id="_4" name="Docs delivery" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>EvaluationType type = new EvaluationType();
-type.setName("H3");
+          <script>EvaluationType h3 = new EvaluationType();
+h3.setName("H3");
 
-Evaluation evaluation = new Evaluation();
-evaluation.setEvaluationType(type);
-evaluation.setValue("1");
+Evaluation e3 = new Evaluation();
+e3.setEvaluationType(h3);
+e3.setValue("1");
 
-admission.getEvaluations().add(evaluation);</script>
+admission.getEvaluations().add(e3);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
@@ -59,7 +59,7 @@ admission.getEvaluations().add(evaluation);</script>
         </outputSet>
       </ioSpecification>
     </userTask>
-    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_5" name="Gateway - Docs signal" gatewayDirection="Converging" />
     <intermediateCatchEvent id="_6" name="Signal" >
       <signalEventDefinition signalRef="expired_time_for_docs_delivery"/>
     </intermediateCatchEvent>

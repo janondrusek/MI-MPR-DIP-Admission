@@ -99,25 +99,49 @@
     </endEvent>
     <callActivity id="_7" name="Admission test" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" >
       <ioSpecification>
+        <dataInput id="_7_admissionInput" name="admission" />
+        <dataInput id="_7_evaluatorInput" name="evaluator" />
         <inputSet>
+          <dataInputRefs>_7_admissionInput</dataInputRefs>
+          <dataInputRefs>_7_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_7_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>evaluator</sourceRef>
+        <targetRef>_7_evaluatorInput</targetRef>
+      </dataInputAssociation>
     </callActivity>
-    <exclusiveGateway id="_42" name="Gateway" gatewayDirection="Converging" />
-    <exclusiveGateway id="_8" name="Gateway - admission test check" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_42" name="Gateway - Start process" gatewayDirection="Converging" />
+    <exclusiveGateway id="_8" name="Gateway - Admission test check" gatewayDirection="Diverging" />
     <intermediateCatchEvent id="_43" name="Signal" >
       <signalEventDefinition signalRef="scio_data_arrived"/>
     </intermediateCatchEvent>
-    <exclusiveGateway id="_9" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_9" name="Gateway - AT complete" gatewayDirection="Converging" />
     <callActivity id="_10" name="Registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
       <ioSpecification>
+        <dataInput id="_10_admissionInput" name="admission" />
+        <dataInput id="_10_evaluatorInput" name="evaluator" />
         <inputSet>
+          <dataInputRefs>_10_admissionInput</dataInputRefs>
+          <dataInputRefs>_10_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_10_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>evaluator</sourceRef>
+        <targetRef>_10_evaluatorInput</targetRef>
+      </dataInputAssociation>
     </callActivity>
     <callActivity id="_40" name="Needed docs request" calledElement="cz.cvut.fit.mi_mpr_dip.admission.document_request" >
       <ioSpecification>
@@ -133,12 +157,14 @@
         <targetRef>_40_admissionInput</targetRef>
       </dataInputAssociation>
     </callActivity>
-    <exclusiveGateway id="_41" name="Gateway - DOCS" gatewayDirection="Converging" />
+    <exclusiveGateway id="_41" name="Gateway - Document check complete" gatewayDirection="Converging" />
     <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <ioSpecification>
         <dataInput id="_14_admissionInput" name="admission" />
+        <dataInput id="_14_evaluatorInput" name="evaluator" />
         <inputSet>
           <dataInputRefs>_14_admissionInput</dataInputRefs>
+          <dataInputRefs>_14_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
@@ -147,8 +173,12 @@
         <sourceRef>admission</sourceRef>
         <targetRef>_14_admissionInput</targetRef>
       </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>evaluator</sourceRef>
+        <targetRef>_14_evaluatorInput</targetRef>
+      </dataInputAssociation>
     </callActivity>
-    <exclusiveGateway id="_21" name="Gateway - document check" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_21" name="Gateway - Document check" gatewayDirection="Diverging" />
     <task id="_29" name="Process start" tns:taskName="Email" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
@@ -240,42 +270,7 @@
     </sequenceFlow>
     <sequenceFlow id="_40-_41" sourceRef="_40" targetRef="_41" />
     <sequenceFlow id="_21-_41" sourceRef="_21" targetRef="_41" name="docs_ok" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
-		boolean b_1 = false;
-		boolean b_2 = false;
-		if (admission.getAccepted()) { b = true; return true; }
-
-		for (Evaluation evaluation : admission.getEvaluations()) {
-			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
-			String citizenship = admission.getPerson().getCitizenship().getName();
-
-			if (!citizenship.isEmpty()) {			
-				if (type.equals("H3") &amp;&amp; Double.valueOf(value) &gt; 0) {
-					System.out.println("1 dokumenty ok: [" + type + "] MV, DIPLOM, ... - " + value);
-					b = true; return true;
-				}
-			} else {
-				if (type.equals("H3") &amp;&amp; Double.valueOf(value) &gt; 0) {
-					System.out.println("2 dokumenty ok: [" + type + "] MV, DIPLOM, ... - " + value);
-					b_1 = true;
-				}
-				if (type.equals("H4") &amp;&amp; Double.valueOf(value) &gt; 0) {
-					System.out.println("3 dokumenty ok: [" + type + "] ZKOUSKA z CJ - " + value);
-					b_2 = true;
-				}
-			}
-		}
-		if (b_1 &amp;&amp; b_2) {
-			b = true;// return true;
-		}
-		if (b) {
-			System.out.println("DOKUMENTY V PORADKU");
-		} else {
-			System.out.println("DODAT DOKUMENTY");
-		}
-
-		return b;</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalNeededDocuments(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_41-_14" sourceRef="_41" targetRef="_14" />
     <sequenceFlow id="_9-_21" sourceRef="_9" targetRef="_21" />
