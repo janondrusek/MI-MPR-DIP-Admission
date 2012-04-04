@@ -9,7 +9,7 @@
 
 	<logger name="org.springframework.beans" level="INFO" />
 	<logger name="org.hibernate" level="WARN" />
-	<logger name="cz.cvut" level="DEBUG" />
+	<logger name="cz.cvut" level="INFO" />
 
 	<root>
 		<level value="INFO" />

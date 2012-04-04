@@ -22,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -31,7 +29,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
-import cz.cvut.fit.mi_mpr_dip.admission.validator.AdmissionValidator;
 
 @Service(value = "processingService")
 @Path(DefaultProcessingEndpoint.ENDPOINT_PATH)
@@ -51,11 +48,6 @@ public class DefaultProcessingEndpoint implements ProcessingEndpoint, Applicatio
 	private UserIdentityService userIdentityService;
 
 	private ApplicationContext applicationContext;
-
-	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(new AdmissionValidator());
-	}
 
 	@Path(ADMISSION_PATH + "/{admissionCode}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
