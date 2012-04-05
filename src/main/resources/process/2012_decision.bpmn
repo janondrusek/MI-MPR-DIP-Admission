@@ -99,7 +99,7 @@ evaluator.testGeneratingDecisionType(admission);</script>
       </ioSpecification>
     </task>
     <scriptTask id="_15" name="SW Control II" scriptFormat="http://www.java.com/java" >
-      <script>evaluator.evalAdmissionSWC_II(admission);</script>
+      <script>evaluator.evalAdmissionSWCTwo(admission);</script>
     </scriptTask>
     <intermediateCatchEvent id="_17" name="Signal" >
       <signalEventDefinition signalRef="expired_time_for_appeal"/>

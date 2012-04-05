@@ -2,21 +2,12 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.naming.InitialContext;
-import javax.transaction.UserTransaction;
 
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.ProcessInstance;
-import org.drools.runtime.process.WorkItem;
-import org.jbpm.process.workitem.email.EmailWorkItemHandler;
-import org.jbpm.task.TaskService;
-import org.jbpm.task.query.TaskSummary;
 import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
@@ -45,7 +35,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.MSPProcessEvaluator;
-import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluatorTest;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 /**
@@ -57,7 +46,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Autowired
 	private JbpmTaskServiceImpl jbpmTaskService;
-
+	
 	private StatefulKnowledgeSession ksession;
 
 	private Admission admission;
@@ -234,8 +223,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	@Test
 	public void testProcess() {
 		try {
-			KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, processName,
-					500);
+			KnowledgeRuntimeLogger logger = createLogger(ksession);
 
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("admission", admission);
@@ -245,8 +233,8 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
 			ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
-					parameters);
+//			ProcessInstance processInstance = 
+			ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main", parameters);
 
 			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
