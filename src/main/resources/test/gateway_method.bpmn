@@ -12,12 +12,7 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
-  <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.TestGatewayEvaluator" />
-
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.test.gateway_method" name="Sample Process" tns:packageName="defaultPackage" >
-
-    <!-- process variables -->
-    <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -36,7 +31,7 @@
     <!-- connections -->
     <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
     <sequenceFlow id="_2-_3" sourceRef="_2" targetRef="_3" name="eval" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalGateway();</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_2-_4" sourceRef="_2" targetRef="_4" name="constraint" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>

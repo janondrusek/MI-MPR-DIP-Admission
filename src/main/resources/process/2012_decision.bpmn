@@ -13,42 +13,38 @@
              xmlns:tns="http://www.jboss.org/drools">
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
+  <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" name="Sample Process" tns:packageName="defaultPackage" >
 
+    <extensionElements>
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal" />
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.AppealType" />
+    </extensionElements>
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
+    <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <endEvent id="_2" name="End" />
     <scriptTask id="_3" name="Decision generate" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Generating decision ...");
-if (admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
-	System.out.println("&gt; ROZHODNUTI O PRIJETI (NA ODVOLANI)");
-} else if (admission.getAccepted()) {//&amp;&amp; !admission.getAppeal()) {
-	System.out.println("&gt; ROZHODNUTI O PRIJETI");
-} else if (!admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
-	System.out.println("&gt; ROZHODNUTI O NEPRIJETI (NA ODVOLANI)");
-} else if (!admission.getAccepted()) {//&amp;&amp; !admission.getAppeal()) {
-	System.out.println("&gt; ROZHODNUTI O NEPRIJETI");
-}</script>
+
+evaluator.testGeneratingDecisionType(admission);</script>
     </scriptTask>
-    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Converging" />
-    <exclusiveGateway id="_6" name="Gateway - appeal possibility check" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_4" name="Gateway - After SWC II" gatewayDirection="Converging" />
+    <exclusiveGateway id="_6" name="Gateway - Admission acceptation check" gatewayDirection="Diverging" />
     <endEvent id="_9" name="End" >
         <terminateEventDefinition/>
     </endEvent>
-    <scriptTask id="_10" name="Not accepted" >
+    <scriptTask id="_10" name="Not accepted" scriptFormat="http://www.java.com/java" >
       <script></script>
     </scriptTask>
     <userTask id="_11" name="Appeal for decision" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Possibility of appeal!");</script>
-        </tns:onEntry-script>
-        <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>admission.setAccepted(true);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
@@ -66,6 +62,16 @@ if (admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script></script>
         </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>AppealType at = new AppealType();
+		at.setName("Dean");
+		
+		Appeal a = new Appeal();
+		a.setAppealType(at);
+		a.setAccepted(false);
+		
+		admission.getAppeals().add(a);</script>
+        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <inputSet>
@@ -76,9 +82,14 @@ if (admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
     </userTask>
     <task id="_14" name="Decision sent" tns:taskName="Email" >
       <extensionElements>
-        <tns:onEntry-script>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Sent decision ...");</script>
         </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>if (admission.getAppeals().size() == 2) {
+	admission.setAccepted(true);
+}</script>
+        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <inputSet>
@@ -87,21 +98,17 @@ if (admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
         </outputSet>
       </ioSpecification>
     </task>
-    <scriptTask id="_15" name="Acceptation check" >
-      <script></script>
+    <scriptTask id="_15" name="SW Control II" scriptFormat="http://www.java.com/java" >
+      <script>evaluator.evalAdmissionSWC_II(admission);</script>
     </scriptTask>
     <intermediateCatchEvent id="_17" name="Signal" >
       <signalEventDefinition signalRef="expired_time_for_appeal"/>
     </intermediateCatchEvent>
-    <exclusiveGateway id="_16" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_16" name="Gateway - decision signal" gatewayDirection="Converging" />
 
     <!-- connections -->
-    <sequenceFlow id="_6-_2" sourceRef="_6" targetRef="_2" name="to_registration" tns:priority="2" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
-		if (admission.getAccepted()) {
-			b = true;
-		}
-		return b;</conditionExpression>
+    <sequenceFlow id="_6-_2" sourceRef="_6" targetRef="_2" name="registration" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalAdmissionAcceptance(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" />
     <sequenceFlow id="_13-_4" sourceRef="_13" targetRef="_4" />
@@ -109,17 +116,13 @@ if (admission.getAccepted()) {//&amp;&amp; admission.getAppeal()) {
     <sequenceFlow id="_14-_6" sourceRef="_14" targetRef="_6" />
     <sequenceFlow id="_10-_9" sourceRef="_10" targetRef="_9" />
     <sequenceFlow id="_16-_10" sourceRef="_16" targetRef="_10" />
-    <sequenceFlow id="_6-_11" sourceRef="_6" targetRef="_11" name="to_appeal" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >boolean b = false;
-		if (!admission.getAccepted()) { //&amp;&amp; !admission.getAppeal()) { //&amp;&amp; appealToRector
-			b = true;
-		}
-		return b;</conditionExpression>
+    <sequenceFlow id="_6-_11" sourceRef="_6" targetRef="_11" name="appeal" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalAppealPossibility(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_11-_13" sourceRef="_11" targetRef="_13" />
     <sequenceFlow id="_3-_14" sourceRef="_3" targetRef="_14" />
     <sequenceFlow id="_1-_15" sourceRef="_1" targetRef="_15" />
-    <sequenceFlow id="_6-_16" sourceRef="_6" targetRef="_16" name="not_accepted" tns:priority="3" >
+    <sequenceFlow id="_6-_16" sourceRef="_6" targetRef="_16" name="rejected" tns:priority="3" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_17-_16" sourceRef="_17" targetRef="_16" />

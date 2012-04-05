@@ -6,12 +6,38 @@ public interface ProcessEvaluator {
 
 	public Boolean evalAcceptWithoutAT(Admission admission);
 	
-	public Boolean evalNeededDocuments();
+	public Boolean evalNeededDocuments(Admission admission);
 	
-	public Boolean evalAppealRequest();
+	public Boolean evalAppealPossibility(Admission admission);
 	
-	public Boolean evalRegisterOrAppology();
+	public Boolean evalAdmissionAcceptance(Admission admission);
 	
-	public Boolean evalApologyApproval();
+	public Boolean evalRegisterForAT(Admission admission);
+	
+	public Boolean evalApologyFromAT(Admission admission);
+	
+	public Boolean evalBackFromAT(Admission admission);
+	
+	public Boolean evalAdmissionTestEvaluated(Admission admission);
+	
+	public Boolean evalApologyApproval(Admission admission);
+	
+	public Boolean evalAdmissionSWC_I(Admission admission);
+	
+	public Boolean evalAdmissionSWC_II(Admission admission);
+	
+	public Boolean evalRegisterForREG(Admission admission);
+	
+	public Boolean evalApologyFromREG(Admission admission);
+	
+	public Boolean evalBackFromREG(Admission admission);
+	
+	public Boolean EnoughTestPoints(Admission admission);
+	
+	public Boolean evalRegistrationDone(Admission admission);
+	
+	public Boolean evalRegistrationApologyApproval(Admission admission);
+	
+	public void testGeneratingDecisionType(Admission admission);
 	
 }
