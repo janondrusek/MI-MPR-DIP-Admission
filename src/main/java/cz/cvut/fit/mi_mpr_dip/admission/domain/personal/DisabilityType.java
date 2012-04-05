@@ -22,7 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "disabilityTypeId" })
+@RooEquals(excludeFields = { "disabilityTypeId", "persons" })
 @RooJpaActiveRecord(finders = { "findDisabilityTypesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisabilityType {

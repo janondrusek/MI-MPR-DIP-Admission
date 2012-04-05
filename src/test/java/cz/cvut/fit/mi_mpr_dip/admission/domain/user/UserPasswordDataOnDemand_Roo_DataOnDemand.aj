@@ -31,12 +31,18 @@ privileged aspect UserPasswordDataOnDemand_Roo_DataOnDemand {
     public UserPassword UserPasswordDataOnDemand.getNewTransientUserPassword(int index) {
         UserPassword obj = new UserPassword();
         setUserIdentity(obj, index);
+        setValue(obj, index);
         return obj;
     }
     
     public void UserPasswordDataOnDemand.setUserIdentity(UserPassword obj, int index) {
         UserIdentity userIdentity = userIdentityDataOnDemand.getSpecificUserIdentity(index);
         obj.setUserIdentity(userIdentity);
+    }
+    
+    public void UserPasswordDataOnDemand.setValue(UserPassword obj, int index) {
+        String value = "value_" + index;
+        obj.setValue(value);
     }
     
     public UserPassword UserPasswordDataOnDemand.getSpecificUserPassword(int index) {

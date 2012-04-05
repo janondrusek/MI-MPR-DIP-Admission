@@ -29,7 +29,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "userIdentityId", "roles", "sessions" })
+@RooEquals(excludeFields = { "userIdentityId", "roles", "sessions", "userPassword" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findUserIdentitysByUsernameEquals",

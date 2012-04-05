@@ -21,7 +21,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "evaluationTypeId" })
+@RooEquals(excludeFields = { "evaluationTypeId", "evaluations" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findEvaluationTypesByNameEquals" })
 public class EvaluationType {

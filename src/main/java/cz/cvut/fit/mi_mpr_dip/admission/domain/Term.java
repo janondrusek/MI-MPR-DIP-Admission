@@ -27,7 +27,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "termId" })
+@RooEquals(excludeFields = { "termId", "programs", "registrations" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord

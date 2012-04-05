@@ -22,7 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "accomplishmentTypeId" })
+@RooEquals(excludeFields = { "accomplishmentTypeId", "accomplishments" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAccomplishmentTypesByNameEquals" })
 public class AccomplishmentType {

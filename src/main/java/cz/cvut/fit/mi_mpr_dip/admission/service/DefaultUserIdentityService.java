@@ -94,9 +94,10 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		return new Date();
 	}
 
+	@Transactional
 	@Override
 	public void buildUserIdentity(Admission admission) {
-
+		UserIdentity userIdentity = getUserIdentity(admission.getPerson().getLastname());
 	}
 
 	@Required

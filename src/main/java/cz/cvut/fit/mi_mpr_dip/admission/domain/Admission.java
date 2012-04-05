@@ -87,6 +87,7 @@ public class Admission {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Faculty faculty;
 
+	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
 	private Person person;
 

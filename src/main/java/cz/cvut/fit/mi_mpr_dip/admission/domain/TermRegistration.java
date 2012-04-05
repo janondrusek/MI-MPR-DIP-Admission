@@ -20,7 +20,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "termRegistrationId" })
+@RooEquals(excludeFields = { "termRegistrationId", "admission" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
 public class TermRegistration {

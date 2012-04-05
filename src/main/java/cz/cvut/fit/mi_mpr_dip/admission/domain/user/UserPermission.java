@@ -22,7 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "userPermissionId" })
+@RooEquals(excludeFields = { "userPermissionId", "roles" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserPermission {

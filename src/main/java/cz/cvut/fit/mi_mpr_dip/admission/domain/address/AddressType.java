@@ -21,26 +21,26 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "addressTypeId" })
+@RooEquals(excludeFields = { "addressTypeId", "addresses" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAddressTypesByNameEquals" })
 public class AddressType {
 
-    @Version
-    @Transient
-    @XmlTransient
-    private int version;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlTransient
-    private Long addressTypeId;
-
-    @NotNull
-    @Column(unique = true)
-    private String name;
-    
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "addressType")
+	@Version
+	@Transient
 	@XmlTransient
-    private Set<Address> addresses;
+	private int version;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@XmlTransient
+	private Long addressTypeId;
+
+	@NotNull
+	@Column(unique = true)
+	private String name;
+
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "addressType")
+	@XmlTransient
+	private Set<Address> addresses;
 }

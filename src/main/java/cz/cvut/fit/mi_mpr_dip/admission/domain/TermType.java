@@ -23,7 +23,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "termTypeId" })
+@RooEquals(excludeFields = { "termTypeId", "terms" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
@@ -42,7 +42,7 @@ public class TermType {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-	
+
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "termType")
 	@XmlTransient
 	private Set<Term> terms;
