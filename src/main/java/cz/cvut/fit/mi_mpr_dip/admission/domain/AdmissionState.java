@@ -21,7 +21,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "admissionStateId", "name", "desciption" })
+@RooEquals(excludeFields = { "admissionStateId", "name", "desciption", "admissions" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAdmissionStatesByCodeEquals" })
 public class AdmissionState {

@@ -35,7 +35,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	public static final String ENDPOINT_PATH = "/mobile";
 
 	@Autowired
-	private AdmissionEndpoint admissionEndpoint;
+	private EndpointHelper endpointHelper;
 
 	@Autowired
 	private UserIdentityService userIdentityService;
@@ -61,7 +61,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return admissionEndpoint.getAdmission(admissionCode);
+		return endpointHelper.getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_WRITE_RESULT")
@@ -71,7 +71,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Override
 	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result)
 			throws URISyntaxException {
-		return admissionEndpoint.mergeAdmission(admissionCode, getAdmissionBasePath(), result,
+		return endpointHelper.mergeAdmission(admissionCode, getAdmissionBasePath(), result,
 				new AdmissionAction<AdmissionResult>() {
 
 					@Override
@@ -88,7 +88,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Override
 	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo)
 			throws URISyntaxException {
-		return admissionEndpoint.mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
+		return endpointHelper.mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
 
 		new AdmissionAction<Appendix>() {
 

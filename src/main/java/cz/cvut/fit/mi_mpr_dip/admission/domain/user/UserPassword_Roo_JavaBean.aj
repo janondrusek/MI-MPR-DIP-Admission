@@ -24,6 +24,14 @@ privileged aspect UserPassword_Roo_JavaBean {
         this.userPasswordId = userPasswordId;
     }
     
+    public String UserPassword.getValue() {
+        return this.value;
+    }
+    
+    public void UserPassword.setValue(String value) {
+        this.value = value;
+    }
+    
     public UserIdentity UserPassword.getUserIdentity() {
         return this.userIdentity;
     }

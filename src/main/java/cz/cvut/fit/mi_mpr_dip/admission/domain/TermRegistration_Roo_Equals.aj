@@ -17,11 +17,11 @@ privileged aspect TermRegistration_Roo_Equals {
             return true;
         }
         TermRegistration rhs = (TermRegistration) obj;
-        return new EqualsBuilder().append(admission, rhs.admission).append(apology, rhs.apology).append(attendance, rhs.attendance).append(term, rhs.term).isEquals();
+        return new EqualsBuilder().append(apology, rhs.apology).append(attendance, rhs.attendance).append(term, rhs.term).isEquals();
     }
     
     public int TermRegistration.hashCode() {
-        return new HashCodeBuilder().append(admission).append(apology).append(attendance).append(term).toHashCode();
+        return new HashCodeBuilder().append(apology).append(attendance).append(term).toHashCode();
     }
     
 }

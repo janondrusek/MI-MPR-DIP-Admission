@@ -21,26 +21,26 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "printLineTypeId" })
+@RooEquals(excludeFields = { "printLineTypeId", "printLines" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findPrintLineTypesByNameEquals" })
 public class PrintLineType {
 
-    @Version
-    @Transient
-    @XmlTransient
-    private int version;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlTransient
-    private Long printLineTypeId;
-
-    @NotNull
-    @Column(unique = true)
-    private String name;
-    
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "printLineType")
+	@Version
+	@Transient
 	@XmlTransient
-    private Set<PrintLine> printLines;
+	private int version;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@XmlTransient
+	private Long printLineTypeId;
+
+	@NotNull
+	@Column(unique = true)
+	private String name;
+
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "printLineType")
+	@XmlTransient
+	private Set<PrintLine> printLines;
 }

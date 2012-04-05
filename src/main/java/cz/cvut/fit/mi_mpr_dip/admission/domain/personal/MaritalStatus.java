@@ -22,7 +22,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "maritalStatusId" })
+@RooEquals(excludeFields = { "maritalStatusId", "persons" })
 @RooJpaActiveRecord(finders = { "findMaritalStatusesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MaritalStatus {
@@ -40,7 +40,7 @@ public class MaritalStatus {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-	
+
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "maritalStatus")
 	@XmlTransient
 	private Set<Person> persons;

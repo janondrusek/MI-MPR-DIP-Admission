@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,7 +25,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "userRoleId" })
+@RooEquals(excludeFields = { "userRoleId", "identities", "permissions" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserRole {
@@ -47,7 +46,7 @@ public class UserRole {
 
 	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	@XmlTransient
-	List<UserIdentity> identities;
+	private Set<UserIdentity> identities;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id", referencedColumnName = "userPermissionId") })

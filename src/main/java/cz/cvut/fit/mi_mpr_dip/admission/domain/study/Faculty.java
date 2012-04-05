@@ -24,7 +24,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "facultyId" })
+@RooEquals(excludeFields = { "facultyId", "admissions" })
 @RooJpaActiveRecord(finders = { "findFacultysByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Faculty {

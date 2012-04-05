@@ -21,7 +21,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "documentTypeId" })
+@RooEquals(excludeFields = { "documentTypeId", "documents" })
 @RooJpaActiveRecord(finders = { "findDocumentTypesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DocumentType {
@@ -38,7 +38,7 @@ public class DocumentType {
 
 	@NotNull
 	private String name;
-	
+
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "documentType")
 	@XmlTransient
 	private Set<Document> documents;
