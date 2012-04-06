@@ -3,13 +3,19 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-02 23:31:11
+# Date/time:                    2012-04-06 19:48:46
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+# Dumping database structure for admission
+DROP DATABASE IF EXISTS `admission`;
+CREATE DATABASE IF NOT EXISTS `admission` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `admission`;
+
 
 # Dumping structure for table admission.accomplishment
 DROP TABLE IF EXISTS `accomplishment`;
@@ -124,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `admission` (
   `type` varchar(255) DEFAULT NULL,
   `admission_state` bigint(20) DEFAULT NULL,
   `faculty` bigint(20) DEFAULT NULL,
-  `person` bigint(20) DEFAULT NULL,
+  `person` bigint(20) NOT NULL,
   `programme` bigint(20) DEFAULT NULL,
   `result` bigint(20) DEFAULT NULL,
   `user_identity` bigint(20) DEFAULT NULL,
@@ -1133,6 +1139,7 @@ CREATE TABLE IF NOT EXISTS `user_identity_role` (
 DROP TABLE IF EXISTS `user_password`;
 CREATE TABLE IF NOT EXISTS `user_password` (
   `user_password_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `value` varchar(255) NOT NULL,
   `user_identity` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`user_password_id`),
   KEY `FK4B8D148F4AF3FECD` (`user_identity`),
