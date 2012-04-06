@@ -22,9 +22,9 @@ public interface ProcessEvaluator {
 	
 	public Boolean evalApologyApproval(Admission admission);
 	
-	public Boolean evalAdmissionSWC_I(Admission admission);
+	public Boolean evalAdmissionSWCOne(Admission admission);
 	
-	public Boolean evalAdmissionSWC_II(Admission admission);
+	public Boolean evalAdmissionSWCTwo(Admission admission);
 	
 	public Boolean evalRegisterForREG(Admission admission);
 	

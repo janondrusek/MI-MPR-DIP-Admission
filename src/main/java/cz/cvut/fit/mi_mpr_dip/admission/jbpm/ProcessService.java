@@ -11,7 +11,6 @@ import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
-import org.jbpm.process.workitem.email.EmailWorkItemHandler;
 import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class ProcessService {
 	@Autowired
 	private StatefulKnowledgeSession ksession;
 
-	private final String processNameBSP = "2012_BSP_main";
+//	private final String processNameBSP = "2012_BSP_main";
 	private final String processNameMSP = "2012_MSP_main";
 
 	public void setSession(StatefulKnowledgeSession ksession) {
@@ -73,18 +72,18 @@ public class ProcessService {
 	// return processInstance;
 	// }
 
-	// public ProcessInstance runProcessMSP(Map<String, Object> parameters) {
-	// KnowledgeRuntimeLogger logger = createLogger(knowSession, processNameMSP);
-	//
-	// knowSession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
-	// ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
-	// ProcessInstance processInstance = knowSession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_main",
-	// parameters);
-	//
-	// logger.close();
-	//
-	// return processInstance;
-	// }
+	public ProcessInstance runProcessMSP(Map<String, Object> parameters) {
+		KnowledgeRuntimeLogger logger = createLogger(ksession, processNameMSP);
+
+		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+		ksession.getWorkItemManager().registerWorkItemHandler("Email", null);
+		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main",
+				parameters);
+
+		logger.close();
+
+		return processInstance;
+	}
 
 	// WARNING
 	public void disposeSession() {

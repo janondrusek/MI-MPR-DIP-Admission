@@ -5,13 +5,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 
 public class BSPProcessEvaluator extends DefaultProcessEvaluator implements ProcessEvaluator {
 	
-	private final String cz = "Česká republika"; // CZ or something else
-	private Integer h2_value = 70;
-	private Integer h3_value = 0;
-	private Integer h4_value = 1;
-	private Integer h5_value = 0;
-	private Integer h6_value = 70;
-	private Integer h7_value = 70;
+	private final String CZ = "Česká republika"; // CZ or something else
+	private final String SK = "Slovenská republika"; // CZ or something else
+	private Integer h2 = 70;
+//	private Integer h3 = 0;
+//	private Integer h4 = 1;
+	private Integer h5 = 0;
+	private Integer h6 = 70;
+	private Integer h7 = 70;
 	
 	@Override
 	public Boolean evalAcceptWithoutAT(Admission admission) {
@@ -23,11 +24,11 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName();
 
-			if (type.equals("H5") && value.length() > h5_value) {
+			if (type.equals("H5") && value.length() > h5) {
 				return true;
-			} else if (type.equals("H6") && Double.valueOf(value) >= h6_value) {
+			} else if (type.equals("H6") && Double.valueOf(value) >= h6) {
 				return true;
-			} else if (type.equals("H7") && Double.valueOf(value) >= h7_value) {
+			} else if (type.equals("H7") && Double.valueOf(value) >= h7) {
 				return true;
 			}
 		}
@@ -48,7 +49,7 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 			String type = evaluation.getEvaluationType().getName();
 			String citizenship = admission.getPerson().getCitizenship().getName();
 
-			if (citizenship.equals(cz)) {
+			if (citizenship.equals(CZ) || citizenship.equals(SK)) {
 				if (type.equals("H3") && Double.valueOf(value) > 0) {
 					return true;
 				}
@@ -69,13 +70,7 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 	}
 
 	@Override
-	public Boolean evalAdmissionSWC_I(Admission admission) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Boolean evalAdmissionSWC_II(Admission admission) {
+	public Boolean evalAdmissionSWCTwo(Admission admission) {
 		boolean prep = this.evalAcceptWithoutAT(admission);
 		boolean docs = this.evalNeededDocuments(admission);
 		boolean test = this.EnoughTestPoints(admission);
@@ -93,7 +88,7 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName();
 
-			if (type.equals("H2") && Double.valueOf(value) >= h2_value) {
+			if (type.equals("H2") && Double.valueOf(value) >= h2) {
 				return true;
 			}
 		}
