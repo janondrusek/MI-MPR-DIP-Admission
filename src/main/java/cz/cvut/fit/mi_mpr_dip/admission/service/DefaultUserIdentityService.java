@@ -97,7 +97,12 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	@Transactional
 	@Override
 	public void buildUserIdentity(Admission admission) {
-		UserIdentity userIdentity = getUserIdentity(admission.getPerson().getLastname());
+		UserIdentity userIdentity = getUniqueUserIdentity(admission.getPerson().getLastname());
+		admission.setUserIdentity(userIdentity);
+	}
+
+	private UserIdentity getUniqueUserIdentity(String lastname) {
+		return null;
 	}
 
 	@Required

@@ -8,14 +8,11 @@ import java.util.Set;
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
@@ -40,13 +37,11 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 /**
  * This is a sample file to launch a process.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/applicationContext-test.xml" })
-public class ProcessTest extends JbpmJUnitTestCase {
+public class ProcessTest extends BaseSpringJbpmTest {
 
 	@Autowired
 	private JbpmTaskServiceImpl jbpmTaskService;
-	
+
 	private StatefulKnowledgeSession ksession;
 
 	private Admission admission;
@@ -74,7 +69,8 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	// EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
 	// emailHandler.setConnection("relay.fit.cvut.cz", "25", null, null);
 	//
-	// ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
+	// ksession.getWorkItemManager().registerWorkItemHandler("Email",
+	// emailHandler);
 	//
 	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
 	// }
@@ -82,7 +78,8 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	// @Test
 	// public void testHumanTaskProcess() {
 	// try {
-	// UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+	// UserTransaction ut = (UserTransaction) new
+	// InitialContext().lookup("java:comp/UserTransaction");
 	// ut.begin();
 	//
 	// /*
@@ -90,12 +87,14 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	// */
 	// TaskService taskService = jbpmTaskService.getTaskService();
 	//
-	// ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
+	// ProcessInstance processInstance =
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
 	//
 	// /*
 	// * Retrive the tasks owned by a user
 	// */
-	// List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+	// List<TaskSummary> list =
+	// taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
 	// TaskSummary task = list.get(0);
 	//
 	// System.out.println("krisv is executing task " + task.getName());
@@ -110,116 +109,153 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	// }
 	// }
 
-//	@Test
-//	public void testTestSubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_test", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
+	// @Test
+	// public void testTestSubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_test",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
 
-//	@Test
-//	public void testApologyApprovalSubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.apology_approval", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
+	// @Test
+	// public void testApologyApprovalSubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.apology_approval",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
 
-//	@Test
-//	public void testAdmissionTestSubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//		parameters.put("evaluator", new MSPProcessEvaluator());
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
+	// @Test
+	// public void testAdmissionTestSubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	// parameters.put("evaluator", new MSPProcessEvaluator());
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.getWorkItemManager().registerWorkItemHandler("Email",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
 
-//	@Test
-//	public void testDecisionSubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//		parameters.put("evaluator", new MSPProcessEvaluator());
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_decision", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
+	// @Test
+	// public void testDecisionSubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	// parameters.put("evaluator", new MSPProcessEvaluator());
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.getWorkItemManager().registerWorkItemHandler("Email",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_decision",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
 
-//	@Test
-//	public void testDocumentRequestSubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.document_request", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
+	// @Test
+	// public void testDocumentRequestSubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.getWorkItemManager().registerWorkItemHandler("Email",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.document_request",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
 
-//	@Test
-//	public void testRegisterToStudySubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.register_to_study", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
-	
-//	@Test
-//	public void testRegistrationSubprocess() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("admission", admission);
-//		parameters.put("evaluator", new MSPProcessEvaluator());
-//
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_registration", parameters);
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}	
-	
+	// @Test
+	// public void testRegisterToStudySubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.register_to_study",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
+
+	// @Test
+	// public void testRegistrationSubprocess() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("admission", admission);
+	// parameters.put("evaluator", new MSPProcessEvaluator());
+	//
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ksession.getWorkItemManager().registerWorkItemHandler("Email",
+	// testHandler);
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_registration",
+	// parameters);
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
+
 	@Test
 	public void testProcess() {
 		try {
@@ -233,7 +269,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
 			ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//			ProcessInstance processInstance = 
+			// ProcessInstance processInstance =
 			ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main", parameters);
 
 			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
@@ -258,27 +294,32 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-	} 
+	}
 
-//	@Test
-//	public void testFireSignalEvent() {
-//		TestWorkItemHandler testHandler = new TestWorkItemHandler();
-//
-//		ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-//		ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.signal_event");
-//
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//		processInstance.signalEvent("backToUserAction", null);
-//		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-//	}
+	// @Test
+	// public void testFireSignalEvent() {
+	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
+	//
+	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task",
+	// testHandler);
+	// ProcessInstance processInstance =
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.signal_event");
+	//
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// processInstance.signalEvent("backToUserAction", null);
+	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(),
+	// null);
+	// }
 
-//	@Test
-//	public void testGatewayMethod() {
-//		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put("evaluator", new TestGatewayEvaluator());
-//
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.gateway_method", parameters);
-//	}
+	// @Test
+	// public void testGatewayMethod() {
+	// Map<String, Object> parameters = new HashMap<String, Object>();
+	// parameters.put("evaluator", new TestGatewayEvaluator());
+	//
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.gateway_method",
+	// parameters);
+	// }
 
 	@Test
 	public void testProcessWithDataFromDB() {
@@ -291,15 +332,15 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		a.setType("P");
 		a.setAccepted(false);
 
-//		Appeal ap = new Appeal();
-//		AppealType apt = new AppealType();
-//		apt.setName("Odvolání k děkanovi");
-//
-//		ap.setAppealType(apt);
-//		ap.setAccepted(false);
-//
+		// Appeal ap = new Appeal();
+		// AppealType apt = new AppealType();
+		// apt.setName("Odvolání k děkanovi");
+		//
+		// ap.setAppealType(apt);
+		// ap.setAccepted(false);
+		//
 		Set<Appeal> appeals = new HashSet<Appeal>();
-//		appeals.add(ap);
+		// appeals.add(ap);
 		a.setAppeals(appeals);
 
 		AdmissionState state = new AdmissionState();

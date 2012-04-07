@@ -12,7 +12,6 @@ import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProcessService {
 
-	@Autowired
 	private StatefulKnowledgeSession ksession;
 
 //	private final String processNameBSP = "2012_BSP_main";
