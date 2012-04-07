@@ -8,7 +8,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressTypeDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.CityDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.CountryDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +32,12 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     @Autowired
     private AddressTypeDataOnDemand AddressDataOnDemand.addressTypeDataOnDemand;
     
+    @Autowired
+    private CityDataOnDemand AddressDataOnDemand.cityDataOnDemand;
+    
+    @Autowired
+    private CountryDataOnDemand AddressDataOnDemand.countryDataOnDemand;
+    
     public Address AddressDataOnDemand.getNewTransientAddress(int index) {
         Address obj = new Address();
         setAddressType(obj, index);
@@ -48,12 +56,12 @@ privileged aspect AddressDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AddressDataOnDemand.setCity(Address obj, int index) {
-        City city = null;
+        City city = cityDataOnDemand.getRandomCity();
         obj.setCity(city);
     }
     
     public void AddressDataOnDemand.setCountry(Address obj, int index) {
-        Country country = null;
+        Country country = countryDataOnDemand.getRandomCountry();
         obj.setCountry(country);
     }
     

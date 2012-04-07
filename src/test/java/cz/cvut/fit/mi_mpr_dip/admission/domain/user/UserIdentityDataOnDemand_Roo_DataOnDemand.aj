@@ -38,7 +38,7 @@ privileged aspect UserIdentityDataOnDemand_Roo_DataOnDemand {
     }
     
     public void UserIdentityDataOnDemand.setAuthentication(UserIdentity obj, int index) {
-        UserIdentityAuthentication authentication = null;
+        UserIdentityAuthentication authentication = UserIdentityAuthentication.class.getEnumConstants()[0];
         obj.setAuthentication(authentication);
     }
     

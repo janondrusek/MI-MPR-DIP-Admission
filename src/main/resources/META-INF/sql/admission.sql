@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-06 19:48:46
+# Date/time:                    2012-04-07 19:15:00
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -1111,7 +1111,7 @@ CREATE TABLE IF NOT EXISTS `term_type` (
 DROP TABLE IF EXISTS `user_identity`;
 CREATE TABLE IF NOT EXISTS `user_identity` (
   `user_identity_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `authentication` int(11) NOT NULL,
+  `authentication` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   PRIMARY KEY (`user_identity_id`),
   UNIQUE KEY `username` (`username`)

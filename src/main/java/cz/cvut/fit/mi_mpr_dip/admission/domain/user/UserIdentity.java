@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,6 +61,7 @@ public class UserIdentity {
 	private Set<UserSession> sessions;
 
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	private UserIdentityAuthentication authentication;
 
 	@XmlTransient

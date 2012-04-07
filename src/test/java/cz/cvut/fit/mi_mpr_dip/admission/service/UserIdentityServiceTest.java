@@ -150,5 +150,6 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 
 	private void verifyUserIdentity(String expectedLastname, Admission admission) {
 		assertEquals(expectedLastname, admission.getUserIdentity().getUsername());
+		assertEquals(UserIdentityAuthentication.PWD, admission.getUserIdentity().getAuthentication());
 	}
 }
