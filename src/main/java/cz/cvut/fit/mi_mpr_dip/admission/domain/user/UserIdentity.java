@@ -33,7 +33,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findUserIdentitysByUsernameEquals",
-		"findUserIdentitysByUsernameEqualsAndAuthenticationEquals" })
+		"findUserIdentitysByUsernameEqualsAndAuthenticationEquals", "findUserIdentitysByUsernameLike" })
 public class UserIdentity {
 
 	@Version

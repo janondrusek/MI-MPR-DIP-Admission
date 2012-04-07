@@ -27,7 +27,14 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 	private static final String[] TWO_LASTNAMES = { "dvorak", "dvorak1" };
 
 	private static final String CERNY = "ČERNÝ";
-	private static final String[] GAPEED_LASTNAMES = { "cerny1", "cerny101" };
+	private static final String[] BEGINNING_GAPPED_LASTNAMES = { "cerny1", "cerny2" };
+
+	private static final String KUCERA = "KUČERA";
+	private static final String[] MIDDLE_GAPPED_LASTNAMES = { "kucera", "kucera1", "kucera3", "kucera4" };
+
+	private static final String POSPISIL_CYRILLIC = "ПОСПÍШИЛ";
+	private static final String[] MIDDLE_GAPPED_CYRILLIC_LASTNAMES = { "поспiшил", "поспiшил1", "поспiшил3",
+			"поспiшил4" };
 
 	@Autowired
 	private UserIdentityService userIdentityService;
@@ -36,7 +43,9 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 	public void setUp() {
 		addSingleUserIdentity();
 		addTwoUserIdentities();
-		addGappedUserIdentities();
+		addBeginningGappedUserIdentities();
+		addMiddleGappedUserIdentities();
+		addMiddleGappedUserIdentitiesCyrillic();
 	}
 
 	private void addSingleUserIdentity() {
@@ -47,8 +56,16 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 		addUserIdentities(TWO_LASTNAMES);
 	}
 
-	private void addGappedUserIdentities() {
-		addUserIdentities(GAPEED_LASTNAMES);
+	private void addBeginningGappedUserIdentities() {
+		addUserIdentities(BEGINNING_GAPPED_LASTNAMES);
+	}
+
+	private void addMiddleGappedUserIdentities() {
+		addUserIdentities(MIDDLE_GAPPED_LASTNAMES);
+	}
+
+	private void addMiddleGappedUserIdentitiesCyrillic() {
+		addUserIdentities(MIDDLE_GAPPED_CYRILLIC_LASTNAMES);
 	}
 
 	private void addUserIdentities(String[] lastnames) {
@@ -65,17 +82,73 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 	@Transactional
 	@Test
 	public void testBuildNoMatchingUserIdentity() {
-		Admission admission = getAdmission(PROCHAZKA);
+		Admission admission = getAdmissionAndBuildUserIdentity(PROCHAZKA);
+
+		verifyUserIdentity("prochazka", admission);
+	}
+
+	@Rollback
+	@Transactional
+	@Test
+	public void testBuildSingleMatchingUserIdentity() {
+		Admission admission = getAdmissionAndBuildUserIdentity(NOVAK);
+
+		verifyUserIdentity("novak1", admission);
+	}
+
+	@Rollback
+	@Transactional
+	@Test
+	public void testBuildTwoMatchingUserIdentities() {
+		Admission admission = getAdmissionAndBuildUserIdentity(DVORAK);
+
+		verifyUserIdentity("dvorak2", admission);
+	}
+
+	@Rollback
+	@Transactional
+	@Test
+	public void testBuildUserIdentitiesWithBeginningGap() {
+		Admission admission = getAdmissionAndBuildUserIdentity(CERNY);
+
+		verifyUserIdentity("cerny", admission);
+	}
+
+	@Rollback
+	@Transactional
+	@Test
+	public void testBuildUserIdentitiesWithMiddleGap() {
+		Admission admission = getAdmissionAndBuildUserIdentity(KUCERA);
+
+		verifyUserIdentity("kucera2", admission);
+	}
+
+	@Rollback
+	@Transactional
+	@Test
+	public void testBuildUserIdentitiesWithMiddleGapCyrillic() {
+		Admission admission = getAdmissionAndBuildUserIdentity(POSPISIL_CYRILLIC);
+
+		verifyUserIdentity("поспiшил2", admission);
+	}
+
+	private Admission getAdmissionAndBuildUserIdentity(String lastname) {
+		Admission admission = getAdmission(lastname);
 		userIdentityService.buildUserIdentity(admission);
 
-		assertEquals("prochazka", admission.getUserIdentity().getUsername());
+		return admission;
 	}
 
 	private Admission getAdmission(String lastname) {
 		Admission admission = new Admission();
 		Person person = new Person();
 		person.setLastname(lastname);
+		admission.setPerson(person);
 
 		return admission;
+	}
+
+	private void verifyUserIdentity(String expectedLastname, Admission admission) {
+		assertEquals(expectedLastname, admission.getUserIdentity().getUsername());
 	}
 }
