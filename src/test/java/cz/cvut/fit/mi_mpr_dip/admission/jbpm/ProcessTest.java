@@ -8,14 +8,11 @@ import java.util.Set;
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
@@ -41,13 +38,11 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 /**
  * This is a sample file to launch a process.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/applicationContext-test.xml" })
-public class ProcessTest extends JbpmJUnitTestCase {
+public class ProcessTest extends BaseSpringJbpmTest {
 
 	@Autowired
 	private JbpmTaskService jbpmTaskService;
-	
+
 	private StatefulKnowledgeSession ksession;
 	
 	@Autowired
@@ -90,13 +85,14 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
 //		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
 
-		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
+//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
 	}
 
 	// @Test
 	// public void testHumanTaskProcess() {
 	// try {
-	// UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+	// UserTransaction ut = (UserTransaction) new
+	// InitialContext().lookup("java:comp/UserTransaction");
 	// ut.begin();
 	//
 	// /*
@@ -104,12 +100,14 @@ public class ProcessTest extends JbpmJUnitTestCase {
 	// */
 	// TaskService taskService = jbpmTaskService.getTaskService();
 	//
-	// ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
+	// ProcessInstance processInstance =
+	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
 	//
 	// /*
 	// * Retrive the tasks owned by a user
 	// */
-	// List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+	// List<TaskSummary> list =
+	// taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
 	// TaskSummary task = list.get(0);
 	//
 	// System.out.println("krisv is executing task " + task.getName());
@@ -305,15 +303,15 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		a.setType("P");
 		a.setAccepted(false);
 
-//		Appeal ap = new Appeal();
-//		AppealType apt = new AppealType();
-//		apt.setName("Odvolání k děkanovi");
-//
-//		ap.setAppealType(apt);
-//		ap.setAccepted(false);
-//
+		// Appeal ap = new Appeal();
+		// AppealType apt = new AppealType();
+		// apt.setName("Odvolání k děkanovi");
+		//
+		// ap.setAppealType(apt);
+		// ap.setAccepted(false);
+		//
 		Set<Appeal> appeals = new HashSet<Appeal>();
-//		appeals.add(ap);
+		// appeals.add(ap);
 		a.setAppeals(appeals);
 
 		AdmissionState state = new AdmissionState();

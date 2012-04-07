@@ -28,4 +28,19 @@ privileged aspect UserIdentity_Roo_Finder {
         return q;
     }
     
+    public static TypedQuery<UserIdentity> UserIdentity.findUserIdentitysByUsernameLike(String username) {
+        if (username == null || username.length() == 0) throw new IllegalArgumentException("The username argument is required");
+        username = username.replace('*', '%');
+        if (username.charAt(0) != '%') {
+            username = "%" + username;
+        }
+        if (username.charAt(username.length() - 1) != '%') {
+            username = username + "%";
+        }
+        EntityManager em = UserIdentity.entityManager();
+        TypedQuery<UserIdentity> q = em.createQuery("SELECT o FROM UserIdentity AS o WHERE LOWER(o.username) LIKE LOWER(:username)", UserIdentity.class);
+        q.setParameter("username", username);
+        return q;
+    }
+    
 }
