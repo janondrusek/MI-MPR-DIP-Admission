@@ -43,4 +43,9 @@ public class JbpmTaskServiceImpl implements JbpmTaskService {
 		return new LocalTaskService(taskServiceSession);
 	}
 
+	@Override
+	public StatefulKnowledgeSession getKnowledgeSession() {
+		return knowledgeSession;
+	}
+
 }
