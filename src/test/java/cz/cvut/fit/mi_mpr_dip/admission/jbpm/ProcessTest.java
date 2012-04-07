@@ -35,6 +35,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.MSPProcessEvaluator;
+import cz.cvut.fit.mi_mpr_dip.admission.service.AdminService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 /**
@@ -45,18 +46,29 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 public class ProcessTest extends JbpmJUnitTestCase {
 
 	@Autowired
-	private JbpmTaskServiceImpl jbpmTaskService;
+	private JbpmTaskService jbpmTaskService;
 	
 	private StatefulKnowledgeSession ksession;
+	
+	@Autowired
+	private AdminService adminService;
 
 	private Admission admission;
+	private Map<String, String> applicationProperties;
+	private Map<String, Object> processParameters;
 	private final String processName = "2012_MSP_main";
 
 	@Override
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
-		ksession = jbpmTaskService.knowledgeSession;
+		ksession = jbpmTaskService.getKnowledgeSession();
+		applicationProperties = adminService.getApplicationProperties();
+		
+		processParameters = new HashMap<String, Object>();
+		processParameters.put("admission", admission);
+		processParameters.put("evaluator", new MSPProcessEvaluator());
+		processParameters.put("prop", applicationProperties);
 	}
 
 	@Test
@@ -69,15 +81,17 @@ public class ProcessTest extends JbpmJUnitTestCase {
 		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
 	}
 
-	// @Test
-	// public void testEmailProcess() {
-	// EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
-	// emailHandler.setConnection("relay.fit.cvut.cz", "25", null, null);
-	//
-	// ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
-	//
-	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email");
-	// }
+	@Test
+	public void testEmailProcess() {
+//		String host = applicationProperties.get("mail.smtp.host");
+//		String port = applicationProperties.get("mail.smtp.port");
+//		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
+//		emailHandler.setConnection(host, port, null, null);
+
+//		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
+
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
+	}
 
 	// @Test
 	// public void testHumanTaskProcess() {
@@ -220,45 +234,45 @@ public class ProcessTest extends JbpmJUnitTestCase {
 //		ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 //	}	
 	
-	@Test
-	public void testProcess() {
-		try {
-			KnowledgeRuntimeLogger logger = createLogger(ksession);
-
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("admission", admission);
-			parameters.put("evaluator", new MSPProcessEvaluator());
-
-			TestWorkItemHandler testHandler = new TestWorkItemHandler();
-
-			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-			ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
-//			ProcessInstance processInstance = 
-			ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main", parameters);
-
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-			logger.close();
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-	} 
+//	@Test
+//	public void testProcess() {
+//		try {
+//			KnowledgeRuntimeLogger logger = createLogger(ksession);
+//
+//			Map<String, Object> parameters = new HashMap<String, Object>();
+//			parameters.put("admission", admission);
+//			parameters.put("evaluator", new MSPProcessEvaluator());
+//
+//			TestWorkItemHandler testHandler = new TestWorkItemHandler();
+//
+//			ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+//			ksession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+////			ProcessInstance processInstance = 
+//			ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main", parameters);
+//
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+//			logger.close();
+//		} catch (Throwable t) {
+//			t.printStackTrace();
+//		}
+//	} 
 
 //	@Test
 //	public void testFireSignalEvent() {

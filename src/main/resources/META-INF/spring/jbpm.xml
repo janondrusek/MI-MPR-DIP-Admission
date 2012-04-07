@@ -58,6 +58,32 @@
 <!-- 	<bean id="mspProcessEvaluator" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.MSPProcessEvaluator"> -->
 <!-- 		<property name="requiredRate_h8" value="${process.msp.eval.h8}" /> -->
 <!-- 	</bean> -->
+
+	<bean class="org.jbpm.process.workitem.email.EmailWorkItemHandler" id="emailHandler">
+		<constructor-arg name="host" value="${mail.smtp.host}" />
+		<constructor-arg name="port" value="${mail.smtp.port}" />
+		<constructor-arg name="userName">
+			<null />
+		</constructor-arg>
+		<constructor-arg name="password">
+			<null />
+		</constructor-arg>
+	</bean>
+	
+	<!-- Register HumanTaskHandler in the session -->
+	
+	<!-- Register EmailHandler in the session -->
+	<bean factory-bean="ksession" factory-method="getWorkItemManager" id="workItemManager" />
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="workItemManager" />
+		<property name="targetMethod" value="registerWorkItemHandler" />
+		<property name="arguments">
+			<list>
+				<value>Email</value>
+				<ref bean="emailHandler" />
+			</list>
+		</property>
+	</bean>
 	
 	<!-- 
 	<bean class="org.jbpm.task.service.mina.MinaTaskServer" id="taskServer">

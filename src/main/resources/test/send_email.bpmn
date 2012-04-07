@@ -12,7 +12,12 @@
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:tns="http://www.jboss.org/drools">
 
+  <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
+
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.test_email" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="prop" itemSubjectRef="_propItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -99,7 +104,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_6_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">david@chobotsky.cz</from>
+          <from xsi:type="tFormalExpression">david.chobotsky@gmail.com</from>
           <to xsi:type="tFormalExpression">_6_ToInput</to>
         </assignment>
       </dataInputAssociation>
@@ -143,7 +148,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_7_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">david@chobotsky.cz</from>
+          <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_7_ToInput</to>
         </assignment>
       </dataInputAssociation>
@@ -173,7 +178,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_8_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">emailu</from>
+          <from xsi:type="tFormalExpression">emailu --- #{prop.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_8_BodyInput</to>
         </assignment>
       </dataInputAssociation>
@@ -194,7 +199,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_8_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_8_FromInput</to>
         </assignment>
       </dataInputAssociation>
