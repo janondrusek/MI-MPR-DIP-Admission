@@ -4,7 +4,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.CityDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.CountryDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.GenderDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
@@ -31,6 +33,12 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
     private Random PersonDataOnDemand.rnd = new SecureRandom();
     
     private List<Person> PersonDataOnDemand.data;
+    
+    @Autowired
+    private CountryDataOnDemand PersonDataOnDemand.countryDataOnDemand;
+    
+    @Autowired
+    private CityDataOnDemand PersonDataOnDemand.cityDataOnDemand;
     
     @Autowired
     private GenderDataOnDemand PersonDataOnDemand.genderDataOnDemand;
@@ -70,17 +78,17 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
     }
     
     public void PersonDataOnDemand.setCitizenship(Person obj, int index) {
-        Country citizenship = null;
+        Country citizenship = countryDataOnDemand.getRandomCountry();
         obj.setCitizenship(citizenship);
     }
     
     public void PersonDataOnDemand.setCityOfBirth(Person obj, int index) {
-        City cityOfBirth = null;
+        City cityOfBirth = cityDataOnDemand.getRandomCity();
         obj.setCityOfBirth(cityOfBirth);
     }
     
     public void PersonDataOnDemand.setCountryOfBirth(Person obj, int index) {
-        Country countryOfBirth = null;
+        Country countryOfBirth = countryDataOnDemand.getRandomCountry();
         obj.setCountryOfBirth(countryOfBirth);
     }
     

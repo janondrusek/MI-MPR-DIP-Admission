@@ -8,10 +8,13 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResultDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionStateDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.FacultyDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.ProgrammeDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import java.security.SecureRandom;
@@ -33,7 +36,16 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     private List<Admission> AdmissionDataOnDemand.data;
     
     @Autowired
+    private AdmissionStateDataOnDemand AdmissionDataOnDemand.admissionStateDataOnDemand;
+    
+    @Autowired
+    private FacultyDataOnDemand AdmissionDataOnDemand.facultyDataOnDemand;
+    
+    @Autowired
     private PersonDataOnDemand AdmissionDataOnDemand.personDataOnDemand;
+    
+    @Autowired
+    private ProgrammeDataOnDemand AdmissionDataOnDemand.programmeDataOnDemand;
     
     @Autowired
     private AdmissionResultDataOnDemand AdmissionDataOnDemand.admissionResultDataOnDemand;
@@ -62,7 +74,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setAdmissionState(Admission obj, int index) {
-        AdmissionState admissionState = null;
+        AdmissionState admissionState = admissionStateDataOnDemand.getRandomAdmissionState();
         obj.setAdmissionState(admissionState);
     }
     
@@ -77,7 +89,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setFaculty(Admission obj, int index) {
-        Faculty faculty = null;
+        Faculty faculty = facultyDataOnDemand.getRandomFaculty();
         obj.setFaculty(faculty);
     }
     
@@ -87,7 +99,7 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     }
     
     public void AdmissionDataOnDemand.setProgramme(Admission obj, int index) {
-        Programme programme = null;
+        Programme programme = programmeDataOnDemand.getRandomProgramme();
         obj.setProgramme(programme);
     }
     

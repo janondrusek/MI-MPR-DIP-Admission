@@ -64,6 +64,7 @@ public class UserIdentity {
 	@Enumerated(EnumType.STRING)
 	private UserIdentityAuthentication authentication;
 
+	@Transient
 	@XmlTransient
 	@OneToOne(mappedBy = "userIdentity", cascade = CascadeType.ALL)
 	private UserPassword userPassword;

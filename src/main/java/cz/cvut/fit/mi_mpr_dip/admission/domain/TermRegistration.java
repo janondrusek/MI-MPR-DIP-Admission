@@ -43,7 +43,8 @@ public class TermRegistration {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private Term term;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@Transient
+	@OneToOne(mappedBy = "termRegistration", cascade = CascadeType.ALL)
 	private Apology apology;
 
 	private Boolean attendance;
