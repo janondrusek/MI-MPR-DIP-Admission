@@ -14,6 +14,9 @@
 			<ref bean="mobileService" />
 			<ref bean="processingService" />
 		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="businessExceptionMapper" />
+		</jaxrs:providers>
 	</jaxrs:server>
 
 	<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider" />

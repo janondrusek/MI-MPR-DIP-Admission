@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -41,10 +42,12 @@ public class TermRegistration {
 
 	@NotNull
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@Valid
 	private Term term;
 
 	@Transient
 	@OneToOne(mappedBy = "termRegistration", cascade = CascadeType.ALL)
+	@Valid
 	private Apology apology;
 
 	private Boolean attendance;

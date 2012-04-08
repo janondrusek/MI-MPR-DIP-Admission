@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -43,11 +44,13 @@ public class Accomplishment {
 
 	@NotNull
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@Valid
 	private AccomplishmentType accomplishmentType;
 
 	@NotNull
 	@NotEmpty
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
 	@XmlElementWrapper(name = "accomplishmentValues")
 	@XmlElement(name = "accomplishmentValue")
 	private Set<AccomplishmentValue> accomplishmentValues;

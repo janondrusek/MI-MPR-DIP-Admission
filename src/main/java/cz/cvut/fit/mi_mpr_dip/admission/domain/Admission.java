@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -62,11 +63,13 @@ public class Admission {
 	private Boolean accepted = Boolean.FALSE;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
 	@XmlElementWrapper(name = "accomplishments")
 	@XmlElement(name = "accomplishment")
 	private Set<Accomplishment> accomplishments;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
 	@XmlElementWrapper(name = "appeals")
 	@XmlElement(name = "appeal")
 	private Set<Appeal> appeals;
@@ -74,31 +77,39 @@ public class Admission {
 	private Boolean dormitoryRequest;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@Valid
 	private AdmissionState admissionState;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@Valid
 	private AdmissionResult result;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
 	@XmlElementWrapper(name = "evaluations")
 	@XmlElement(name = "evaluation")
 	private Set<Evaluation> evaluations;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@Valid
 	private Faculty faculty;
 
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
+	@Valid
 	private Person person;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@Valid
 	private Programme programme;
 
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
 	private Set<Appendix> photos;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
 	private Set<TermRegistration> registrations;
 
 	@OneToOne(cascade = CascadeType.ALL)
