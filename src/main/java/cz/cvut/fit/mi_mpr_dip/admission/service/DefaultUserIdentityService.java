@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -23,6 +22,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
+import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 public class DefaultUserIdentityService implements UserIdentityService {
@@ -33,6 +33,12 @@ public class DefaultUserIdentityService implements UserIdentityService {
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
+
+	@Autowired
+	private PasswordGenerator passwordGenerator;
+
+	@Autowired
+	private RandomStringGenerator randomStringGenerator;
 
 	@Transactional
 	@Override
@@ -78,17 +84,13 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	private UserSession createSession() {
 		UserSession session = new UserSession();
 		session.setGrantValidTo(getGrantValidTo());
-		session.setIdentifier(getRandomIdentifier());
+		session.setIdentifier(randomStringGenerator.generateRandomAlphanumeric());
 
 		return session;
 	}
 
 	private Date getGrantValidTo() {
 		return new Date(getNow().getTime() + grantValidSeconds * 1000);
-	}
-
-	private String getRandomIdentifier() {
-		return UUID.randomUUID().toString().replaceAll(StringPool.DASH, StringPool.BLANK);
 	}
 
 	private boolean isExpired(UserSession session) {
@@ -115,9 +117,10 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		String normalizedLowercase = getNormalizedLastname(StringUtils.trimToEmpty(lastname)).toLowerCase();
 
 		UserIdentity userIdentity = new UserIdentity();
-		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
-		
+		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
+		userIdentity.setUserPassword(passwordGenerator.createUserPassword());
+
 		return userIdentity;
 	}
 

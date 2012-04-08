@@ -1,10 +1,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -19,7 +17,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "userPasswordId" })
+@RooEquals(excludeFields = { "userPasswordId", "plaintext" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
 public class UserPassword {
@@ -33,11 +31,13 @@ public class UserPassword {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
 	private Long userPasswordId;
-	
-	@NotNull
-	private String value;
 
-	@XmlTransient
-	@OneToOne(cascade = CascadeType.ALL)
-	private UserIdentity userIdentity;
+	@NotNull
+	private String hash;
+
+	@Transient
+	private String plaintext;
+
+	@NotNull
+	private String salt;
 }

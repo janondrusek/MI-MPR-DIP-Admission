@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-07 23:07:57
+# Date/time:                    2012-04-08 14:59:40
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -1110,8 +1110,11 @@ CREATE TABLE IF NOT EXISTS `user_identity` (
   `user_identity_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `authentication` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
+  `user_password` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`user_identity_id`),
-  UNIQUE KEY `username` (`username`)
+  UNIQUE KEY `username` (`username`),
+  KEY `FKFAEBCAB2EC369287` (`user_password`),
+  CONSTRAINT `FKFAEBCAB2EC369287` FOREIGN KEY (`user_password`) REFERENCES `user_password` (`user_password_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -1136,11 +1139,9 @@ CREATE TABLE IF NOT EXISTS `user_identity_role` (
 DROP TABLE IF EXISTS `user_password`;
 CREATE TABLE IF NOT EXISTS `user_password` (
   `user_password_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `value` varchar(255) NOT NULL,
-  `user_identity` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`user_password_id`),
-  KEY `FK4B8D148F4AF3FECD` (`user_identity`),
-  CONSTRAINT `FK4B8D148F4AF3FECD` FOREIGN KEY (`user_identity`) REFERENCES `user_identity` (`user_identity_id`)
+  `hash` varchar(255) NOT NULL,
+  `salt` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_password_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.

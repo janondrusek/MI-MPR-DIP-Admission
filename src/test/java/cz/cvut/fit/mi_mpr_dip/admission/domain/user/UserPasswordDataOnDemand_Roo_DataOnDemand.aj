@@ -3,8 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPasswordDataOnDemand;
 import java.security.SecureRandom;
@@ -14,7 +12,6 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect UserPasswordDataOnDemand_Roo_DataOnDemand {
@@ -25,24 +22,21 @@ privileged aspect UserPasswordDataOnDemand_Roo_DataOnDemand {
     
     private List<UserPassword> UserPasswordDataOnDemand.data;
     
-    @Autowired
-    private UserIdentityDataOnDemand UserPasswordDataOnDemand.userIdentityDataOnDemand;
-    
     public UserPassword UserPasswordDataOnDemand.getNewTransientUserPassword(int index) {
         UserPassword obj = new UserPassword();
-        setUserIdentity(obj, index);
-        setValue(obj, index);
+        setHash(obj, index);
+        setSalt(obj, index);
         return obj;
     }
     
-    public void UserPasswordDataOnDemand.setUserIdentity(UserPassword obj, int index) {
-        UserIdentity userIdentity = userIdentityDataOnDemand.getSpecificUserIdentity(index);
-        obj.setUserIdentity(userIdentity);
+    public void UserPasswordDataOnDemand.setHash(UserPassword obj, int index) {
+        String hash = "hash_" + index;
+        obj.setHash(hash);
     }
     
-    public void UserPasswordDataOnDemand.setValue(UserPassword obj, int index) {
-        String value = "value_" + index;
-        obj.setValue(value);
+    public void UserPasswordDataOnDemand.setSalt(UserPassword obj, int index) {
+        String salt = "salt_" + index;
+        obj.setSalt(salt);
     }
     
     public UserPassword UserPasswordDataOnDemand.getSpecificUserPassword(int index) {

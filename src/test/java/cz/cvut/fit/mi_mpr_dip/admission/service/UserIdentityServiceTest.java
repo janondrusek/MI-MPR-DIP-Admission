@@ -1,6 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -151,5 +154,7 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 	private void verifyUserIdentity(String expectedLastname, Admission admission) {
 		assertEquals(expectedLastname, admission.getUserIdentity().getUsername());
 		assertEquals(UserIdentityAuthentication.PWD, admission.getUserIdentity().getAuthentication());
+		assertNotNull(admission.getUserIdentity().getUserPassword());
+		assertThat(admission.getUserIdentity().getUserPassword().getHash().length(), greaterThan(0));
 	}
 }

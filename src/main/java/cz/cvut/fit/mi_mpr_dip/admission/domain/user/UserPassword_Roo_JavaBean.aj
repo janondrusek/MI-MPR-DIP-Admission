@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
 
 privileged aspect UserPassword_Roo_JavaBean {
@@ -24,20 +23,28 @@ privileged aspect UserPassword_Roo_JavaBean {
         this.userPasswordId = userPasswordId;
     }
     
-    public String UserPassword.getValue() {
-        return this.value;
+    public String UserPassword.getHash() {
+        return this.hash;
     }
     
-    public void UserPassword.setValue(String value) {
-        this.value = value;
+    public void UserPassword.setHash(String hash) {
+        this.hash = hash;
     }
     
-    public UserIdentity UserPassword.getUserIdentity() {
-        return this.userIdentity;
+    public String UserPassword.getPlaintext() {
+        return this.plaintext;
     }
     
-    public void UserPassword.setUserIdentity(UserIdentity userIdentity) {
-        this.userIdentity = userIdentity;
+    public void UserPassword.setPlaintext(String plaintext) {
+        this.plaintext = plaintext;
+    }
+    
+    public String UserPassword.getSalt() {
+        return this.salt;
+    }
+    
+    public void UserPassword.setSalt(String salt) {
+        this.salt = salt;
     }
     
 }
