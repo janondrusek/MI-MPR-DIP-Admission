@@ -40,6 +40,7 @@ public class Address {
 	@XmlTransient
 	private Long addressId;
 
+	@NotNull
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	private AddressType addressType;
 

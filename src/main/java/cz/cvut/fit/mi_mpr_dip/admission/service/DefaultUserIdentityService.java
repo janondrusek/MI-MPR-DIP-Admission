@@ -21,6 +21,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.comparator.NaturalOrderComparator;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
@@ -115,6 +116,8 @@ public class DefaultUserIdentityService implements UserIdentityService {
 
 		UserIdentity userIdentity = new UserIdentity();
 		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
+		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
+		
 		return userIdentity;
 	}
 

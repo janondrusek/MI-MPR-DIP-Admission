@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-06 19:48:46
+# Date/time:                    2012-04-07 23:07:57
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `post_number` varchar(255) DEFAULT NULL,
   `postal_code` varchar(255) DEFAULT NULL,
   `street` varchar(255) DEFAULT NULL,
-  `address_type` bigint(20) DEFAULT NULL,
+  `address_type` bigint(20) NOT NULL,
   `city` bigint(20) NOT NULL,
   `country` bigint(20) NOT NULL,
   PRIMARY KEY (`address_id`),
@@ -1065,15 +1065,12 @@ CREATE TABLE IF NOT EXISTS `term_registration` (
   `term_registration_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `attendance` tinyint(1) DEFAULT NULL,
   `admission` bigint(20) NOT NULL,
-  `apology` bigint(20) DEFAULT NULL,
   `term` bigint(20) NOT NULL,
   PRIMARY KEY (`term_registration_id`),
   KEY `FKECCC9DAC14DCE801` (`admission`),
-  KEY `FKECCC9DACA0484759` (`apology`),
   KEY `FKECCC9DAC17CE5789` (`term`),
   CONSTRAINT `FKECCC9DAC17CE5789` FOREIGN KEY (`term`) REFERENCES `term` (`term_id`),
-  CONSTRAINT `FKECCC9DAC14DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`),
-  CONSTRAINT `FKECCC9DACA0484759` FOREIGN KEY (`apology`) REFERENCES `apology` (`apology_id`)
+  CONSTRAINT `FKECCC9DAC14DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -1111,7 +1108,7 @@ CREATE TABLE IF NOT EXISTS `term_type` (
 DROP TABLE IF EXISTS `user_identity`;
 CREATE TABLE IF NOT EXISTS `user_identity` (
   `user_identity_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `authentication` int(11) NOT NULL,
+  `authentication` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   PRIMARY KEY (`user_identity_id`),
   UNIQUE KEY `username` (`username`)
