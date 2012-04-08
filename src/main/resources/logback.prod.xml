@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>/var/log/tomcat-7-admission/admission.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>/var/log/tomcat-7-admission/admission.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- keep 7 days of history -->
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %msg%n</Pattern>
 		</layout>
