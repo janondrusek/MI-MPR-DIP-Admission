@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<admission>
+	<code>123-456-03</code>
+	<!-- Maybe paper or electronic form -->
+	<type />
+	<!-- Mark if attendant was successful in admission process -->
+	<accomplishments>
+		<accomplishment>
+			<accomplishmentType>
+				<name>SCIO</name>
+			</accomplishmentType>
+			<accomplishmentValues>
+				<accomplishmentValue>
+					<value>10.02</value>
+				</accomplishmentValue>
+				<accomplishmentValue>
+					<value>20.02</value>
+				</accomplishmentValue>
+			</accomplishmentValues>
+		</accomplishment>
+		<accomplishment>
+			<accomplishmentType>
+				<name>SCIO</name>
+			</accomplishmentType>
+			<accomplishmentValues>
+				<accomplishmentValue>
+					<value>10.02</value>
+				</accomplishmentValue>
+				<accomplishmentValue>
+					<value>20.02</value>
+				</accomplishmentValue>
+			</accomplishmentValues>
+		</accomplishment>
+		<accomplishment>
+			<accomplishmentType>
+				<name>English A2</name>
+			</accomplishmentType>
+			<accomplishmentValues>
+				<accomplishmentValue>
+					<value>50.02</value>
+				</accomplishmentValue>
+				<accomplishmentValue>
+					<value>79.02</value>
+				</accomplishmentValue>
+			</accomplishmentValues>
+		</accomplishment>
+	</accomplishments>
+	<!-- Mark if attendant fails in admission process but appeals the decision -->
+	<appeal />
+	<dormitoryRequest>true</dormitoryRequest>
+	<admissionState>
+		<code>state-123-456-02</code>
+		<name>new</name>
+		<description>new and better</description>
+	</admissionState>
+	<evaluations>
+		<evaluation>
+			<evaluationType>
+				<name>h1</name>
+			</evaluationType>
+			<value>10.02</value>
+		</evaluation>
+		<evaluation>
+			<evaluationType>
+				<name>h1</name>
+			</evaluationType>
+			<value>11.02</value>
+		</evaluation>
+		<evaluation>
+			<evaluationType>
+				<name>h2</name>
+			</evaluationType>
+			<value>4.02</value>
+		</evaluation>
+	</evaluations>
+	<faculty>
+		<name>FIT</name>
+	</faculty>
+	<person>
+		<citizenship>
+			<name>Hungary</name>
+		</citizenship>
+		<prefix>Don</prefix>
+		<suffix>Css</suffix>
+		<firstname>Benjamin</firstname>
+		<middlename>Azurit</middlename>
+		<lastname>Bukvica</lastname>
+		<maidenname>Trp</maidenname>
+		<maritalStatus>
+			<name>single</name>
+		</maritalStatus>
+		<permanentResidenceGranted>false</permanentResidenceGranted>
+		<documents>
+			<document>
+				<documentType>
+					<name>National ID</name>
+				</documentType>
+				<number>678-901-02</number>
+			</document>
+		</documents>
+		<addresses>
+			<address>
+				<addressType>
+					<name>Contact</name>
+				</addressType>
+				<street>Gagarinova</street>
+				<houseNumber>1</houseNumber>
+				<city>
+					<name>Žigulov</name>
+				</city>
+				<postNumber>123 45</postNumber>
+				<postalCode>543 21</postalCode>
+				<country>
+					<name>Bahrajn</name>
+				</country>
+				<printLines>
+					<printLine>
+						<value>Don Benjamin Azurit Bukvica</value>
+						<printLineType>
+							<name>1st line</name>
+						</printLineType>
+					</printLine>
+					<printLine>
+						<value>Gagarinova 1</value>
+						<printLineType>
+							<name>2nd line</name>
+						</printLineType>
+					</printLine>
+					<printLine>
+						<value>123 45 Žigulov</value>
+						<printLineType>
+							<name>3rd line</name>
+						</printLineType>
+					</printLine>
+					<printLine>
+						<value>Bahrajn</value>
+						<printLineType>
+							<name>4th line</name>
+						</printLineType>
+					</printLine>
+				</printLines>
+			</address>
+		</addresses>
+		<birthdate>2000-05-30T00:00:00Z</birthdate>
+		<birthIdentificationNumber>000101/1234</birthIdentificationNumber>
+		<gender>
+			<name>F</name>
+		</gender>
+		<cityOfBirth>
+			<name>Brno</name>
+		</cityOfBirth>
+		<countryOfBirth>
+			<name>Hungary</name>
+		</countryOfBirth>
+		<phone>603123456</phone>
+		<email>you@he.com</email>
+		<disabilities>
+			<disability>
+				<name>blind</name>
+			</disability>
+			<disability>
+				<name>deaf</name>
+			</disability>
+			<disability>
+				<name>dumb</name>
+			</disability>
+		</disabilities>
+	</person>
+	<programme>
+		<name>ET</name>
+		<degree>
+			<name>Bc.</name>
+		</degree>
+		<studyMode>
+			<name>combined</name>
+		</studyMode>
+		<language>
+			<name>esperanto</name>
+		</language>
+	</programme>
+</admission>

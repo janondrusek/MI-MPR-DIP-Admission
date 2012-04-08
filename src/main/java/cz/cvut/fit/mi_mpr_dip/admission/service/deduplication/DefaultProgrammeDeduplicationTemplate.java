@@ -25,18 +25,30 @@ public class DefaultProgrammeDeduplicationTemplate implements AdmissionDeduplica
 
 	private Programme deduplicate(Programme programme) {
 		if (programme != null) {
-			List<Programme> programs = Programme.findProgrammesByNameEquals(programme.getName()).getResultList();
+			deduplicateProgramme(programme);
+			storeProgrammeDescendants(programme);
+			List<Programme> programs = Programme.findProgrammesByNameEqualsAndStudyModeAndDegreeAndLanguage(
+					programme.getName(), programme.getStudyMode(), programme.getDegree(), programme.getLanguage())
+					.getResultList();
 			if (CollectionUtils.isNotEmpty(programs)) {
 				if (programme.equals(programs.get(0))) {
 					programme = programs.get(0);
 				}
-			} else {
-				for (ProgrammeDeduplicationTemplate deduplicationTemplate : deduplicationTemplates) {
-					deduplicationTemplate.deduplicate(programme);
-				}
 			}
 		}
 		return programme;
+	}
+
+	private void deduplicateProgramme(Programme programme) {
+		for (ProgrammeDeduplicationTemplate deduplicationTemplate : deduplicationTemplates) {
+			deduplicationTemplate.deduplicate(programme);
+		}
+	}
+
+	private void storeProgrammeDescendants(Programme programme) {
+		programme.getDegree().persist();
+		programme.getLanguage().persist();
+		programme.getStudyMode().persist();
 	}
 
 }

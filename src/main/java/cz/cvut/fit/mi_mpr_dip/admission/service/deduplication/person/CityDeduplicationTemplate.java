@@ -39,7 +39,7 @@ public class CityDeduplicationTemplate extends CommonPersonDeduplicationTemplate
 
 	@Override
 	protected void deduplicateAddress(City city, Address address) {
-		if (address.getCity().equals(city)) {
+		if (city.equals(address.getCity())) {
 			address.setCity(city);
 		}
 	}

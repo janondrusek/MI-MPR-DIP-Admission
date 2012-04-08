@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -96,7 +97,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
-	public Response addAdmission(@Valid Admission admission) throws URISyntaxException {
+	public Response addAdmission(@Validated Admission admission) throws URISyntaxException {
 		deduplicateAndStore(admission);
 		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode().toString());
 		return Response.created(uri).build();
