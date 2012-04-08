@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-08 18:35:47
+# Date/time:                    2012-04-08 23:15:42
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -898,7 +898,7 @@ CREATE TABLE IF NOT EXISTS `programme` (
   `language` bigint(20) DEFAULT NULL,
   `study_mode` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`programme_id`),
-  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `name` (`name`,`study_mode`,`degree`,`language`),
   KEY `FKC6419B1C9798742F` (`study_mode`),
   KEY `FKC6419B1CF2EE370E` (`degree`),
   KEY `FKC6419B1CDDD9FAA6` (`language`),
