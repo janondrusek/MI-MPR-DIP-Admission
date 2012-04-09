@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 public class LoggingFilter implements Filter {
@@ -39,8 +40,8 @@ public class LoggingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {
 		try {
-			addMdcValues();
 			BufferedRequestWrapper httpRequest = new BufferedRequestWrapper((HttpServletRequest) request);
+			addMdcValues(httpRequest);
 			log(httpRequest);
 
 			BufferedResponseWrapper httpResponse = new BufferedResponseWrapper((HttpServletResponse) response);
@@ -51,9 +52,14 @@ public class LoggingFilter implements Filter {
 		}
 	}
 
-	private void addMdcValues() {
+	private void addMdcValues(BufferedRequestWrapper httpRequest) {
 		MDC.put(WebKeys.MDC_KEY_REQUEST_STARTED, getTimestamp().toString());
 		MDC.put(WebKeys.MDC_KEY_INTERNAL_REQUEST_ID, randomStringGenerator.generateRandom());
+		MDC.put(WebKeys.MDC_KEY_CALL_IDENTIFIER, getCallIdentifier(httpRequest));
+	}
+
+	private String getCallIdentifier(BufferedRequestWrapper httpRequest) {
+		return httpRequest.getRequestURI() + StringPool.UDERSCORE + httpRequest.getMethod();
 	}
 
 	private Long getTimestamp() {

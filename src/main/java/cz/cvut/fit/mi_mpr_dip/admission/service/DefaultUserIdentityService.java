@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 public class DefaultUserIdentityService implements UserIdentityService {
 
+	private static final Logger log = LoggerFactory.getLogger(DefaultUserIdentityService.class);
 	private static final String USENAME_ORDER_PATTERN = ".*\\d+";
 
 	private Long grantValidSeconds;
@@ -120,6 +123,8 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
 		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
 		userIdentity.setUserPassword(passwordGenerator.createUserPassword());
+
+		log.debug("Created default UserIdentity [{}]", userIdentity);
 
 		return userIdentity;
 	}
