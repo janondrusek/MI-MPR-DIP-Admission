@@ -6,6 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.DegreeDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.LanguageDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.ProgrammeDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
@@ -32,6 +33,9 @@ privileged aspect ProgrammeDataOnDemand_Roo_DataOnDemand {
     private DegreeDataOnDemand ProgrammeDataOnDemand.degreeDataOnDemand;
     
     @Autowired
+    private LanguageDataOnDemand ProgrammeDataOnDemand.languageDataOnDemand;
+    
+    @Autowired
     private StudyModeDataOnDemand ProgrammeDataOnDemand.studyModeDataOnDemand;
     
     public Programme ProgrammeDataOnDemand.getNewTransientProgramme(int index) {
@@ -49,7 +53,7 @@ privileged aspect ProgrammeDataOnDemand_Roo_DataOnDemand {
     }
     
     public void ProgrammeDataOnDemand.setLanguage(Programme obj, int index) {
-        Language language = null;
+        Language language = languageDataOnDemand.getRandomLanguage();
         obj.setLanguage(language);
     }
     

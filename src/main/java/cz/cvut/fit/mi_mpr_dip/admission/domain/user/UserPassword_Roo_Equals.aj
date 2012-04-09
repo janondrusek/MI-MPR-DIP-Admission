@@ -17,11 +17,11 @@ privileged aspect UserPassword_Roo_Equals {
             return true;
         }
         UserPassword rhs = (UserPassword) obj;
-        return new EqualsBuilder().append(userIdentity, rhs.userIdentity).append(value, rhs.value).isEquals();
+        return new EqualsBuilder().append(hash, rhs.hash).append(salt, rhs.salt).isEquals();
     }
     
     public int UserPassword.hashCode() {
-        return new HashCodeBuilder().append(userIdentity).append(value).toHashCode();
+        return new HashCodeBuilder().append(hash).append(salt).toHashCode();
     }
     
 }

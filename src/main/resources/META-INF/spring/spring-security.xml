@@ -79,6 +79,18 @@
 		<property name="realmName" value="${auth.basic.realm.name}" />
 	</bean>
 
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<constructor-arg value="${password.encoder.shaVariant}" />
+	</bean>
+
+	<bean id="passwordGenerator" class="cz.cvut.fit.mi_mpr_dip.admission.service.UserPasswordGenerator">
+		<property name="passwordEncoder" ref="passwordEncoder" />
+		<property name="plaintextBeginning" value="${password.encoder.salt.beginning}" />
+		<property name="plaintextEnd" value="${password.encoder.salt.end}" />
+		<property name="saltBeginning" value="${password.encoder.plaintext.beginning}" />
+		<property name="saltEnd" value="${password.encoder.plaintext.end}" />
+	</bean>
+
 	<util:constant id="LDAP" static-field="cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication.LDAP" />
 	<util:constant id="PWD" static-field="cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication.PWD" />
 

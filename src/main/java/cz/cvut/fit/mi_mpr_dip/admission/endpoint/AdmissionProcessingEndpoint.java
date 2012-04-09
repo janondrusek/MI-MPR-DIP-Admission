@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,6 +28,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
 @Service(value = "processingService")
 @Path(AdmissionProcessingEndpoint.ENDPOINT_PATH)
@@ -39,11 +39,14 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	public static final String ENDPOINT_PATH = "/processing";
 
 	@Autowired
+	private AnnotatedBeanValidator beanValidator;
+
+	@Autowired
 	private EndpointHelper endpointHelper;
 
 	@Autowired
 	private DeduplicationService deduplicationService;
-	
+
 	@Autowired
 	private UserIdentityService userIdentityService;
 
@@ -96,10 +99,19 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
-	public Response addAdmission(@Valid Admission admission) throws URISyntaxException {
-		deduplicateAndStore(admission);
+	public Response addAdmission(Admission admission) throws URISyntaxException {
+		validateAndDeduplicateAndStore(admission);
 		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode().toString());
 		return Response.created(uri).build();
+	}
+
+	private void validateAndDeduplicateAndStore(Admission admission) {
+		validate(admission);
+		deduplicateAndStore(admission);
+	}
+
+	private void validate(Admission admission) {
+		beanValidator.validate(admission);
 	}
 
 	private void deduplicateAndStore(Admission admission) {

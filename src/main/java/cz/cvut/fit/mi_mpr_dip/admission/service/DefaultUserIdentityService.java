@@ -7,12 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,16 +24,24 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
+import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 public class DefaultUserIdentityService implements UserIdentityService {
 
+	private static final Logger log = LoggerFactory.getLogger(DefaultUserIdentityService.class);
 	private static final String USENAME_ORDER_PATTERN = ".*\\d+";
 
 	private Long grantValidSeconds;
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
+
+	@Autowired
+	private PasswordGenerator passwordGenerator;
+
+	@Autowired
+	private RandomStringGenerator randomStringGenerator;
 
 	@Transactional
 	@Override
@@ -78,17 +87,13 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	private UserSession createSession() {
 		UserSession session = new UserSession();
 		session.setGrantValidTo(getGrantValidTo());
-		session.setIdentifier(getRandomIdentifier());
+		session.setIdentifier(randomStringGenerator.generateRandomAlphanumeric());
 
 		return session;
 	}
 
 	private Date getGrantValidTo() {
 		return new Date(getNow().getTime() + grantValidSeconds * 1000);
-	}
-
-	private String getRandomIdentifier() {
-		return UUID.randomUUID().toString().replaceAll(StringPool.DASH, StringPool.BLANK);
 	}
 
 	private boolean isExpired(UserSession session) {
@@ -115,9 +120,12 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		String normalizedLowercase = getNormalizedLastname(StringUtils.trimToEmpty(lastname)).toLowerCase();
 
 		UserIdentity userIdentity = new UserIdentity();
-		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
-		
+		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
+		userIdentity.setUserPassword(passwordGenerator.createUserPassword());
+
+		log.debug("Created default UserIdentity [{}]", userIdentity);
+
 		return userIdentity;
 	}
 

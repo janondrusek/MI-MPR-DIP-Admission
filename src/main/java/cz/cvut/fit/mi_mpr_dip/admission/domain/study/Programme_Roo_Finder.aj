@@ -3,17 +3,26 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 privileged aspect Programme_Roo_Finder {
     
-    public static TypedQuery<Programme> Programme.findProgrammesByNameEquals(String name) {
+    public static TypedQuery<Programme> Programme.findProgrammesByNameEqualsAndStudyModeAndDegreeAndLanguage(String name, StudyMode studyMode, Degree degree, Language language) {
         if (name == null || name.length() == 0) throw new IllegalArgumentException("The name argument is required");
+        if (studyMode == null) throw new IllegalArgumentException("The studyMode argument is required");
+        if (degree == null) throw new IllegalArgumentException("The degree argument is required");
+        if (language == null) throw new IllegalArgumentException("The language argument is required");
         EntityManager em = Programme.entityManager();
-        TypedQuery<Programme> q = em.createQuery("SELECT o FROM Programme AS o WHERE o.name = :name", Programme.class);
+        TypedQuery<Programme> q = em.createQuery("SELECT o FROM Programme AS o WHERE o.name = :name  AND o.studyMode = :studyMode AND o.degree = :degree AND o.language = :language", Programme.class);
         q.setParameter("name", name);
+        q.setParameter("studyMode", studyMode);
+        q.setParameter("degree", degree);
+        q.setParameter("language", language);
         return q;
     }
     

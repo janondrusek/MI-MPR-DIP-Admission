@@ -6,4 +6,8 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" />
 </beans>

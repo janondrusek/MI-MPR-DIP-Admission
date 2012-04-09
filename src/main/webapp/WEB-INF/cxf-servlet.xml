@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xsi:schemaLocation="
-    http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://cxf.apache.org/bindings/soap
-	http://cxf.apache.org/schemas/configuration/soap.xsd
-    http://cxf.apache.org/jaxrs
-    http://cxf.apache.org/schemas/jaxrs.xsd
-    http://cxf.apache.org/jaxws
-    http://cxf.apache.org/schemas/jaxws.xsd
-	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-	http://www.springframework.org/schema/util
-	http://www.springframework.org/schema/util/spring-util-3.0.xsd
-	http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
@@ -27,16 +14,10 @@
 			<ref bean="mobileService" />
 			<ref bean="processingService" />
 		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="throwableExceptionMapper" />
+		</jaxrs:providers>
 	</jaxrs:server>
 
 	<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider" />
-
-	<!-- <jaxrs:server id="deviceRestService" address="/provisioning"> -->
-	<!-- <jaxrs:serviceBeans> -->
-	<!-- <ref bean="billingDeviceService" /> -->
-	<!-- </jaxrs:serviceBeans> -->
-	<!-- <jaxrs:schemaLocations> -->
-	<!-- <jaxrs:schemaLocation>classpath:/xsd/admission-rest.xsd</jaxrs:schemaLocation> -->
-	<!-- </jaxrs:schemaLocations> -->
-	<!-- </jaxrs:server> -->
 </beans>
