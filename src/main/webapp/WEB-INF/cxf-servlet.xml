@@ -15,7 +15,7 @@
 			<ref bean="processingService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
-			<ref bean="businessExceptionMapper" />
+			<ref bean="throwableExceptionMapper" />
 		</jaxrs:providers>
 	</jaxrs:server>
 

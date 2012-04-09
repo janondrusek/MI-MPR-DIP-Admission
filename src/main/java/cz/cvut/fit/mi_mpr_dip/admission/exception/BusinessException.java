@@ -5,29 +5,22 @@ import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 
-public class BusinessException extends RuntimeException {
+public class BusinessException extends AdmissionException {
 
 	private static final long serialVersionUID = 4213606111816337546L;
 
 	private Set<ConstraintViolation<Object>> constraintViolations;
-	private Integer responseCode;
 
 	public BusinessException(Set<ConstraintViolation<Object>> constraintViolations) {
 		this(constraintViolations, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public BusinessException(Set<ConstraintViolation<Object>> constraintViolations, Integer responseCode) {
-		super();
+		super(responseCode);
 		this.constraintViolations = constraintViolations;
-		this.responseCode = responseCode;
 	}
 
 	public Set<ConstraintViolation<Object>> getConstraintViolations() {
 		return constraintViolations;
 	}
-
-	public Integer getResponseCode() {
-		return responseCode;
-	}
-
 }
