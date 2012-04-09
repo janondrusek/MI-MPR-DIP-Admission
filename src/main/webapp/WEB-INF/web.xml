@@ -64,5 +64,13 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>loggingFilter</filter-name>
+		<filter-class>cz.cvut.fit.mi_mpr_dip.admission.web.LoggingFilter</filter-class>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>loggingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
