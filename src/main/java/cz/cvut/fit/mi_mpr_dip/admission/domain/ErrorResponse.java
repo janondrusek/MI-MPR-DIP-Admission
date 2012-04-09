@@ -16,4 +16,6 @@ import org.springframework.roo.addon.tostring.RooToString;
 public class ErrorResponse {
 
 	private String message;
+
+	private String internalRequestId;
 }

@@ -15,4 +15,12 @@ privileged aspect ErrorResponse_Roo_JavaBean {
         this.message = message;
     }
     
+    public String ErrorResponse.getInternalRequestId() {
+        return this.internalRequestId;
+    }
+    
+    public void ErrorResponse.setInternalRequestId(String internalRequestId) {
+        this.internalRequestId = internalRequestId;
+    }
+    
 }

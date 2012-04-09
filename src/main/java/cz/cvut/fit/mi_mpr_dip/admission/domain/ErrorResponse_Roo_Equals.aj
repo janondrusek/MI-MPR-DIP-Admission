@@ -17,11 +17,11 @@ privileged aspect ErrorResponse_Roo_Equals {
             return true;
         }
         ErrorResponse rhs = (ErrorResponse) obj;
-        return new EqualsBuilder().append(message, rhs.message).isEquals();
+        return new EqualsBuilder().append(internalRequestId, rhs.internalRequestId).append(message, rhs.message).isEquals();
     }
     
     public int ErrorResponse.hashCode() {
-        return new HashCodeBuilder().append(message).toHashCode();
+        return new HashCodeBuilder().append(internalRequestId).append(message).toHashCode();
     }
     
 }

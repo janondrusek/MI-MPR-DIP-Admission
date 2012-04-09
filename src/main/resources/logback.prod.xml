@@ -9,7 +9,7 @@
 			<maxHistory>7</maxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %msg%n</Pattern>
+			<Pattern>%d{dd-MM-yy HH:mm:ss.SSS} %-5level %X{internal-request-id} %logger{36} %msg%nopex%n</Pattern>
 		</layout>
 	</appender>
 
