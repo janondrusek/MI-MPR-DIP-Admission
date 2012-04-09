@@ -78,7 +78,15 @@ public class ProcessTest extends BaseSpringJbpmTest {
 
 	@Test
 	public void testEmailProcess() {
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
+		if (applicationProperties.get("mail.disable").equals("true")) {
+			processParameters.put("emailTo", "");
+		} else if (applicationProperties.get("mail.debug").equals("true")) {
+			processParameters.put("emailTo", applicationProperties.get("mail.debug.address.to"));
+		} else {
+			processParameters.put("emailTo", admission.getPerson().getEmail());
+		}
+		
+		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
 	}
 
 	// @Test
@@ -318,7 +326,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		p.setLastname("Vomáčka");
 		p.setBirthIdentificationNumber("8203151111");
 		p.setPhone("737999999");
-		p.setEmail("f.vomacka@mail.cz");
+		p.setEmail("f.vomacka123@mail.cz");
 
 		City c = new City();
 		c.setName("Město v ČR");
