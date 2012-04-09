@@ -78,13 +78,6 @@ public class ProcessTest extends BaseSpringJbpmTest {
 
 	@Test
 	public void testEmailProcess() {
-//		String host = applicationProperties.get("mail.smtp.host");
-//		String port = applicationProperties.get("mail.smtp.port");
-//		EmailWorkItemHandler emailHandler = new EmailWorkItemHandler();
-//		emailHandler.setConnection(host, port, null, null);
-
-//		ksession.getWorkItemManager().registerWorkItemHandler("Email", emailHandler);
-
 //		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
 	}
 
