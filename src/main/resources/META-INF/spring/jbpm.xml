@@ -85,6 +85,23 @@
 		</property>
 	</bean>
 	
+	<!-- Register HumanTaskHandler in the session
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="workItemManager" />
+		<property name="targetMethod" value="registerWorkItemHandler" />
+		<property name="arguments">
+			<list>
+				<value>Human Task</value>
+				<ref bean="humanTaskHandler" />
+			</list>
+		</property>
+	</bean>
+ -->
+	
+	
+	
+	
+	
 	<!-- 
 	<bean class="org.jbpm.task.service.mina.MinaTaskServer" id="taskServer">
 		<constructor-arg ref="taskService" />

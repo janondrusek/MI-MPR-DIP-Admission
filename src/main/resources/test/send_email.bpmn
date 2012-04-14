@@ -13,11 +13,13 @@
              xmlns:tns="http://www.jboss.org/drools">
 
   <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.test_email" name="Sample Process" tns:packageName="defaultPackage" >
 
     <!-- process variables -->
     <property id="prop" itemSubjectRef="_propItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -48,21 +50,21 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_2_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">TEST from IS</from>
+          <from xsi:type="tFormalExpression">TEST 1</from>
           <to xsi:type="tFormalExpression">_2_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_2_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">chobodav@fit.cvut.cz</from>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
           <to xsi:type="tFormalExpression">_2_ToInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_2_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_2_FromInput</to>
         </assignment>
       </dataInputAssociation>
@@ -148,7 +150,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_7_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression"></from>
+          <from xsi:type="tFormalExpression">david@chobotsky.cz</from>
           <to xsi:type="tFormalExpression">_7_ToInput</to>
         </assignment>
       </dataInputAssociation>
@@ -185,7 +187,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_8_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">Test druheho</from>
+          <from xsi:type="tFormalExpression">Test 2</from>
           <to xsi:type="tFormalExpression">_8_SubjectInput</to>
         </assignment>
       </dataInputAssociation>

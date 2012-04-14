@@ -21,9 +21,9 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 
-			if (type.equals("H8") && Double.valueOf(value) <= h8) {
+			if (type.equals("h8") && Double.valueOf(value) <= h8) {
 				return true;
 			}
 		}
@@ -41,17 +41,17 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 			String citizenship = admission.getPerson().getCitizenship().getName();
 
 			if (citizenship.equals(CZ) || citizenship.equals(SK)) {
-				if (type.equals("H3") && Double.valueOf(value) > 0) {
+				if (type.equals("h3") && Double.valueOf(value) > 0) {
 					return true;
 				}
 			} else {
-				if (type.equals("H3") && Double.valueOf(value) > 0) {
+				if (type.equals("h3") && Double.valueOf(value) > 0) {
 					h3 = true;
-				} else if (type.equals("H4") && Double.valueOf(value) > 0) {
+				} else if (type.equals("h4") && Double.valueOf(value) > 0) {
 					h4 = true;
 				}
 			}
@@ -81,9 +81,9 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 	public Boolean EnoughTestPoints(Admission admission) {
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 
-			if (type.equals("H2") && Double.valueOf(value) >= h2) {
+			if (type.equals("h2") && Double.valueOf(value) >= h2) {
 				return true;
 			}
 		}
@@ -94,7 +94,7 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 	public void testGeneratingDecisionType(Admission admission) {
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 			System.out.println("> TYPE: " + type + " / VALUE: " + value);
 		}
 		

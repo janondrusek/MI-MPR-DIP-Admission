@@ -22,13 +22,13 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 
-			if (type.equals("H5") && value.length() > h5) {
+			if (type.equals("h5") && value.length() > h5) {
 				return true;
-			} else if (type.equals("H6") && Double.valueOf(value) >= h6) {
+			} else if (type.equals("h6") && Double.valueOf(value) >= h6) {
 				return true;
-			} else if (type.equals("H7") && Double.valueOf(value) >= h7) {
+			} else if (type.equals("h7") && Double.valueOf(value) >= h7) {
 				return true;
 			}
 		}
@@ -46,17 +46,17 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 			String citizenship = admission.getPerson().getCitizenship().getName();
 
 			if (citizenship.equals(CZ) || citizenship.equals(SK)) {
-				if (type.equals("H3") && Double.valueOf(value) > 0) {
+				if (type.equals("h3") && Double.valueOf(value) > 0) {
 					return true;
 				}
 			} else {
-				if (type.equals("H3") && Double.valueOf(value) > 0) {
+				if (type.equals("h3") && Double.valueOf(value) > 0) {
 					h3 = true;
-				} else if (type.equals("H4") && Double.valueOf(value) > 0) {
+				} else if (type.equals("h4") && Double.valueOf(value) > 0) {
 					h4 = true;
 				}
 			}
@@ -86,9 +86,9 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 	public Boolean EnoughTestPoints(Admission admission) {
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
-			String type = evaluation.getEvaluationType().getName();
+			String type = evaluation.getEvaluationType().getName().toLowerCase();
 
-			if (type.equals("H2") && Double.valueOf(value) >= h2) {
+			if (type.equals("h2") && Double.valueOf(value) >= h2) {
 				return true;
 			}
 		}
