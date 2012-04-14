@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.MDC;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -71,7 +72,13 @@ public class LoggingFilter implements Filter {
 	}
 
 	private void log(BufferedResponseWrapper httpResponse) {
-		loggingService.logResponse(httpResponse);
+		if (shouldNotLogErrorResponse()) {
+			loggingService.logResponse(httpResponse);
+		}
+	}
+
+	private boolean shouldNotLogErrorResponse() {
+		return BooleanUtils.isNotTrue(BooleanUtils.toBoolean(MDC.get(WebKeys.MDC_KEY_ERROR_RESPONSE)));
 	}
 
 	private void deleteMdcValues() {

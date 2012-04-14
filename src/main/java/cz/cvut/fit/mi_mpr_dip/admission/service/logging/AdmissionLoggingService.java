@@ -63,7 +63,7 @@ public class AdmissionLoggingService implements LoggingService {
 
 	private List<Loggable> createCommonResponseLoggables(Integer responseCode, ResponseStatus responseStatus) {
 		List<Loggable> loggables = createCallAwareLoggables();
-		loggables.add(createLoggable(WebKeys.HTTP_RESPONSE_CODE, responseCode));
+		loggables.add(createLoggable(WebKeys.CODE, responseCode));
 		loggables.add(createLoggable(WebKeys.DURATION, getDuration()));
 		loggables.add(createLoggable(WebKeys.STATUS, responseStatus.name()));
 

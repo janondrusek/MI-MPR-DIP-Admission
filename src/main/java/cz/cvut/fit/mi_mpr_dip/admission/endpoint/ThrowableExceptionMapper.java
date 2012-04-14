@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.logging.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,7 @@ public class ThrowableExceptionMapper extends AdmissionExceptionMapper<Throwable
 
 	@Override
 	public Response toResponse(Throwable exception) {
+		MDC.put(WebKeys.MDC_KEY_ERROR_RESPONSE, Boolean.TRUE);
 		Response response;
 		if (exception instanceof BusinessException) {
 			response = businessExceptionMapper.toResponse((BusinessException) exception);
