@@ -64,7 +64,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_2_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_2_FromInput</to>
         </assignment>
       </dataInputAssociation>
@@ -150,7 +150,7 @@ Great!</from>
       <dataInputAssociation>
         <targetRef>_7_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression"></from>
+          <from xsi:type="tFormalExpression">david@chobotsky.cz</from>
           <to xsi:type="tFormalExpression">_7_ToInput</to>
         </assignment>
       </dataInputAssociation>

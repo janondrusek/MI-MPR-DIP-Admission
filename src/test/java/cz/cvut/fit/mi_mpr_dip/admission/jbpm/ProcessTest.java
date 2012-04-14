@@ -2,12 +2,19 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.naming.InitialContext;
+import javax.transaction.UserTransaction;
 
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.process.ProcessInstance;
+import org.jbpm.task.TaskService;
+import org.jbpm.task.query.TaskSummary;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,15 +73,15 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		processParameters.put("prop", applicationProperties);
 	}
 
-	@Test
-	public void testValidAdmissionData() {
-		isAdmissionValid(admission);
-	}
+//	@Test
+//	public void testValidAdmissionData() {
+//		isAdmissionValid(admission);
+//	}
 
-	@Test
-	public void testRunBlankProcess() {
-		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
-	}
+//	@Test
+//	public void testRunBlankProcess() {
+//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
+//	}
 
 	@Test
 	public void testEmailProcess() {
@@ -89,39 +96,37 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
 	}
 
-	// @Test
-	// public void testHumanTaskProcess() {
-	// try {
-	// UserTransaction ut = (UserTransaction) new
-	// InitialContext().lookup("java:comp/UserTransaction");
-	// ut.begin();
-	//
-	// /*
-	// * Get the local task service
-	// */
-	// TaskService taskService = jbpmTaskService.getTaskService();
-	//
-	// ProcessInstance processInstance =
-	// ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
-	//
-	// /*
-	// * Retrive the tasks owned by a user
-	// */
-	// List<TaskSummary> list =
-	// taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
-	// TaskSummary task = list.get(0);
-	//
-	// System.out.println("krisv is executing task " + task.getName());
-	// taskService.start(task.getId(), "krisv");
-	// taskService.complete(task.getId(), "krisv", null);
-	//
-	//
-	// ut.commit();
-	// } catch (Throwable t) {
-	// // TODO Auto-generated catch block
-	// t.printStackTrace();
-	// }
-	// }
+//	@Test
+//	public void testHumanTaskProcess() {
+//		try {
+//			UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+//			ut.begin();
+//
+//			/*
+//			 * Get the local task service
+//			 */
+//			TaskService taskService = jbpmTaskService.getTaskService();
+//
+//			
+//			
+//			ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_user_task");
+//
+//			/*
+//			 * Retrive the tasks owned by a user
+//			 */
+//			List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("krisv", "en-UK");
+//			TaskSummary task = list.get(0);
+//
+//			System.out.println("krisv is executing task " + task.getName());
+//			taskService.start(task.getId(), "krisv");
+//			taskService.complete(task.getId(), "krisv", null);
+//
+//			ut.commit();
+//		} catch (Throwable t) {
+//			// TODO Auto-generated catch block
+//			t.printStackTrace();
+//		}
+//	}
 
 //	@Test
 //	public void testTestSubprocess() {
@@ -293,10 +298,10 @@ public class ProcessTest extends BaseSpringJbpmTest {
 //		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.gateway_method", parameters);
 //	}
 
-	@Test
-	public void testProcessWithDataFromDB() {
-		// TODO
-	}
+//	@Test
+//	public void testProcessWithDataFromDB() {
+//		// TODO
+//	}
 
 	private Admission setTestAdmission() {
 		Admission a = new Admission();
