@@ -2,8 +2,8 @@ package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import java.util.List;
 
-import javax.persistence.PersistenceContext;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.RoleAccessiblePropertyConfigurer;
@@ -14,8 +14,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 
 @Service
-@PersistenceContext
 public class InitializingUserRolePermissionService implements UserRolePermissionService {
+
+	private Logger log = LoggerFactory.getLogger(InitializingUserRolePermissionService.class);
 
 	@Autowired
 	@Qualifier("userRoleDeduplicationService")
@@ -25,12 +26,14 @@ public class InitializingUserRolePermissionService implements UserRolePermission
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+		log.debug("Calling insert default roles on Context Refresh");
 		insertDefaultRolesAndPermissions();
 	}
 
 	@Override
 	public void insertDefaultRolesAndPermissions() {
 		List<UserRole> userRoles = propertyConfigurer.getProperties();
+		log.debug("Inserting default roles [{}]", userRoles);
 		for (UserRole userRole : userRoles) {
 			deduplicationService.deduplicateAndStore(userRole);
 		}
