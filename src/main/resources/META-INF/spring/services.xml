@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.DefaultAdminService">
-		<property name="exposablePropertyHolder" ref="propertyConfigurer" />
+		<property name="accessiblePropertyConfigurer" ref="propertyConfigurer" />
 		<property name="buildNumber" value="${build.number}" />
 	</bean>
 

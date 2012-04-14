@@ -26,7 +26,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooEquals(excludeFields = { "userRoleId", "identities", "permissions" })
-@RooJpaActiveRecord
+@RooJpaActiveRecord(finders = { "findUserRolesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserRole {
 

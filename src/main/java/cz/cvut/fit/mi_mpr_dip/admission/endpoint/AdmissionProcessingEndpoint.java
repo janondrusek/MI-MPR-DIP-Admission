@@ -18,8 +18,10 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
@@ -45,13 +47,15 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	private EndpointHelper endpointHelper;
 
 	@Autowired
-	private DeduplicationService deduplicationService;
+	@Qualifier("admissionDeduplicationService")
+	private DeduplicationService<Admission> deduplicationService;
 
 	@Autowired
 	private UserIdentityService userIdentityService;
 
 	private ApplicationContext applicationContext;
 
+	@Secured("PERM_READ_ADMISSION")
 	@Path(ADMISSION_PATH + "/{admissionCode}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
@@ -60,6 +64,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		return endpointHelper.getAdmission(admissionCode);
 	}
 
+	@Secured("PERM_READ_ADMISSIONS")
 	@Path(ADMISSIONS_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
@@ -78,6 +83,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		return admissionsBuilder.get();
 	}
 
+	@Secured("PERM_WRITE_ADMISSIONS")
 	@Path(ADMISSIONS_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
@@ -95,6 +101,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		return applicationContext.getBean(AdmissionsBuilder.class);
 	}
 
+	@Secured("PERM_WRITE_ADMISSION")
 	@Path(ADMISSION_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
@@ -119,6 +126,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		deduplicationService.deduplicateAndStore(admission);
 	}
 
+	@Secured("PERM_DELETE_ADMISSION")
 	@Path(ADMISSION_PATH + "/{admissionCode}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@DELETE
