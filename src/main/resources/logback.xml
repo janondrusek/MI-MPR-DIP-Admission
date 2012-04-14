@@ -6,8 +6,9 @@
 		</layout>
 	</appender>
 
-	<logger name="org.springframework.beans" level="INFO" />
+	<logger name="org.springframework" level="INFO" />
 	<logger name="org.hibernate" level="INFO" />
+	<logger name="org.apache.cxf" level="INFO" />
 	<logger name="cz.cvut" level="DEBUG" />
 
 	<root>

@@ -13,9 +13,10 @@
 		</layout>
 	</appender>
 
-	<logger name="org.springframework.beans" level="INFO" />
+	<logger name="org.springframework" level="WARN" />
 	<logger name="org.hibernate" level="WARN" />
 	<logger name="cz.cvut" level="INFO" />
+	<logger name="org.apache.cxf" level="WARN" />
 
 	<root>
 		<level value="INFO" />
