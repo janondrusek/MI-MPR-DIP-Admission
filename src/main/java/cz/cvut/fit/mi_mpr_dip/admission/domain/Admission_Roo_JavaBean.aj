@@ -9,6 +9,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumber;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -153,6 +154,14 @@ privileged aspect Admission_Roo_JavaBean {
     
     public void Admission.setUserIdentity(UserIdentity userIdentity) {
         this.userIdentity = userIdentity;
+    }
+    
+    public Set<ReferenceNumber> Admission.getReferenceNumbers() {
+        return this.referenceNumbers;
+    }
+    
+    public void Admission.setReferenceNumbers(Set<ReferenceNumber> referenceNumbers) {
+        this.referenceNumbers = referenceNumbers;
     }
     
 }

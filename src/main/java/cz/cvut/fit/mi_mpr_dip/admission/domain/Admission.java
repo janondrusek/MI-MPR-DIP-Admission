@@ -114,4 +114,11 @@ public class Admission {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private UserIdentity userIdentity;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Valid
+	@XmlElementWrapper(name = "referenceNumbers")
+	@XmlElement(name = "referenceNumber")
+	private Set<ReferenceNumber> referenceNumbers;
 }
