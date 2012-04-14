@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.web.BufferedResponseWrapper;
 @Service
 public class AdmissionLoggingService implements LoggingService {
 
+	private static final Logger log = LoggerFactory.getLogger(AdmissionLoggingService.class);
 	private static final Logger requestLog = LoggerFactory.getLogger(LoggerName.REQUEST.getKeyword());
 	private static final Logger responseLog = LoggerFactory.getLogger(LoggerName.RESPONSE.getKeyword());
 
@@ -53,16 +56,23 @@ public class AdmissionLoggingService implements LoggingService {
 
 	@Override
 	public void logResponse(BufferedResponseWrapper httpResponse) {
-		List<Loggable> loggables = createCallAwareLoggables();
-		loggables.add(createLoggable(WebKeys.HTTP_RESPONSE_CODE, httpResponse.getStatusCode()));
-		loggables.add(createLoggable(WebKeys.DURATION, getDuration()));
-		loggables.add(createLoggable(WebKeys.STATUS, WebKeys.OK));
+		List<Loggable> loggables = createCommonResponseLoggables(httpResponse.getStatusCode(), ResponseStatus.OK);
 
 		log(loggables, responseLog, Level.INFO);
 	}
 
+	private List<Loggable> createCommonResponseLoggables(Integer responseCode, ResponseStatus responseStatus) {
+		List<Loggable> loggables = createCallAwareLoggables();
+		loggables.add(createLoggable(WebKeys.HTTP_RESPONSE_CODE, responseCode));
+		loggables.add(createLoggable(WebKeys.DURATION, getDuration()));
+		loggables.add(createLoggable(WebKeys.STATUS, responseStatus.name()));
+
+		return loggables;
+	}
+
 	private String getDuration() {
 		long start = NumberUtils.toLong(MDC.get(WebKeys.MDC_KEY_REQUEST_STARTED));
+
 		return Long.toString(System.currentTimeMillis() - start);
 	}
 
@@ -80,8 +90,9 @@ public class AdmissionLoggingService implements LoggingService {
 
 	@Override
 	public void logErrorResponse(Throwable throwable) {
-		// TODO Auto-generated method stub
-
+		List<Loggable> loggables = createCommonResponseLoggables(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+				ResponseStatus.ERROR);
+		log(loggables, responseLog, Level.ERROR, throwable);
 	}
 
 	private List<Loggable> createCallAwareLoggables() {
@@ -101,6 +112,15 @@ public class AdmissionLoggingService implements LoggingService {
 
 	private void log(List<Loggable> loggables, Logger log, Level level) {
 		log(createMessage(loggables), log, level);
+	}
+
+	private void log(List<Loggable> loggables, Logger log, Level level, Throwable throwable) {
+		log(throwable);
+		log(loggables, log, level);
+	}
+
+	private void log(Throwable throwable) {
+		log.error("An error occurred", throwable);
 	}
 
 	private String createMessage(List<Loggable> loggables) {
