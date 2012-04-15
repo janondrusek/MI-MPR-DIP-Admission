@@ -18,6 +18,7 @@
 			<!-- <ref bean="jsonProvider" /> -->
 			<ref bean="technicalExceptionMapper" />
 			<ref bean="businessExceptionMapper" />
+			<ref bean="webApplicationExceptionMapper"/>
 			<ref bean="throwableExceptionMapper" />
 		</jaxrs:providers>
 	</jaxrs:server>

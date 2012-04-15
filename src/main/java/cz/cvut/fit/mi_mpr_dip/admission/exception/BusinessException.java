@@ -11,6 +11,10 @@ public class BusinessException extends AdmissionException {
 
 	private Set<ConstraintViolation<Object>> constraintViolations;
 
+	public BusinessException(Integer responseCode, Throwable t) {
+		super(responseCode, t);
+	}
+
 	public BusinessException(Set<ConstraintViolation<Object>> constraintViolations) {
 		this(constraintViolations, HttpServletResponse.SC_BAD_REQUEST);
 	}
