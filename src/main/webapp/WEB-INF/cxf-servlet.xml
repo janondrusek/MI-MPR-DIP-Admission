@@ -30,8 +30,20 @@
 	</bean>
 
 	<util:list id="jsonKeys">
+		<value>accomplishment</value>
+		<value>accomplishmentValue</value>
+		<value>address</value>
+		<value>admission</value>
+		<value>appeal</value>
+		<value>disability</value>
+		<value>document</value>
+		<value>evaluation</value>
+		<value>permission</value>
+		<value>printLine</value>
+		<value>programme</value>
+		<value>referenceNumber</value>
+		<value>registration</value>
 		<value>role</value>
 		<value>session</value>
-		<value>permission</value>
 	</util:list>
 </beans>
