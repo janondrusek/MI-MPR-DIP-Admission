@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<context:annotation-config />
 	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
@@ -15,15 +16,22 @@
 			<ref bean="processingService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
-			<!-- <ref bean="jsonProvider" /> -->
+			<ref bean="jsonProvider" />
 			<ref bean="technicalExceptionMapper" />
 			<ref bean="businessExceptionMapper" />
-			<ref bean="webApplicationExceptionMapper"/>
+			<ref bean="webApplicationExceptionMapper" />
 			<ref bean="throwableExceptionMapper" />
 		</jaxrs:providers>
 	</jaxrs:server>
 
 	<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider">
-		<!-- <property name="serializeAsArray" value="true" /> -->
+		<property name="serializeAsArray" value="true" />
+		<property name="arrayKeys" ref="jsonKeys" />
 	</bean>
+
+	<util:list id="jsonKeys">
+		<value>role</value>
+		<value>session</value>
+		<value>permission</value>
+	</util:list>
 </beans>

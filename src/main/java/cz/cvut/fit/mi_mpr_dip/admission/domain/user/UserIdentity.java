@@ -21,6 +21,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -54,10 +56,14 @@ public class UserIdentity {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_identity_role", joinColumns = { @JoinColumn(name = "user_identity_id", referencedColumnName = "userIdentityId") }, inverseJoinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") })
+	@XmlElementWrapper(name = "roles")
+	@XmlElement(name = "role")
 	private Set<UserRole> roles;
 
 	@OneToMany(mappedBy = "userIdentity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OrderBy("grantValidTo DESC")
+	@XmlElementWrapper(name = "sessions")
+	@XmlElement(name = "session")
 	private Set<UserSession> sessions;
 
 	@NotNull
