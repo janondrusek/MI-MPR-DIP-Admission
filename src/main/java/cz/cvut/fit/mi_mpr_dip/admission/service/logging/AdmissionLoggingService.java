@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -56,9 +54,28 @@ public class AdmissionLoggingService implements LoggingService {
 
 	@Override
 	public void logResponse(BufferedResponseWrapper httpResponse) {
-		List<Loggable> loggables = createCommonResponseLoggables(httpResponse.getStatusCode(), ResponseStatus.OK);
+		logResponse(httpResponse.getStatusCode());
+	}
 
+	@Override
+	public void logErrorResponse(BusinessException exception) {
+		logResponse(exception.getResponseCode());
+	}
+
+	private void logResponse(Integer httpResponseCode) {
+		List<Loggable> loggables = createCommonResponseLoggables(httpResponseCode, ResponseStatus.OK);
 		log(loggables, responseLog, Level.INFO);
+	}
+
+	@Override
+	public void logErrorResponse(TechnicalException exception) {
+		logErrorResponse(exception, exception.getResponseCode());
+	}
+
+	@Override
+	public void logErrorResponse(Throwable throwable, Integer httpResponseCode) {
+		List<Loggable> loggables = createCommonResponseLoggables(httpResponseCode, ResponseStatus.ERROR);
+		log(loggables, responseLog, Level.ERROR, throwable.getClass().getSimpleName(), throwable);
 	}
 
 	private List<Loggable> createCommonResponseLoggables(Integer responseCode, ResponseStatus responseStatus) {
@@ -70,36 +87,17 @@ public class AdmissionLoggingService implements LoggingService {
 		return loggables;
 	}
 
-	private String getDuration() {
-		long start = NumberUtils.toLong(MDC.get(WebKeys.MDC_KEY_REQUEST_STARTED));
-
-		return Long.toString(System.currentTimeMillis() - start);
-	}
-
-	@Override
-	public void logErrorResponse(BusinessException exception) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void logErrorResponse(TechnicalException exception) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void logErrorResponse(Throwable throwable) {
-		List<Loggable> loggables = createCommonResponseLoggables(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-				ResponseStatus.ERROR);
-		log(loggables, responseLog, Level.ERROR, throwable);
-	}
-
 	private List<Loggable> createCallAwareLoggables() {
 		List<Loggable> loggables = new ArrayList<Loggable>();
 		loggables.add(createLoggable(WebKeys.CALL_IDENTIFIER, MDC.get(WebKeys.MDC_KEY_CALL_IDENTIFIER)));
 
 		return loggables;
+	}
+
+	private String getDuration() {
+		long start = NumberUtils.toLong(MDC.get(WebKeys.MDC_KEY_REQUEST_STARTED));
+
+		return Long.toString(System.currentTimeMillis() - start);
 	}
 
 	private Loggable createLoggable(String key, int value) {
@@ -114,13 +112,13 @@ public class AdmissionLoggingService implements LoggingService {
 		log(createMessage(loggables), log, level);
 	}
 
-	private void log(List<Loggable> loggables, Logger log, Level level, Throwable throwable) {
-		log(throwable);
+	private void log(List<Loggable> loggables, Logger log, Level level, String message, Throwable throwable) {
+		log(message, throwable);
 		log(loggables, log, level);
 	}
 
-	private void log(Throwable throwable) {
-		log.error("An error occurred", throwable);
+	private void log(String message, Throwable throwable) {
+		log.error(message, throwable);
 	}
 
 	private String createMessage(List<Loggable> loggables) {

@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,10 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
+@RooJavaBean
 @Service(value = "processingService")
 @Path(AdmissionProcessingEndpoint.ENDPOINT_PATH)
 public class AdmissionProcessingEndpoint implements ProcessingEndpoint, ApplicationContextAware {
@@ -40,6 +43,9 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	public static final String ADMISSIONS_PATH = "/admissions";
 	public static final String ENDPOINT_PATH = "/processing";
 
+	@Autowired
+	private AdmissionCodeValidator admissionCodeValidator;
+	
 	@Autowired
 	private AnnotatedBeanValidator beanValidator;
 
@@ -91,7 +97,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException {
 		if (CollectionUtils.isNotEmpty(admissions.getAdmissions())) {
 			for (Admission admission : admissions.getAdmissions()) {
-				deduplicateAndStore(admission);
+				validateAndDeduplicateAndStore(admission);
 			}
 		}
 		return admissions;
@@ -119,6 +125,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	private void validate(Admission admission) {
 		beanValidator.validate(admission);
+		admissionCodeValidator.validate(admission);
 	}
 
 	private void deduplicateAndStore(Admission admission) {

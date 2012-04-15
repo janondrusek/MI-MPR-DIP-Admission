@@ -2,42 +2,23 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.jboss.logging.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
-import cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 @Component
 public class ThrowableExceptionMapper extends AdmissionExceptionMapper<Throwable> {
 
-	@Autowired
-	private BusinessExceptionMapper businessExceptionMapper;
-
-	@Autowired
-	private TechnicalExceptionMapper technicalExceptionMapper;
-
-	@Autowired
-	private LoggingService loggingService;
+	@Override
+	protected void logErrorResponse(Throwable throwable) {
+		getLoggingService().logErrorResponse(throwable, getResponseCode(throwable));
+	}
 
 	@Override
-	public Response toResponse(Throwable exception) {
-		MDC.put(WebKeys.MDC_KEY_ERROR_RESPONSE, Boolean.TRUE);
-		Response response;
-		if (exception instanceof BusinessException) {
-			response = businessExceptionMapper.toResponse((BusinessException) exception);
-		} else if (exception instanceof TechnicalException) {
-			response = technicalExceptionMapper.toResponse((TechnicalException) exception);
-		} else {
-			loggingService.logErrorResponse(exception);
-			response = Response.fromResponse(super.toResponse(exception)).type(MediaType.APPLICATION_XML).build();
-		}
-		return response;
+	protected ResponseBuilder getResponseBuilder(Throwable throwable) {
+		return super.getResponseBuilder(throwable).type(MediaType.APPLICATION_XML);
 	}
 
 	@Override

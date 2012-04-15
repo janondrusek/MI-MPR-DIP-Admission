@@ -15,5 +15,5 @@ public interface LoggingService {
 
 	public void logErrorResponse(TechnicalException exception);
 
-	public void logErrorResponse(Throwable throwable);
+	public void logErrorResponse(Throwable throwable, Integer httpResponseCode);
 }
