@@ -13,6 +13,8 @@ public interface ProcessingEndpoint {
 
 	public Admissions getAdmissions(Integer count, Integer page);
 
+	public Admission importAdmission(Admission admission) throws URISyntaxException;
+	
 	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException;
 
 	public Response addAdmission(Admission admission) throws URISyntaxException;

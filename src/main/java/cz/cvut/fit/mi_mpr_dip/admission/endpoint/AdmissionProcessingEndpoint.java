@@ -82,6 +82,16 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 		return admissionsBuilder.get();
 	}
+	
+	@Secured("PERM_WRITE_ADMISSIONS")
+	@Path(ADMISSION_PATH)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
+	@Override
+	public Admission importAdmission(Admission admission) throws URISyntaxException {
+		deduplicateAndStore(admission);
+		return admission;
+	}
 
 	@Secured("PERM_WRITE_ADMISSIONS")
 	@Path(ADMISSIONS_PATH)
@@ -139,5 +149,4 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
-
 }
