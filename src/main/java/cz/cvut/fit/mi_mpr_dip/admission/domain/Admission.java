@@ -110,6 +110,8 @@ public class Admission {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Valid
+	@XmlElementWrapper(name = "registrations")
+	@XmlElement(name = "registration")
 	private Set<TermRegistration> registrations;
 
 	@OneToOne(cascade = CascadeType.ALL)

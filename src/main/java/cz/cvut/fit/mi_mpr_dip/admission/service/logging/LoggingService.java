@@ -8,12 +8,16 @@ import cz.cvut.fit.mi_mpr_dip.admission.web.BufferedResponseWrapper;
 public interface LoggingService {
 
 	public void logRequest(BufferedRequestWrapper httpRequest);
+	
+	public void logRequestBody(BufferedRequestWrapper httpRequest);
 
 	public void logResponse(BufferedResponseWrapper httpResponse);
+	
+	public void logResponseBody(BufferedResponseWrapper httpResponse);
 
 	public void logErrorResponse(BusinessException exception);
 
 	public void logErrorResponse(TechnicalException exception);
 
-	public void logErrorResponse(Throwable throwable);
+	public void logErrorResponse(Throwable throwable, Integer httpResponseCode);
 }
