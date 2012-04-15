@@ -69,12 +69,14 @@ public class LoggingFilter implements Filter {
 
 	private void log(BufferedRequestWrapper httpRequest) {
 		loggingService.logRequest(httpRequest);
+		loggingService.logRequestBody(httpRequest);
 	}
 
 	private void log(BufferedResponseWrapper httpResponse) {
 		if (shouldNotLogErrorResponse()) {
 			loggingService.logResponse(httpResponse);
 		}
+		loggingService.logResponseBody(httpResponse);
 	}
 
 	private boolean shouldNotLogErrorResponse() {

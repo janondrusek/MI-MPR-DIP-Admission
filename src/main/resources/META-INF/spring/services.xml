@@ -10,4 +10,9 @@
 	<bean id="userIdentityService" class="cz.cvut.fit.mi_mpr_dip.admission.service.DefaultUserIdentityService">
 		<property name="grantValidSeconds" value="${user.identity.grant.valid.seconds}" />
 	</bean>
+
+	<bean id="admissionLoggingService" class="cz.cvut.fit.mi_mpr_dip.admission.service.logging.AdmissionLoggingService">
+		<property name="requestBodyMaxLength" value="${logging.request.body.maxLength}" />
+		<property name="responseBodyMaxLength" value="${logging.response.body.maxLength}" />
+	</bean>
 </beans>
