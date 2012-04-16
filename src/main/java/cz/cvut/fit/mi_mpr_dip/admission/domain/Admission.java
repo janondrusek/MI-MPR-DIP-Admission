@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -51,6 +52,7 @@ public class Admission {
 	@XmlTransient
 	private Long admissionId;
 
+	@NotEmpty
 	@NotNull
 	@Column(unique = true)
 	private String code;

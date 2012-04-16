@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -39,15 +40,14 @@ public class Appendix {
 	@XmlTransient
 	private Long attachmentId;
 
-	@Column
 	private String filename;
 
+	@NotEmpty
 	@NotNull
-	@Column
 	private String mimeType;
 
+	@NotEmpty
 	@NotNull
-	@Column
 	@Lob
 	private String content;
 
