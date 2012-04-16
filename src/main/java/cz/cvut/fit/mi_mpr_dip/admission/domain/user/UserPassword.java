@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -32,12 +33,14 @@ public class UserPassword {
 	@XmlTransient
 	private Long userPasswordId;
 
+	@NotEmpty
 	@NotNull
 	private String hash;
 
 	@Transient
 	private String plaintext;
 
+	@NotEmpty
 	@NotNull
 	private String salt;
 }

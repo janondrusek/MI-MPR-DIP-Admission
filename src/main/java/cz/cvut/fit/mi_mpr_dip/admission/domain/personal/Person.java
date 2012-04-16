@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
@@ -57,11 +58,13 @@ public class Person {
 
 	private String suffix;
 
+	@NotEmpty
 	@NotNull
 	private String firstname;
 
 	private String middlename;
 
+	@NotEmpty
 	@NotNull
 	private String lastname;
 
