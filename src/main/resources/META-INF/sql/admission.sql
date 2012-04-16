@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-08 23:15:42
+# Date/time:                    2012-04-16 00:15:48
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -212,6 +212,22 @@ CREATE TABLE IF NOT EXISTS `admission_photos` (
   KEY `FK6DBA017714DCE801` (`admission`),
   CONSTRAINT `FK6DBA017714DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`),
   CONSTRAINT `FK6DBA0177EA83147B` FOREIGN KEY (`photos`) REFERENCES `appendix` (`attachment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table admission.admission_reference_numbers
+DROP TABLE IF EXISTS `admission_reference_numbers`;
+CREATE TABLE IF NOT EXISTS `admission_reference_numbers` (
+  `admission` bigint(20) NOT NULL,
+  `reference_numbers` bigint(20) NOT NULL,
+  PRIMARY KEY (`admission`,`reference_numbers`),
+  UNIQUE KEY `reference_numbers` (`reference_numbers`),
+  KEY `FKDDF76AA0BDD0E479` (`reference_numbers`),
+  KEY `FKDDF76AA014DCE801` (`admission`),
+  CONSTRAINT `FKDDF76AA014DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`),
+  CONSTRAINT `FKDDF76AA0BDD0E479` FOREIGN KEY (`reference_numbers`) REFERENCES `reference_number` (`reference_number_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -932,6 +948,33 @@ CREATE TABLE IF NOT EXISTS `reassignment_potential_owners` (
   KEY `FKF13A3C80E17E130F` (`task_id`),
   CONSTRAINT `FKF13A3C80E17E130F` FOREIGN KEY (`task_id`) REFERENCES `reassignment` (`id`),
   CONSTRAINT `FKF13A3C802C122ED2` FOREIGN KEY (`entity_id`) REFERENCES `organizational_entity` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table admission.reference_number
+DROP TABLE IF EXISTS `reference_number`;
+CREATE TABLE IF NOT EXISTS `reference_number` (
+  `reference_number_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_bin NOT NULL,
+  `executed` datetime NOT NULL,
+  `reference_number_type` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`reference_number_id`),
+  KEY `FKD790DEBDE8ACBC79` (`reference_number_type`),
+  CONSTRAINT `FKD790DEBDE8ACBC79` FOREIGN KEY (`reference_number_type`) REFERENCES `reference_number_type` (`reference_number_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table admission.reference_number_type
+DROP TABLE IF EXISTS `reference_number_type`;
+CREATE TABLE IF NOT EXISTS `reference_number_type` (
+  `reference_number_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`reference_number_type_id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
