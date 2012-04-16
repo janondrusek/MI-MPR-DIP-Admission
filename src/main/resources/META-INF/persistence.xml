@@ -5,7 +5,6 @@
 	xmlns:orm="http://java.sun.com/xml/ns/persistence/orm">
 	<persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<mapping-file>META-INF/Taskorm.xml</mapping-file>
 		<class>org.jbpm.task.Attachment</class>
 		<class>org.jbpm.task.Content</class>
 		<class>org.jbpm.task.BooleanExpression</class>

@@ -45,7 +45,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	@Autowired
 	private AdmissionCodeValidator admissionCodeValidator;
-	
+
 	@Autowired
 	private AnnotatedBeanValidator beanValidator;
 
@@ -87,16 +87,6 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		admissionsBuilder.buildAdmissions();
 
 		return admissionsBuilder.get();
-	}
-	
-	@Secured("PERM_WRITE_ADMISSIONS")
-	@Path(ADMISSION_PATH)
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@POST
-	@Override
-	public Admission importAdmission(Admission admission) throws URISyntaxException {
-		deduplicateAndStore(admission);
-		return admission;
 	}
 
 	@Secured("PERM_WRITE_ADMISSIONS")

@@ -12,8 +12,6 @@ public interface ProcessingEndpoint {
 	public Response getAdmission(String admissionCode);
 
 	public Admissions getAdmissions(Integer count, Integer page);
-
-	public Admission importAdmission(Admission admission) throws URISyntaxException;
 	
 	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException;
 
