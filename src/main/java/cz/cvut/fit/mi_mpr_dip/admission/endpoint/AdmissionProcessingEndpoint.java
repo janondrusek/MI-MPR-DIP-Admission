@@ -146,4 +146,5 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 }
