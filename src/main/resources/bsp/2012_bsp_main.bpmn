@@ -14,16 +14,21 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
+  <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_bsp_main" name="Sample Process" tns:packageName="defaultPackage" >
 
     <extensionElements>
      <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation" />
      <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType" />
+     <tns:import name="cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState" />
     </extensionElements>
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
+    <property id="prop" itemSubjectRef="_propItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -161,9 +166,13 @@
     <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <ioSpecification>
         <dataInput id="_14_admissionInput" name="admission" />
+        <dataInput id="_14_propInput" name="prop" />
+        <dataInput id="_14_emailToInput" name="emailTo" />
         <dataInput id="_14_evaluatorInput" name="evaluator" />
         <inputSet>
           <dataInputRefs>_14_admissionInput</dataInputRefs>
+          <dataInputRefs>_14_propInput</dataInputRefs>
+          <dataInputRefs>_14_emailToInput</dataInputRefs>
           <dataInputRefs>_14_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
@@ -174,6 +183,14 @@
         <targetRef>_14_admissionInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
+        <sourceRef>prop</sourceRef>
+        <targetRef>_14_propInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>emailTo</sourceRef>
+        <targetRef>_14_emailToInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
         <sourceRef>evaluator</sourceRef>
         <targetRef>_14_evaluatorInput</targetRef>
       </dataInputAssociation>
@@ -182,8 +199,17 @@
     <task id="_29" name="Process start" tns:taskName="Email" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>System.out.println("Email: Process started for admission: " + admission.getCode() + " !");</script>
+          <script>System.out.println("Email: Process BSP started for admission: " + admission.getCode() + " !");</script>
         </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>AdmissionState state = new AdmissionState();
+state.setCode("S002");
+state.setName("TEST");
+
+admission.setAdmissionState(state);
+
+System.out.println("state:" + admission.getAdmissionState());</script>
+        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <dataInput id="_29_BodyInput" name="Body" />
@@ -202,28 +228,35 @@
       <dataInputAssociation>
         <targetRef>_29_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">TEST TEST</from>
+          <from xsi:type="tFormalExpression">Ozn�men� o za?azen� do procesu p?ij�mac�ho ?�zen� BSP
+
+username: ???
+password: ???
+
+	S pozdravem,
+
+DavidCh.</from>
           <to xsi:type="tFormalExpression">_29_BodyInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_29_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">TEST pririz</from>
+          <from xsi:type="tFormalExpression">?VUT/FIT - Process BSP started</from>
           <to xsi:type="tFormalExpression">_29_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_29_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">chobodav@fit.cvut.cz;david.chobotsky@gmail.com</from>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
           <to xsi:type="tFormalExpression">_29_ToInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_29_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_29_FromInput</to>
         </assignment>
       </dataInputAssociation>
@@ -235,11 +268,47 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_31_BodyInput" name="Body" />
+        <dataInput id="_31_SubjectInput" name="Subject" />
+        <dataInput id="_31_ToInput" name="To" />
+        <dataInput id="_31_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_31_BodyInput</dataInputRefs>
+          <dataInputRefs>_31_SubjectInput</dataInputRefs>
+          <dataInputRefs>_31_ToInput</dataInputRefs>
+          <dataInputRefs>_31_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_31_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">INVITATION</from>
+          <to xsi:type="tFormalExpression">_31_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_31_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Invitation for admission test</from>
+          <to xsi:type="tFormalExpression">_31_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_31_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_31_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_31_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_31_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
     <task id="_30" name="Accepted without AT" tns:taskName="Email" >
       <extensionElements>
@@ -248,11 +317,47 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_30_BodyInput" name="Body" />
+        <dataInput id="_30_SubjectInput" name="Subject" />
+        <dataInput id="_30_ToInput" name="To" />
+        <dataInput id="_30_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_30_BodyInput</dataInputRefs>
+          <dataInputRefs>_30_SubjectInput</dataInputRefs>
+          <dataInputRefs>_30_ToInput</dataInputRefs>
+          <dataInputRefs>_30_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_30_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Without admission test</from>
+          <to xsi:type="tFormalExpression">_30_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_30_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Accepted without admission test</from>
+          <to xsi:type="tFormalExpression">_30_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_30_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_30_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_30_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_30_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
 
     <!-- connections -->
@@ -270,7 +375,8 @@
     </sequenceFlow>
     <sequenceFlow id="_40-_41" sourceRef="_40" targetRef="_41" />
     <sequenceFlow id="_21-_41" sourceRef="_21" targetRef="_41" name="docs_ok" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalNeededDocuments(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalNeededDocuments(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_41-_14" sourceRef="_41" targetRef="_14" />
     <sequenceFlow id="_9-_21" sourceRef="_9" targetRef="_21" />
@@ -279,7 +385,8 @@
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_8-_30" sourceRef="_8" targetRef="_30" name="without_AT" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalAcceptWithoutAT(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalAcceptWithoutAT(admission);</conditionExpression>
     </sequenceFlow>
 
   </process>

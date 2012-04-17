@@ -14,6 +14,8 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
+  <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" name="Sample Process" tns:packageName="defaultPackage" >
 
@@ -24,6 +26,8 @@
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
+    <property id="prop" itemSubjectRef="_propItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -92,14 +96,53 @@ evaluator.testGeneratingDecisionType(admission);</script>
         </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_14_BodyInput" name="Body" />
+        <dataInput id="_14_SubjectInput" name="Subject" />
+        <dataInput id="_14_ToInput" name="To" />
+        <dataInput id="_14_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_14_BodyInput</dataInputRefs>
+          <dataInputRefs>_14_SubjectInput</dataInputRefs>
+          <dataInputRefs>_14_ToInput</dataInputRefs>
+          <dataInputRefs>_14_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_14_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Decision sent</from>
+          <to xsi:type="tFormalExpression">_14_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_14_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">FIT - Decision sent</from>
+          <to xsi:type="tFormalExpression">_14_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_14_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_14_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_14_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_14_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
     <scriptTask id="_15" name="SW Control II" scriptFormat="http://www.java.com/java" >
-      <script>evaluator.evalAdmissionSWCTwo(admission);</script>
+      <script>evaluator.evalAdmissionSWCTwo(admission);
+
+// WARNING
+admission.setAccepted(true);</script>
     </scriptTask>
     <intermediateCatchEvent id="_17" name="Signal" >
       <signalEventDefinition signalRef="expired_time_for_appeal"/>

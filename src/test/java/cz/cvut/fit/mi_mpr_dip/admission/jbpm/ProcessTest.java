@@ -2,19 +2,12 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.naming.InitialContext;
-import javax.transaction.UserTransaction;
 
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.ProcessInstance;
-import org.jbpm.task.TaskService;
-import org.jbpm.task.query.TaskSummary;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +40,13 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
  */
 public class ProcessTest extends BaseSpringJbpmTest {
 
-	@Autowired
-	private JbpmTaskService jbpmTaskService;
+//	@Autowired
+//	private JbpmTaskService jbpmTaskService;
 
-	private StatefulKnowledgeSession ksession;
+//	private StatefulKnowledgeSession ksession;
+	
+	@Autowired
+	private ProcessService processService;
 	
 	@Autowired
 	private AdminService adminService;
@@ -64,7 +60,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 	@Before
 	public void setUp() {
 		admission = setTestAdmission();
-		ksession = jbpmTaskService.getKnowledgeSession();
+		//ksession = jbpmTaskService.getKnowledgeSession();
 		applicationProperties = adminService.getApplicationProperties();
 		
 		processParameters = new HashMap<String, Object>();
@@ -73,27 +69,26 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		processParameters.put("prop", applicationProperties);
 	}
 
-//	@Test
-//	public void testValidAdmissionData() {
-//		isAdmissionValid(admission);
-//	}
-
-//	@Test
-//	public void testRunBlankProcess() {
-//		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.blank");
-//	}
+	@Test
+	public void testValidAdmissionData() {
+		isAdmissionValid(admission);
+	}
 
 	@Test
-	public void testEmailProcess() {
-		if (applicationProperties.get("mail.disable").equals("true")) {
-			processParameters.put("emailTo", "");
-		} else if (applicationProperties.get("mail.debug").equals("true")) {
-			processParameters.put("emailTo", applicationProperties.get("mail.debug.address.to"));
-		} else {
-			processParameters.put("emailTo", admission.getPerson().getEmail());
-		}
+	public void testRunBlankProcess() {
+		processService.runBlankProcess();
+	}
+	
+//	@Test
+//	public void testEmailProcess() {
+//		processService.runEmailProcess();
+//	}
+	
+	@Test
+	public void testMainProcess() {
+		String admissionCode = "123-456-02";
 		
-		ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test_email", processParameters);
+		processService.runProcess(admissionCode);
 	}
 
 //	@Test
