@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect Language_Roo_Configurable {

@@ -3,8 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import java.util.List;
 
 privileged aspect Admissions_Roo_JavaBean {

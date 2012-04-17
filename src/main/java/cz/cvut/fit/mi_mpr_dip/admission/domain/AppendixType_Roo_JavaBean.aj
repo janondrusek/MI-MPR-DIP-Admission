@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixType;
 
 privileged aspect AppendixType_Roo_JavaBean {
     

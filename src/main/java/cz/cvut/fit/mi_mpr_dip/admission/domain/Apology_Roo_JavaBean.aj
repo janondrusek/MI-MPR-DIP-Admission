@@ -3,9 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Apology;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import java.util.Set;
 
 privileged aspect Apology_Roo_JavaBean {

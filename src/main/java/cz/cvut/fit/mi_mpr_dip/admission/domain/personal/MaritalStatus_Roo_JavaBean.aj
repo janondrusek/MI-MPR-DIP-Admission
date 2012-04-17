@@ -3,8 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import java.util.Set;
 
 privileged aspect MaritalStatus_Roo_JavaBean {

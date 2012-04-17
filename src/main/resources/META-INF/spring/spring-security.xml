@@ -27,8 +27,11 @@
 			</list>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint" />
+	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionProcessingEndpoint" />
 
-	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint">
+	<bean id="endpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointHelper">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 	</bean>
 
@@ -39,9 +42,11 @@
 		<constructor-arg>
 			<list>
 				<security:filter-chain pattern="/services/mobile/identity"
-					filters="basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+					filters="basicAuthenticationFilter,anonymousAuthFilter" />
+				<security:filter-chain pattern="/services/processing/identity"
+					filters="basicAuthenticationFilter,anonymousAuthFilter" />
 				<security:filter-chain pattern="/services/mobile/**"
-					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+					filters="sessionAuthenticationFilter,anonymousAuthFilter" />
 			</list>
 		</constructor-arg>
 	</bean>
@@ -55,12 +60,6 @@
 	<bean id="basicAuthenticationFilter" class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
 		<constructor-arg ref="authenticationManager" />
 		<constructor-arg ref="authenticationEntryPoint" />
-	</bean>
-
-	<bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
-		<constructor-arg>
-			<bean class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
-		</constructor-arg>
 	</bean>
 
 	<security:authentication-manager>

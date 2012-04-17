@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentType;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 

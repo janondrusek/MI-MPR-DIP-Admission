@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect DocumentType_Roo_Configurable {

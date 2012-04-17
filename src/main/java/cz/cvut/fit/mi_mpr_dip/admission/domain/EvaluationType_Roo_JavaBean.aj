@@ -3,8 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType;
 import java.util.Set;
 
 privileged aspect EvaluationType_Roo_JavaBean {

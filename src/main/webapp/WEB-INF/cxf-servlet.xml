@@ -17,8 +17,9 @@
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
-			<ref bean="technicalExceptionMapper" />
+			<ref bean="accessDeniedExceptionMapper" />
 			<ref bean="businessExceptionMapper" />
+			<ref bean="technicalExceptionMapper" />
 			<ref bean="webApplicationExceptionMapper" />
 			<ref bean="throwableExceptionMapper" />
 		</jaxrs:providers>
@@ -46,4 +47,11 @@
 		<value>role</value>
 		<value>session</value>
 	</util:list>
+	
+	<bean id="accessDeniedExceptionMapper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AccessDeniedExceptionMapper">
+		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
+		<property name="authenticationTrustResolver" ref="authenticationTrustResolver" />
+	</bean>
+	
+	<bean id="authenticationTrustResolver" class="org.springframework.security.authentication.AuthenticationTrustResolverImpl" />
 </beans>

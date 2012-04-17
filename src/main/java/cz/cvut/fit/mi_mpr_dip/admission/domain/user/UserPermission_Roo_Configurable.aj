@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPermission;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect UserPermission_Roo_Configurable {

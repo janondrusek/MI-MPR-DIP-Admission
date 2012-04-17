@@ -8,6 +8,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 
 public interface EndpointHelper {
 
+	public Response getUserIdentity();
+
 	public Response getAdmission(String admissionCode);
 
 	public Response deleteAdmission(String admissionCode);

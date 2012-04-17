@@ -3,8 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import java.util.Set;
 
 privileged aspect DocumentType_Roo_JavaBean {

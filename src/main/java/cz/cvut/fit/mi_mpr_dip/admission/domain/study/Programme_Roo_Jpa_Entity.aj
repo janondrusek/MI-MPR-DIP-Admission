@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import javax.persistence.Entity;
 
 privileged aspect Programme_Roo_Jpa_Entity {

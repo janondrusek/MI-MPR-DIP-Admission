@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 
 privileged aspect City_Roo_JavaBean {
     

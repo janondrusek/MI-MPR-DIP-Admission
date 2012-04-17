@@ -23,7 +23,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -35,7 +34,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
 @RooJavaBean
-@Service(value = "processingService")
 @Path(AdmissionProcessingEndpoint.ENDPOINT_PATH)
 public class AdmissionProcessingEndpoint implements ProcessingEndpoint, ApplicationContextAware {
 
@@ -45,7 +43,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	@Autowired
 	private AdmissionCodeValidator admissionCodeValidator;
-	
+
 	@Autowired
 	private AnnotatedBeanValidator beanValidator;
 
@@ -61,13 +59,21 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	private ApplicationContext applicationContext;
 
+	@Path(AdmissionEndpointHelper.IDENTITY_PATH)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@GET
+	@Override
+	public Response getUserIdentity() {
+		return getEndpointHelper().getUserIdentity();
+	}
+
 	@Secured("PERM_READ_ADMISSION")
 	@Path(ADMISSION_PATH + "/{admissionCode}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return endpointHelper.getAdmission(admissionCode);
+		return getEndpointHelper().getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_READ_ADMISSIONS")
@@ -104,7 +110,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	}
 
 	private AdmissionsBuilder getAdmissionsBuilder() {
-		return applicationContext.getBean(AdmissionsBuilder.class);
+		return getApplicationContext().getBean(AdmissionsBuilder.class);
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
@@ -124,13 +130,13 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	}
 
 	private void validate(Admission admission) {
-		beanValidator.validate(admission);
-		admissionCodeValidator.validate(admission);
+		getBeanValidator().validate(admission);
+		getAdmissionCodeValidator().validate(admission);
 	}
 
 	private void deduplicateAndStore(Admission admission) {
-		userIdentityService.buildUserIdentity(admission);
-		deduplicationService.deduplicateAndStore(admission);
+		getUserIdentityService().buildUserIdentity(admission);
+		getDeduplicationService().deduplicateAndStore(admission);
 	}
 
 	@Secured("PERM_DELETE_ADMISSION")
@@ -139,7 +145,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@DELETE
 	@Override
 	public Response deleteAdmission(@PathParam("admissionCode") String admissionCode) {
-		return endpointHelper.deleteAdmission(admissionCode);
+		return getEndpointHelper().deleteAdmission(admissionCode);
 	}
 
 	@Override

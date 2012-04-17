@@ -3,9 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPermission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import java.util.Set;
 
 privileged aspect UserRole_Roo_JavaBean {

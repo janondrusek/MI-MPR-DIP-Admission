@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumberType;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect ReferenceNumberType_Roo_Configurable {

@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 
 privileged aspect Language_Roo_JavaBean {
     

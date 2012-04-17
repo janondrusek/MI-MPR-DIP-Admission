@@ -3,8 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 

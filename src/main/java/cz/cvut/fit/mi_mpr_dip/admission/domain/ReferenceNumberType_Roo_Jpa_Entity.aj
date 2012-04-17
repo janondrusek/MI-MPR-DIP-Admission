@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumberType;
 import javax.persistence.Entity;
 
 privileged aspect ReferenceNumberType_Roo_Jpa_Entity {

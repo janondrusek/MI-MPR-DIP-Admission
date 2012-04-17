@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import javax.persistence.Entity;
 
 privileged aspect Gender_Roo_Jpa_Entity {

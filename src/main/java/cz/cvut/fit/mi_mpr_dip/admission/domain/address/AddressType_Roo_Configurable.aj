@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect AddressType_Roo_Configurable {

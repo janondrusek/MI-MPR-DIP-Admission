@@ -3,8 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealType;
 import java.util.Set;
 
 privileged aspect AppealType_Roo_JavaBean {

@@ -13,22 +13,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
-import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
+@RooJavaBean
 @Path(AndroidMobileEndpoint.ENDPOINT_PATH)
 public class AndroidMobileEndpoint implements MobileEndpoint {
 
-	public static final String IDENTITY_PATH = "/identity";
 	public static final String ADMISSION_PATH = "/admission";
 	public static final String SAVE_PHOTO_PATH = "/photo";
 	public static final String SAVE_RESULT_PATH = "/result";
@@ -37,23 +33,12 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Autowired
 	private EndpointHelper endpointHelper;
 
-	@Autowired
-	private UserIdentityService userIdentityService;
-
-	private SecurityContextHolderStrategy securityContextHolderStrategy;
-
-	@PreAuthorize("!hasRole('ROLE_ANONYMOUS')")
-	@Path(IDENTITY_PATH)
+	@Path(AdmissionEndpointHelper.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
 	public Response getUserIdentity() {
-		Authentication authentication = getAuthentication();
-		return Response.ok(userIdentityService.getUserIdentity(authentication.getPrincipal().toString())).build();
-	}
-
-	private Authentication getAuthentication() {
-		return securityContextHolderStrategy.getContext().getAuthentication();
+		return getEndpointHelper().getUserIdentity();
 	}
 
 	@Secured("PERM_READ_PERSON")
@@ -61,7 +46,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return endpointHelper.getAdmission(admissionCode);
+		return getEndpointHelper().getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_WRITE_RESULT")
@@ -71,7 +56,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Override
 	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result)
 			throws URISyntaxException {
-		return endpointHelper.mergeAdmission(admissionCode, getAdmissionBasePath(), result,
+		return getEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), result,
 				new AdmissionAction<AdmissionResult>() {
 
 					@Override
@@ -88,7 +73,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Override
 	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo)
 			throws URISyntaxException {
-		return endpointHelper.mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
+		return getEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
 
 		new AdmissionAction<Appendix>() {
 
@@ -101,11 +86,6 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 
 	private String getAdmissionBasePath() {
 		return ENDPOINT_PATH + ADMISSION_PATH;
-	}
-
-	@Required
-	public void setSecurityContextHolderStrategy(SecurityContextHolderStrategy securityContextHolderStrategy) {
-		this.securityContextHolderStrategy = securityContextHolderStrategy;
 	}
 
 }

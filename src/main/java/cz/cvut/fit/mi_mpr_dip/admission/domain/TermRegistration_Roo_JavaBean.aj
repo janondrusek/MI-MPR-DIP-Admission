@@ -3,10 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Apology;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 
 privileged aspect TermRegistration_Roo_JavaBean {
     

@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentValue;
 import javax.persistence.Entity;
 
 privileged aspect AccomplishmentValue_Roo_Jpa_Entity {

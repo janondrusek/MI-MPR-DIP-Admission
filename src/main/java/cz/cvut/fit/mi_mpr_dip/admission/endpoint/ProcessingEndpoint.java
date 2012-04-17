@@ -9,6 +9,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 
 public interface ProcessingEndpoint {
 
+	public Response getUserIdentity();
+
 	public Response getAdmission(String admissionCode);
 
 	public Admissions getAdmissions(Integer count, Integer page);
