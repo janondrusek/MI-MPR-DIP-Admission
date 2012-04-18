@@ -7,4 +7,10 @@ public interface ProcessService {
 	public StatefulKnowledgeSession getSession();
 		
 	public void setSession(StatefulKnowledgeSession ksession);
+	
+	public void runProcessBlank();
+	
+	public void runProcessEmail();
+	
+	public void runProcess(String admissionCode);
 }
