@@ -76,7 +76,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 
 	@Test
 	public void testRunBlankProcess() {
-		processService.runBlankProcess();
+		processService.runProcessBlank();
 	}
 	
 //	@Test
@@ -84,12 +84,12 @@ public class ProcessTest extends BaseSpringJbpmTest {
 //		processService.runEmailProcess();
 //	}
 	
-	@Test
-	public void testMainProcess() {
-		String admissionCode = "123-456-02";
-		
-		processService.runProcess(admissionCode);
-	}
+//	@Test
+//	public void testMainProcess() {
+//		String admissionCode = "123-456-01";
+//		
+//		processService.runProcess(admissionCode);
+//	}
 
 //	@Test
 //	public void testHumanTaskProcess() {
