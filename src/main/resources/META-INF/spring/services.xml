@@ -13,7 +13,8 @@
 	</bean>
 
 	<bean id="admissionLoggingService" class="cz.cvut.fit.mi_mpr_dip.admission.service.logging.AdmissionLoggingService">
-		<property name="requestBodyMaxLength" value="${logging.request.body.maxLength}" />
-		<property name="responseBodyMaxLength" value="${logging.response.body.maxLength}" />
+		<property name="abbreviationKeyword" value="${logging.body.abbreviationKeyword}" />
+		<property name="requestBodyMaxLength" value="${logging.body.request.maxLength}" />
+		<property name="responseBodyMaxLength" value="${logging.body.response.maxLength}" />
 	</bean>
 </beans>

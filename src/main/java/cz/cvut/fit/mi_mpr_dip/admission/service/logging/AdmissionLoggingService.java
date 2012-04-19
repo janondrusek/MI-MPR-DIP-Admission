@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import ch.qos.logback.classic.Level;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
@@ -23,9 +24,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 import cz.cvut.fit.mi_mpr_dip.admission.web.BufferedRequestWrapper;
 import cz.cvut.fit.mi_mpr_dip.admission.web.BufferedResponseWrapper;
 
+@RooJavaBean
 public class AdmissionLoggingService implements LoggingService {
-
-	private static final String ABBREVIATED = "...ABBREVIATED...";
 
 	private static final Logger log = LoggerFactory.getLogger(AdmissionLoggingService.class);
 	private static final Logger requestLog = LoggerFactory.getLogger(LoggerName.REQUEST.getKeyword());
@@ -33,6 +33,7 @@ public class AdmissionLoggingService implements LoggingService {
 	private static final Logger responseLog = LoggerFactory.getLogger(LoggerName.RESPONSE.getKeyword());
 	private static final Logger responseBodyLog = LoggerFactory.getLogger(LoggerName.RESPONSE_BODY.getKeyword());
 
+	private String abbreviationKeyword = StringUtils.repeat(StringPool.DOT, 3);
 	private Integer requestBodyMaxLength;
 	private Integer responseBodyMaxLength;
 
@@ -100,7 +101,10 @@ public class AdmissionLoggingService implements LoggingService {
 	}
 
 	private String abbreviate(String body, Integer length) {
-		return StringUtils.abbreviateMiddle(body, ABBREVIATED, length);
+		if (NumberUtils.INTEGER_ZERO.compareTo(length) >= 0) {
+			return body;
+		}
+		return StringUtils.abbreviateMiddle(body, getAbbreviationKeyword(), length);
 	}
 
 	@Override

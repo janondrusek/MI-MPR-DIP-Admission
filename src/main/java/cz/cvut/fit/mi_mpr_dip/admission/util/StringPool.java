@@ -6,6 +6,7 @@ public interface StringPool {
 	public static final String COLON = ":";
 	public static final String COMMA = ",";
 	public static final String DASH = "-";
+	public static final String DOT = ".";
 	public static final String EQUALS = "=";
 	public static final String QUESTIONMARK = "?";
 	public static final String SEMICOLON = ";";
