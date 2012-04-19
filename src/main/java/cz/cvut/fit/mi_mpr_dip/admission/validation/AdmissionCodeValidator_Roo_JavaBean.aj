@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.validation;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 
 privileged aspect AdmissionCodeValidator_Roo_JavaBean {
     

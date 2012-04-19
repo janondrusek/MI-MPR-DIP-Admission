@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
 import javax.persistence.Entity;
 
 privileged aspect DisabilityType_Roo_Jpa_Entity {

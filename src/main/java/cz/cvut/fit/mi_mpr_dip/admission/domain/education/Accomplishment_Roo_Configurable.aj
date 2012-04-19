@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect Accomplishment_Roo_Configurable {

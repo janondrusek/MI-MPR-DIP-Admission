@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import javax.persistence.Entity;
 
 privileged aspect Language_Roo_Jpa_Entity {

@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
 import javax.persistence.Entity;
 
 privileged aspect DocumentType_Roo_Jpa_Entity {

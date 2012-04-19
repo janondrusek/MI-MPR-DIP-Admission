@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLineType;
 
 privileged aspect PrintLine_Roo_JavaBean {
     

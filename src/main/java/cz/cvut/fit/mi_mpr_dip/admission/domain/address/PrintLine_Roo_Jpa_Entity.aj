@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
 import javax.persistence.Entity;
 
 privileged aspect PrintLine_Roo_Jpa_Entity {

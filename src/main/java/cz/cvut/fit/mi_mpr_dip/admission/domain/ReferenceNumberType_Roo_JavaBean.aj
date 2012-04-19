@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumber;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumberType;
 import java.util.Set;
 
 privileged aspect ReferenceNumberType_Roo_JavaBean {

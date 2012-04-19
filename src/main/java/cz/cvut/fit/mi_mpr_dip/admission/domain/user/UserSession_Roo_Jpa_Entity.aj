@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import javax.persistence.Entity;
 
 privileged aspect UserSession_Roo_Jpa_Entity {

@@ -3,11 +3,10 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect AddressType_Roo_Jpa_ActiveRecord {

@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import java.util.Set;
 
 privileged aspect DisabilityType_Roo_JavaBean {

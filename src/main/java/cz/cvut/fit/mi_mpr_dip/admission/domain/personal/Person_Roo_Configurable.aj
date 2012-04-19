@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect Person_Roo_Configurable {

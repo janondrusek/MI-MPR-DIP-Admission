@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect Faculty_Roo_Configurable {

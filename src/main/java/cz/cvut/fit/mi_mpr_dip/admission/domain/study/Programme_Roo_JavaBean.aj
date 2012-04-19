@@ -3,6 +3,10 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Degree;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
 privileged aspect Programme_Roo_JavaBean {
     

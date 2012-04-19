@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
 import javax.persistence.Entity;
 
 privileged aspect AddressType_Roo_Jpa_Entity {

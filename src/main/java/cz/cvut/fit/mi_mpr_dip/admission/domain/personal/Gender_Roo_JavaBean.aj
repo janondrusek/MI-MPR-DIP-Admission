@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import java.util.Set;
 
 privileged aspect Gender_Roo_JavaBean {

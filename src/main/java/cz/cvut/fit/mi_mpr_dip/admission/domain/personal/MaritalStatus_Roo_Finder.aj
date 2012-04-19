@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 

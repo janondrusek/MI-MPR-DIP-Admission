@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect Country_Roo_Configurable {

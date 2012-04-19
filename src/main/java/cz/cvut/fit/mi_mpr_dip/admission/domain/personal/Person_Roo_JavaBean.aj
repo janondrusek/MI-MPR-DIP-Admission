@@ -3,12 +3,16 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import java.util.Date;
-import java.util.Set;
-
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import java.util.Date;
+import java.util.Set;
 
 privileged aspect Person_Roo_JavaBean {
     

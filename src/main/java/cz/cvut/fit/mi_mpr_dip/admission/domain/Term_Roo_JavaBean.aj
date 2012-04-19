@@ -3,10 +3,12 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import java.util.Date;
 import java.util.Set;
-
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 privileged aspect Term_Roo_JavaBean {
     

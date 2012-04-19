@@ -3,6 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermType;
 import java.util.Set;
 
 privileged aspect TermType_Roo_JavaBean {

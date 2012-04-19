@@ -3,13 +3,20 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import java.util.Set;
-
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumber;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import java.util.Set;
 
 privileged aspect Admission_Roo_JavaBean {
     

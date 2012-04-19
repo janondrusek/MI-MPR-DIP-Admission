@@ -3,9 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
-import java.util.Set;
-
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
+import java.util.Set;
 
 privileged aspect Faculty_Roo_JavaBean {
     

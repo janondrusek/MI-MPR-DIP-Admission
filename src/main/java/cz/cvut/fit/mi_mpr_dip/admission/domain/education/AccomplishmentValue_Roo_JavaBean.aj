@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentValue;
 
 privileged aspect AccomplishmentValue_Roo_JavaBean {
     

@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import org.springframework.beans.factory.annotation.Configurable;
 
 privileged aspect TermRegistration_Roo_Configurable {

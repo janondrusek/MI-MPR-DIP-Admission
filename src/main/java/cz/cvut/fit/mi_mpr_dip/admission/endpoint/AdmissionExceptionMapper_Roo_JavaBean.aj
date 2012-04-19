@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionExceptionMapper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingService;
 
 privileged aspect AdmissionExceptionMapper_Roo_JavaBean {

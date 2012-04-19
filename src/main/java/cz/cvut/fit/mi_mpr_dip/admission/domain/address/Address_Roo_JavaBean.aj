@@ -3,6 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.AddressType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
 import java.util.Set;
 
 privileged aspect Address_Roo_JavaBean {
