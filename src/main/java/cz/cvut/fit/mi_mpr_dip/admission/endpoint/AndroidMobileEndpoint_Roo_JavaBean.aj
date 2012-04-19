@@ -4,7 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
 
 privileged aspect AndroidMobileEndpoint_Roo_JavaBean {
     

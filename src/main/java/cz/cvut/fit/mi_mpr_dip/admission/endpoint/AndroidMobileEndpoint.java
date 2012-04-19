@@ -20,6 +20,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
 
 @RooJavaBean
 @Path(AndroidMobileEndpoint.ENDPOINT_PATH)

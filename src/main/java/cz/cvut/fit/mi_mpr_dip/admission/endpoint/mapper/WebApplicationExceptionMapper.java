@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
+package cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;

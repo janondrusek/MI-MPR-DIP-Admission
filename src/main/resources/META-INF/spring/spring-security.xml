@@ -27,11 +27,11 @@
 			</list>
 		</constructor-arg>
 	</bean>
-	
+
 	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint" />
 	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionProcessingEndpoint" />
 
-	<bean id="endpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointHelper">
+	<bean id="endpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 	</bean>
 
@@ -41,12 +41,10 @@
 	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
 		<constructor-arg>
 			<list>
-				<security:filter-chain pattern="/services/mobile/identity"
-					filters="basicAuthenticationFilter,anonymousAuthFilter" />
-				<security:filter-chain pattern="/services/processing/identity"
-					filters="basicAuthenticationFilter,anonymousAuthFilter" />
-				<security:filter-chain pattern="/services/mobile/**"
-					filters="sessionAuthenticationFilter,anonymousAuthFilter" />
+				<security:filter-chain pattern="/services/mobile/identity" filters="basicAuthenticationFilter,anonymousAuthFilter" />
+				<security:filter-chain pattern="/services/processing/identity" filters="basicAuthenticationFilter,anonymousAuthFilter" />
+				<security:filter-chain pattern="/services/processing/**" filters="sessionAuthenticationFilter,anonymousAuthFilter" />
+				<security:filter-chain pattern="/services/mobile/**" filters="sessionAuthenticationFilter,anonymousAuthFilter" />
 			</list>
 		</constructor-arg>
 	</bean>

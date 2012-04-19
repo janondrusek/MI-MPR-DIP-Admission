@@ -48,7 +48,7 @@
 		<value>session</value>
 	</util:list>
 	
-	<bean id="accessDeniedExceptionMapper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AccessDeniedExceptionMapper">
+	<bean id="accessDeniedExceptionMapper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper.AccessDeniedExceptionMapper">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 		<property name="authenticationTrustResolver" ref="authenticationTrustResolver" />
 	</bean>

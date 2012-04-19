@@ -27,6 +27,8 @@ import org.springframework.security.access.annotation.Secured;
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;

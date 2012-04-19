@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
