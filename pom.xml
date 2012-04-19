@@ -49,6 +49,7 @@
 		<maven.eclipse.version>2.7</maven.eclipse.version>
 		<maven.war.version>2.1.1</maven.war.version>
 		<aspectj.maven.version>1.2</aspectj.maven.version>
+		<maven.lifecycle.version>1.0.0</maven.lifecycle.version>
 		<maven.resources.version>2.5</maven.resources.version>
 		<maven.surefire.version>2.9</maven.surefire.version>
 		<maven.tomcat7.version>2.0-beta-1</maven.tomcat7.version>
@@ -699,5 +700,48 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>${maven.lifecycle.version}</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>aspectj-maven-plugin</artifactId>
+										<versionRange>[1.2,)</versionRange>
+										<goals>
+											<goal>compile</goal>
+											<goal>test-compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.zeroturnaround</groupId>
+										<artifactId>jrebel-maven-plugin</artifactId>
+										<versionRange>[1.1.1,)</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
