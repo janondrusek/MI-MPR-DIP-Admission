@@ -7,19 +7,45 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 
 @Repository
-public class DefaultUserIdentityDao extends AbstractDao implements UserIdentityDao {
+public class DefaultUserIdentityDao extends AbstractDao<UserIdentity> implements UserIdentityDao {
 
 	@Transactional(readOnly = true)
 	@Override
 	public UserIdentity getUserIdentity(String username) {
-		return uniqueResult(UserIdentity.class, UserIdentity.findUserIdentitysByUsernameEquals(username));
+		return getUserIdentityQuietly(username);
+	}
+
+	private UserIdentity getUserIdentityQuietly(String username) {
+		UserIdentity userIdentity;
+		try {
+			userIdentity = uniqueResult(UserIdentity.findUserIdentitysByUsernameEquals(username));
+		} catch (Exception e) {
+			userIdentity = processException(e);
+		}
+		return userIdentity;
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public UserIdentity getUserIdentity(String username, UserIdentityAuthentication authentication) {
-		return uniqueResult(UserIdentity.class,
-				UserIdentity.findUserIdentitysByUsernameEqualsAndAuthenticationEquals(username, authentication));
+		return getUserIdentityQuietly(username, authentication);
+	}
+
+	private UserIdentity getUserIdentityQuietly(String username, UserIdentityAuthentication authentication) {
+		UserIdentity userIdentity;
+		try {
+			userIdentity = uniqueResult(UserIdentity.findUserIdentitysByUsernameEqualsAndAuthenticationEquals(username,
+					authentication));
+
+		} catch (Exception e) {
+			userIdentity = processException(e);
+		}
+		return userIdentity;
+	}
+
+	@Override
+	protected UserIdentity createEmptyResult() {
+		return new UserIdentity();
 	}
 
 }

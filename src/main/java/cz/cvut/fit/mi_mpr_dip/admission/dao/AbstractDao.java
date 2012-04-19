@@ -8,26 +8,28 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public abstract class AbstractDao {
+public abstract class AbstractDao<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractDao.class);
 
-	protected <T> T uniqueResult(Class<T> clazz, TypedQuery<T> query) {
+	protected T uniqueResult(TypedQuery<T> query) {
 		T result;
 		try {
 			result = query.getSingleResult();
 		} catch (EmptyResultDataAccessException e) {
-			try {
-				result = createEmptyResult(clazz);
-			} catch (Exception ex) {
-				log.debug("Unable to instantiate", ex);
-				result = null;
-			}
+			log.debug("Returning empty result", e);
+			result = createEmptyResult();
+
 		}
 		return result;
 	}
 
-	private <T> T createEmptyResult(Class<T> clazz) throws InstantiationException, IllegalAccessException {
-		return clazz.newInstance();
+	abstract protected T createEmptyResult();
+
+	protected T processException(Exception e) {
+		T o = createEmptyResult();
+		log.debug("Unable to get result [" + o.getClass() + "]", e);
+
+		return o;
 	}
 }
