@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.comparator.NaturalOrderComparator;
@@ -23,16 +24,19 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
+@RooJavaBean
 public class DefaultUserIdentityService implements UserIdentityService {
 
 	private static final Logger log = LoggerFactory.getLogger(DefaultUserIdentityService.class);
 	private static final String USENAME_ORDER_PATTERN = ".*\\d+";
 
 	private Long grantValidSeconds;
+	private String[] defaultRoles;
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
@@ -46,7 +50,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	@Transactional
 	@Override
 	public UserIdentity getUserIdentity(String username) {
-		UserIdentity userIdentity = userIdentityDao.getUserIdentity(username);
+		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
 		ensureSession(userIdentity);
 		userIdentity.persist();
 		return userIdentity;
@@ -87,7 +91,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	private UserSession createSession() {
 		UserSession session = new UserSession();
 		session.setGrantValidTo(getGrantValidTo());
-		session.setIdentifier(randomStringGenerator.generateRandomAlphanumeric());
+		session.setIdentifier(getRandomStringGenerator().generateRandomAlphanumeric());
 
 		return session;
 	}
@@ -122,11 +126,23 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		UserIdentity userIdentity = new UserIdentity();
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
 		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
-		userIdentity.setUserPassword(passwordGenerator.createUserPassword());
+		userIdentity.setUserPassword(getPasswordGenerator().createUserPassword());
+		userIdentity.setRoles(createDefaultRoles());
 
 		log.debug("Created default UserIdentity [{}]", userIdentity);
 
 		return userIdentity;
+	}
+
+	private Set<UserRole> createDefaultRoles() {
+		Set<UserRole> userRoles = new HashSet<UserRole>();
+		for (String role : getDefaultRoles()) {
+			List<UserRole> dbUserRoles = UserRole.findUserRolesByNameEquals(role).getResultList();
+			if (CollectionUtils.isNotEmpty(dbUserRoles)) {
+				userRoles.add(dbUserRoles.get(0));
+			}
+		}
+		return userRoles;
 	}
 
 	private String getNormalizedLastname(String lastname) {
@@ -198,6 +214,11 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	@Required
 	public void setGrantValidSeconds(Long grantValidSeconds) {
 		this.grantValidSeconds = grantValidSeconds;
+	}
+
+	@Required
+	public void setDefaultRoles(String[] defaultRoles) {
+		this.defaultRoles = defaultRoles;
 	}
 
 }

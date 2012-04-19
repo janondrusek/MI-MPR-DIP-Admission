@@ -5,9 +5,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Properties;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +24,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Repository
 public class UserIdentityServiceTest extends BaseSpringTest {
@@ -39,16 +48,35 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 	private static final String[] MIDDLE_GAPPED_CYRILLIC_LASTNAMES = { "поспiшил", "поспiшил1", "поспiшил3",
 			"поспiшил4" };
 
+	private static final String DEPLOYMENT_PROPERTIES = "META-INF/deployment.properties";
+	private static final String USER_IDENTITY_ROLES_DEFAULT = "user.identity.roles.default";
+
+	private Set<UserRole> userRoles;
+	private Properties properties;
+
 	@Autowired
 	private UserIdentityService userIdentityService;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		addSingleUserIdentity();
 		addTwoUserIdentities();
 		addBeginningGappedUserIdentities();
 		addMiddleGappedUserIdentities();
 		addMiddleGappedUserIdentitiesCyrillic();
+
+		initRoles();
+	}
+
+	private void initRoles() throws IOException {
+		properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource(DEPLOYMENT_PROPERTIES));
+		String roles = properties.getProperty(USER_IDENTITY_ROLES_DEFAULT);
+		userRoles = new HashSet<UserRole>();
+		for (String role : roles.split(StringPool.COMMA)) {
+			UserRole userRole = new UserRole();
+			userRole.setName(role);
+			userRoles.add(userRole);
+		}
 	}
 
 	private void addSingleUserIdentity() {
@@ -156,5 +184,6 @@ public class UserIdentityServiceTest extends BaseSpringTest {
 		assertEquals(UserIdentityAuthentication.PWD, admission.getUserIdentity().getAuthentication());
 		assertNotNull(admission.getUserIdentity().getUserPassword());
 		assertThat(admission.getUserIdentity().getUserPassword().getHash().length(), greaterThan(0));
+		assertEquals(userRoles, admission.getUserIdentity().getRoles());
 	}
 }
