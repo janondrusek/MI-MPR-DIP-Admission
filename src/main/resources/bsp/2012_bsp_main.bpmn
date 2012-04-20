@@ -36,15 +36,15 @@
       <ioSpecification>
         <dataInput id="_36_CommentInput" name="Comment" />
         <dataInput id="_36_SkippableInput" name="Skippable" />
-        <dataInput id="_36_TaskNameInput" name="TaskName" />
         <dataInput id="_36_ContentInput" name="Content" />
+        <dataInput id="_36_TaskNameInput" name="TaskName" />
         <dataInput id="_36_GroupIdInput" name="GroupId" />
         <dataInput id="_36_PriorityInput" name="Priority" />
         <inputSet>
           <dataInputRefs>_36_CommentInput</dataInputRefs>
           <dataInputRefs>_36_SkippableInput</dataInputRefs>
-          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
           <dataInputRefs>_36_ContentInput</dataInputRefs>
+          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
           <dataInputRefs>_36_GroupIdInput</dataInputRefs>
           <dataInputRefs>_36_PriorityInput</dataInputRefs>
         </inputSet>
@@ -66,17 +66,17 @@
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
-        <targetRef>_36_TaskNameInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <targetRef>_36_ContentInput</targetRef>
         <assignment>
           <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_36_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
@@ -228,7 +228,7 @@ System.out.println("state:" + admission.getAdmissionState());</script>
       <dataInputAssociation>
         <targetRef>_29_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">Ozn�men� o za?azen� do procesu p?ij�mac�ho ?�zen� BSP
+          <from xsi:type="tFormalExpression">TEST
 
 username: ???
 password: ???
