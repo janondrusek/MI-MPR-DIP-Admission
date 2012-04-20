@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -51,7 +52,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	@Autowired
 	private EndpointHelper endpointHelper;
-	
+
 	@Autowired
 	private ProcessService processService;
 
@@ -112,8 +113,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	public Response addAdmission(Admission admission) throws URISyntaxException {
 		validateAndDeduplicateAndStore(admission);
 		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode());
-		
-		
+
 		return Response.created(uri).build();
 	}
 
@@ -127,6 +127,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		return null;
 	}
 
+	@Transactional
 	private void validateAndDeduplicateAndStore(Admission admission) {
 		validate(admission);
 		deduplicateAndStore(admission);
@@ -142,7 +143,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		getUserIdentityService().buildUserIdentity(admission);
 		getDeduplicationService().deduplicateAndStore(admission);
 	}
-	
+
 	private void runJbpmProcess(Admission admission) {
 		getProcessService().runProcess(admission);
 	}

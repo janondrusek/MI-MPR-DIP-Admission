@@ -19,8 +19,8 @@ public class AdmissionDeduplicationService implements DeduplicationService<Admis
 	@Autowired
 	private Set<PersonDeduplicationTemplate> personDeduplicationTemplates;
 
-	@Override
 	@Transactional
+	@Override
 	public void deduplicateAndStore(Admission admission) {
 		deduplicate(admission);
 		deduplicate(admission.getPerson());

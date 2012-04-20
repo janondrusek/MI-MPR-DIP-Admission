@@ -113,7 +113,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		return new Date();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	@Override
 	public void buildUserIdentity(Admission admission) {
 		UserIdentity userIdentity = getUniqueUserIdentity(admission.getPerson().getLastname());
@@ -130,7 +130,6 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		userIdentity.setRoles(createDefaultRoles());
 
 		log.debug("Created default UserIdentity [{}]", userIdentity);
-		userIdentity.persist();
 
 		return userIdentity;
 	}
