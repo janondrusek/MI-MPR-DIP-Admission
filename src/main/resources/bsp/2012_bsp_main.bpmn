@@ -27,7 +27,7 @@
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
-    <property id="prop" itemSubjectRef="_propItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_propItem"/>
     <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
@@ -166,7 +166,7 @@
     <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <ioSpecification>
         <dataInput id="_14_admissionInput" name="admission" />
-        <dataInput id="_14_propInput" name="prop" />
+        <dataInput id="_14_propInput" name="jbpmProperties" />
         <dataInput id="_14_emailToInput" name="emailTo" />
         <dataInput id="_14_evaluatorInput" name="evaluator" />
         <inputSet>
@@ -183,7 +183,7 @@
         <targetRef>_14_admissionInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
-        <sourceRef>prop</sourceRef>
+        <sourceRef>jbpmProperties</sourceRef>
         <targetRef>_14_propInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
@@ -256,7 +256,7 @@ DavidCh.</from>
       <dataInputAssociation>
         <targetRef>_29_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_29_FromInput</to>
         </assignment>
       </dataInputAssociation>
@@ -305,7 +305,7 @@ DavidCh.</from>
       <dataInputAssociation>
         <targetRef>_31_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_31_FromInput</to>
         </assignment>
       </dataInputAssociation>
@@ -354,7 +354,7 @@ DavidCh.</from>
       <dataInputAssociation>
         <targetRef>_30_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_30_FromInput</to>
         </assignment>
       </dataInputAssociation>
