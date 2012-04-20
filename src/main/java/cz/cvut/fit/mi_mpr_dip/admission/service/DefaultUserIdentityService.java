@@ -127,9 +127,10 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
 		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
 		userIdentity.setUserPassword(getPasswordGenerator().createUserPassword());
-		//userIdentity.setRoles(createDefaultRoles());
+		userIdentity.setRoles(createDefaultRoles());
 
 		log.debug("Created default UserIdentity [{}]", userIdentity);
+		userIdentity.persist();
 
 		return userIdentity;
 	}

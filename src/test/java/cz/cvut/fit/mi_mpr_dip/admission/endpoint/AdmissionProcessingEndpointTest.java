@@ -7,9 +7,6 @@ import static org.easymock.EasyMock.same;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertSame;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.core.Response;
 
 import org.junit.Before;
@@ -17,7 +14,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
@@ -72,31 +68,5 @@ public class AdmissionProcessingEndpointTest {
 		replay(mocks);
 		assertSame(response, admissionProcessingEndpoint.getAdmission(CODE));
 		verify(mocks);
-	}
-
-	@Test
-	public void testImportAdmissions() throws Exception {
-		int count = 3;
-		Admissions admissions = getAdmissions(count);
-		for (Admission admission : admissions.getAdmissions()) {
-			annotatedBeanValidator.validate(same(admission));
-			admissionCodeValidator.validate(same(admission));
-			deduplicationService.deduplicateAndStore(same(admission));
-			userIdentityService.buildUserIdentity(same(admission));
-		}
-		replay(mocks);
-		assertSame(admissions, admissionProcessingEndpoint.importAdmissions(admissions));
-		verify(mocks);
-
-	}
-
-	private Admissions getAdmissions(int count) {
-		Admissions admissions = new Admissions();
-		List<Admission> list = new ArrayList<Admission>();
-		for (int i = 0; i < count; i++) {
-			list.add(new Admission());
-		}
-		admissions.setAdmissions(list);
-		return admissions;
 	}
 }

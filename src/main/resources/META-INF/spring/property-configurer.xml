@@ -18,4 +18,8 @@
 	<bean id="roleAccessiblePropertyConfigurer" class="org.springframework.beans.factory.config.RoleAccessiblePropertyConfigurer">
 		<property name="location" value="classpath:META-INF/security.properties" />
 	</bean>
+	
+	<bean id="jbpmAccessiblePropertyConfigurer" class="org.springframework.beans.factory.config.JbpmAccessiblePropertyConfigurer">
+		<property name="location" value="classpath:META-INF/jbpm-process.properties" />
+	</bean>
 </beans>
