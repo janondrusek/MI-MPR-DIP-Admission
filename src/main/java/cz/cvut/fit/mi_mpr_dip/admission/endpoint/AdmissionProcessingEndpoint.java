@@ -29,6 +29,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -51,6 +52,9 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	@Autowired
 	private EndpointHelper endpointHelper;
+	
+	@Autowired
+	private ProcessService processService;
 
 	@Autowired
 	@Qualifier("admissionDeduplicationService")
@@ -122,13 +126,16 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@Override
 	public Response addAdmission(Admission admission) throws URISyntaxException {
 		validateAndDeduplicateAndStore(admission);
-		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode().toString());
+		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode());
+		
+		
 		return Response.created(uri).build();
 	}
 
 	private void validateAndDeduplicateAndStore(Admission admission) {
 		validate(admission);
 		deduplicateAndStore(admission);
+		runJbpmProcess(admission);
 	}
 
 	private void validate(Admission admission) {
@@ -139,6 +146,10 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	private void deduplicateAndStore(Admission admission) {
 		getUserIdentityService().buildUserIdentity(admission);
 		getDeduplicationService().deduplicateAndStore(admission);
+	}
+	
+	private void runJbpmProcess(Admission admission) {
+		getProcessService().runProcess(admission);
 	}
 
 	@Secured("PERM_DELETE_ADMISSION")

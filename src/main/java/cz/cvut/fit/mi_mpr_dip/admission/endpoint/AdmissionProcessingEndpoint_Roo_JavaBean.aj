@@ -6,6 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionProcessingEndpoint;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
@@ -36,6 +37,14 @@ privileged aspect AdmissionProcessingEndpoint_Roo_JavaBean {
     
     public void AdmissionProcessingEndpoint.setEndpointHelper(EndpointHelper endpointHelper) {
         this.endpointHelper = endpointHelper;
+    }
+    
+    public ProcessService AdmissionProcessingEndpoint.getProcessService() {
+        return this.processService;
+    }
+    
+    public void AdmissionProcessingEndpoint.setProcessService(ProcessService processService) {
+        this.processService = processService;
     }
     
     public DeduplicationService<Admission> AdmissionProcessingEndpoint.getDeduplicationService() {

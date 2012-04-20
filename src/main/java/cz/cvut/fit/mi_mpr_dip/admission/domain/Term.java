@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -35,6 +37,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "dateOfTerm", "room" }))
 public class Term {
 
 	@Version
@@ -46,7 +49,7 @@ public class Term {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
 	private Long termId;
-
+	
 	@NotNull
 	private Date dateOfTerm;
 
