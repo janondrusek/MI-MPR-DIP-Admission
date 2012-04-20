@@ -14,7 +14,7 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
-  <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_jbpmPropertiesItem" structureRef="java.util.HashMap" />
   <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_bsp_main" name="Sample Process" tns:packageName="defaultPackage" >
@@ -27,7 +27,7 @@
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
-    <property id="jbpmProperties" itemSubjectRef="_propItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_jbpmPropertiesItem"/>
     <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
@@ -36,15 +36,15 @@
       <ioSpecification>
         <dataInput id="_36_CommentInput" name="Comment" />
         <dataInput id="_36_SkippableInput" name="Skippable" />
-        <dataInput id="_36_ContentInput" name="Content" />
         <dataInput id="_36_TaskNameInput" name="TaskName" />
+        <dataInput id="_36_ContentInput" name="Content" />
         <dataInput id="_36_GroupIdInput" name="GroupId" />
         <dataInput id="_36_PriorityInput" name="Priority" />
         <inputSet>
           <dataInputRefs>_36_CommentInput</dataInputRefs>
           <dataInputRefs>_36_SkippableInput</dataInputRefs>
-          <dataInputRefs>_36_ContentInput</dataInputRefs>
           <dataInputRefs>_36_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_36_ContentInput</dataInputRefs>
           <dataInputRefs>_36_GroupIdInput</dataInputRefs>
           <dataInputRefs>_36_PriorityInput</dataInputRefs>
         </inputSet>
@@ -66,17 +66,17 @@
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
-        <targetRef>_36_ContentInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_36_ContentInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <targetRef>_36_TaskNameInput</targetRef>
         <assignment>
           <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_ContentInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
@@ -165,13 +165,13 @@
     <exclusiveGateway id="_41" name="Gateway - Document check complete" gatewayDirection="Converging" />
     <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <ioSpecification>
+        <dataInput id="_14_jbpmPropertiesInput" name="jbpmProperties" />
         <dataInput id="_14_admissionInput" name="admission" />
-        <dataInput id="_14_propInput" name="jbpmProperties" />
         <dataInput id="_14_emailToInput" name="emailTo" />
         <dataInput id="_14_evaluatorInput" name="evaluator" />
         <inputSet>
+          <dataInputRefs>_14_jbpmPropertiesInput</dataInputRefs>
           <dataInputRefs>_14_admissionInput</dataInputRefs>
-          <dataInputRefs>_14_propInput</dataInputRefs>
           <dataInputRefs>_14_emailToInput</dataInputRefs>
           <dataInputRefs>_14_evaluatorInput</dataInputRefs>
         </inputSet>
@@ -179,12 +179,12 @@
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_14_admissionInput</targetRef>
+        <sourceRef>jbpmProperties</sourceRef>
+        <targetRef>_14_jbpmPropertiesInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
-        <sourceRef>jbpmProperties</sourceRef>
-        <targetRef>_14_propInput</targetRef>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_14_admissionInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
         <sourceRef>emailTo</sourceRef>
@@ -201,15 +201,6 @@
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Email: Process BSP started for admission: " + admission.getCode() + " !");</script>
         </tns:onEntry-script>
-        <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>AdmissionState state = new AdmissionState();
-state.setCode("S002");
-state.setName("TEST");
-
-admission.setAdmissionState(state);
-
-System.out.println("state:" + admission.getAdmissionState());</script>
-        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <dataInput id="_29_BodyInput" name="Body" />
