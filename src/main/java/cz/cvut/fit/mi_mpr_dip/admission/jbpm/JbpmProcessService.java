@@ -40,27 +40,30 @@ public class JbpmProcessService implements ProcessService {
 
 	@Override
 	public void runProcess(Admission admission) {
-
 		String degree = admission.getProgramme().getDegree().getName();
+		Map<String, Object> processParameters = getProcessParameters(admission);
 
+		startProcess(degree, processParameters);
+	}
+
+	private Map<String, Object> getProcessParameters(Admission admission) {
 		Map<String, Object> processParameters = new HashMap<String, Object>();
 		processParameters.put("admission", admission);
 		processParameters.put("evaluator", new MSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());
 
-		if (mailDisable) {
+		if (getMailDisable()) {
 			processParameters.put(EMAIL_TO, StringPool.BLANK);
-		} else if (mailDebug) {
-			processParameters.put(EMAIL_TO, mailDebugAddressTo);
+		} else if (getMailDebug()) {
+			processParameters.put(EMAIL_TO, getMailDebugAddressTo());
 		} else {
 			processParameters.put(EMAIL_TO, admission.getPerson().getEmail());
 		}
-
-		startProcess(degree, processParameters);
+		return processParameters;
 	}
 
 	private void startProcess(String degree, Map<String, Object> processParameters) {
-		knowledgeSession.startProcess(degreeProcessMapping.get(degree));
+		knowledgeSession.startProcess(getDegreeProcessMapping().get(degree), processParameters);
 	}
 
 	@Required
