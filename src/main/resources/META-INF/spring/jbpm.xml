@@ -57,10 +57,10 @@
 		</constructor-arg>
 	</bean>
 	
-<!-- 	<bean class="org.jbpm.process.workitem.wsht.SyncWSHumanTaskHandler" id="humanTaskHandler"> -->
-<!-- 		<constructor-arg ref="humanTaskClient" /> -->
-<!-- 		<constructor-arg ref="knowledgeSession" /> -->
-<!-- 	</bean> -->
+	<bean class="org.jbpm.process.workitem.wsht.SyncWSHumanTaskHandler" id="humanTaskHandler">
+		<constructor-arg ref="taskService" />
+		<constructor-arg ref="knowledgeSession" />
+	</bean>
 	
 	<!-- Register EmailHandler in the session -->
 	<bean factory-bean="knowledgeSession" factory-method="getWorkItemManager" id="workItemManager" />
@@ -76,30 +76,29 @@
 	</bean>
 	
 	<!-- Register HumanTaskHandler in the session -->
-<!-- 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> -->
-<!-- 		<property name="targetObject" ref="workItemManager" /> -->
-<!-- 		<property name="targetMethod" value="registerWorkItemHandler" /> -->
-<!-- 		<property name="arguments"> -->
-<!-- 			<list> -->
-<!-- 				<value>Human Task</value> -->
-<!-- 				<ref bean="humanTaskHandler" /> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="workItemManager" />
+		<property name="targetMethod" value="registerWorkItemHandler" />
+		<property name="arguments">
+			<list>
+				<value>Human Task</value>
+				<ref bean="humanTaskHandler" />
+			</list>
+		</property>
+	</bean>
  
 	<!-- Declare a TaskServer -->
-<!-- 	<bean class="org.jbpm.task.service.TaskService" id="taskService"> -->
-<!-- 		<constructor-arg ref="entityManagerFactory" /> -->
-<!-- 		<constructor-arg> -->
-<!-- 			<bean class="org.drools.SystemEventListenerFactory" factory-method="getSystemEventListener" /> -->
-<!-- 		</constructor-arg> -->
-<!-- 	</bean>	 -->
+	<bean class="org.jbpm.task.service.TaskService" id="taskService">
+		<constructor-arg ref="entityManagerFactory" />
+		<constructor-arg>
+			<bean class="org.drools.SystemEventListenerFactory" factory-method="getSystemEventListener" />
+		</constructor-arg>
+	</bean>	
 	
-<!-- 	<bean id="jbpmTaskService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.JbpmTaskServiceImpl"> -->
-<!-- 		<constructor-arg ref="ksession" /> -->
-<!-- 		<constructor-arg ref="taskService" /> -->
-<!-- 		<constructor-arg ref="entityManagerFactory" /> -->
-<!-- 	</bean> -->
+	<bean id="jbpmTaskService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.JbpmTaskServiceImpl">
+		<constructor-arg ref="ksession" />
+		<constructor-arg ref="taskService" />
+	</bean>
 
 <!--    <jbpm:ksession kbase="kbase" type="stateful" id="ksession">	 -->
 <!-- 		<jbpm:configuration> -->
