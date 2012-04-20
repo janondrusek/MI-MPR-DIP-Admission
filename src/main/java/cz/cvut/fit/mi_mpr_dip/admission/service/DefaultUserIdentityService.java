@@ -130,6 +130,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		userIdentity.setRoles(createDefaultRoles());
 
 		log.debug("Created default UserIdentity [{}]", userIdentity);
+		userIdentity.persist();
 
 		return userIdentity;
 	}

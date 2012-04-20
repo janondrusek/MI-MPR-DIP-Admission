@@ -43,6 +43,7 @@
 	<util:map id="degreeProcessMapping">
 		<entry key="Bc." value="cz.cvut.fit.mi_mpr_dip.admission.2012_bsp_main" />
 		<entry key="Ing." value="cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main" />
+		<entry key="blank" value="cz.cvut.fit.mi_mpr_dip.admission.blank" />
 	</util:map>
 
 	<!-- Handlers -->

@@ -15,7 +15,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -101,20 +100,6 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		return admissionsBuilder.get();
 	}
 
-	@Secured("PERM_WRITE_ADMISSIONS")
-	@Path(ADMISSIONS_PATH)
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@POST
-	@Override
-	public Admissions importAdmissions(Admissions admissions) throws URISyntaxException {
-		if (CollectionUtils.isNotEmpty(admissions.getAdmissions())) {
-			for (Admission admission : admissions.getAdmissions()) {
-				validateAndDeduplicateAndStore(admission);
-			}
-		}
-		return admissions;
-	}
-
 	private AdmissionsBuilder getAdmissionsBuilder() {
 		return getApplicationContext().getBean(AdmissionsBuilder.class);
 	}
@@ -122,7 +107,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@Secured("PERM_WRITE_ADMISSION")
 	@Path(ADMISSION_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@PUT
+	@POST
 	@Override
 	public Response addAdmission(Admission admission) throws URISyntaxException {
 		validateAndDeduplicateAndStore(admission);
@@ -130,6 +115,16 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 		
 		
 		return Response.created(uri).build();
+	}
+
+	@Secured("PERM_WRITE_ADMISSION")
+	@Path(ADMISSION_PATH + "/{admissionCode}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@PUT
+	@Override
+	public Response updateAdmission(Admission admission) {
+		// TODO:
+		return null;
 	}
 
 	private void validateAndDeduplicateAndStore(Admission admission) {
