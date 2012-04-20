@@ -42,12 +42,8 @@
 	<bean class="org.jbpm.process.workitem.email.EmailWorkItemHandler" id="emailHandler">
 		<constructor-arg name="host" value="${mail.smtp.host}" />
 		<constructor-arg name="port" value="${mail.smtp.port}" />
-		<constructor-arg name="userName">
-			<null />
-		</constructor-arg>
-		<constructor-arg name="password">
-			<null />
-		</constructor-arg>
+		<constructor-arg name="userName" value="${mail.username}" />
+		<constructor-arg name="password" value="${mail.password}" />
 	</bean>
 	
 	<bean class="org.jbpm.process.workitem.wsht.SyncWSHumanTaskHandler" id="humanTaskHandler">
