@@ -7,3 +7,4 @@ target
 log.roo
 *.log
 *.tlog
+*.error
