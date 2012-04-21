@@ -1,10 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 
 @Repository
@@ -29,6 +31,19 @@ public class DefaultUserSessionDao extends AbstractDao<UserSession> implements U
 
 	private Date getNow() {
 		return new Date();
+	}
+
+	@Transactional
+	@Override
+	public void remove(String username, String identifier) {
+		UserIdentity userIdentity = UserIdentity.findUserIdentitysByUsernameEquals(username).getSingleResult();
+		for (Iterator<UserSession> iterator = userIdentity.getSessions().iterator(); iterator.hasNext();) {
+			UserSession userSession = iterator.next();
+			if (identifier.equals(userSession.getIdentifier())) {
+				iterator.remove();
+				userSession.remove();
+			}
+		}
 	}
 
 	@Override

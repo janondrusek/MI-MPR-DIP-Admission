@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper;
 
 import javax.ws.rs.ext.ExceptionMapper;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
@@ -17,7 +18,11 @@ public class BusinessExceptionMapper extends AdmissionExceptionMapper<BusinessEx
 
 	@Override
 	protected String createMessage(BusinessException exception) {
-		return exception.getConstraintViolations().toString();
+		String message = exception.getMessage();
+		if (CollectionUtils.isNotEmpty(exception.getConstraintViolations())) {
+			message = exception.getConstraintViolations().toString();
+		}
+		return message;
 	}
 
 	@Override

@@ -7,7 +7,13 @@ public abstract class AdmissionException extends RuntimeException {
 	private Integer responseCode;
 
 	public AdmissionException(Integer responseCode) {
-		this(responseCode, null);
+		super();
+		this.responseCode = responseCode;
+	}
+
+	public AdmissionException(Integer responseCode, String message) {
+		super(message);
+		this.responseCode = responseCode;
 	}
 
 	public AdmissionException(Integer responseCode, Throwable cause) {

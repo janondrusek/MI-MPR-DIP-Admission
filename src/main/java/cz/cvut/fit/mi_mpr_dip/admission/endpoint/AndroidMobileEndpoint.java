@@ -4,6 +4,7 @@ import java.net.URISyntaxException;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,9 +20,11 @@ import org.springframework.security.access.annotation.Secured;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
 @RooJavaBean
 @Path(AndroidMobileEndpoint.ENDPOINT_PATH)
@@ -35,12 +38,31 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Autowired
 	private EndpointHelper endpointHelper;
 
+	@Autowired
+	private UserIdentityService userIdentityService;
+
 	@Path(AdmissionEndpointHelper.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
 	public Response getUserIdentity() {
 		return getEndpointHelper().getUserIdentity();
+	}
+
+	@Secured("PERM_DELETE_SESSION")
+	@Path(AdmissionEndpointHelper.IDENTITY_PATH + "/{userIdentity}" + "/{sessionIdentifier}")
+	@Produces
+	@DELETE
+	@Override
+	public Response deleteUserSession(@PathParam("userIdentity") String username,
+			@PathParam("sessionIdentifier") String identifier) {
+		return getEndpointHelper().deleteUserSession(username, identifier);
+	}
+
+	@Secured("PERM_WRITE_USER_ROLES")
+	@Override
+	public Response updateUserRoles(String username, UserRoles userRoles) {
+		return null;
 	}
 
 	@Secured("PERM_READ_PERSON")

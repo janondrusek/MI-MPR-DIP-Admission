@@ -11,6 +11,10 @@ public class BusinessException extends AdmissionException {
 
 	private Set<ConstraintViolation<Object>> constraintViolations;
 
+	public BusinessException(Integer responseCode, String message) {
+		super(responseCode, message);
+	}
+
 	public BusinessException(Integer responseCode, Throwable t) {
 		super(responseCode, t);
 	}

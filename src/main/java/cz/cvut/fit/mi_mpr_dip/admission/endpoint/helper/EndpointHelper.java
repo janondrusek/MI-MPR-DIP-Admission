@@ -10,6 +10,8 @@ public interface EndpointHelper {
 
 	public Response getUserIdentity();
 
+	public Response deleteUserSession(String username, String identifier);
+
 	public Response getAdmission(String admissionCode);
 
 	public Response deleteAdmission(String admissionCode);

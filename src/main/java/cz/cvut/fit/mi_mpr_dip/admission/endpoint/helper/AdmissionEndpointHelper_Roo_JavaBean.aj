@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
@@ -16,6 +17,14 @@ privileged aspect AdmissionEndpointHelper_Roo_JavaBean {
     
     public void AdmissionEndpointHelper.setAdmissionDao(AdmissionDao admissionDao) {
         this.admissionDao = admissionDao;
+    }
+    
+    public UserSessionDao AdmissionEndpointHelper.getUserSessionDao() {
+        return this.userSessionDao;
+    }
+    
+    public void AdmissionEndpointHelper.setUserSessionDao(UserSessionDao userSessionDao) {
+        this.userSessionDao = userSessionDao;
     }
     
     public UserIdentityService AdmissionEndpointHelper.getUserIdentityService() {
