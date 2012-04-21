@@ -11,7 +11,6 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.MSPProcessEvaluator;
-import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
 public class JbpmProcessService implements ProcessService {
@@ -24,7 +23,6 @@ public class JbpmProcessService implements ProcessService {
 
 	private Boolean mailDebug;
 	private String mailDebugAddressTo;
-	private Boolean mailDisable;
 
 	private Map<String, String> degreeProcessMapping;
 
@@ -52,9 +50,7 @@ public class JbpmProcessService implements ProcessService {
 		processParameters.put("evaluator", new MSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());
 
-		if (getMailDisable()) {
-			processParameters.put(EMAIL_TO, StringPool.BLANK);
-		} else if (getMailDebug()) {
+		if (getMailDebug()) {
 			processParameters.put(EMAIL_TO, getMailDebugAddressTo());
 		} else {
 			processParameters.put(EMAIL_TO, admission.getPerson().getEmail());
@@ -74,11 +70,6 @@ public class JbpmProcessService implements ProcessService {
 	@Required
 	public void setMailDebugAddressTo(String mailDebugAddressTo) {
 		this.mailDebugAddressTo = mailDebugAddressTo;
-	}
-
-	@Required
-	public void setMailDisable(Boolean mailDisable) {
-		this.mailDisable = mailDisable;
 	}
 
 	@Required
