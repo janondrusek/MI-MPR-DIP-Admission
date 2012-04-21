@@ -131,7 +131,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	private void validateAndDeduplicateAndStore(Admission admission) {
 		validate(admission);
 		deduplicateAndStore(admission);
-		runJbpmProcess(admission);
+		// TODO: after @chobodav fixes processes, runJbpmProcess(admission);
 	}
 
 	private void validate(Admission admission) {
