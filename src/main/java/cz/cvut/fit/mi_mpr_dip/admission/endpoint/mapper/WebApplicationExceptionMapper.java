@@ -32,7 +32,7 @@ public class WebApplicationExceptionMapper extends AdmissionExceptionMapper<WebA
 	}
 
 	private JAXBException findJAXBException(WebApplicationException exception) {
-		return (JAXBException) getCause(exception.getCause());
+		return (JAXBException) getCause(exception);
 	}
 
 	private Throwable getCause(Throwable cause) {
