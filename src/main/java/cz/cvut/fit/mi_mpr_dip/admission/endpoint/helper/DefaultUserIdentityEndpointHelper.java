@@ -30,10 +30,10 @@ public class DefaultUserIdentityEndpointHelper implements UserIdentityEndpointHe
 
 	@Autowired
 	private UserIdentityService userIdentityService;
-	
+
 	@Autowired
 	private UserIdentityDao userIdentityDao;
-	
+
 	@Autowired
 	private UserSessionDao userSessionDao;
 
@@ -68,9 +68,23 @@ public class DefaultUserIdentityEndpointHelper implements UserIdentityEndpointHe
 
 	private void validateUserSession(String username, UserIdentity userIdentity, UserSession userSession) {
 		if (userSession.getIdentifier() == null || isNotEqual(username, userIdentity.getUsername())) {
-			throwBusinessException(HttpServletResponse.SC_NOT_FOUND, "Not Found");
+			throwNotFoundBusinessException();
 		}
 		getPrincipalValidator().validatePrincipal(userIdentity.getUsername());
+	}
+
+	@Transactional
+	@Override
+	public Response updateUserRoles(String username, UserRoles userRoles) {
+		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
+
+		validateUserRoles(username, userIdentity, userRoles);
+		getUserIdentityService().updateUserRoles(userIdentity, userRoles);
+		return Response.ok().build();
+	}
+
+	private void throwNotFoundBusinessException() {
+		throwBusinessException(HttpServletResponse.SC_NOT_FOUND, "Not Found");
 	}
 
 	private void throwBusinessException(Integer code, String message) {
@@ -81,16 +95,10 @@ public class DefaultUserIdentityEndpointHelper implements UserIdentityEndpointHe
 		return !StringUtils.equals(one, two);
 	}
 
-	@Transactional
-	@Override
-	public Response updateUserRoles(String username, UserRoles userRoles) {
-		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
-		validateUserRoles(userIdentity, userRoles);
-		getUserIdentityService().updateUserRoles(userIdentity, userRoles);
-		return Response.ok().build();
-	}
-
-	private void validateUserRoles(UserIdentity userIdentity, UserRoles userRoles) {
+	private void validateUserRoles(String username, UserIdentity userIdentity, UserRoles userRoles) {
+		if (isNotEqual(username, userIdentity.getUsername())) {
+			throwNotFoundBusinessException();
+		}
 		getPrincipalValidator().validatePrincipal(userIdentity.getUsername());
 		getBeanValidator().validate(userRoles);
 	}
