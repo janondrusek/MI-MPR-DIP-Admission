@@ -4,17 +4,26 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
 privileged aspect AndroidMobileEndpoint_Roo_JavaBean {
     
-    public EndpointHelper AndroidMobileEndpoint.getEndpointHelper() {
-        return this.endpointHelper;
+    public AdmissionEndpointHelper AndroidMobileEndpoint.getAdmissionEndpointHelper() {
+        return this.admissionEndpointHelper;
     }
     
-    public void AndroidMobileEndpoint.setEndpointHelper(EndpointHelper endpointHelper) {
-        this.endpointHelper = endpointHelper;
+    public void AndroidMobileEndpoint.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
+        this.admissionEndpointHelper = admissionEndpointHelper;
+    }
+    
+    public UserIdentityEndpointHelper AndroidMobileEndpoint.getUserIdentityEndpointHelper() {
+        return this.userIdentityEndpointHelper;
+    }
+    
+    public void AndroidMobileEndpoint.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
+        this.userIdentityEndpointHelper = userIdentityEndpointHelper;
     }
     
     public UserIdentityService AndroidMobileEndpoint.getUserIdentityService() {

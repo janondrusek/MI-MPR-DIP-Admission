@@ -23,7 +23,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultAdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 
 @RooJavaBean
@@ -36,33 +37,39 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	public static final String ENDPOINT_PATH = "/mobile";
 
 	@Autowired
-	private EndpointHelper endpointHelper;
+	private AdmissionEndpointHelper admissionEndpointHelper;
+
+	@Autowired
+	private UserIdentityEndpointHelper userIdentityEndpointHelper;
 
 	@Autowired
 	private UserIdentityService userIdentityService;
 
-	@Path(AdmissionEndpointHelper.IDENTITY_PATH)
+	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
 	public Response getUserIdentity() {
-		return getEndpointHelper().getUserIdentity();
+		return getUserIdentityEndpointHelper().getUserIdentity();
 	}
 
 	@Secured("PERM_DELETE_SESSION")
-	@Path(AdmissionEndpointHelper.IDENTITY_PATH + "/{userIdentity}" + "/{sessionIdentifier}")
+	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH + "/{userIdentity}" + "/{sessionIdentifier}")
 	@Produces
 	@DELETE
 	@Override
 	public Response deleteUserSession(@PathParam("userIdentity") String username,
 			@PathParam("sessionIdentifier") String identifier) {
-		return getEndpointHelper().deleteUserSession(username, identifier);
+		return getUserIdentityEndpointHelper().deleteUserSession(username, identifier);
 	}
 
 	@Secured("PERM_WRITE_USER_ROLES")
+	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH + "/{userIdentity}" + "/roles")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
 	@Override
-	public Response updateUserRoles(String username, UserRoles userRoles) {
-		return null;
+	public Response updateUserRoles(@PathParam("userIdentity") String username, UserRoles userRoles) {
+		return getUserIdentityEndpointHelper().updateUserRoles(username, userRoles);
 	}
 
 	@Secured("PERM_READ_PERSON")
@@ -70,7 +77,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return getEndpointHelper().getAdmission(admissionCode);
+		return getAdmissionEndpointHelper().getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_WRITE_RESULT")
@@ -80,7 +87,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Override
 	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result)
 			throws URISyntaxException {
-		return getEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), result,
+		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), result,
 				new AdmissionAction<AdmissionResult>() {
 
 					@Override
@@ -97,15 +104,14 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Override
 	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo)
 			throws URISyntaxException {
-		return getEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
+		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
+				new AdmissionAction<Appendix>() {
 
-		new AdmissionAction<Appendix>() {
-
-			@Override
-			public void performAction(Admission admission, Appendix actor) {
-				admission.getPhotos().add(photo);
-			}
-		});
+					@Override
+					public void performAction(Admission admission, Appendix actor) {
+						admission.getPhotos().add(photo);
+					}
+				});
 	}
 
 	private String getAdmissionBasePath() {

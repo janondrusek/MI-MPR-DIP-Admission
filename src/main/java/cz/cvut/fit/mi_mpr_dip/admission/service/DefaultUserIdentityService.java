@@ -1,6 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import java.text.Normalizer;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -21,10 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.comparator.NaturalOrderComparator;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -47,6 +50,9 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	@Autowired
 	private RandomStringGenerator randomStringGenerator;
 
+	@Autowired
+	private UserRoleDao userRoleDao;
+
 	@Transactional
 	@Override
 	public UserIdentity getUserIdentity(String username) {
@@ -60,7 +66,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		Set<UserSession> sessions = getSessions(userIdentity);
 
 		deleteExpired(sessions);
-		if (isNullOrEmpty(sessions)) {
+		if (isEmpty(sessions)) {
 			sessions.add(createSession());
 		}
 		userIdentity.setSessions(sessions);
@@ -71,7 +77,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 
 	private Set<UserSession> getSessions(UserIdentity userIdentity) {
 		Set<UserSession> sessions = userIdentity.getSessions();
-		if (isNullOrEmpty(sessions)) {
+		if (isEmpty(sessions)) {
 			sessions = new HashSet<UserSession>();
 		}
 		return sessions;
@@ -105,10 +111,6 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		return session.getGrantValidTo().before(now);
 	}
 
-	private boolean isNullOrEmpty(Set<UserSession> sessions) {
-		return CollectionUtils.isEmpty(sessions);
-	}
-
 	private Date getNow() {
 		return new Date();
 	}
@@ -138,7 +140,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		Set<UserRole> userRoles = new HashSet<UserRole>();
 		for (String role : getDefaultRoles()) {
 			List<UserRole> dbUserRoles = UserRole.findUserRolesByNameEquals(role).getResultList();
-			if (CollectionUtils.isNotEmpty(dbUserRoles)) {
+			if (isNotEmpty(dbUserRoles)) {
 				userRoles.add(dbUserRoles.get(0));
 			}
 		}
@@ -155,7 +157,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	private String findUniqueUsername(String username) {
 		String uniqueUsername = username;
 		List<UserIdentity> userIdentities = UserIdentity.findUserIdentitysByUsernameLike(username).getResultList();
-		if (CollectionUtils.isNotEmpty(userIdentities)) {
+		if (isNotEmpty(userIdentities)) {
 			uniqueUsername = findUniqueUsername(userIdentities);
 		}
 		return uniqueUsername;
@@ -209,6 +211,30 @@ public class DefaultUserIdentityService implements UserIdentityService {
 
 	private String trimNumeric(String username) {
 		return username.replaceFirst("\\d+", StringPool.BLANK);
+	}
+
+	@Transactional
+	@Override
+	public void updateUserRoles(UserIdentity userIdentity, UserRoles userRoles) {
+		Set<UserRole> roles = new HashSet<UserRole>();
+		if (isNotEmpty(userRoles.getUserRoles())) {
+			for (UserRole userRole : userRoles.getUserRoles()) {
+				UserRole dbUserRole = getUserRoleDao().getUserRole(userRole.getName());
+				if (dbUserRole != null) {
+					roles.add(dbUserRole);
+				}
+			}
+		}
+		userIdentity.setRoles(roles);
+		userIdentity.persist();
+	}
+
+	private boolean isEmpty(Collection<?> collection) {
+		return CollectionUtils.isEmpty(collection);
+	}
+
+	private boolean isNotEmpty(Collection<?> collection) {
+		return CollectionUtils.isNotEmpty(collection);
 	}
 
 	@Required

@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
 import cz.cvut.fit.mi_mpr_dip.admission.service.DefaultUserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.PasswordGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
@@ -40,6 +41,14 @@ privileged aspect DefaultUserIdentityService_Roo_JavaBean {
     
     public void DefaultUserIdentityService.setRandomStringGenerator(RandomStringGenerator randomStringGenerator) {
         this.randomStringGenerator = randomStringGenerator;
+    }
+    
+    public UserRoleDao DefaultUserIdentityService.getUserRoleDao() {
+        return this.userRoleDao;
+    }
+    
+    public void DefaultUserIdentityService.setUserRoleDao(UserRoleDao userRoleDao) {
+        this.userRoleDao = userRoleDao;
     }
     
 }

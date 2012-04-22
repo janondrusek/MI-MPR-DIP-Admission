@@ -20,6 +20,7 @@
 			<ref bean="accessDeniedExceptionMapper" />
 			<ref bean="businessExceptionMapper" />
 			<ref bean="technicalExceptionMapper" />
+			<ref bean="jaxbExceptionMapper"/>
 			<ref bean="webApplicationExceptionMapper" />
 			<ref bean="throwableExceptionMapper" />
 		</jaxrs:providers>

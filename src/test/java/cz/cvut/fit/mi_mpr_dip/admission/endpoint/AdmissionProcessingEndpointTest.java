@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
@@ -29,7 +29,7 @@ public class AdmissionProcessingEndpointTest {
 	private AdmissionProcessingEndpoint admissionProcessingEndpoint;
 	private ApplicationContext applicationContext;
 	private DeduplicationService<Admission> deduplicationService;
-	private EndpointHelper endpointHelper;
+	private AdmissionEndpointHelper endpointHelper;
 	private UserIdentityService userIdentityService;
 
 	private Object[] mocks;
@@ -51,8 +51,8 @@ public class AdmissionProcessingEndpointTest {
 		admissionProcessingEndpoint.setApplicationContext(applicationContext);
 		deduplicationService = createMock(DeduplicationService.class);
 		admissionProcessingEndpoint.setDeduplicationService(deduplicationService);
-		endpointHelper = createMock(EndpointHelper.class);
-		admissionProcessingEndpoint.setEndpointHelper(endpointHelper);
+		endpointHelper = createMock(AdmissionEndpointHelper.class);
+		admissionProcessingEndpoint.setAdmissionEndpointHelper(endpointHelper);
 		userIdentityService = createMock(UserIdentityService.class);
 		admissionProcessingEndpoint.setUserIdentityService(userIdentityService);
 
