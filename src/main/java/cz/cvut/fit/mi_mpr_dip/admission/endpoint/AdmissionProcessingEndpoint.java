@@ -28,7 +28,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultAdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
@@ -51,11 +52,14 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	private AnnotatedBeanValidator beanValidator;
 
 	@Autowired
-	private EndpointHelper endpointHelper;
+	private AdmissionEndpointHelper admissionEndpointHelper;
+
+	@Autowired
+	private UserIdentityEndpointHelper userIdentityEndpointHelper;
 
 	@Autowired
 	private ProcessService processService;
-
+	
 	@Autowired
 	@Qualifier("admissionDeduplicationService")
 	private DeduplicationService<Admission> deduplicationService;
@@ -65,12 +69,12 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	private ApplicationContext applicationContext;
 
-	@Path(AdmissionEndpointHelper.IDENTITY_PATH)
+	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
 	public Response getUserIdentity() {
-		return getEndpointHelper().getUserIdentity();
+		return getUserIdentityEndpointHelper().getUserIdentity();
 	}
 
 	@Secured("PERM_READ_ADMISSION")
@@ -79,7 +83,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return getEndpointHelper().getAdmission(admissionCode);
+		return getAdmissionEndpointHelper().getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_READ_ADMISSIONS")
@@ -131,7 +135,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	private void validateAndDeduplicateAndStore(Admission admission) {
 		validate(admission);
 		deduplicateAndStore(admission);
-		runJbpmProcess(admission);
+		// TODO: after @chobodav fixes processes, runJbpmProcess(admission);
 	}
 
 	private void validate(Admission admission) {
@@ -154,7 +158,7 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 	@DELETE
 	@Override
 	public Response deleteAdmission(@PathParam("admissionCode") String admissionCode) {
-		return getEndpointHelper().deleteAdmission(admissionCode);
+		return getAdmissionEndpointHelper().deleteAdmission(admissionCode);
 	}
 
 	@Override

@@ -29,7 +29,6 @@
   		<property name="session" ref="knowledgeSession" />
   		<property name="mailDebug" value="${mail.debug}" />
   		<property name="mailDebugAddressTo" value="${mail.debug.address.to}" />
-  		<property name="mailDisable" value="${mail.disable}" />
   		<property name="degreeProcessMapping" ref="degreeProcessMapping" />
 	</bean>
 	

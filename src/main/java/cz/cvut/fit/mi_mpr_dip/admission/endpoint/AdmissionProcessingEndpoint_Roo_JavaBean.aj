@@ -5,7 +5,8 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionProcessingEndpoint;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.EndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
@@ -31,12 +32,20 @@ privileged aspect AdmissionProcessingEndpoint_Roo_JavaBean {
         this.beanValidator = beanValidator;
     }
     
-    public EndpointHelper AdmissionProcessingEndpoint.getEndpointHelper() {
-        return this.endpointHelper;
+    public AdmissionEndpointHelper AdmissionProcessingEndpoint.getAdmissionEndpointHelper() {
+        return this.admissionEndpointHelper;
     }
     
-    public void AdmissionProcessingEndpoint.setEndpointHelper(EndpointHelper endpointHelper) {
-        this.endpointHelper = endpointHelper;
+    public void AdmissionProcessingEndpoint.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
+        this.admissionEndpointHelper = admissionEndpointHelper;
+    }
+    
+    public UserIdentityEndpointHelper AdmissionProcessingEndpoint.getUserIdentityEndpointHelper() {
+        return this.userIdentityEndpointHelper;
+    }
+    
+    public void AdmissionProcessingEndpoint.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
+        this.userIdentityEndpointHelper = userIdentityEndpointHelper;
     }
     
     public ProcessService AdmissionProcessingEndpoint.getProcessService() {

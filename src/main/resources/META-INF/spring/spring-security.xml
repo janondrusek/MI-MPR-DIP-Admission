@@ -5,10 +5,6 @@
    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<!-- To allow standards-based @Secured annotation, enable secured-annotations See Spring Security 3.1 Reference 2.4 Method 
-		Security - http://static.springsource.org/spring-security/site/docs/3.1.x/reference/ns-config.html#ns-protect-pointcut - 
-		http://static.springsource.org/spring-security/site/docs/3.1.x/reference/appendix-namespace.html#d0e8651 See Spring Security 
-		3.1 Referecne 15.1.1 Common Built-In Expressions - http://static.springsource.org/spring-security/site/docs/3.1.x/reference/el-access.html -->
 	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"
 		access-decision-manager-ref="accessDecisionManager" />
 
@@ -31,7 +27,11 @@
 	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint" />
 	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionProcessingEndpoint" />
 
-	<bean id="endpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper">
+	<bean id="userIdentityEndpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultUserIdentityEndpointHelper">
+		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
+	</bean>
+
+	<bean id="principalValidator" class="cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 	</bean>
 
@@ -41,10 +41,14 @@
 	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
 		<constructor-arg>
 			<list>
-				<security:filter-chain pattern="/services/mobile/identity" filters="basicAuthenticationFilter,anonymousAuthFilter" />
-				<security:filter-chain pattern="/services/processing/identity" filters="basicAuthenticationFilter,anonymousAuthFilter" />
-				<security:filter-chain pattern="/services/processing/**" filters="sessionAuthenticationFilter,anonymousAuthFilter" />
-				<security:filter-chain pattern="/services/mobile/**" filters="sessionAuthenticationFilter,anonymousAuthFilter" />
+				<security:filter-chain pattern="/services/mobile/identity"
+					filters="basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/processing/identity"
+					filters="basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/processing/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/mobile/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 			</list>
 		</constructor-arg>
 	</bean>
@@ -60,6 +64,19 @@
 		<constructor-arg ref="authenticationEntryPoint" />
 	</bean>
 
+	<bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<constructor-arg>
+			<bean class="org.springframework.security.web.authentication.AdmissionHttp403ForbiddenEntryPoint">
+				<property name="errorPage" value="/error/403.jsp" />
+			</bean>
+		</constructor-arg>
+		<property name="accessDeniedHandler" ref="accessDeniedHandler" />
+	</bean>
+
+	<bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+		<property name="errorPage" value="/error/403.jsp" />
+	</bean>
+
 	<security:authentication-manager>
 		<security:authentication-provider ref="globalAuthenticationProvider" />
 	</security:authentication-manager>
@@ -72,8 +89,9 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
+	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.www.AdmissionBasicAuthenticationEntryPoint">
 		<property name="realmName" value="${auth.basic.realm.name}" />
+		<property name="errorPage" value="/error/401.jsp" />
 	</bean>
 
 	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">

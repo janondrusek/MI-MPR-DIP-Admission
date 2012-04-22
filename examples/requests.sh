@@ -3,6 +3,13 @@
 # Mobile.getIdentity, username/password: more/more (DUMMY adapter)
 curl -i -H "Accept: application/json" -H "Authorization: Basic bW9yZTptb3JlCg==" http://localhost:9090/admission/services/mobile/identity
 
+# Mobile.deleteSession
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" -X DELETE http://localhost:9090/admission/services/mo
+bile/identity/{username}/[session identifier from Mobile.getIdentity]
+
+# Mobile.updateRoles
+cat examples/user_roles.xml | curl -i -H "Accept: application/json" -H "Content-Type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" -X POST -d @- http://localhost:9090/admission/services/mobile/identity/{username}/roles
+
 # Mobile.getAdmission, valid session required as HTTP header
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" http://localhost:9090/admission/services/mobile/admission/{admissionCode}
 

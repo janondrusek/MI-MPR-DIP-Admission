@@ -1,8 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -19,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringTest;
+import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
@@ -28,7 +26,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Repository
-public class UserIdentityServiceTest extends BaseSpringTest {
+public class UserIdentityServiceTest extends BaseSpringJbpmTest {
 
 	private static final String PROCHAZKA = "PROCHÁZKA";
 

@@ -34,10 +34,6 @@ privileged aspect JbpmProcessService_Roo_JavaBean {
         return this.mailDebugAddressTo;
     }
     
-    public Boolean JbpmProcessService.getMailDisable() {
-        return this.mailDisable;
-    }
-    
     public Map<String, String> JbpmProcessService.getDegreeProcessMapping() {
         return this.degreeProcessMapping;
     }

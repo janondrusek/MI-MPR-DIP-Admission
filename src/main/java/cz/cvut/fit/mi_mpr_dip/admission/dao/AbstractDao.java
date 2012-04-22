@@ -17,8 +17,8 @@ public abstract class AbstractDao<T> {
 		try {
 			result = query.getSingleResult();
 		} catch (EmptyResultDataAccessException e) {
-			log.debug("Returning empty result", e);
 			result = createEmptyResult();
+			log.debug("Returning empty result for [{}]", result.getClass().getSimpleName());
 
 		}
 		return result;
@@ -28,7 +28,7 @@ public abstract class AbstractDao<T> {
 
 	protected T processException(Exception e) {
 		T o = createEmptyResult();
-		log.debug("Unable to get result [" + o.getClass() + "]", e);
+		log.debug("Unable to get result for [{}]", o.getClass());
 
 		return o;
 	}

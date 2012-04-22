@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roles>
+	<role>
+		<name>ROLE_ADMISSIONER</name>
+	</role>
+	<role>
+		<name>ROLE_EXAMINER</name>
+	</role>
+	<role>
+		<name>ROLE_SUPERVISOR</name>
+	</role>
+</roles>
