@@ -40,21 +40,21 @@
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="71" y="16" width="48" height="48" />
+        <dc:Bounds x="16" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="71" y="176" width="48" height="48" />
+        <dc:Bounds x="287" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="16" y="96" width="159" height="48" />
+        <dc:Bounds x="96" y="16" width="159" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_4-_3" >
-        <di:waypoint x="95" y="120" />
-        <di:waypoint x="95" y="200" />
+        <di:waypoint x="175" y="40" />
+        <di:waypoint x="311" y="40" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_4" >
-        <di:waypoint x="95" y="40" />
-        <di:waypoint x="95" y="120" />
+        <di:waypoint x="40" y="40" />
+        <di:waypoint x="175" y="40" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

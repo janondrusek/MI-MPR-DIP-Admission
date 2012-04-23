@@ -76,42 +76,42 @@ admission.getEvaluations().add(e3);</script>
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.document_request" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="74" y="16" width="48" height="48" />
+        <dc:Bounds x="16" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="133" y="337" width="48" height="48" />
+        <dc:Bounds x="529" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="16" y="96" width="165" height="48" />
+        <dc:Bounds x="96" y="16" width="165" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="37" y="176" width="123" height="48" />
+        <dc:Bounds x="293" y="16" width="123" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_5" >
-        <dc:Bounds x="133" y="256" width="48" height="48" />
+        <dc:Bounds x="448" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="192" y="176" width="48" height="48" />
+        <dc:Bounds x="330" y="96" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_5-_2" >
-        <di:waypoint x="157" y="280" />
-        <di:waypoint x="157" y="361" />
+        <di:waypoint x="472" y="80" />
+        <di:waypoint x="553" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_3" >
-        <di:waypoint x="98" y="40" />
-        <di:waypoint x="98" y="120" />
+        <di:waypoint x="40" y="40" />
+        <di:waypoint x="178" y="40" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_3-_4" >
-        <di:waypoint x="98" y="120" />
-        <di:waypoint x="98" y="200" />
+        <di:waypoint x="178" y="40" />
+        <di:waypoint x="354" y="40" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_4-_5" >
-        <di:waypoint x="98" y="200" />
-        <di:waypoint x="157" y="280" />
+        <di:waypoint x="354" y="40" />
+        <di:waypoint x="472" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_6-_5" >
-        <di:waypoint x="216" y="200" />
-        <di:waypoint x="157" y="280" />
+        <di:waypoint x="354" y="120" />
+        <di:waypoint x="472" y="80" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

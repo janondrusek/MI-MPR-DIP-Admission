@@ -36,15 +36,15 @@
       <ioSpecification>
         <dataInput id="_36_CommentInput" name="Comment" />
         <dataInput id="_36_SkippableInput" name="Skippable" />
-        <dataInput id="_36_TaskNameInput" name="TaskName" />
         <dataInput id="_36_ContentInput" name="Content" />
+        <dataInput id="_36_TaskNameInput" name="TaskName" />
         <dataInput id="_36_GroupIdInput" name="GroupId" />
         <dataInput id="_36_PriorityInput" name="Priority" />
         <inputSet>
           <dataInputRefs>_36_CommentInput</dataInputRefs>
           <dataInputRefs>_36_SkippableInput</dataInputRefs>
-          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
           <dataInputRefs>_36_ContentInput</dataInputRefs>
+          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
           <dataInputRefs>_36_GroupIdInput</dataInputRefs>
           <dataInputRefs>_36_PriorityInput</dataInputRefs>
         </inputSet>
@@ -66,17 +66,17 @@
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
-        <targetRef>_36_TaskNameInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <targetRef>_36_ContentInput</targetRef>
         <assignment>
           <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_36_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
@@ -122,11 +122,7 @@
         <targetRef>_7_evaluatorInput</targetRef>
       </dataInputAssociation>
     </callActivity>
-    <exclusiveGateway id="_42" name="Gateway - Start process" gatewayDirection="Converging" />
     <exclusiveGateway id="_8" name="Gateway - Admission test check" gatewayDirection="Diverging" />
-    <intermediateCatchEvent id="_43" name="Signal" >
-      <signalEventDefinition signalRef="scio_data_arrived"/>
-    </intermediateCatchEvent>
     <exclusiveGateway id="_9" name="Gateway - AT complete" gatewayDirection="Converging" />
     <callActivity id="_10" name="Registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
       <ioSpecification>
@@ -165,13 +161,13 @@
     <exclusiveGateway id="_41" name="Gateway - Document check complete" gatewayDirection="Converging" />
     <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <ioSpecification>
-        <dataInput id="_14_jbpmPropertiesInput" name="jbpmProperties" />
         <dataInput id="_14_admissionInput" name="admission" />
+        <dataInput id="_14_jbpmPropertiesInput" name="jbpmProperties" />
         <dataInput id="_14_emailToInput" name="emailTo" />
         <dataInput id="_14_evaluatorInput" name="evaluator" />
         <inputSet>
-          <dataInputRefs>_14_jbpmPropertiesInput</dataInputRefs>
           <dataInputRefs>_14_admissionInput</dataInputRefs>
+          <dataInputRefs>_14_jbpmPropertiesInput</dataInputRefs>
           <dataInputRefs>_14_emailToInput</dataInputRefs>
           <dataInputRefs>_14_evaluatorInput</dataInputRefs>
         </inputSet>
@@ -179,12 +175,12 @@
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
-        <sourceRef>jbpmProperties</sourceRef>
-        <targetRef>_14_jbpmPropertiesInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_14_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>jbpmProperties</sourceRef>
+        <targetRef>_14_jbpmPropertiesInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
         <sourceRef>emailTo</sourceRef>
@@ -355,9 +351,7 @@ DavidCh.</from>
     <sequenceFlow id="_7-_36" sourceRef="_7" targetRef="_36" />
     <sequenceFlow id="_10-_6" sourceRef="_10" targetRef="_6" />
     <sequenceFlow id="_31-_7" sourceRef="_31" targetRef="_7" />
-    <sequenceFlow id="_29-_42" sourceRef="_29" targetRef="_42" />
-    <sequenceFlow id="_43-_42" sourceRef="_43" targetRef="_42" />
-    <sequenceFlow id="_42-_8" sourceRef="_42" targetRef="_8" />
+    <sequenceFlow id="_29-_8" sourceRef="_29" targetRef="_8" />
     <sequenceFlow id="_30-_9" sourceRef="_30" targetRef="_9" />
     <sequenceFlow id="_36-_9" sourceRef="_36" targetRef="_9" />
     <sequenceFlow id="_14-_10" sourceRef="_14" targetRef="_10" />
@@ -385,120 +379,106 @@ DavidCh.</from>
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_bsp_main" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="204" y="16" width="48" height="48" />
+        <dc:Bounds x="15" y="14" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_36" >
-        <dc:Bounds x="105" y="500" width="130" height="49" />
+        <dc:Bounds x="18" y="338" width="130" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="237" y="1067" width="48" height="48" />
+        <dc:Bounds x="374" y="513" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="66" y="419" width="127" height="49" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_42" >
-        <dc:Bounds x="148" y="176" width="48" height="48" />
+        <dc:Bounds x="18" y="257" width="127" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="148" y="257" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_43" >
-        <dc:Bounds x="91" y="96" width="48" height="48" />
+        <dc:Bounds x="144" y="95" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_9" >
-        <dc:Bounds x="237" y="581" width="48" height="48" />
+        <dc:Bounds x="231" y="267" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_10" >
-        <dc:Bounds x="206" y="986" width="110" height="49" />
+        <dc:Bounds x="204" y="513" width="110" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_40" >
-        <dc:Bounds x="75" y="743" width="160" height="49" />
+        <dc:Bounds x="373" y="395" width="160" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_41" >
-        <dc:Bounds x="237" y="824" width="48" height="48" />
+        <dc:Bounds x="233" y="359" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_14" >
-        <dc:Bounds x="206" y="905" width="110" height="49" />
+        <dc:Bounds x="203" y="436" width="110" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_21" >
-        <dc:Bounds x="237" y="662" width="48" height="48" />
+        <dc:Bounds x="342" y="267" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_29" >
-        <dc:Bounds x="171" y="96" width="114" height="48" />
+        <dc:Bounds x="111" y="15" width="114" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_31" >
-        <dc:Bounds x="16" y="338" width="142" height="49" />
+        <dc:Bounds x="10" y="176" width="142" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_30" >
-        <dc:Bounds x="190" y="338" width="142" height="49" />
+        <dc:Bounds x="184" y="176" width="142" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_7-_36" >
-        <di:waypoint x="129" y="443" />
-        <di:waypoint x="170" y="524" />
+        <di:waypoint x="81" y="281" />
+        <di:waypoint x="83" y="362" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_10-_6" >
-        <di:waypoint x="261" y="1010" />
-        <di:waypoint x="261" y="1091" />
+        <di:waypoint x="259" y="537" />
+        <di:waypoint x="398" y="537" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_31-_7" >
-        <di:waypoint x="87" y="362" />
-        <di:waypoint x="129" y="443" />
+        <di:waypoint x="81" y="200" />
+        <di:waypoint x="81" y="281" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_29-_42" >
-        <di:waypoint x="228" y="120" />
-        <di:waypoint x="172" y="200" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_43-_42" >
-        <di:waypoint x="115" y="120" />
-        <di:waypoint x="172" y="200" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_42-_8" >
-        <di:waypoint x="172" y="200" />
-        <di:waypoint x="172" y="281" />
+      <bpmndi:BPMNEdge bpmnElement="_29-_8" >
+        <di:waypoint x="168" y="39" />
+        <di:waypoint x="168" y="119" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_30-_9" >
-        <di:waypoint x="261" y="362" />
-        <di:waypoint x="261" y="605" />
+        <di:waypoint x="255" y="200" />
+        <di:waypoint x="255" y="291" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_36-_9" >
-        <di:waypoint x="170" y="524" />
-        <di:waypoint x="261" y="605" />
+        <di:waypoint x="83" y="362" />
+        <di:waypoint x="255" y="291" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_14-_10" >
-        <di:waypoint x="261" y="929" />
-        <di:waypoint x="261" y="1010" />
+        <di:waypoint x="258" y="460" />
+        <di:waypoint x="259" y="537" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_21-_40" >
-        <di:waypoint x="261" y="686" />
-        <di:waypoint x="155" y="767" />
+        <di:waypoint x="366" y="291" />
+        <di:waypoint x="453" y="419" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_40-_41" >
-        <di:waypoint x="155" y="767" />
-        <di:waypoint x="261" y="848" />
+        <di:waypoint x="453" y="419" />
+        <di:waypoint x="257" y="383" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_21-_41" >
-        <di:waypoint x="261" y="686" />
-        <di:waypoint x="261" y="848" />
+        <di:waypoint x="366" y="291" />
+        <di:waypoint x="257" y="383" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_41-_14" >
-        <di:waypoint x="261" y="848" />
-        <di:waypoint x="261" y="929" />
+        <di:waypoint x="257" y="383" />
+        <di:waypoint x="258" y="460" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_9-_21" >
-        <di:waypoint x="261" y="605" />
-        <di:waypoint x="261" y="686" />
+        <di:waypoint x="255" y="291" />
+        <di:waypoint x="366" y="291" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_29" >
-        <di:waypoint x="228" y="40" />
-        <di:waypoint x="228" y="120" />
+        <di:waypoint x="39" y="38" />
+        <di:waypoint x="168" y="39" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_8-_31" >
-        <di:waypoint x="172" y="281" />
-        <di:waypoint x="87" y="362" />
+        <di:waypoint x="168" y="119" />
+        <di:waypoint x="81" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_8-_30" >
-        <di:waypoint x="172" y="281" />
-        <di:waypoint x="261" y="362" />
+        <di:waypoint x="168" y="119" />
+        <di:waypoint x="255" y="200" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
