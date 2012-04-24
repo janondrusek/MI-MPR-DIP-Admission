@@ -10,7 +10,7 @@ import org.springframework.beans.factory.config.JbpmAccessiblePropertyConfigurer
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.MSPProcessEvaluator;
+import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.BSPProcessEvaluator;
 
 @RooJavaBean
 public class JbpmProcessService implements ProcessService {
@@ -47,7 +47,7 @@ public class JbpmProcessService implements ProcessService {
 	private Map<String, Object> getProcessParameters(Admission admission) {
 		Map<String, Object> processParameters = new HashMap<String, Object>();
 		processParameters.put("admission", admission);
-		processParameters.put("evaluator", new MSPProcessEvaluator());
+		processParameters.put("evaluator", new BSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());
 
 		if (getMailDebug()) {

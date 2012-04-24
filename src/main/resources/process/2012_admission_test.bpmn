@@ -14,9 +14,9 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
+  <itemDefinition id="_jbpmPropertiesItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
-  <escalation id="err_RAT_reg" escalationCode="err_RAT_reg" />
-  <escalation id="err_RAT_eval" escalationCode="err_RAT_eval" />
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" name="Sample Process" tns:packageName="defaultPackage" >
 
     <extensionElements>
@@ -25,6 +25,8 @@
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_jbpmPropertiesItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
     <userTask id="_34" name="Register for regular AT" >
@@ -32,16 +34,72 @@
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Register / Apology for regular admission term.");</script>
         </tns:onEntry-script>
-        <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>admission.getAdmissionState().setCode("S10");</script>
-        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_34_CommentInput" name="Comment" />
+        <dataInput id="_34_SkippableInput" name="Skippable" />
+        <dataInput id="_34_TaskNameInput" name="TaskName" />
+        <dataInput id="_34_ContentInput" name="Content" />
+        <dataInput id="_34_GroupIdInput" name="GroupId" />
+        <dataInput id="_34_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_34_CommentInput</dataInputRefs>
+          <dataInputRefs>_34_SkippableInput</dataInputRefs>
+          <dataInputRefs>_34_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_34_ContentInput</dataInputRefs>
+          <dataInputRefs>_34_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_34_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_34_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_34_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_34_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ActionRegularAT</from>
+          <to xsi:type="tFormalExpression">_34_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_34_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_34_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_34_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <task id="_35" name="Admission test result" tns:taskName="Email" >
       <extensionElements>
@@ -50,17 +108,50 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_35_BodyInput" name="Body" />
+        <dataInput id="_35_SubjectInput" name="Subject" />
+        <dataInput id="_35_ToInput" name="To" />
+        <dataInput id="_35_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_35_BodyInput</dataInputRefs>
+          <dataInputRefs>_35_SubjectInput</dataInputRefs>
+          <dataInputRefs>_35_ToInput</dataInputRefs>
+          <dataInputRefs>_35_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_35_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">TEMPLATE TEST RESULT</from>
+          <to xsi:type="tFormalExpression">_35_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">PRIRIZ - Admission test result</from>
+          <to xsi:type="tFormalExpression">_35_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_35_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_35_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
     <startEvent id="_1" name="StartProcess" />
     <endEvent id="_2" name="End" />
-    <intermediateCatchEvent id="_33" name="Signal" >
-      <signalEventDefinition signalRef="expired_time_for_at_1"/>
-    </intermediateCatchEvent>
     <exclusiveGateway id="_38" name="Gateway - Backtrack from AT" gatewayDirection="Diverging" />
     <scriptTask id="_39" name="Set State" scriptFormat="http://www.java.com/java" >
       <script>AdmissionState state = new AdmissionState();
@@ -74,106 +165,145 @@ admission.setAdmissionState(state);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_36_CommentInput" name="Comment" />
+        <dataInput id="_36_SkippableInput" name="Skippable" />
+        <dataInput id="_36_ContentInput" name="Content" />
+        <dataInput id="_36_TaskNameInput" name="TaskName" />
+        <dataInput id="_36_GroupIdInput" name="GroupId" />
+        <dataInput id="_36_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_36_CommentInput</dataInputRefs>
+          <dataInputRefs>_36_SkippableInput</dataInputRefs>
+          <dataInputRefs>_36_ContentInput</dataInputRefs>
+          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_36_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_36_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_36_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_36_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ActionAlternativeAT</from>
+          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_36_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
-    <scriptTask id="_7" name="Non-registred" >
-      <script>System.out.println("NEPRIHLASEN");</script>
-    </scriptTask>
-    <endEvent id="_40" name="Error - regular AT register" >
-      <dataInput id="_40_Input" name="error" />
-      <dataInputAssociation>
-        <sourceRef>error_var</sourceRef>
-        <targetRef>_40_Input</targetRef>
-      </dataInputAssociation>
-      <inputSet>
-        <dataInputRefs>_40_Input</dataInputRefs>
-      </inputSet>
-      <escalationEventDefinition escalationRef="err_RAT_reg" />
-    </endEvent>
-    <endEvent id="_41" name="Error - admission test eval" >
-      <dataInput id="_41_Input" name="error" />
-      <dataInputAssociation>
-        <sourceRef>error_var</sourceRef>
-        <targetRef>_41_Input</targetRef>
-      </dataInputAssociation>
-      <inputSet>
-        <dataInputRefs>_41_Input</dataInputRefs>
-      </inputSet>
-      <escalationEventDefinition escalationRef="err_RAT_eval" />
-    </endEvent>
-    <endEvent id="_12" name="End" >
-        <terminateEventDefinition/>
-    </endEvent>
     <callActivity id="_21" name="Regular AT" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_test" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>AdmissionState state = new AdmissionState();
-		state.setCode("S04");
-		admission.setAdmissionState(state);</script>
+          <script>//AdmissionState state = new AdmissionState();
+//state.setCode("S04");
+//admission.setAdmissionState(state);</script>
         </tns:onEntry-script>
         <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>admission.getAdmissionState().setCode("S17");</script>
+          <script></script>
         </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <dataInput id="_21_admissionInput" name="admission" />
-        <dataInput id="_21_evaluatorInput" name="evaluator" />
+        <dataOutput id="_21_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_21_admissionInput</dataInputRefs>
-          <dataInputRefs>_21_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_21_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_21_admissionInput</targetRef>
       </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>evaluator</sourceRef>
-        <targetRef>_21_evaluatorInput</targetRef>
-      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_21_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <callActivity id="_23" name="Apology approval" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
       <ioSpecification>
         <dataInput id="_23_admissionInput" name="admission" />
+        <dataOutput id="_23_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_23_admissionInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_23_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_23_admissionInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_23_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <callActivity id="_22" name="Alternative AT" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_test" >
       <ioSpecification>
         <dataInput id="_22_admissionInput" name="admission" />
+        <dataOutput id="_22_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_22_admissionInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_22_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_22_admissionInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_22_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <exclusiveGateway id="_25" name="Gateway - Regular AT action (REG/APP)" gatewayDirection="Diverging" />
     <exclusiveGateway id="_27" name="Gateway - Apology from regular AT request result" gatewayDirection="Diverging" />
     <exclusiveGateway id="_29" name="Gateway - Test completed" gatewayDirection="Converging" />
     <exclusiveGateway id="_28" name="Gateway - Invited to regular AT" gatewayDirection="Converging" />
-    <intermediateCatchEvent id="_31" name="Signal D" >
-      <signalEventDefinition signalRef="expired_time_for_at_2"/>
-    </intermediateCatchEvent>
-    <exclusiveGateway id="_30" name="Gateway - AT signals" gatewayDirection="Converging" />
 
     <!-- connections -->
     <sequenceFlow id="_28-_34" sourceRef="_28" targetRef="_34" />
@@ -186,16 +316,9 @@ admission.setAdmissionState(state);</script>
     <sequenceFlow id="_27-_36" sourceRef="_27" targetRef="_36" name="approved" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalApologyApproval(admission);</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_30-_7" sourceRef="_30" targetRef="_7" />
-    <sequenceFlow id="_25-_40" sourceRef="_25" targetRef="_40" name="err" tns:priority="3" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_38-_41" sourceRef="_38" targetRef="_41" name="err" tns:priority="2" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_7-_12" sourceRef="_7" targetRef="_12" />
     <sequenceFlow id="_25-_21" sourceRef="_25" targetRef="_21" name="test" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalRegisterForAT(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalRegisterForAT(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_25-_23" sourceRef="_25" targetRef="_23" name="apology" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalApologyFromAT(admission);</conditionExpression>
@@ -205,170 +328,127 @@ admission.setAdmissionState(state);</script>
     <sequenceFlow id="_23-_27" sourceRef="_23" targetRef="_27" />
     <sequenceFlow id="_22-_29" sourceRef="_22" targetRef="_29" />
     <sequenceFlow id="_38-_29" sourceRef="_38" targetRef="_29" name="complete" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalAdmissionTestEvaluated(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalAdmissionTestEvaluated(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_1-_28" sourceRef="_1" targetRef="_28" />
     <sequenceFlow id="_27-_28" sourceRef="_27" targetRef="_28" name="rejected" tns:priority="2" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_39-_28" sourceRef="_39" targetRef="_28" />
-    <sequenceFlow id="_31-_30" sourceRef="_31" targetRef="_30" />
-    <sequenceFlow id="_33-_30" sourceRef="_33" targetRef="_30" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" >
       <bpmndi:BPMNShape bpmnElement="_34" >
-        <dc:Bounds x="208" y="196" width="161" height="49" />
+        <dc:Bounds x="142" y="165" width="161" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_35" >
-        <dc:Bounds x="409" y="635" width="154" height="48" />
+        <dc:Bounds x="197" y="506" width="154" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="338" y="12" width="48" height="48" />
+        <dc:Bounds x="93" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="463" y="725" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_33" >
-        <dc:Bounds x="837" y="22" width="48" height="48" />
+        <dc:Bounds x="413" y="507" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_38" >
-        <dc:Bounds x="239" y="471" width="48" height="48" />
+        <dc:Bounds x="50" y="386" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_39" >
-        <dc:Bounds x="18" y="278" width="113" height="49" />
+        <dc:Bounds x="26" y="166" width="98" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_36" >
-        <dc:Bounds x="553" y="192" width="200" height="49" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="809" y="184" width="109" height="49" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_40" >
-        <dc:Bounds x="206" y="290" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_41" >
-        <dc:Bounds x="210" y="535" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_12" >
-        <dc:Bounds x="916" y="265" width="48" height="48" />
+        <dc:Bounds x="373" y="112" width="200" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_21" >
-        <dc:Bounds x="222" y="379" width="131" height="49" />
+        <dc:Bounds x="157" y="343" width="131" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_23" >
-        <dc:Bounds x="377" y="376" width="131" height="49" />
+        <dc:Bounds x="308" y="215" width="131" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_22" >
-        <dc:Bounds x="572" y="287" width="161" height="49" />
+        <dc:Bounds x="392" y="345" width="161" height="49" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_25" >
-        <dc:Bounds x="263" y="290" width="48" height="48" />
+        <dc:Bounds x="198" y="248" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_27" >
-        <dc:Bounds x="446" y="34" width="48" height="48" />
+        <dc:Bounds x="305" y="30" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_29" >
-        <dc:Bounds x="518" y="542" width="48" height="48" />
+        <dc:Bounds x="249" y="426" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_28" >
-        <dc:Bounds x="319" y="96" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_31" >
-        <dc:Bounds x="918" y="22" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_30" >
-        <dc:Bounds x="878" y="103" width="48" height="48" />
+        <dc:Bounds x="198" y="84" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_28-_34" >
-        <di:waypoint x="343" y="120" />
-        <di:waypoint x="288" y="220" />
+        <di:waypoint x="222" y="108" />
+        <di:waypoint x="222" y="189" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_29-_35" >
-        <di:waypoint x="542" y="566" />
-        <di:waypoint x="486" y="659" />
+        <di:waypoint x="273" y="450" />
+        <di:waypoint x="274" y="530" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_35-_2" >
-        <di:waypoint x="486" y="659" />
-        <di:waypoint x="487" y="749" />
+        <di:waypoint x="274" y="530" />
+        <di:waypoint x="437" y="531" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_21-_38" >
-        <di:waypoint x="287" y="403" />
-        <di:waypoint x="263" y="495" />
+        <di:waypoint x="222" y="367" />
+        <di:waypoint x="74" y="410" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_38-_39" >
-        <di:waypoint x="263" y="495" />
-        <di:waypoint x="74" y="302" />
+        <di:waypoint x="74" y="410" />
+        <di:waypoint x="75" y="190" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_27-_36" >
-        <di:waypoint x="470" y="58" />
-        <di:waypoint x="653" y="216" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_30-_7" >
-        <di:waypoint x="902" y="127" />
-        <di:waypoint x="863" y="208" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_25-_40" >
-        <di:waypoint x="287" y="314" />
-        <di:waypoint x="230" y="314" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_38-_41" >
-        <di:waypoint x="263" y="495" />
-        <di:waypoint x="234" y="559" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_7-_12" >
-        <di:waypoint x="863" y="208" />
-        <di:waypoint x="940" y="289" />
+        <di:waypoint x="329" y="54" />
+        <di:waypoint x="472" y="86" />
+        <di:waypoint x="473" y="136" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_25-_21" >
-        <di:waypoint x="287" y="314" />
-        <di:waypoint x="287" y="403" />
+        <di:waypoint x="222" y="272" />
+        <di:waypoint x="222" y="367" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_25-_23" >
-        <di:waypoint x="287" y="314" />
-        <di:waypoint x="442" y="400" />
+        <di:waypoint x="222" y="272" />
+        <di:waypoint x="373" y="239" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_36-_22" >
-        <di:waypoint x="653" y="216" />
-        <di:waypoint x="652" y="311" />
+        <di:waypoint x="473" y="136" />
+        <di:waypoint x="472" y="369" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_34-_25" >
-        <di:waypoint x="288" y="220" />
-        <di:waypoint x="287" y="314" />
+        <di:waypoint x="222" y="189" />
+        <di:waypoint x="222" y="272" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_23-_27" >
-        <di:waypoint x="442" y="400" />
-        <di:waypoint x="470" y="58" />
+        <di:waypoint x="373" y="239" />
+        <di:waypoint x="329" y="54" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_22-_29" >
-        <di:waypoint x="652" y="311" />
-        <di:waypoint x="542" y="566" />
+        <di:waypoint x="472" y="369" />
+        <di:waypoint x="472" y="412" />
+        <di:waypoint x="273" y="450" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_38-_29" >
-        <di:waypoint x="263" y="495" />
-        <di:waypoint x="542" y="566" />
+        <di:waypoint x="74" y="410" />
+        <di:waypoint x="273" y="450" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_28" >
-        <di:waypoint x="362" y="36" />
-        <di:waypoint x="343" y="120" />
+        <di:waypoint x="117" y="40" />
+        <di:waypoint x="222" y="108" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_27-_28" >
-        <di:waypoint x="470" y="58" />
-        <di:waypoint x="343" y="120" />
+        <di:waypoint x="329" y="54" />
+        <di:waypoint x="222" y="108" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_39-_28" >
-        <di:waypoint x="74" y="302" />
-        <di:waypoint x="343" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_31-_30" >
-        <di:waypoint x="942" y="46" />
-        <di:waypoint x="902" y="127" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_33-_30" >
-        <di:waypoint x="861" y="46" />
-        <di:waypoint x="902" y="127" />
+        <di:waypoint x="75" y="190" />
+        <di:waypoint x="74" y="145" />
+        <di:waypoint x="222" y="108" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

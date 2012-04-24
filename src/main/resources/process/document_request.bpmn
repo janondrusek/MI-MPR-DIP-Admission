@@ -13,6 +13,8 @@
              xmlns:tns="http://www.jboss.org/drools">
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
+  <itemDefinition id="_jbpmPropertiesItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.document_request" name="Sample Process" tns:packageName="defaultPackage" >
 
@@ -22,6 +24,8 @@
     </extensionElements>
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_jbpmPropertiesItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
@@ -33,17 +37,53 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_3_BodyInput" name="Body" />
+        <dataInput id="_3_SubjectInput" name="Subject" />
+        <dataInput id="_3_ToInput" name="To" />
+        <dataInput id="_3_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_3_BodyInput</dataInputRefs>
+          <dataInputRefs>_3_SubjectInput</dataInputRefs>
+          <dataInputRefs>_3_ToInput</dataInputRefs>
+          <dataInputRefs>_3_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_3_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">TEMPLATE DOCS</from>
+          <to xsi:type="tFormalExpression">_3_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">PRIRIZ - Docs delivery</from>
+          <to xsi:type="tFormalExpression">_3_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_3_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_3_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
     <userTask id="_4" name="Docs delivery" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>EvaluationType h3 = new EvaluationType();
-h3.setName("H3");
+h3.setName("h3");
 
 Evaluation e3 = new Evaluation();
 e3.setEvaluationType(h3);
@@ -53,11 +93,70 @@ admission.getEvaluations().add(e3);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_4_CommentInput" name="Comment" />
+        <dataInput id="_4_SkippableInput" name="Skippable" />
+        <dataInput id="_4_ContentInput" name="Content" />
+        <dataInput id="_4_TaskNameInput" name="TaskName" />
+        <dataInput id="_4_GroupIdInput" name="GroupId" />
+        <dataInput id="_4_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_4_CommentInput</dataInputRefs>
+          <dataInputRefs>_4_SkippableInput</dataInputRefs>
+          <dataInputRefs>_4_ContentInput</dataInputRefs>
+          <dataInputRefs>_4_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_4_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_4_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_4_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Waiting for needed documents delivery</from>
+          <to xsi:type="tFormalExpression">_4_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_4_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_4_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">DocsDelivery</from>
+          <to xsi:type="tFormalExpression">_4_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_REFERENT</from>
+          <to xsi:type="tFormalExpression">_4_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_4_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <exclusiveGateway id="_5" name="Gateway - Docs signal" gatewayDirection="Converging" />
     <intermediateCatchEvent id="_6" name="Signal" >
@@ -76,42 +175,42 @@ admission.getEvaluations().add(e3);</script>
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.document_request" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="74" y="16" width="48" height="48" />
+        <dc:Bounds x="16" y="16" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="133" y="337" width="48" height="48" />
+        <dc:Bounds x="529" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="16" y="96" width="165" height="48" />
+        <dc:Bounds x="96" y="16" width="165" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="37" y="176" width="123" height="48" />
+        <dc:Bounds x="293" y="16" width="123" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_5" >
-        <dc:Bounds x="133" y="256" width="48" height="48" />
+        <dc:Bounds x="448" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="192" y="176" width="48" height="48" />
+        <dc:Bounds x="330" y="96" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_5-_2" >
-        <di:waypoint x="157" y="280" />
-        <di:waypoint x="157" y="361" />
+        <di:waypoint x="472" y="80" />
+        <di:waypoint x="553" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_1-_3" >
-        <di:waypoint x="98" y="40" />
-        <di:waypoint x="98" y="120" />
+        <di:waypoint x="40" y="40" />
+        <di:waypoint x="178" y="40" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_3-_4" >
-        <di:waypoint x="98" y="120" />
-        <di:waypoint x="98" y="200" />
+        <di:waypoint x="178" y="40" />
+        <di:waypoint x="354" y="40" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_4-_5" >
-        <di:waypoint x="98" y="200" />
-        <di:waypoint x="157" y="280" />
+        <di:waypoint x="354" y="40" />
+        <di:waypoint x="472" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_6-_5" >
-        <di:waypoint x="216" y="200" />
-        <di:waypoint x="157" y="280" />
+        <di:waypoint x="354" y="120" />
+        <di:waypoint x="472" y="80" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
