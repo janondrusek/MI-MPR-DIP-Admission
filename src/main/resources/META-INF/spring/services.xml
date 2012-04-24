@@ -15,7 +15,7 @@
 		<property name="grantValidSeconds" value="${user.identity.grant.valid.seconds}" />
 	</bean>
 
-	<bean id="admissionLoggingService" class="cz.cvut.fit.mi_mpr_dip.admission.service.logging.AdmissionLoggingService">
+	<bean id="admissionLoggingService" class="cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingServiceImpl">
 		<property name="abbreviationKeyword" value="${logging.body.abbreviationKeyword}" />
 		<property name="requestBodyMaxLength" value="${logging.body.request.maxLength}" />
 		<property name="responseBodyMaxLength" value="${logging.body.response.maxLength}" />

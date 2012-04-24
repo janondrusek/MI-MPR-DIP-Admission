@@ -9,7 +9,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
 
 @RooJavaBean
-public class AdmissionPwdAdapter implements AuthenticationAdapter {
+public class PwdAuthenticationAdapter implements AuthenticationAdapter {
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;

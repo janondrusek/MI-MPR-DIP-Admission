@@ -24,10 +24,10 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint" />
-	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionProcessingEndpoint" />
+	<bean id="mobileService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.MobileEndpointImpl" />
+	<bean id="processingService" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingEndpointImpl" />
 
-	<bean id="userIdentityEndpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultUserIdentityEndpointHelper">
+	<bean id="userIdentityEndpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 	</bean>
 

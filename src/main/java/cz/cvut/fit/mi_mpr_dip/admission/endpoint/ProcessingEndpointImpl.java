@@ -28,18 +28,19 @@ import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultAdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
 @RooJavaBean
-@Path(AdmissionProcessingEndpoint.ENDPOINT_PATH)
-public class AdmissionProcessingEndpoint implements ProcessingEndpoint, ApplicationContextAware {
+@Path(ProcessingEndpointImpl.ENDPOINT_PATH)
+public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationContextAware {
 
 	protected static final String ENDPOINT_PATH = "/processing";
 
@@ -74,10 +75,13 @@ public class AdmissionProcessingEndpoint implements ProcessingEndpoint, Applicat
 
 	@Autowired
 	private UserIdentityService userIdentityService;
+	
+	@Autowired
+	private UserPasswordService userPasswordService;
 
 	private ApplicationContext applicationContext;
 
-	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH)
+	@Path(AdmissionEndpointHelperImpl.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override

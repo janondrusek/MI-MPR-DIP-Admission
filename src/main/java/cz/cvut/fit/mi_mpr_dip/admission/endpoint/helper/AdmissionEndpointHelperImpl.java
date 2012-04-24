@@ -18,7 +18,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Service
 @RooJavaBean
-public class DefaultAdmissionEndpointHelper implements AdmissionEndpointHelper {
+public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 
 	public static final String IDENTITY_PATH = "/identity";
 

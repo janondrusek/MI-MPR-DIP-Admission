@@ -5,55 +5,55 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultUserIdentityEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
-privileged aspect DefaultUserIdentityEndpointHelper_Roo_JavaBean {
+privileged aspect UserIdentityEndpointHelperImpl_Roo_JavaBean {
     
-    public SecurityContextHolderStrategy DefaultUserIdentityEndpointHelper.getSecurityContextHolderStrategy() {
+    public SecurityContextHolderStrategy UserIdentityEndpointHelperImpl.getSecurityContextHolderStrategy() {
         return this.securityContextHolderStrategy;
     }
     
-    public UserIdentityService DefaultUserIdentityEndpointHelper.getUserIdentityService() {
+    public UserIdentityService UserIdentityEndpointHelperImpl.getUserIdentityService() {
         return this.userIdentityService;
     }
     
-    public void DefaultUserIdentityEndpointHelper.setUserIdentityService(UserIdentityService userIdentityService) {
+    public void UserIdentityEndpointHelperImpl.setUserIdentityService(UserIdentityService userIdentityService) {
         this.userIdentityService = userIdentityService;
     }
     
-    public UserIdentityDao DefaultUserIdentityEndpointHelper.getUserIdentityDao() {
+    public UserIdentityDao UserIdentityEndpointHelperImpl.getUserIdentityDao() {
         return this.userIdentityDao;
     }
     
-    public void DefaultUserIdentityEndpointHelper.setUserIdentityDao(UserIdentityDao userIdentityDao) {
+    public void UserIdentityEndpointHelperImpl.setUserIdentityDao(UserIdentityDao userIdentityDao) {
         this.userIdentityDao = userIdentityDao;
     }
     
-    public UserSessionDao DefaultUserIdentityEndpointHelper.getUserSessionDao() {
+    public UserSessionDao UserIdentityEndpointHelperImpl.getUserSessionDao() {
         return this.userSessionDao;
     }
     
-    public void DefaultUserIdentityEndpointHelper.setUserSessionDao(UserSessionDao userSessionDao) {
+    public void UserIdentityEndpointHelperImpl.setUserSessionDao(UserSessionDao userSessionDao) {
         this.userSessionDao = userSessionDao;
     }
     
-    public BeanValidator DefaultUserIdentityEndpointHelper.getBeanValidator() {
+    public BeanValidator UserIdentityEndpointHelperImpl.getBeanValidator() {
         return this.beanValidator;
     }
     
-    public void DefaultUserIdentityEndpointHelper.setBeanValidator(BeanValidator beanValidator) {
+    public void UserIdentityEndpointHelperImpl.setBeanValidator(BeanValidator beanValidator) {
         this.beanValidator = beanValidator;
     }
     
-    public PrincipalValidator DefaultUserIdentityEndpointHelper.getPrincipalValidator() {
+    public PrincipalValidator UserIdentityEndpointHelperImpl.getPrincipalValidator() {
         return this.principalValidator;
     }
     
-    public void DefaultUserIdentityEndpointHelper.setPrincipalValidator(PrincipalValidator principalValidator) {
+    public void UserIdentityEndpointHelperImpl.setPrincipalValidator(PrincipalValidator principalValidator) {
         this.principalValidator = principalValidator;
     }
     

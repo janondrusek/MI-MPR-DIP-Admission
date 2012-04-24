@@ -17,26 +17,28 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
-public class AdmissionProcessingEndpointTest {
+public class ProcessingEndpointTest {
 
 	private static final String CODE = "code";
 
 	private AdmissionCodeValidator admissionCodeValidator;
 	private AnnotatedBeanValidator annotatedBeanValidator;
-	private AdmissionProcessingEndpoint admissionProcessingEndpoint;
+	private ProcessingEndpointImpl processingEndpoint;
 	private ApplicationContext applicationContext;
 	private DeduplicationService<Admission> deduplicationService;
 	private AdmissionEndpointHelper endpointHelper;
 	private UserIdentityService userIdentityService;
+	private UserPasswordService userPasswordService;
 
 	private Object[] mocks;
 
 	@Before
 	public void setUp() {
-		admissionProcessingEndpoint = new AdmissionProcessingEndpoint();
+		processingEndpoint = new ProcessingEndpointImpl();
 
 		initMocks();
 	}
@@ -44,17 +46,19 @@ public class AdmissionProcessingEndpointTest {
 	@SuppressWarnings("unchecked")
 	private void initMocks() {
 		admissionCodeValidator = createMock(AdmissionCodeValidator.class);
-		admissionProcessingEndpoint.setAdmissionCodeValidator(admissionCodeValidator);
+		processingEndpoint.setAdmissionCodeValidator(admissionCodeValidator);
 		annotatedBeanValidator = createMock(AnnotatedBeanValidator.class);
-		admissionProcessingEndpoint.setBeanValidator(annotatedBeanValidator);
+		processingEndpoint.setBeanValidator(annotatedBeanValidator);
 		applicationContext = createMock(ApplicationContext.class);
-		admissionProcessingEndpoint.setApplicationContext(applicationContext);
+		processingEndpoint.setApplicationContext(applicationContext);
 		deduplicationService = createMock(DeduplicationService.class);
-		admissionProcessingEndpoint.setDeduplicationService(deduplicationService);
+		processingEndpoint.setDeduplicationService(deduplicationService);
 		endpointHelper = createMock(AdmissionEndpointHelper.class);
-		admissionProcessingEndpoint.setAdmissionEndpointHelper(endpointHelper);
+		processingEndpoint.setAdmissionEndpointHelper(endpointHelper);
 		userIdentityService = createMock(UserIdentityService.class);
-		admissionProcessingEndpoint.setUserIdentityService(userIdentityService);
+		processingEndpoint.setUserIdentityService(userIdentityService);
+		userPasswordService = createMock(UserPasswordService.class);
+		processingEndpoint.setUserPasswordService(userPasswordService);
 
 		mocks = new Object[] { applicationContext, admissionCodeValidator, annotatedBeanValidator,
 				deduplicationService, endpointHelper, userIdentityService };
@@ -66,7 +70,17 @@ public class AdmissionProcessingEndpointTest {
 		expect(endpointHelper.getAdmission(same(CODE))).andReturn(response);
 
 		replay(mocks);
-		assertSame(response, admissionProcessingEndpoint.getAdmission(CODE));
+		assertSame(response, processingEndpoint.getAdmission(CODE));
 		verify(mocks);
+	}
+
+	@Test
+	public void testResetPasswordEmailOnly() {
+		// TODO: expect(userPasswordService.createRandomPassword(userIdentity));
+	}
+
+	@Test
+	public void testResetPasswordAdmissionCodeAndEmail() {
+
 	}
 }

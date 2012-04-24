@@ -24,7 +24,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 @RooJavaBean
-public class DefaultUserIdentityEndpointHelper implements UserIdentityEndpointHelper {
+public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelper {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy;
 

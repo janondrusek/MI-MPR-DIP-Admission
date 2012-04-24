@@ -3,23 +3,23 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.service.logging;
 
-import cz.cvut.fit.mi_mpr_dip.admission.service.logging.AdmissionLoggingService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingServiceImpl;
 
-privileged aspect AdmissionLoggingService_Roo_JavaBean {
+privileged aspect LoggingServiceImpl_Roo_JavaBean {
     
-    public String AdmissionLoggingService.getAbbreviationKeyword() {
+    public String LoggingServiceImpl.getAbbreviationKeyword() {
         return this.abbreviationKeyword;
     }
     
-    public void AdmissionLoggingService.setAbbreviationKeyword(String abbreviationKeyword) {
+    public void LoggingServiceImpl.setAbbreviationKeyword(String abbreviationKeyword) {
         this.abbreviationKeyword = abbreviationKeyword;
     }
     
-    public Integer AdmissionLoggingService.getRequestBodyMaxLength() {
+    public Integer LoggingServiceImpl.getRequestBodyMaxLength() {
         return this.requestBodyMaxLength;
     }
     
-    public Integer AdmissionLoggingService.getResponseBodyMaxLength() {
+    public Integer LoggingServiceImpl.getResponseBodyMaxLength() {
         return this.responseBodyMaxLength;
     }
     

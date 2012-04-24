@@ -25,9 +25,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.web.BufferedRequestWrapper;
 import cz.cvut.fit.mi_mpr_dip.admission.web.BufferedResponseWrapper;
 
 @RooJavaBean
-public class AdmissionLoggingService implements LoggingService {
+public class LoggingServiceImpl implements LoggingService {
 
-	private static final Logger log = LoggerFactory.getLogger(AdmissionLoggingService.class);
+	private static final Logger log = LoggerFactory.getLogger(LoggingServiceImpl.class);
 	private static final Logger requestLog = LoggerFactory.getLogger(LoggerName.REQUEST.getKeyword());
 	private static final Logger requestBodyLog = LoggerFactory.getLogger(LoggerName.REQUEST_BODY.getKeyword());
 	private static final Logger responseLog = LoggerFactory.getLogger(LoggerName.RESPONSE.getKeyword());

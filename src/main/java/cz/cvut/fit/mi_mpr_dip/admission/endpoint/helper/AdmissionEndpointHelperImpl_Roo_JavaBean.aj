@@ -4,15 +4,15 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultAdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 
-privileged aspect DefaultAdmissionEndpointHelper_Roo_JavaBean {
+privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {
     
-    public AdmissionDao DefaultAdmissionEndpointHelper.getAdmissionDao() {
+    public AdmissionDao AdmissionEndpointHelperImpl.getAdmissionDao() {
         return this.admissionDao;
     }
     
-    public void DefaultAdmissionEndpointHelper.setAdmissionDao(AdmissionDao admissionDao) {
+    public void AdmissionEndpointHelperImpl.setAdmissionDao(AdmissionDao admissionDao) {
         this.admissionDao = admissionDao;
     }
     

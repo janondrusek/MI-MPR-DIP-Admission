@@ -3,25 +3,25 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.adapter;
 
-import cz.cvut.fit.mi_mpr_dip.admission.adapter.AdmissionPwdAdapter;
+import cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
-privileged aspect AdmissionPwdAdapter_Roo_JavaBean {
+privileged aspect PwdAuthenticationAdapter_Roo_JavaBean {
     
-    public UserIdentityDao AdmissionPwdAdapter.getUserIdentityDao() {
+    public UserIdentityDao PwdAuthenticationAdapter.getUserIdentityDao() {
         return this.userIdentityDao;
     }
     
-    public void AdmissionPwdAdapter.setUserIdentityDao(UserIdentityDao userIdentityDao) {
+    public void PwdAuthenticationAdapter.setUserIdentityDao(UserIdentityDao userIdentityDao) {
         this.userIdentityDao = userIdentityDao;
     }
     
-    public PasswordEncoder AdmissionPwdAdapter.getPasswordEncoder() {
+    public PasswordEncoder PwdAuthenticationAdapter.getPasswordEncoder() {
         return this.passwordEncoder;
     }
     
-    public void AdmissionPwdAdapter.setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    public void PwdAuthenticationAdapter.setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
     

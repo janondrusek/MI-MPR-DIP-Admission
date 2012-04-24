@@ -3,34 +3,34 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.MobileEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 
-privileged aspect AndroidMobileEndpoint_Roo_JavaBean {
+privileged aspect MobileEndpointImpl_Roo_JavaBean {
     
-    public AdmissionEndpointHelper AndroidMobileEndpoint.getAdmissionEndpointHelper() {
+    public AdmissionEndpointHelper MobileEndpointImpl.getAdmissionEndpointHelper() {
         return this.admissionEndpointHelper;
     }
     
-    public void AndroidMobileEndpoint.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
+    public void MobileEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
         this.admissionEndpointHelper = admissionEndpointHelper;
     }
     
-    public UserIdentityEndpointHelper AndroidMobileEndpoint.getUserIdentityEndpointHelper() {
+    public UserIdentityEndpointHelper MobileEndpointImpl.getUserIdentityEndpointHelper() {
         return this.userIdentityEndpointHelper;
     }
     
-    public void AndroidMobileEndpoint.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
+    public void MobileEndpointImpl.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
         this.userIdentityEndpointHelper = userIdentityEndpointHelper;
     }
     
-    public UserIdentityService AndroidMobileEndpoint.getUserIdentityService() {
+    public UserIdentityService MobileEndpointImpl.getUserIdentityService() {
         return this.userIdentityService;
     }
     
-    public void AndroidMobileEndpoint.setUserIdentityService(UserIdentityService userIdentityService) {
+    public void MobileEndpointImpl.setUserIdentityService(UserIdentityService userIdentityService) {
         this.userIdentityService = userIdentityService;
     }
     

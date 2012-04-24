@@ -23,13 +23,13 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultAdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 
 @RooJavaBean
-@Path(AndroidMobileEndpoint.ENDPOINT_PATH)
-public class AndroidMobileEndpoint implements MobileEndpoint {
+@Path(MobileEndpointImpl.ENDPOINT_PATH)
+public class MobileEndpointImpl implements MobileEndpoint {
 
 	protected static final String ENDPOINT_PATH = "/mobile";
 
@@ -46,7 +46,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	@Autowired
 	private UserIdentityService userIdentityService;
 
-	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH)
+	@Path(AdmissionEndpointHelperImpl.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
@@ -55,7 +55,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	}
 
 	@Secured("PERM_DELETE_SESSION")
-	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH + "/{userIdentity}" + "/{sessionIdentifier}")
+	@Path(AdmissionEndpointHelperImpl.IDENTITY_PATH + "/{userIdentity}" + "/{sessionIdentifier}")
 	@Produces
 	@DELETE
 	@Override
@@ -65,7 +65,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	}
 
 	@Secured("PERM_WRITE_USER_ROLES")
-	@Path(DefaultAdmissionEndpointHelper.IDENTITY_PATH + "/{userIdentity}" + "/roles")
+	@Path(AdmissionEndpointHelperImpl.IDENTITY_PATH + "/{userIdentity}" + "/roles")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
