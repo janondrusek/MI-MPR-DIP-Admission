@@ -6,7 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultUserIdentityEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;

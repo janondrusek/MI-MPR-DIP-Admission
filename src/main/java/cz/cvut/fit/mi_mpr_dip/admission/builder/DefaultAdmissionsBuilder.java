@@ -6,7 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Required;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 
 public class DefaultAdmissionsBuilder implements AdmissionsBuilder {
 

@@ -5,11 +5,11 @@
                             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean id="ldapService" class="cz.cvut.fit.mi_mpr_dip.admission.service.LdapAuthenticationService">
+	<bean id="ldapService" class="cz.cvut.fit.mi_mpr_dip.admission.service.auth.LdapAuthenticationService">
 		<property name="authenticationAdapter" ref="${ldap.adapter}ldapAdapter" />
 	</bean>
 	
-	<bean id="pwdService" class="cz.cvut.fit.mi_mpr_dip.admission.service.PwdAuthenticationService">
+	<bean id="pwdService" class="cz.cvut.fit.mi_mpr_dip.admission.service.auth.PwdAuthenticationService">
 		<property name="authenticationAdapter" ref="${pwd.adapter}pwdAdapter" />
 	</bean>
 

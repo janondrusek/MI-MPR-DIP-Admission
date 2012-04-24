@@ -1,8 +1,8 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
 
 public interface UserIdentityService {
 

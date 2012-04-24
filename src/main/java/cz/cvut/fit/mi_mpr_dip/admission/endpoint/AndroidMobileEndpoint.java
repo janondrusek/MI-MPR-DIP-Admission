@@ -20,21 +20,22 @@ import org.springframework.security.access.annotation.Secured;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.DefaultAdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 
 @RooJavaBean
 @Path(AndroidMobileEndpoint.ENDPOINT_PATH)
 public class AndroidMobileEndpoint implements MobileEndpoint {
 
-	public static final String ADMISSION_PATH = "/admission";
-	public static final String SAVE_PHOTO_PATH = "/photo";
-	public static final String SAVE_RESULT_PATH = "/result";
-	public static final String ENDPOINT_PATH = "/mobile";
+	protected static final String ENDPOINT_PATH = "/mobile";
+
+	private static final String ADMISSION_PATH = "/admission";
+	private static final String SAVE_PHOTO_PATH = "/photo";
+	private static final String RESULT_PATH = "/result";
 
 	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
@@ -81,7 +82,7 @@ public class AndroidMobileEndpoint implements MobileEndpoint {
 	}
 
 	@Secured("PERM_WRITE_RESULT")
-	@Path(ADMISSION_PATH + "/{admissionCode}" + SAVE_RESULT_PATH)
+	@Path(ADMISSION_PATH + "/{admissionCode}" + RESULT_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override

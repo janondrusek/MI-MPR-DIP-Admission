@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.Valid;
@@ -23,12 +24,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
@@ -36,7 +39,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 @RooJavaBean
 @RooToString
 @RooEquals(excludeFields = { "personId" })
-@RooJpaActiveRecord
+@RooJpaActiveRecord(finders = { "findPeopleByEmailEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
@@ -106,6 +109,7 @@ public class Person {
 
 	private String phone;
 
+	@Index(name = "person_email")
 	private String email;
 
 	@XmlElementWrapper(name = "disabilities")
@@ -114,4 +118,9 @@ public class Person {
 	@Valid
 	@XmlElement(name = "disability")
 	private Set<DisabilityType> disabilities;
+
+	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+	@Transient
+	@XmlTransient
+	private Admission admission;
 }

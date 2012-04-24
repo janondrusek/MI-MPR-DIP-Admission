@@ -17,11 +17,11 @@ privileged aspect Person_Roo_Equals {
             return true;
         }
         Person rhs = (Person) obj;
-        return new EqualsBuilder().append(birthIdentificationNumber, rhs.birthIdentificationNumber).append(birthdate, rhs.birthdate).append(citizenship, rhs.citizenship).append(cityOfBirth, rhs.cityOfBirth).append(countryOfBirth, rhs.countryOfBirth).append(email, rhs.email).append(firstname, rhs.firstname).append(gender, rhs.gender).append(lastname, rhs.lastname).append(maidenname, rhs.maidenname).append(maritalStatus, rhs.maritalStatus).append(middlename, rhs.middlename).append(permanentResidenceGranted, rhs.permanentResidenceGranted).append(phone, rhs.phone).append(prefix, rhs.prefix).append(suffix, rhs.suffix).isEquals();
+        return new EqualsBuilder().append(admission, rhs.admission).append(birthIdentificationNumber, rhs.birthIdentificationNumber).append(birthdate, rhs.birthdate).append(citizenship, rhs.citizenship).append(cityOfBirth, rhs.cityOfBirth).append(countryOfBirth, rhs.countryOfBirth).append(email, rhs.email).append(firstname, rhs.firstname).append(gender, rhs.gender).append(lastname, rhs.lastname).append(maidenname, rhs.maidenname).append(maritalStatus, rhs.maritalStatus).append(middlename, rhs.middlename).append(permanentResidenceGranted, rhs.permanentResidenceGranted).append(phone, rhs.phone).append(prefix, rhs.prefix).append(suffix, rhs.suffix).isEquals();
     }
     
     public int Person.hashCode() {
-        return new HashCodeBuilder().append(birthIdentificationNumber).append(birthdate).append(citizenship).append(cityOfBirth).append(countryOfBirth).append(email).append(firstname).append(gender).append(lastname).append(maidenname).append(maritalStatus).append(middlename).append(permanentResidenceGranted).append(phone).append(prefix).append(suffix).toHashCode();
+        return new HashCodeBuilder().append(admission).append(birthIdentificationNumber).append(birthdate).append(citizenship).append(cityOfBirth).append(countryOfBirth).append(email).append(firstname).append(gender).append(lastname).append(maidenname).append(maritalStatus).append(middlename).append(permanentResidenceGranted).append(phone).append(prefix).append(suffix).toHashCode();
     }
     
 }

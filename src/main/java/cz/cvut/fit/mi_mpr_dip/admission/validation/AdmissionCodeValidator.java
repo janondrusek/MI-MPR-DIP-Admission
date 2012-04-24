@@ -37,11 +37,13 @@ public class AdmissionCodeValidator {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Set<ConstraintViolation<Object>> getConstraintViolations(Admission admission) {
 		Set<ConstraintViolation<Object>> constraintViolations = new HashSet<ConstraintViolation<Object>>();
 		ConstraintViolationImpl<Object> constraintViolation = new ConstraintViolationImpl<Object>(
-				"Duplicate code [{}]", "Duplicate code [" + admission.getCode() + "]", Object.class, admission,
-				admission, admission.getCode(), PathImpl.createPathFromString("code"), null, ElementType.FIELD);
+				"Duplicate code [{}]", "Duplicate code [" + admission.getCode() + "]", (Class) Admission.class,
+				admission, admission, admission.getCode(), PathImpl.createPathFromString("code"), null,
+				ElementType.FIELD);
 		constraintViolations.add(constraintViolation);
 		return constraintViolations;
 	}

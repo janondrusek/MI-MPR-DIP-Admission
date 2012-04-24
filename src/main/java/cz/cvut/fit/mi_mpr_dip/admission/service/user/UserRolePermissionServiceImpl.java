@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.RoleAccessiblePropertyConfigurer;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,10 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 
 @Service
-public class InitializingUserRolePermissionService implements UserRolePermissionService {
+public class UserRolePermissionServiceImpl implements UserRolePermissionService,
+		ApplicationListener<ContextRefreshedEvent> {
 
-	private Logger log = LoggerFactory.getLogger(InitializingUserRolePermissionService.class);
+	private Logger log = LoggerFactory.getLogger(UserRolePermissionServiceImpl.class);
 
 	@Autowired
 	@Qualifier("userRoleDeduplicationService")

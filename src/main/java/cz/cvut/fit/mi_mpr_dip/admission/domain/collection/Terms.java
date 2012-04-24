@@ -1,7 +1,8 @@
-package cz.cvut.fit.mi_mpr_dip.admission.domain;
+package cz.cvut.fit.mi_mpr_dip.admission.domain.collection;
 
-import java.util.List;
+import java.util.Set;
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -11,17 +12,16 @@ import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import com.sun.xml.xsom.impl.Ref.Term;
+
 @RooJavaBean
 @RooToString
 @RooEquals
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Admissions {
+public class Terms extends DomainCollection {
 
-	private Long count;
-
-	private Long totalCount;
-
-	@XmlElement(name = "admission")
-	private List<Admission> admissions;
+	@Valid
+	@XmlElement(name = "term")
+	private Set<Term> terms;
 }

@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 
 public interface MobileEndpoint {
 

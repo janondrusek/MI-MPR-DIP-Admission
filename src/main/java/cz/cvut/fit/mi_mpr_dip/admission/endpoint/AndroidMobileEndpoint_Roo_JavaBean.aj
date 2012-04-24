@@ -6,7 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AndroidMobileEndpoint;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 
 privileged aspect AndroidMobileEndpoint_Roo_JavaBean {
     

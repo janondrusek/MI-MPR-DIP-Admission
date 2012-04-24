@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,11 @@ public class UserPasswordGenerator implements PasswordGenerator {
 		generateHashAndSalt(userPassword);
 
 		return userPassword;
+	}
+
+	@Override
+	public void resetUserPassword(UserPassword userPassword) {
+		generateHashAndSalt(userPassword);
 	}
 
 	private void generateHashAndSalt(UserPassword userPassword) {

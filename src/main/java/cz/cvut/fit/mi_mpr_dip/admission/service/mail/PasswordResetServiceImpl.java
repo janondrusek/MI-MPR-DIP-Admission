@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
@@ -21,10 +20,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 import freemarker.template.TemplateException;
 
 @RooJavaBean
-@Service
-public class AdmissionPasswordResetService implements PasswordResetService {
+public class PasswordResetServiceImpl implements PasswordResetService {
 
-	private static final Logger log = LoggerFactory.getLogger(AdmissionPasswordResetService.class);
+	private static final Logger log = LoggerFactory.getLogger(PasswordResetServiceImpl.class);
 
 	@Autowired
 	private JavaMailSender mailSender;

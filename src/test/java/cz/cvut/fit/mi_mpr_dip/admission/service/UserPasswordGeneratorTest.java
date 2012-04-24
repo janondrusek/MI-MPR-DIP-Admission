@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
 
 public class UserPasswordGeneratorTest {

@@ -1,5 +1,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -24,12 +27,22 @@ public abstract class AbstractDao<T> {
 		return result;
 	}
 
-	abstract protected T createEmptyResult();
-
 	protected T processException(Exception e) {
 		T o = createEmptyResult();
 		log.debug("Unable to get result for [{}]", o.getClass());
 
 		return o;
 	}
+
+	abstract protected T createEmptyResult();
+
+	protected List<T> processListException(Exception e) {
+		log.debug("Unable to find entiries [{}]", String.valueOf(e));
+		return createEmptyList();
+	}
+
+	protected List<T> createEmptyList() {
+		return new ArrayList<T>();
+	}
+
 }

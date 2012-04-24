@@ -13,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AuthenticationService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.auth.AuthenticationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 public class UserIdentityAuthenticationProvider implements AuthenticationProvider {

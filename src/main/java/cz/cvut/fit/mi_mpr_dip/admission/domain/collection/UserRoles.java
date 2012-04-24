@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
+package cz.cvut.fit.mi_mpr_dip.admission.domain.collection;
 
 import java.util.Set;
 
@@ -12,12 +12,14 @@ import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
+
 @RooJavaBean
 @RooToString
 @RooEquals
 @XmlRootElement(name = "roles")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UserRoles {
+public class UserRoles extends DomainCollection {
 
 	@Valid
 	@XmlElement(name = "role")

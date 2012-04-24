@@ -3,7 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.builder;
 import java.util.List;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 
 public interface AdmissionsBuilder extends Builder<Admissions> {
 

@@ -1,10 +1,8 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import java.text.Normalizer;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -24,34 +22,31 @@ import cz.cvut.fit.mi_mpr_dip.admission.comparator.NaturalOrderComparator;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
-public class DefaultUserIdentityService implements UserIdentityService {
+public class UserIdentityServiceImpl implements UserIdentityService {
 
-	private static final Logger log = LoggerFactory.getLogger(DefaultUserIdentityService.class);
+	private static final Logger log = LoggerFactory.getLogger(UserIdentityServiceImpl.class);
 	private static final String USENAME_ORDER_PATTERN = ".*\\d+";
 
-	private Long grantValidSeconds;
 	private String[] defaultRoles;
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
 
 	@Autowired
-	private PasswordGenerator passwordGenerator;
-
-	@Autowired
-	private RandomStringGenerator randomStringGenerator;
+	private UserPasswordService userPasswordService;
 
 	@Autowired
 	private UserRoleDao userRoleDao;
+
+	@Autowired
+	private UserSessionService userSessionService;
 
 	@Transactional
 	@Override
@@ -63,56 +58,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 	}
 
 	private void ensureSession(UserIdentity userIdentity) {
-		Set<UserSession> sessions = getSessions(userIdentity);
-
-		deleteExpired(sessions);
-		if (isEmpty(sessions)) {
-			sessions.add(createSession());
-		}
-		userIdentity.setSessions(sessions);
-		for (UserSession session : sessions) {
-			session.setUserIdentity(userIdentity);
-		}
-	}
-
-	private Set<UserSession> getSessions(UserIdentity userIdentity) {
-		Set<UserSession> sessions = userIdentity.getSessions();
-		if (isEmpty(sessions)) {
-			sessions = new HashSet<UserSession>();
-		}
-		return sessions;
-	}
-
-	private void deleteExpired(Set<UserSession> sessions) {
-		Iterator<UserSession> iterator = sessions.iterator();
-		while (iterator.hasNext()) {
-			UserSession session = iterator.next();
-			if (isExpired(session)) {
-				sessions.remove(session);
-				session.remove();
-			}
-		}
-	}
-
-	private UserSession createSession() {
-		UserSession session = new UserSession();
-		session.setGrantValidTo(getGrantValidTo());
-		session.setIdentifier(getRandomStringGenerator().generateRandomAlphanumeric());
-
-		return session;
-	}
-
-	private Date getGrantValidTo() {
-		return new Date(getNow().getTime() + grantValidSeconds * 1000);
-	}
-
-	private boolean isExpired(UserSession session) {
-		Date now = getNow();
-		return session.getGrantValidTo().before(now);
-	}
-
-	private Date getNow() {
-		return new Date();
+		getUserSessionService().ensureUserSession(userIdentity);
 	}
 
 	@Transactional(readOnly = true)
@@ -128,7 +74,7 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		UserIdentity userIdentity = new UserIdentity();
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
 		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
-		userIdentity.setUserPassword(getPasswordGenerator().createUserPassword());
+		getUserPasswordService().createRandomPassword(userIdentity);
 		userIdentity.setRoles(createDefaultRoles());
 
 		log.debug("Created default UserIdentity [{}]", userIdentity);
@@ -229,17 +175,8 @@ public class DefaultUserIdentityService implements UserIdentityService {
 		userIdentity.persist();
 	}
 
-	private boolean isEmpty(Collection<?> collection) {
-		return CollectionUtils.isEmpty(collection);
-	}
-
 	private boolean isNotEmpty(Collection<?> collection) {
 		return CollectionUtils.isNotEmpty(collection);
-	}
-
-	@Required
-	public void setGrantValidSeconds(Long grantValidSeconds) {
-		this.grantValidSeconds = grantValidSeconds;
 	}
 
 	@Required

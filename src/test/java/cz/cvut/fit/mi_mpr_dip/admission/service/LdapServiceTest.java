@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
+import cz.cvut.fit.mi_mpr_dip.admission.service.auth.AuthenticationService;
 
 @Ignore
 public class LdapServiceTest extends BaseSpringJbpmTest {

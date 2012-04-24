@@ -98,7 +98,7 @@
 		<constructor-arg value="${password.encoder.shaVariant}" />
 	</bean>
 
-	<bean id="passwordGenerator" class="cz.cvut.fit.mi_mpr_dip.admission.service.UserPasswordGenerator">
+	<bean id="passwordGenerator" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordGenerator">
 		<property name="passwordEncoder" ref="passwordEncoder" />
 		<property name="plaintextBeginning" value="${password.encoder.salt.beginning}" />
 		<property name="plaintextEnd" value="${password.encoder.salt.end}" />

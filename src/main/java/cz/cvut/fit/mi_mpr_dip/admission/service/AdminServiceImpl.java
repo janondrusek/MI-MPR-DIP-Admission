@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.config.AccessiblePropertyConfigurer;
 
-public class DefaultAdminService implements AdminService {
+public class AdminServiceImpl implements AdminService {
 
 	private AccessiblePropertyConfigurer<Map<String, String>> accessiblePropertyConfigurer;
 

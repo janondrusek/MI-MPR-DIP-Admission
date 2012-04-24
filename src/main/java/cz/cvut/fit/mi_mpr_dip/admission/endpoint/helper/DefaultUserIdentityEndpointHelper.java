@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
-import cz.cvut.fit.mi_mpr_dip.admission.service.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 

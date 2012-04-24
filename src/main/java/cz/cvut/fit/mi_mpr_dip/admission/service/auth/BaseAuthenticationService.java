@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.auth;
 
 import cz.cvut.fit.mi_mpr_dip.admission.adapter.AuthenticationAdapter;
 

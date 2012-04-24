@@ -2,14 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.DefaultAdminService">
+	<bean id="adminService" class="cz.cvut.fit.mi_mpr_dip.admission.service.AdminServiceImpl">
 		<property name="accessiblePropertyConfigurer" ref="propertyConfigurer" />
 		<property name="buildNumber" value="${build.number}" />
 	</bean>
 
-	<bean id="userIdentityService" class="cz.cvut.fit.mi_mpr_dip.admission.service.DefaultUserIdentityService">
-		<property name="grantValidSeconds" value="${user.identity.grant.valid.seconds}" />
+	<bean id="userIdentityService" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityServiceImpl">
 		<property name="defaultRoles" value="${user.identity.roles.default}" />
+	</bean>
+
+	<bean id="userSessionService" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionServiceImpl">
+		<property name="grantValidSeconds" value="${user.identity.grant.valid.seconds}" />
 	</bean>
 
 	<bean id="admissionLoggingService" class="cz.cvut.fit.mi_mpr_dip.admission.service.logging.AdmissionLoggingService">
