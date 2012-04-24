@@ -317,7 +317,7 @@ admission.setAdmissionState(state);</script>
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalApologyApproval(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_25-_21" sourceRef="_25" targetRef="_21" name="test" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
 //return evaluator.evalRegisterForAT(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_25-_23" sourceRef="_25" targetRef="_23" name="apology" tns:priority="1" >
