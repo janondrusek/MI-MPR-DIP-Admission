@@ -14,6 +14,8 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
+  <itemDefinition id="_jbpmPropertiesItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" name="Sample Process" tns:packageName="defaultPackage" >
 
@@ -23,6 +25,8 @@
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_jbpmPropertiesItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
     <userTask id="_34" name="Register for regular AT" >
@@ -30,16 +34,72 @@
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Register / Apology for regular admission term.");</script>
         </tns:onEntry-script>
-        <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>admission.getAdmissionState().setCode("S10");</script>
-        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_34_CommentInput" name="Comment" />
+        <dataInput id="_34_SkippableInput" name="Skippable" />
+        <dataInput id="_34_TaskNameInput" name="TaskName" />
+        <dataInput id="_34_ContentInput" name="Content" />
+        <dataInput id="_34_GroupIdInput" name="GroupId" />
+        <dataInput id="_34_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_34_CommentInput</dataInputRefs>
+          <dataInputRefs>_34_SkippableInput</dataInputRefs>
+          <dataInputRefs>_34_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_34_ContentInput</dataInputRefs>
+          <dataInputRefs>_34_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_34_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_34_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_34_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_34_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ActionRegularAT</from>
+          <to xsi:type="tFormalExpression">_34_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_34_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_34_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_34_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <task id="_35" name="Admission test result" tns:taskName="Email" >
       <extensionElements>
@@ -48,11 +108,47 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_35_BodyInput" name="Body" />
+        <dataInput id="_35_SubjectInput" name="Subject" />
+        <dataInput id="_35_ToInput" name="To" />
+        <dataInput id="_35_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_35_BodyInput</dataInputRefs>
+          <dataInputRefs>_35_SubjectInput</dataInputRefs>
+          <dataInputRefs>_35_ToInput</dataInputRefs>
+          <dataInputRefs>_35_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_35_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">TEMPLATE TEST RESULT</from>
+          <to xsi:type="tFormalExpression">_35_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">PRIRIZ - Admission test result</from>
+          <to xsi:type="tFormalExpression">_35_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_35_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_35_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_35_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
     <startEvent id="_1" name="StartProcess" />
     <endEvent id="_2" name="End" />
@@ -69,69 +165,140 @@ admission.setAdmissionState(state);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_36_CommentInput" name="Comment" />
+        <dataInput id="_36_SkippableInput" name="Skippable" />
+        <dataInput id="_36_ContentInput" name="Content" />
+        <dataInput id="_36_TaskNameInput" name="TaskName" />
+        <dataInput id="_36_GroupIdInput" name="GroupId" />
+        <dataInput id="_36_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_36_CommentInput</dataInputRefs>
+          <dataInputRefs>_36_SkippableInput</dataInputRefs>
+          <dataInputRefs>_36_ContentInput</dataInputRefs>
+          <dataInputRefs>_36_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_36_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_36_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_36_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_36_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ActionAlternativeAT</from>
+          <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_36_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_36_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_36_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <callActivity id="_21" name="Regular AT" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_test" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
-          <script>AdmissionState state = new AdmissionState();
-		state.setCode("S04");
-		admission.setAdmissionState(state);</script>
+          <script>//AdmissionState state = new AdmissionState();
+//state.setCode("S04");
+//admission.setAdmissionState(state);</script>
         </tns:onEntry-script>
         <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>admission.getAdmissionState().setCode("S17");</script>
+          <script></script>
         </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
         <dataInput id="_21_admissionInput" name="admission" />
-        <dataInput id="_21_evaluatorInput" name="evaluator" />
+        <dataOutput id="_21_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_21_admissionInput</dataInputRefs>
-          <dataInputRefs>_21_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_21_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_21_admissionInput</targetRef>
       </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>evaluator</sourceRef>
-        <targetRef>_21_evaluatorInput</targetRef>
-      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_21_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <callActivity id="_23" name="Apology approval" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
       <ioSpecification>
         <dataInput id="_23_admissionInput" name="admission" />
+        <dataOutput id="_23_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_23_admissionInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_23_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_23_admissionInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_23_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <callActivity id="_22" name="Alternative AT" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_test" >
       <ioSpecification>
         <dataInput id="_22_admissionInput" name="admission" />
+        <dataOutput id="_22_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_22_admissionInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_22_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_22_admissionInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_22_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <exclusiveGateway id="_25" name="Gateway - Regular AT action (REG/APP)" gatewayDirection="Diverging" />
     <exclusiveGateway id="_27" name="Gateway - Apology from regular AT request result" gatewayDirection="Diverging" />
@@ -150,7 +317,8 @@ admission.setAdmissionState(state);</script>
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalApologyApproval(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_25-_21" sourceRef="_25" targetRef="_21" name="test" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalRegisterForAT(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true
+//return evaluator.evalRegisterForAT(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_25-_23" sourceRef="_25" targetRef="_23" name="apology" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalApologyFromAT(admission);</conditionExpression>
@@ -160,7 +328,8 @@ admission.setAdmissionState(state);</script>
     <sequenceFlow id="_23-_27" sourceRef="_23" targetRef="_27" />
     <sequenceFlow id="_22-_29" sourceRef="_22" targetRef="_29" />
     <sequenceFlow id="_38-_29" sourceRef="_38" targetRef="_29" name="complete" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalAdmissionTestEvaluated(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalAdmissionTestEvaluated(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_1-_28" sourceRef="_1" targetRef="_28" />
     <sequenceFlow id="_27-_28" sourceRef="_27" targetRef="_28" name="rejected" tns:priority="2" >

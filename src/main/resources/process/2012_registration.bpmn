@@ -14,98 +14,18 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
+  <itemDefinition id="_jbpmPropertiesItem" structureRef="String" />
+  <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" name="Sample Process" tns:packageName="defaultPackage" >
 
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_jbpmPropertiesItem"/>
+    <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
-    <startEvent id="_1" name="StartProcess" />
-    <exclusiveGateway id="_4" name="Gateway - Regular R action (REG/APP)" gatewayDirection="Diverging" />
-    <endEvent id="_8" name="End" />
-    <exclusiveGateway id="_10" name="Gateway - alternative R action (REG/APP)" gatewayDirection="Diverging" />
-    <exclusiveGateway id="_14" name="Gateway - Registration complete" gatewayDirection="Converging" />
-    <callActivity id="_21" name="Alternative registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.blank" >
-      <ioSpecification>
-        <dataInput id="_21_admissionInput" name="admission" />
-        <inputSet>
-          <dataInputRefs>_21_admissionInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_21_admissionInput</targetRef>
-      </dataInputAssociation>
-    </callActivity>
-    <callActivity id="_20" name="Regular registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.register_to_study" >
-      <extensionElements>
-        <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>admission.getAdmissionState().setCode("S35");</script>
-        </tns:onExit-script>
-      </extensionElements>
-      <ioSpecification>
-        <dataInput id="_20_admissionInput" name="admission" />
-        <inputSet>
-          <dataInputRefs>_20_admissionInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_20_admissionInput</targetRef>
-      </dataInputAssociation>
-    </callActivity>
-    <callActivity id="_23" name="Apology approval RR" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
-      <ioSpecification>
-        <dataInput id="_23_admissionInput" name="admission" />
-        <inputSet>
-          <dataInputRefs>_23_admissionInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_23_admissionInput</targetRef>
-      </dataInputAssociation>
-    </callActivity>
-    <callActivity id="_22" name="Individual registration " calledElement="cz.cvut.fit.mi_mpr_dip.admission.blank" >
-      <ioSpecification>
-        <dataInput id="_22_admissionInput" name="admission" />
-        <inputSet>
-          <dataInputRefs>_22_admissionInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_22_admissionInput</targetRef>
-      </dataInputAssociation>
-    </callActivity>
-    <exclusiveGateway id="_25" name="Gateway - Invited to RR" gatewayDirection="Converging" />
-    <exclusiveGateway id="_27" name="Gateway - Apology from RR request result" gatewayDirection="Diverging" />
-    <callActivity id="_26" name="Apology approval AR" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
-      <ioSpecification>
-        <dataInput id="_26_admissionInput" name="admission" />
-        <inputSet>
-          <dataInputRefs>_26_admissionInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_26_admissionInput</targetRef>
-      </dataInputAssociation>
-    </callActivity>
-    <exclusiveGateway id="_29" name="Gateway - Invited to AR" gatewayDirection="Converging" />
-    <exclusiveGateway id="_28" name="Gateway - Apology from AR request result" gatewayDirection="Diverging" />
     <task id="_34" name="Registration" tns:taskName="Email" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
@@ -113,28 +33,121 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_34_BodyInput" name="Body" />
+        <dataInput id="_34_SubjectInput" name="Subject" />
+        <dataInput id="_34_ToInput" name="To" />
+        <dataInput id="_34_FromInput" name="From" />
         <inputSet>
+          <dataInputRefs>_34_BodyInput</dataInputRefs>
+          <dataInputRefs>_34_SubjectInput</dataInputRefs>
+          <dataInputRefs>_34_ToInput</dataInputRefs>
+          <dataInputRefs>_34_FromInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_34_BodyInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">TEMPLATE REG</from>
+          <to xsi:type="tFormalExpression">_34_BodyInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_SubjectInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">PRIRIZ - Registration</from>
+          <to xsi:type="tFormalExpression">_34_SubjectInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_ToInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{emailTo}</from>
+          <to xsi:type="tFormalExpression">_34_ToInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_34_FromInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
+          <to xsi:type="tFormalExpression">_34_FromInput</to>
+        </assignment>
+      </dataInputAssociation>
     </task>
     <exclusiveGateway id="_35" name="Gateway - Backtrack from RR" gatewayDirection="Diverging" />
+    <startEvent id="_1" name="StartProcess" />
     <userTask id="_32" name="Register for RR" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
           <script>System.out.println("Register / Apology for regular ragistration term.");</script>
         </tns:onEntry-script>
-        <tns:onExit-script scriptFormat="http://www.java.com/java">
-          <script>admission.getAdmissionState().setCode("S30");</script>
-        </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_32_CommentInput" name="Comment" />
+        <dataInput id="_32_SkippableInput" name="Skippable" />
+        <dataInput id="_32_ContentInput" name="Content" />
+        <dataInput id="_32_TaskNameInput" name="TaskName" />
+        <dataInput id="_32_GroupIdInput" name="GroupId" />
+        <dataInput id="_32_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_32_CommentInput</dataInputRefs>
+          <dataInputRefs>_32_SkippableInput</dataInputRefs>
+          <dataInputRefs>_32_ContentInput</dataInputRefs>
+          <dataInputRefs>_32_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_32_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_32_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_32_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_32_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_32_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_32_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_32_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_32_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_32_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ActionRR</from>
+          <to xsi:type="tFormalExpression">_32_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_32_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_32_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_32_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_32_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <userTask id="_33" name="Register for AR" >
       <extensionElements>
@@ -143,21 +156,194 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_33_CommentInput" name="Comment" />
+        <dataInput id="_33_SkippableInput" name="Skippable" />
+        <dataInput id="_33_ContentInput" name="Content" />
+        <dataInput id="_33_TaskNameInput" name="TaskName" />
+        <dataInput id="_33_GroupIdInput" name="GroupId" />
+        <dataInput id="_33_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_33_CommentInput</dataInputRefs>
+          <dataInputRefs>_33_SkippableInput</dataInputRefs>
+          <dataInputRefs>_33_ContentInput</dataInputRefs>
+          <dataInputRefs>_33_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_33_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_33_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_33_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_33_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_33_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_33_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_33_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_33_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_33_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ActionAR</from>
+          <to xsi:type="tFormalExpression">_33_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_33_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_33_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_33_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_33_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
+    <exclusiveGateway id="_4" name="Gateway - Regular R action (REG/APP)" gatewayDirection="Diverging" />
     <exclusiveGateway id="_36" name="Gateway - Backtrack from AR" gatewayDirection="Diverging" />
+    <endEvent id="_8" name="End" />
+    <exclusiveGateway id="_10" name="Gateway - alternative R action (REG/APP)" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_14" name="Gateway - Registration complete" gatewayDirection="Converging" />
+    <callActivity id="_21" name="Alternative registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.register_to_study" >
+      <ioSpecification>
+        <dataInput id="_21_admissionInput" name="admission" />
+        <dataOutput id="_21_admissionOutput" name="admission" />
+        <inputSet>
+          <dataInputRefs>_21_admissionInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_21_admissionOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_21_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_21_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
+    </callActivity>
+    <callActivity id="_20" name="Regular registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.register_to_study" >
+      <ioSpecification>
+        <dataInput id="_20_admissionInput" name="admission" />
+        <dataOutput id="_20_admissionOutput" name="admission" />
+        <inputSet>
+          <dataInputRefs>_20_admissionInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_20_admissionOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_20_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_20_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
+    </callActivity>
+    <callActivity id="_23" name="Apology approval RR" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
+      <ioSpecification>
+        <dataInput id="_23_admissionInput" name="admission" />
+        <dataOutput id="_23_admissionOutput" name="admission" />
+        <inputSet>
+          <dataInputRefs>_23_admissionInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_23_admissionOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_23_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_23_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
+    </callActivity>
+    <callActivity id="_22" name="Individual registration " calledElement="cz.cvut.fit.mi_mpr_dip.admission.register_to_study" >
+      <ioSpecification>
+        <dataInput id="_22_admissionInput" name="admission" />
+        <dataOutput id="_22_admissionOutput" name="admission" />
+        <inputSet>
+          <dataInputRefs>_22_admissionInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_22_admissionOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_22_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_22_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
+    </callActivity>
+    <exclusiveGateway id="_25" name="Gateway - Invited to RR" gatewayDirection="Converging" />
+    <exclusiveGateway id="_27" name="Gateway - Apology from RR request result" gatewayDirection="Diverging" />
+    <callActivity id="_26" name="Apology approval AR" calledElement="cz.cvut.fit.mi_mpr_dip.admission.apology_approval" >
+      <ioSpecification>
+        <dataInput id="_26_admissionInput" name="admission" />
+        <dataOutput id="_26_admissionOutput" name="admission" />
+        <inputSet>
+          <dataInputRefs>_26_admissionInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_26_admissionOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_26_admissionInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_26_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
+    </callActivity>
+    <exclusiveGateway id="_29" name="Gateway - Invited to AR" gatewayDirection="Converging" />
+    <exclusiveGateway id="_28" name="Gateway - Apology from AR request result" gatewayDirection="Diverging" />
 
     <!-- connections -->
+    <sequenceFlow id="_14-_34" sourceRef="_14" targetRef="_34" />
+    <sequenceFlow id="_20-_35" sourceRef="_20" targetRef="_35" />
+    <sequenceFlow id="_25-_32" sourceRef="_25" targetRef="_32" />
+    <sequenceFlow id="_29-_33" sourceRef="_29" targetRef="_33" />
     <sequenceFlow id="_32-_4" sourceRef="_32" targetRef="_4" />
+    <sequenceFlow id="_21-_36" sourceRef="_21" targetRef="_36" />
     <sequenceFlow id="_34-_8" sourceRef="_34" targetRef="_8" />
     <sequenceFlow id="_33-_10" sourceRef="_33" targetRef="_10" />
     <sequenceFlow id="_22-_14" sourceRef="_22" targetRef="_14" />
     <sequenceFlow id="_35-_14" sourceRef="_35" targetRef="_14" name="complete" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalRegistrationDone(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalRegistrationDone(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_36-_14" sourceRef="_36" targetRef="_14" name="complete" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalRegistrationDone(admission);</conditionExpression>
@@ -166,7 +352,8 @@
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalRegisterForREG(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_4-_20" sourceRef="_4" targetRef="_20" name="registration" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalRegisterForREG(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
+//return evaluator.evalRegisterForREG(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_4-_23" sourceRef="_4" targetRef="_23" name="apology" tns:priority="1" >
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalApologyFromREG(admission);</conditionExpression>
@@ -196,21 +383,31 @@
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return evaluator.evalBackFromREG(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_26-_28" sourceRef="_26" targetRef="_28" />
-    <sequenceFlow id="_14-_34" sourceRef="_14" targetRef="_34" />
-    <sequenceFlow id="_20-_35" sourceRef="_20" targetRef="_35" />
-    <sequenceFlow id="_25-_32" sourceRef="_25" targetRef="_32" />
-    <sequenceFlow id="_29-_33" sourceRef="_29" targetRef="_33" />
-    <sequenceFlow id="_21-_36" sourceRef="_21" targetRef="_36" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
+      <bpmndi:BPMNShape bpmnElement="_34" >
+        <dc:Bounds x="166" y="650" width="118" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_35" >
+        <dc:Bounds x="68" y="454" width="48" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_1" >
         <dc:Bounds x="68" y="11" width="48" height="48" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_32" >
+        <dc:Bounds x="47" y="191" width="161" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_33" >
+        <dc:Bounds x="357" y="181" width="148" height="49" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_4" >
         <dc:Bounds x="159" y="269" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_36" >
+        <dc:Bounds x="256" y="427" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_8" >
         <dc:Bounds x="351" y="650" width="48" height="48" />
@@ -248,24 +445,32 @@
       <bpmndi:BPMNShape bpmnElement="_28" >
         <dc:Bounds x="462" y="488" width="48" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_34" >
-        <dc:Bounds x="166" y="650" width="118" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_35" >
-        <dc:Bounds x="68" y="454" width="48" height="48" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_32" >
-        <dc:Bounds x="47" y="191" width="161" height="49" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_33" >
-        <dc:Bounds x="357" y="181" width="148" height="49" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_36" >
-        <dc:Bounds x="256" y="427" width="48" height="48" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_14-_34" >
+        <di:waypoint x="274" y="591" />
+        <di:waypoint x="225" y="674" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20-_35" >
+        <di:waypoint x="127" y="382" />
+        <di:waypoint x="127" y="443" />
+        <di:waypoint x="92" y="478" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25-_32" >
+        <di:waypoint x="86" y="111" />
+        <di:waypoint x="127" y="150" />
+        <di:waypoint x="127" y="215" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_29-_33" >
+        <di:waypoint x="486" y="103" />
+        <di:waypoint x="431" y="205" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_32-_4" >
         <di:waypoint x="127" y="215" />
         <di:waypoint x="183" y="293" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_36" >
+        <di:waypoint x="327" y="380" />
+        <di:waypoint x="327" y="430" />
+        <di:waypoint x="280" y="451" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_34-_8" >
         <di:waypoint x="225" y="674" />
@@ -315,6 +520,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_35-_25" >
         <di:waypoint x="92" y="478" />
+        <di:waypoint x="19" y="398" />
+        <di:waypoint x="19" y="171" />
         <di:waypoint x="86" y="111" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_23-_27" >
@@ -343,29 +550,6 @@
       <bpmndi:BPMNEdge bpmnElement="_26-_28" >
         <di:waypoint x="430" y="439" />
         <di:waypoint x="486" y="512" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_14-_34" >
-        <di:waypoint x="274" y="591" />
-        <di:waypoint x="225" y="674" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_20-_35" >
-        <di:waypoint x="127" y="382" />
-        <di:waypoint x="127" y="443" />
-        <di:waypoint x="92" y="478" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_25-_32" >
-        <di:waypoint x="86" y="111" />
-        <di:waypoint x="127" y="150" />
-        <di:waypoint x="127" y="215" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_29-_33" >
-        <di:waypoint x="486" y="103" />
-        <di:waypoint x="431" y="205" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_21-_36" >
-        <di:waypoint x="327" y="380" />
-        <di:waypoint x="327" y="430" />
-        <di:waypoint x="280" y="451" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

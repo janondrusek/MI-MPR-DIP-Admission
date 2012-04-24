@@ -14,7 +14,7 @@
 
   <itemDefinition id="_admissionItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.domain.Admission" />
   <itemDefinition id="_evaluatorItem" structureRef="cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator" />
-  <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_jbpmPropertiesItem" structureRef="java.util.HashMap" />
   <itemDefinition id="_emailToItem" structureRef="String" />
 
   <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" name="Sample Process" tns:packageName="defaultPackage" >
@@ -26,7 +26,7 @@
     <!-- process variables -->
     <property id="admission" itemSubjectRef="_admissionItem"/>
     <property id="evaluator" itemSubjectRef="_evaluatorItem"/>
-    <property id="prop" itemSubjectRef="_propItem"/>
+    <property id="jbpmProperties" itemSubjectRef="_jbpmPropertiesItem"/>
     <property id="emailTo" itemSubjectRef="_emailToItem"/>
 
     <!-- nodes -->
@@ -43,7 +43,7 @@ evaluator.testGeneratingDecisionType(admission);</script>
         <terminateEventDefinition/>
     </endEvent>
     <scriptTask id="_10" name="Not accepted" scriptFormat="http://www.java.com/java" >
-      <script></script>
+      <script>System.out.println("NOT accepted.");</script>
     </scriptTask>
     <userTask id="_11" name="Appeal for decision" >
       <extensionElements>
@@ -52,11 +52,70 @@ evaluator.testGeneratingDecisionType(admission);</script>
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_11_CommentInput" name="Comment" />
+        <dataInput id="_11_SkippableInput" name="Skippable" />
+        <dataInput id="_11_ContentInput" name="Content" />
+        <dataInput id="_11_TaskNameInput" name="TaskName" />
+        <dataInput id="_11_GroupIdInput" name="GroupId" />
+        <dataInput id="_11_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_11_CommentInput</dataInputRefs>
+          <dataInputRefs>_11_SkippableInput</dataInputRefs>
+          <dataInputRefs>_11_ContentInput</dataInputRefs>
+          <dataInputRefs>_11_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_11_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_11_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_11_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_11_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">AppealForDecision</from>
+          <to xsi:type="tFormalExpression">_11_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_APPLICANT</from>
+          <to xsi:type="tFormalExpression">_11_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_11_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_11_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <userTask id="_13" name="Appeal approval" >
       <extensionElements>
@@ -78,11 +137,70 @@ evaluator.testGeneratingDecisionType(admission);</script>
         </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_13_CommentInput" name="Comment" />
+        <dataInput id="_13_SkippableInput" name="Skippable" />
+        <dataInput id="_13_ContentInput" name="Content" />
+        <dataInput id="_13_TaskNameInput" name="TaskName" />
+        <dataInput id="_13_GroupIdInput" name="GroupId" />
+        <dataInput id="_13_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_13_CommentInput</dataInputRefs>
+          <dataInputRefs>_13_SkippableInput</dataInputRefs>
+          <dataInputRefs>_13_ContentInput</dataInputRefs>
+          <dataInputRefs>_13_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_13_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_13_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_13_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_13_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_13_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_13_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_13_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_13_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_13_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">AppealApproval</from>
+          <to xsi:type="tFormalExpression">_13_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_13_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_DEAN</from>
+          <to xsi:type="tFormalExpression">_13_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_13_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_13_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <task id="_14" name="Decision sent" tns:taskName="Email" >
       <extensionElements>
@@ -112,14 +230,14 @@ evaluator.testGeneratingDecisionType(admission);</script>
       <dataInputAssociation>
         <targetRef>_14_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">Decision sent</from>
+          <from xsi:type="tFormalExpression">TEMPLATE DECISION</from>
           <to xsi:type="tFormalExpression">_14_BodyInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_14_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">FIT - Decision sent</from>
+          <from xsi:type="tFormalExpression">PRIRIZ - Decision sent</from>
           <to xsi:type="tFormalExpression">_14_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
@@ -133,7 +251,7 @@ evaluator.testGeneratingDecisionType(admission);</script>
       <dataInputAssociation>
         <targetRef>_14_FromInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
+          <from xsi:type="tFormalExpression">#{jbpmProperties.get("mail.from")}</from>
           <to xsi:type="tFormalExpression">_14_FromInput</to>
         </assignment>
       </dataInputAssociation>

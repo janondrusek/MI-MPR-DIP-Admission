@@ -24,8 +24,8 @@
     <property id="admission" itemSubjectRef="_admissionItem"/>
 
     <!-- nodes -->
-    <exclusiveGateway id="_16" name="Gateway - AT evaluated" gatewayDirection="Converging" />
     <startEvent id="_1" name="StartProcess" />
+    <exclusiveGateway id="_16" name="Gateway - AT evaluated" gatewayDirection="Converging" />
     <userTask id="_21" name="Attendance check" >
       <extensionElements>
         <tns:onEntry-script scriptFormat="http://www.java.com/java">
@@ -33,11 +33,70 @@
         </tns:onEntry-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_21_CommentInput" name="Comment" />
+        <dataInput id="_21_SkippableInput" name="Skippable" />
+        <dataInput id="_21_ContentInput" name="Content" />
+        <dataInput id="_21_TaskNameInput" name="TaskName" />
+        <dataInput id="_21_GroupIdInput" name="GroupId" />
+        <dataInput id="_21_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_21_CommentInput</dataInputRefs>
+          <dataInputRefs>_21_SkippableInput</dataInputRefs>
+          <dataInputRefs>_21_ContentInput</dataInputRefs>
+          <dataInputRefs>_21_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_21_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_21_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_21_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_21_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_21_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_21_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_21_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_21_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_21_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">AttendanceCheck</from>
+          <to xsi:type="tFormalExpression">_21_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_21_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_REFERENT</from>
+          <to xsi:type="tFormalExpression">_21_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_21_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_21_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
     <intermediateCatchEvent id="_23" name="Signal" >
       <signalEventDefinition signalRef="attendant_failed_test"/>
@@ -49,7 +108,7 @@
         </tns:onEntry-script>
         <tns:onExit-script scriptFormat="http://www.java.com/java">
           <script>EvaluationType h2 = new EvaluationType();
-h2.setName("H2");
+h2.setName("h2");
 
 Evaluation e2 = new Evaluation();
 e2.setEvaluationType(h2);
@@ -59,13 +118,71 @@ admission.getEvaluations().add(e2);</script>
         </tns:onExit-script>
       </extensionElements>
       <ioSpecification>
+        <dataInput id="_22_CommentInput" name="Comment" />
+        <dataInput id="_22_SkippableInput" name="Skippable" />
+        <dataInput id="_22_ContentInput" name="Content" />
+        <dataInput id="_22_TaskNameInput" name="TaskName" />
+        <dataInput id="_22_GroupIdInput" name="GroupId" />
+        <dataInput id="_22_PriorityInput" name="Priority" />
         <inputSet>
+          <dataInputRefs>_22_CommentInput</dataInputRefs>
+          <dataInputRefs>_22_SkippableInput</dataInputRefs>
+          <dataInputRefs>_22_ContentInput</dataInputRefs>
+          <dataInputRefs>_22_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_22_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_22_PriorityInput</dataInputRefs>
         </inputSet>
         <outputSet>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_22_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_22_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_22_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_22_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_22_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_22_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_22_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">TestEvaluation</from>
+          <to xsi:type="tFormalExpression">_22_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_22_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_EXAMINER</from>
+          <to xsi:type="tFormalExpression">_22_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_22_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_22_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>test</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
     </userTask>
-    <endEvent id="_9" name="End" />
     <scriptTask id="_24" name="Applicant failed" scriptFormat="http://www.java.com/java" >
       <script>System.out.println("Attendant failed in admission test");
 
@@ -73,24 +190,25 @@ admission.getEvaluations().add(e2);</script>
 
 </script>
     </scriptTask>
+    <endEvent id="_9" name="End" />
 
     <!-- connections -->
     <sequenceFlow id="_22-_16" sourceRef="_22" targetRef="_16" />
     <sequenceFlow id="_24-_16" sourceRef="_24" targetRef="_16" />
     <sequenceFlow id="_1-_21" sourceRef="_1" targetRef="_21" />
     <sequenceFlow id="_21-_22" sourceRef="_21" targetRef="_22" />
-    <sequenceFlow id="_16-_9" sourceRef="_16" targetRef="_9" />
     <sequenceFlow id="_23-_24" sourceRef="_23" targetRef="_24" />
+    <sequenceFlow id="_16-_9" sourceRef="_16" targetRef="_9" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.2012_test" >
-      <bpmndi:BPMNShape bpmnElement="_16" >
-        <dc:Bounds x="440" y="56" width="48" height="48" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_1" >
         <dc:Bounds x="16" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_16" >
+        <dc:Bounds x="440" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_21" >
         <dc:Bounds x="96" y="16" width="144" height="49" />
@@ -101,11 +219,11 @@ admission.getEvaluations().add(e2);</script>
       <bpmndi:BPMNShape bpmnElement="_22" >
         <dc:Bounds x="272" y="16" width="136" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_9" >
-        <dc:Bounds x="521" y="56" width="48" height="48" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_24" >
         <dc:Bounds x="272" y="96" width="136" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="521" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_22-_16" >
         <di:waypoint x="340" y="40" />
@@ -123,13 +241,13 @@ admission.getEvaluations().add(e2);</script>
         <di:waypoint x="168" y="40" />
         <di:waypoint x="340" y="40" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_16-_9" >
-        <di:waypoint x="464" y="80" />
-        <di:waypoint x="545" y="80" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_23-_24" >
         <di:waypoint x="168" y="121" />
         <di:waypoint x="340" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16-_9" >
+        <di:waypoint x="464" y="80" />
+        <di:waypoint x="545" y="80" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

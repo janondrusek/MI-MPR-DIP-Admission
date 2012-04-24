@@ -33,6 +33,11 @@
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <userTask id="_36" name="Border balancing" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("BB phase.");</script>
+        </tns:onEntry-script>
+      </extensionElements>
       <ioSpecification>
         <dataInput id="_36_CommentInput" name="Comment" />
         <dataInput id="_36_SkippableInput" name="Skippable" />
@@ -75,14 +80,14 @@
       <dataInputAssociation>
         <targetRef>_36_TaskNameInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression"></from>
+          <from xsi:type="tFormalExpression">borderBalancing</from>
           <to xsi:type="tFormalExpression">_36_TaskNameInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_36_GroupIdInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression"></from>
+          <from xsi:type="tFormalExpression">ROLE_DEAN</from>
           <to xsi:type="tFormalExpression">_36_GroupIdInput</to>
         </assignment>
       </dataInputAssociation>
@@ -95,7 +100,7 @@
       </dataInputAssociation>
       <potentialOwner>
         <resourceAssignmentExpression>
-          <formalExpression></formalExpression>
+          <formalExpression>test</formalExpression>
         </resourceAssignmentExpression>
       </potentialOwner>
     </userTask>
@@ -105,12 +110,18 @@
     <callActivity id="_7" name="Admission test" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_admission_test" >
       <ioSpecification>
         <dataInput id="_7_admissionInput" name="admission" />
+        <dataInput id="_7_jbpmPropertiesInput" name="jbpmProperties" />
+        <dataInput id="_7_emailToInput" name="emailTo" />
         <dataInput id="_7_evaluatorInput" name="evaluator" />
+        <dataOutput id="_7_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_7_admissionInput</dataInputRefs>
+          <dataInputRefs>_7_jbpmPropertiesInput</dataInputRefs>
+          <dataInputRefs>_7_emailToInput</dataInputRefs>
           <dataInputRefs>_7_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_7_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
@@ -118,21 +129,39 @@
         <targetRef>_7_admissionInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
+        <sourceRef>jbpmProperties</sourceRef>
+        <targetRef>_7_jbpmPropertiesInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>emailTo</sourceRef>
+        <targetRef>_7_emailToInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
         <sourceRef>evaluator</sourceRef>
         <targetRef>_7_evaluatorInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_7_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <exclusiveGateway id="_8" name="Gateway - Admission test check" gatewayDirection="Diverging" />
     <exclusiveGateway id="_9" name="Gateway - AT complete" gatewayDirection="Converging" />
     <callActivity id="_10" name="Registration" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_registration" >
       <ioSpecification>
         <dataInput id="_10_admissionInput" name="admission" />
+        <dataInput id="_10_jbpmPropertiesInput" name="jbpmProperties" />
+        <dataInput id="_10_emailToInput" name="emailTo" />
         <dataInput id="_10_evaluatorInput" name="evaluator" />
+        <dataOutput id="_10_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_10_admissionInput</dataInputRefs>
+          <dataInputRefs>_10_jbpmPropertiesInput</dataInputRefs>
+          <dataInputRefs>_10_emailToInput</dataInputRefs>
           <dataInputRefs>_10_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_10_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
@@ -140,47 +169,84 @@
         <targetRef>_10_admissionInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
+        <sourceRef>jbpmProperties</sourceRef>
+        <targetRef>_10_jbpmPropertiesInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>emailTo</sourceRef>
+        <targetRef>_10_emailToInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
         <sourceRef>evaluator</sourceRef>
         <targetRef>_10_evaluatorInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_10_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <callActivity id="_40" name="Needed docs request" calledElement="cz.cvut.fit.mi_mpr_dip.admission.document_request" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("Docs");</script>
+        </tns:onEntry-script>
+      </extensionElements>
       <ioSpecification>
         <dataInput id="_40_admissionInput" name="admission" />
+        <dataInput id="_40_jbpmPropertiesInput" name="jbpmProperties" />
+        <dataInput id="_40_emailToInput" name="emailTo" />
+        <dataOutput id="_40_admissionOutput" name="admission" />
         <inputSet>
           <dataInputRefs>_40_admissionInput</dataInputRefs>
+          <dataInputRefs>_40_jbpmPropertiesInput</dataInputRefs>
+          <dataInputRefs>_40_emailToInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_40_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
         <sourceRef>admission</sourceRef>
         <targetRef>_40_admissionInput</targetRef>
       </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>jbpmProperties</sourceRef>
+        <targetRef>_40_jbpmPropertiesInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>emailTo</sourceRef>
+        <targetRef>_40_emailToInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_40_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <exclusiveGateway id="_41" name="Gateway - Document check complete" gatewayDirection="Converging" />
     <callActivity id="_14" name="Decision" calledElement="cz.cvut.fit.mi_mpr_dip.admission.2012_decision" >
       <ioSpecification>
-        <dataInput id="_14_admissionInput" name="admission" />
         <dataInput id="_14_jbpmPropertiesInput" name="jbpmProperties" />
+        <dataInput id="_14_admissionInput" name="admission" />
         <dataInput id="_14_emailToInput" name="emailTo" />
         <dataInput id="_14_evaluatorInput" name="evaluator" />
+        <dataOutput id="_14_admissionOutput" name="admission" />
         <inputSet>
-          <dataInputRefs>_14_admissionInput</dataInputRefs>
           <dataInputRefs>_14_jbpmPropertiesInput</dataInputRefs>
+          <dataInputRefs>_14_admissionInput</dataInputRefs>
           <dataInputRefs>_14_emailToInput</dataInputRefs>
           <dataInputRefs>_14_evaluatorInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_14_admissionOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
-        <sourceRef>admission</sourceRef>
-        <targetRef>_14_admissionInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <sourceRef>jbpmProperties</sourceRef>
         <targetRef>_14_jbpmPropertiesInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>admission</sourceRef>
+        <targetRef>_14_admissionInput</targetRef>
       </dataInputAssociation>
       <dataInputAssociation>
         <sourceRef>emailTo</sourceRef>
@@ -190,6 +256,10 @@
         <sourceRef>evaluator</sourceRef>
         <targetRef>_14_evaluatorInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_14_admissionOutput</sourceRef>
+        <targetRef>admission</targetRef>
+      </dataOutputAssociation>
     </callActivity>
     <exclusiveGateway id="_21" name="Gateway - Document check" gatewayDirection="Diverging" />
     <task id="_29" name="Process start" tns:taskName="Email" >
@@ -215,21 +285,14 @@
       <dataInputAssociation>
         <targetRef>_29_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">TEST
-
-username: ???
-password: ???
-
-	S pozdravem,
-
-DavidCh.</from>
+          <from xsi:type="tFormalExpression">TEMPLATE 1</from>
           <to xsi:type="tFormalExpression">_29_BodyInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_29_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">?VUT/FIT - Process BSP started</from>
+          <from xsi:type="tFormalExpression">PRIRIZ - Process BSP started</from>
           <to xsi:type="tFormalExpression">_29_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
@@ -271,14 +334,14 @@ DavidCh.</from>
       <dataInputAssociation>
         <targetRef>_31_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">INVITATION</from>
+          <from xsi:type="tFormalExpression">TEMPLATE INVITATION</from>
           <to xsi:type="tFormalExpression">_31_BodyInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_31_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">Invitation for admission test</from>
+          <from xsi:type="tFormalExpression">PRIRIZ - Invitation for admission test</from>
           <to xsi:type="tFormalExpression">_31_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
@@ -320,14 +383,14 @@ DavidCh.</from>
       <dataInputAssociation>
         <targetRef>_30_BodyInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">Without admission test</from>
+          <from xsi:type="tFormalExpression">TEMPLATE WITHOUT AT</from>
           <to xsi:type="tFormalExpression">_30_BodyInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_30_SubjectInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">Accepted without admission test</from>
+          <from xsi:type="tFormalExpression">PRIRIZ - Accepted without admission test</from>
           <to xsi:type="tFormalExpression">_30_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
@@ -360,8 +423,8 @@ DavidCh.</from>
     </sequenceFlow>
     <sequenceFlow id="_40-_41" sourceRef="_40" targetRef="_41" />
     <sequenceFlow id="_21-_41" sourceRef="_21" targetRef="_41" name="docs_ok" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
-//return evaluator.evalNeededDocuments(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >//return true;
+return evaluator.evalNeededDocuments(admission);</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_41-_14" sourceRef="_41" targetRef="_14" />
     <sequenceFlow id="_9-_21" sourceRef="_9" targetRef="_21" />
@@ -370,8 +433,8 @@ DavidCh.</from>
       <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_8-_30" sourceRef="_8" targetRef="_30" name="without_AT" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;
-//return evaluator.evalAcceptWithoutAT(admission);</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >//return true;
+return evaluator.evalAcceptWithoutAT(admission);</conditionExpression>
     </sequenceFlow>
 
   </process>
