@@ -12,7 +12,7 @@ import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 
-import com.sun.xml.xsom.impl.Ref.Term;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 
 @RooJavaBean
 @RooToString
