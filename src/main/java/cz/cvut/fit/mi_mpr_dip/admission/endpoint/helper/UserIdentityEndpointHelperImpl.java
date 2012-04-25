@@ -18,13 +18,22 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
+import cz.cvut.fit.mi_mpr_dip.admission.exception.helper.BusinessExceptionHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 @RooJavaBean
 public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelper {
+
+	@Autowired
+	private BeanValidator beanValidator;
+
+	@Autowired
+	private BusinessExceptionHelper businessExceptionHelper;
+
+	@Autowired
+	private PrincipalValidator principalValidator;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy;
 
@@ -36,12 +45,6 @@ public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelpe
 
 	@Autowired
 	private UserSessionDao userSessionDao;
-
-	@Autowired
-	private BeanValidator beanValidator;
-
-	@Autowired
-	private PrincipalValidator principalValidator;
 
 	@PreAuthorize("!hasRole('ROLE_ANONYMOUS')")
 	@Override
@@ -84,11 +87,7 @@ public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelpe
 	}
 
 	private void throwNotFoundBusinessException() {
-		throwBusinessException(HttpServletResponse.SC_NOT_FOUND, "Not Found");
-	}
-
-	private void throwBusinessException(Integer code, String message) {
-		throw new BusinessException(code, message);
+		getBusinessExceptionHelper().throwException(HttpServletResponse.SC_NOT_FOUND);
 	}
 
 	private boolean isNotEqual(String one, String two) {

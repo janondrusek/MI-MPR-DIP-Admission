@@ -11,10 +11,6 @@ public interface ProcessingEndpoint {
 
 	public Response getUserIdentity();
 
-	public Response resetPassword(String email);
-
-	public Response resetPassword(String admissionCode, String email);
-
 	public Response getAdmission(String admissionCode);
 
 	public Admissions getAdmissions(Integer count, Integer page);

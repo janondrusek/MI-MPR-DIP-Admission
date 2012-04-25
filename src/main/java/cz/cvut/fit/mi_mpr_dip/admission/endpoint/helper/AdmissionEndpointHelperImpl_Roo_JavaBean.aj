@@ -5,6 +5,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.exception.helper.BusinessExceptionHelper;
 
 privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {
     
@@ -14,6 +15,14 @@ privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {
     
     public void AdmissionEndpointHelperImpl.setAdmissionDao(AdmissionDao admissionDao) {
         this.admissionDao = admissionDao;
+    }
+    
+    public BusinessExceptionHelper AdmissionEndpointHelperImpl.getBusinessExceptionHelper() {
+        return this.businessExceptionHelper;
+    }
+    
+    public void AdmissionEndpointHelperImpl.setBusinessExceptionHelper(BusinessExceptionHelper businessExceptionHelper) {
+        this.businessExceptionHelper = businessExceptionHelper;
     }
     
 }

@@ -10,7 +10,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelp
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 import org.springframework.context.ApplicationContext;
@@ -71,14 +70,6 @@ privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
     
     public void ProcessingEndpointImpl.setUserIdentityService(UserIdentityService userIdentityService) {
         this.userIdentityService = userIdentityService;
-    }
-    
-    public UserPasswordService ProcessingEndpointImpl.getUserPasswordService() {
-        return this.userPasswordService;
-    }
-    
-    public void ProcessingEndpointImpl.setUserPasswordService(UserPasswordService userPasswordService) {
-        this.userPasswordService = userPasswordService;
     }
     
     public ApplicationContext ProcessingEndpointImpl.getApplicationContext() {

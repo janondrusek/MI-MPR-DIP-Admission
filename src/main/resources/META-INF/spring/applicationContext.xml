@@ -2,6 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<import resource="builders.xml" />
+	<import resource="exceptions.xml" />
+	<import resource="jbpm.xml" />
+	<import resource="property-configurer.xml" />
+	<import resource="services.xml" />
 	<import resource="spring-common.xml" />
 	<import resource="spring-roo.xml" />
 	<import resource="spring-persistence.xml" />
@@ -9,8 +14,4 @@
 	<import resource="spring-mail.xml" />
 	<import resource="spring-security.xml" />
 	<import resource="spring-web.xml" />
-	<import resource="builders.xml" />
-	<import resource="property-configurer.xml" />
-	<import resource="services.xml" />
-	<import resource="jbpm.xml" />
 </beans>

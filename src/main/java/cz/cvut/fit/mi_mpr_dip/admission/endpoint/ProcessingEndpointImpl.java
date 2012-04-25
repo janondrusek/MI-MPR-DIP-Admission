@@ -33,7 +33,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelp
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
@@ -44,15 +43,8 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 
 	protected static final String ENDPOINT_PATH = "/processing";
 
-	private static final String ADMISSION_PATH = "/admission";
+	protected static final String ADMISSION_PATH = "/admission";
 	private static final String ADMISSIONS_PATH = "/admissions";
-	private static final String PERSON_PATH = "/person";
-	private static final String RESET_PASSWORD_PATH = "/reset_password";
-
-	private static final String EMAIL_ATTRIBUTE = "email:";
-
-	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + EMAIL_ATTRIBUTE + "{email}"
-			+ RESET_PASSWORD_PATH;
 
 	@Autowired
 	private AdmissionCodeValidator admissionCodeValidator;
@@ -75,9 +67,6 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 
 	@Autowired
 	private UserIdentityService userIdentityService;
-	
-	@Autowired
-	private UserPasswordService userPasswordService;
 
 	private ApplicationContext applicationContext;
 
@@ -87,22 +76,6 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	@Override
 	public Response getUserIdentity() {
 		return getUserIdentityEndpointHelper().getUserIdentity();
-	}
-
-	@Path(FULL_RESET_PASSWORD_PATH)
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@POST
-	@Override
-	public Response resetPassword(@PathParam("email") String email) {
-		return null;
-	}
-
-	@Path(ADMISSION_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@POST
-	@Override
-	public Response resetPassword(@PathParam("admissionCode") String admissionCode, @PathParam("email") String email) {
-		return null;
 	}
 
 	@Secured("PERM_READ_ADMISSION")
