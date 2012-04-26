@@ -38,7 +38,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 	private String from;
 
 	@Override
-	public void send(UserIdentity userIdentity, String[] emails) {
+	public void send(UserIdentity userIdentity, String... emails) {
 		getMailMessage().setTo(emails);
 		try {
 			getMailMessage().setText(getText(userIdentity));
