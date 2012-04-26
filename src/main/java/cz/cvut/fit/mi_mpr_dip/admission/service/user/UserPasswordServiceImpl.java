@@ -68,7 +68,7 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	}
 
 	@Override
-	public UserIdentity createRandomPassword(String admissionCode, String email) {
+	public UserIdentity createRandomPassword(Admission admission, String email) {
 		return null;
 	}
 

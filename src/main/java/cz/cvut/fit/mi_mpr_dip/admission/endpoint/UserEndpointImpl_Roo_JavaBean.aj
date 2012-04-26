@@ -3,12 +3,21 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.UserEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 
 privileged aspect UserEndpointImpl_Roo_JavaBean {
+    
+    public AdmissionDao UserEndpointImpl.getAdmissionDao() {
+        return this.admissionDao;
+    }
+    
+    public void UserEndpointImpl.setAdmissionDao(AdmissionDao admissionDao) {
+        this.admissionDao = admissionDao;
+    }
     
     public PasswordResetService UserEndpointImpl.getPasswordResetService() {
         return this.passwordResetService;

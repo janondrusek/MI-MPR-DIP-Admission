@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
@@ -34,6 +36,9 @@ public class UserEndpointImpl implements UserEndpoint {
 			+ RESET_PASSWORD_PATH;
 
 	@Autowired
+	private AdmissionDao admissionDao;
+
+	@Autowired
 	private PasswordResetService passwordResetService;
 
 	@Autowired
@@ -51,24 +56,36 @@ public class UserEndpointImpl implements UserEndpoint {
 		return Response.ok().build();
 	}
 
-	@Transactional
-	private void createAndStoreRandomPassword(String email) {
-		Set<UserIdentity> userIdentities = getUserPasswordService().createRandomPassword(email);
-		for (UserIdentity userIdentity : userIdentities) {
-			userIdentity.persist();
-			getPasswordResetService().send(email, userIdentity);
-		}
-	}
-
 	@Path(ProcessingEndpointImpl.ADMISSION_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
 	public Response resetPassword(@PathParam("admissionCode") String admissionCode, @PathParam("email") String email) {
-		getUserPasswordService().createRandomPassword(admissionCode, email);
+		createAndStoreRandomPassword(admissionCode, email);
 		return Response.seeOther(
 				getUriEndpointHelper().getAdmissionLocation(
 						ProcessingEndpointImpl.ENDPOINT_PATH + ProcessingEndpointImpl.ADMISSION_PATH, admissionCode))
 				.build();
 	}
+
+	@Transactional
+	private void createAndStoreRandomPassword(String admissionCode, String email) {
+		Admission admission = getAdmissionDao().getAdmission(admissionCode);
+		UserIdentity userIdentity = getUserPasswordService().createRandomPassword(admission, email);
+		storeAndEmail(userIdentity, email, admission.getPerson().getEmail());
+	}
+
+	@Transactional
+	private void createAndStoreRandomPassword(String email) {
+		Set<UserIdentity> userIdentities = getUserPasswordService().createRandomPassword(email);
+		for (UserIdentity userIdentity : userIdentities) {
+			storeAndEmail(userIdentity, email);
+		}
+	}
+
+	private void storeAndEmail(UserIdentity userIdentity, String... emails) {
+		userIdentity.persist();
+		getPasswordResetService().send(userIdentity, emails);
+	}
+
 }

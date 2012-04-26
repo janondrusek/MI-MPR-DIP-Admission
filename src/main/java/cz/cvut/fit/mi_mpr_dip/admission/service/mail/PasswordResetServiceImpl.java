@@ -38,13 +38,13 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 	private String from;
 
 	@Override
-	public void send(String email, UserIdentity userIdentity) {
-		getMailMessage().setTo(email);
+	public void send(UserIdentity userIdentity, String[] emails) {
+		getMailMessage().setTo(emails);
 		try {
 			getMailMessage().setText(getText(userIdentity));
 			getMailSender().send(getMailMessage());
 		} catch (Exception e) {
-			log.warn("Unable to send password reset email for [{}] [{}]", email, userIdentity);
+			log.warn("Unable to send password reset email for [{}] [{}]", emails, userIdentity);
 			throw new TechnicalException(e);
 		}
 	}
