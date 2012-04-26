@@ -5,18 +5,11 @@ package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.PersonDao;
+import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.PasswordGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordServiceImpl;
 
 privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
-    
-    public PasswordGenerator UserPasswordServiceImpl.getPasswordGenerator() {
-        return this.passwordGenerator;
-    }
-    
-    public void UserPasswordServiceImpl.setPasswordGenerator(PasswordGenerator passwordGenerator) {
-        this.passwordGenerator = passwordGenerator;
-    }
     
     public AdmissionDao UserPasswordServiceImpl.getAdmissionDao() {
         return this.admissionDao;
@@ -26,12 +19,28 @@ privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
         this.admissionDao = admissionDao;
     }
     
+    public PasswordGenerator UserPasswordServiceImpl.getPasswordGenerator() {
+        return this.passwordGenerator;
+    }
+    
+    public void UserPasswordServiceImpl.setPasswordGenerator(PasswordGenerator passwordGenerator) {
+        this.passwordGenerator = passwordGenerator;
+    }
+    
     public PersonDao UserPasswordServiceImpl.getPersonDao() {
         return this.personDao;
     }
     
     public void UserPasswordServiceImpl.setPersonDao(PersonDao personDao) {
         this.personDao = personDao;
+    }
+    
+    public BusinessExceptionUtil UserPasswordServiceImpl.getBusinessExceptionUtil() {
+        return this.businessExceptionUtil;
+    }
+    
+    public void UserPasswordServiceImpl.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
+        this.businessExceptionUtil = businessExceptionUtil;
     }
     
 }

@@ -16,7 +16,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.PersonDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.*;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
 
 public class UserPasswordServiceTest {
 
@@ -43,6 +44,8 @@ public class UserPasswordServiceTest {
 
 	private void initMocks() {
 		admission = createMock(Admission.class);
+		admissionDao = createMock(AdmissionDao.class);
+		userPasswordService.setAdmissionDao(admissionDao);
 		passwordGenerator = createMock(PasswordGenerator.class);
 		userPasswordService.setPasswordGenerator(passwordGenerator);
 		person = createMock(Person.class);
@@ -51,7 +54,8 @@ public class UserPasswordServiceTest {
 		userIdentity = createMock(UserIdentity.class);
 		userPassword = createMock(UserPassword.class);
 
-		mocks = new Object[] { admission, passwordGenerator, person, personDao, userIdentity, userPassword };
+		mocks = new Object[] { admission, admissionDao, passwordGenerator, person, personDao, userIdentity,
+				userPassword };
 	}
 
 	@Test
@@ -73,7 +77,7 @@ public class UserPasswordServiceTest {
 
 	private void setExpectations(UserPassword userPassword) {
 		expect(personDao.findByEmail(same(EMAIL))).andReturn(getPeople());
-		expect(person.getAdmission()).andReturn(admission);
+		expect(admissionDao.getAdmission(same(person))).andReturn(admission);
 		expect(admission.getUserIdentity()).andReturn(userIdentity);
 		expect(userIdentity.getUserPassword()).andReturn(userPassword).atLeastOnce();
 	}

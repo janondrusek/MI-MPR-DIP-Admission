@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
 @Repository
 public class DefaultAdmissionDao extends AbstractDao<Admission> implements AdmissionDao {
@@ -25,6 +26,22 @@ public class DefaultAdmissionDao extends AbstractDao<Admission> implements Admis
 		Admission admission;
 		try {
 			admission = uniqueResult(Admission.findAdmissionsByCodeEquals(code));
+		} catch (Exception e) {
+			admission = processException(e);
+		}
+		return admission;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Admission getAdmission(Person person) {
+		return getAdmissionQuietly(person);
+	}
+
+	private Admission getAdmissionQuietly(Person person) {
+		Admission admission;
+		try {
+			admission = Admission.findAdmissionsByPerson(person).getSingleResult();
 		} catch (Exception e) {
 			admission = processException(e);
 		}

@@ -1,12 +1,14 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
+import java.util.Set;
+
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
 public interface UserPasswordService {
 
-	public void createRandomPassword(String email);
+	public Set<UserIdentity> createRandomPassword(String email);
 
-	public void createRandomPassword(UserIdentity userIdentity);
+	public UserIdentity createRandomPassword(UserIdentity userIdentity);
 
-	public void createRandomPassword(String admissionCode, String email);
+	public UserIdentity createRandomPassword(String admissionCode, String email);
 }

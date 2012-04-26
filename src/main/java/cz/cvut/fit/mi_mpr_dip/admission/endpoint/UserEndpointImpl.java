@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import java.util.Set;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -9,13 +11,16 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
+import org.springframework.transaction.annotation.Transactional;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
-@RooJavaBean
 @Path(UserEndpointImpl.ENDPOINT_PATH)
+@RooJavaBean
 public class UserEndpointImpl implements UserEndpoint {
 
 	protected static final String ENDPOINT_PATH = "/user";
@@ -29,6 +34,9 @@ public class UserEndpointImpl implements UserEndpoint {
 			+ RESET_PASSWORD_PATH;
 
 	@Autowired
+	private PasswordResetService passwordResetService;
+
+	@Autowired
 	private UriEndpointHelper uriEndpointHelper;
 
 	@Autowired
@@ -39,8 +47,17 @@ public class UserEndpointImpl implements UserEndpoint {
 	@POST
 	@Override
 	public Response resetPassword(@PathParam("email") String email) {
-		getUserPasswordService().createRandomPassword(email);
+		createAndStoreRandomPassword(email);
 		return Response.ok().build();
+	}
+
+	@Transactional
+	private void createAndStoreRandomPassword(String email) {
+		Set<UserIdentity> userIdentities = getUserPasswordService().createRandomPassword(email);
+		for (UserIdentity userIdentity : userIdentities) {
+			userIdentity.persist();
+			getPasswordResetService().send(email, userIdentity);
+		}
 	}
 
 	@Path(ProcessingEndpointImpl.ADMISSION_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)

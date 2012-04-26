@@ -5,9 +5,18 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.UserEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 
 privileged aspect UserEndpointImpl_Roo_JavaBean {
+    
+    public PasswordResetService UserEndpointImpl.getPasswordResetService() {
+        return this.passwordResetService;
+    }
+    
+    public void UserEndpointImpl.setPasswordResetService(PasswordResetService passwordResetService) {
+        this.passwordResetService = passwordResetService;
+    }
     
     public UriEndpointHelper UserEndpointImpl.getUriEndpointHelper() {
         return this.uriEndpointHelper;

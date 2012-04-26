@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
@@ -183,14 +182,6 @@ privileged aspect Person_Roo_JavaBean {
     
     public void Person.setDisabilities(Set<DisabilityType> disabilities) {
         this.disabilities = disabilities;
-    }
-    
-    public Admission Person.getAdmission() {
-        return this.admission;
-    }
-    
-    public void Person.setAdmission(Admission admission) {
-        this.admission = admission;
     }
     
 }

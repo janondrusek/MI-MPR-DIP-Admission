@@ -39,7 +39,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 @RooEquals(excludeFields = { "admissionId" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@RooJpaActiveRecord(finders = { "findAdmissionsByCodeEquals" })
+@RooJpaActiveRecord(finders = { "findAdmissionsByCodeEquals", "findAdmissionsByPerson" })
 public class Admission {
 
 	@Version
@@ -118,8 +118,7 @@ public class Admission {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private UserIdentity userIdentity;
-	
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Valid
 	@XmlElementWrapper(name = "referenceNumbers")
