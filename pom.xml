@@ -506,6 +506,10 @@
 					<artifactId>persistence-api</artifactId>
 					<groupId>javax.persistence</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.el</groupId>
+					<artifactId>jboss-el</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<!-- WEB -->
