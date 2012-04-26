@@ -6,13 +6,9 @@
 		<property name="host" value="${mail.smtp.host}" />
 	</bean>
 
-	<!-- this is a template message that we can pre-load with default state -->
-	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-		<property name="from" value="${mail.from}" />
-		<property name="subject" value="${mail.reset.subject}" />
-	</bean>
-
 	<bean id="PasswordResetService" class="cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetServiceImpl">
+		<property name="from" value="${mail.from}" />
 		<property name="resetTemplate" value="${mail.reset.template}" />
+		<property name="subject" value="${mail.reset.subject}" />
 	</bean>
 </beans>

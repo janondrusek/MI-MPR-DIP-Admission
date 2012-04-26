@@ -4,11 +4,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.Address;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -28,25 +33,32 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 	private JavaMailSender mailSender;
 
 	@Autowired
-	private SimpleMailMessage mailMessage;
-
-	@Autowired
 	private FreeMarkerConfig freeMarkerConfig;
 
-	private String resetTemplate;
-
 	private String from;
+	private String resetTemplate;
+	private String subject;
 
 	@Override
 	public void send(UserIdentity userIdentity, String[] emails) {
-		getMailMessage().setTo(emails);
 		try {
-			getMailMessage().setText(getText(userIdentity));
-			getMailSender().send(getMailMessage());
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			mimeMessage.setText(getText(userIdentity), "UTF-8", "html");
+			mimeMessage.setSubject(getSubject());
+			mimeMessage.setFrom(new InternetAddress(getFrom()));
+			mimeMessage.setRecipients(RecipientType.TO, getAddresses(emails));
 		} catch (Exception e) {
 			log.warn("Unable to send password reset email for [{}] [{}]", emails, userIdentity);
 			throw new TechnicalException(e);
 		}
+	}
+
+	private Address[] getAddresses(String[] emails) throws AddressException {
+		InternetAddress[] addresses = new InternetAddress[emails.length];
+		for (int i = 0; i < addresses.length; i++) {
+			addresses[i] = new InternetAddress(emails[i]);
+		}
+		return addresses;
 	}
 
 	private String getText(UserIdentity userIdentity) throws IOException, TemplateException {
@@ -62,8 +74,18 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 	}
 
 	@Required
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	@Required
 	public void setResetTemplate(String resetTemplate) {
 		this.resetTemplate = resetTemplate;
+	}
+
+	@Required
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 }

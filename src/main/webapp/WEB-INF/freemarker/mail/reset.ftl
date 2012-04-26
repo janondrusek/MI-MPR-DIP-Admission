@@ -1,3 +1,10 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>FIT Reset Hesla</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  </head> 
+  <body> 
 <div>
 <p>
 Scroll down for English version.
@@ -25,3 +32,5 @@ Scroll down for English version.
   It is recommended to change it as soon as possible.<br />
 </p>
 </div>
+</body> 
+</html>

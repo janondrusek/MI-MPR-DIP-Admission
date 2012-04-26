@@ -4,7 +4,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.mail;
 
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetServiceImpl;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
@@ -18,14 +17,6 @@ privileged aspect PasswordResetServiceImpl_Roo_JavaBean {
         this.mailSender = mailSender;
     }
     
-    public SimpleMailMessage PasswordResetServiceImpl.getMailMessage() {
-        return this.mailMessage;
-    }
-    
-    public void PasswordResetServiceImpl.setMailMessage(SimpleMailMessage mailMessage) {
-        this.mailMessage = mailMessage;
-    }
-    
     public FreeMarkerConfig PasswordResetServiceImpl.getFreeMarkerConfig() {
         return this.freeMarkerConfig;
     }
@@ -34,16 +25,16 @@ privileged aspect PasswordResetServiceImpl_Roo_JavaBean {
         this.freeMarkerConfig = freeMarkerConfig;
     }
     
-    public String PasswordResetServiceImpl.getResetTemplate() {
-        return this.resetTemplate;
-    }
-    
     public String PasswordResetServiceImpl.getFrom() {
         return this.from;
     }
     
-    public void PasswordResetServiceImpl.setFrom(String from) {
-        this.from = from;
+    public String PasswordResetServiceImpl.getResetTemplate() {
+        return this.resetTemplate;
+    }
+    
+    public String PasswordResetServiceImpl.getSubject() {
+        return this.subject;
     }
     
 }
