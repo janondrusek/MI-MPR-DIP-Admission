@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="businessExceptionHelper" class="cz.cvut.fit.mi_mpr_dip.admission.exception.helper.BusinessExceptionHelper">
+	<bean id="businessExceptionUtil" class="cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil">
 		<property name="messages">
 			<map>
 				<entry>

@@ -18,7 +18,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.helper.BusinessExceptionHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
@@ -30,7 +30,7 @@ public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelpe
 	private BeanValidator beanValidator;
 
 	@Autowired
-	private BusinessExceptionHelper businessExceptionHelper;
+	private BusinessExceptionUtil businessExceptionUtil;
 
 	@Autowired
 	private PrincipalValidator principalValidator;

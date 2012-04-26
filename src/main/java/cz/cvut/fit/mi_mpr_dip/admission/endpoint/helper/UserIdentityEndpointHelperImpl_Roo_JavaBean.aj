@@ -6,7 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.helper.BusinessExceptionHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
@@ -22,12 +22,12 @@ privileged aspect UserIdentityEndpointHelperImpl_Roo_JavaBean {
         this.beanValidator = beanValidator;
     }
     
-    public BusinessExceptionHelper UserIdentityEndpointHelperImpl.getBusinessExceptionHelper() {
-        return this.businessExceptionHelper;
+    public BusinessExceptionUtil UserIdentityEndpointHelperImpl.getBusinessExceptionUtil() {
+        return this.businessExceptionUtil;
     }
     
-    public void UserIdentityEndpointHelperImpl.setBusinessExceptionHelper(BusinessExceptionHelper businessExceptionHelper) {
-        this.businessExceptionHelper = businessExceptionHelper;
+    public void UserIdentityEndpointHelperImpl.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
+        this.businessExceptionUtil = businessExceptionUtil;
     }
     
     public PrincipalValidator UserIdentityEndpointHelperImpl.getPrincipalValidator() {

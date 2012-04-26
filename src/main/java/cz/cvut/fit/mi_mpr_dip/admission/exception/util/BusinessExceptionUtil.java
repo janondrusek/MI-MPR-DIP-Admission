@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.exception.helper;
+package cz.cvut.fit.mi_mpr_dip.admission.exception.util;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
 @RooJavaBean
-public class BusinessExceptionHelper implements ExceptionHelper<BusinessException> {
+public class BusinessExceptionUtil implements ExceptionUtil<BusinessException> {
 
 	private Map<Integer, String> messages;
 
