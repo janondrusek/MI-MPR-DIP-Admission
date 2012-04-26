@@ -87,7 +87,7 @@ public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelpe
 	}
 
 	private void throwNotFoundBusinessException() {
-		getBusinessExceptionHelper().throwException(HttpServletResponse.SC_NOT_FOUND);
+		getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
 	}
 
 	private boolean isNotEqual(String one, String two) {

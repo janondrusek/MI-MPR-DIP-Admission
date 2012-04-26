@@ -55,7 +55,7 @@ public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 
 	private void validateAdmissionCode(Admission admission) {
 		if (admission.getCode() == null) {
-			getBusinessExceptionHelper().throwException(HttpServletResponse.SC_NOT_FOUND);
+			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
 		}
 	}
 

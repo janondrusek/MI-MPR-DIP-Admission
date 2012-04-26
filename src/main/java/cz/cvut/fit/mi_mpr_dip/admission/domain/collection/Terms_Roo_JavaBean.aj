@@ -3,7 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.collection;
 
-import com.sun.xml.xsom.impl.Ref.Term;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Terms;
 import java.util.Set;
 
