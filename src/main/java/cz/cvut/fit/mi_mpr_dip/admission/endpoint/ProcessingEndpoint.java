@@ -1,7 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
-import java.net.URISyntaxException;
-
 import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -17,7 +15,7 @@ public interface ProcessingEndpoint {
 
 	public Response updateAdmission(Admission admission);
 
-	public Response addAdmission(Admission admission) throws URISyntaxException;
+	public Response addAdmission(Admission admission);
 
 	public Response deleteAdmission(String admissionCode);
 }

@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
@@ -26,6 +27,9 @@ public class UserEndpointImpl implements UserEndpoint {
 
 	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + EMAIL_ATTRIBUTE + "{email}"
 			+ RESET_PASSWORD_PATH;
+
+	@Autowired
+	private UriEndpointHelper uriEndpointHelper;
 
 	@Autowired
 	private UserPasswordService userPasswordService;
@@ -45,6 +49,9 @@ public class UserEndpointImpl implements UserEndpoint {
 	@Override
 	public Response resetPassword(@PathParam("admissionCode") String admissionCode, @PathParam("email") String email) {
 		getUserPasswordService().createRandomPassword(admissionCode, email);
-		return null;
+		return Response.seeOther(
+				getUriEndpointHelper().getAdmissionLocation(
+						ProcessingEndpointImpl.ENDPOINT_PATH + ProcessingEndpointImpl.ADMISSION_PATH, admissionCode))
+				.build();
 	}
 }

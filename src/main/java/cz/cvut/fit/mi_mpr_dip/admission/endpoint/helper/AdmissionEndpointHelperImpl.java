@@ -1,8 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
@@ -14,7 +11,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
-import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @Service
 @RooJavaBean
@@ -27,6 +23,9 @@ public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 
 	@Autowired
 	private BusinessExceptionUtil businessExceptionUtil;
+
+	@Autowired
+	private UriEndpointHelper uriEndpointHelper;
 
 	@Override
 	public Response getAdmission(String admissionCode) {
@@ -44,13 +43,12 @@ public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 	}
 
 	@Override
-	public <T> Response mergeAdmission(String admissionCode, String baseLocation, T actor, AdmissionAction<T> action)
-			throws URISyntaxException {
+	public <T> Response mergeAdmission(String admissionCode, String baseLocation, T actor, AdmissionAction<T> action) {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);
 		validateAdmissionCode(admission);
 		action.performAction(admission, actor);
 		admission.merge();
-		return Response.seeOther(new URI(baseLocation + StringPool.SLASH + admission.getCode())).build();
+		return Response.seeOther(getUriEndpointHelper().getAdmissionLocation(baseLocation, admission)).build();
 	}
 
 	private void validateAdmissionCode(Admission admission) {

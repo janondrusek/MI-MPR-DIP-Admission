@@ -6,6 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
@@ -24,6 +25,14 @@ privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
         this.admissionCodeValidator = admissionCodeValidator;
     }
     
+    public AdmissionEndpointHelper ProcessingEndpointImpl.getAdmissionEndpointHelper() {
+        return this.admissionEndpointHelper;
+    }
+    
+    public void ProcessingEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
+        this.admissionEndpointHelper = admissionEndpointHelper;
+    }
+    
     public AnnotatedBeanValidator ProcessingEndpointImpl.getBeanValidator() {
         return this.beanValidator;
     }
@@ -32,12 +41,8 @@ privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
         this.beanValidator = beanValidator;
     }
     
-    public AdmissionEndpointHelper ProcessingEndpointImpl.getAdmissionEndpointHelper() {
-        return this.admissionEndpointHelper;
-    }
-    
-    public void ProcessingEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
-        this.admissionEndpointHelper = admissionEndpointHelper;
+    public ApplicationContext ProcessingEndpointImpl.getApplicationContext() {
+        return this.applicationContext;
     }
     
     public UserIdentityEndpointHelper ProcessingEndpointImpl.getUserIdentityEndpointHelper() {
@@ -64,16 +69,20 @@ privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
         this.deduplicationService = deduplicationService;
     }
     
+    public UriEndpointHelper ProcessingEndpointImpl.getUriEndpointHelper() {
+        return this.uriEndpointHelper;
+    }
+    
+    public void ProcessingEndpointImpl.setUriEndpointHelper(UriEndpointHelper uriEndpointHelper) {
+        this.uriEndpointHelper = uriEndpointHelper;
+    }
+    
     public UserIdentityService ProcessingEndpointImpl.getUserIdentityService() {
         return this.userIdentityService;
     }
     
     public void ProcessingEndpointImpl.setUserIdentityService(UserIdentityService userIdentityService) {
         this.userIdentityService = userIdentityService;
-    }
-    
-    public ApplicationContext ProcessingEndpointImpl.getApplicationContext() {
-        return this.applicationContext;
     }
     
 }

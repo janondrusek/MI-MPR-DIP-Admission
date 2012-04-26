@@ -1,7 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
-import java.net.URISyntaxException;
-
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -86,8 +84,7 @@ public class MobileEndpointImpl implements MobileEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result)
-			throws URISyntaxException {
+	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result) {
 		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), result,
 				new AdmissionAction<AdmissionResult>() {
 
@@ -103,8 +100,7 @@ public class MobileEndpointImpl implements MobileEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo)
-			throws URISyntaxException {
+	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo) {
 		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, getAdmissionBasePath(), photo,
 				new AdmissionAction<Appendix>() {
 

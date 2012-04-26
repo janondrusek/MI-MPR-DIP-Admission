@@ -1,8 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,6 +26,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
@@ -50,10 +48,12 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	private AdmissionCodeValidator admissionCodeValidator;
 
 	@Autowired
-	private AnnotatedBeanValidator beanValidator;
+	private AdmissionEndpointHelper admissionEndpointHelper;
 
 	@Autowired
-	private AdmissionEndpointHelper admissionEndpointHelper;
+	private AnnotatedBeanValidator beanValidator;
+
+	private ApplicationContext applicationContext;
 
 	@Autowired
 	private UserIdentityEndpointHelper userIdentityEndpointHelper;
@@ -66,9 +66,10 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	private DeduplicationService<Admission> deduplicationService;
 
 	@Autowired
-	private UserIdentityService userIdentityService;
+	private UriEndpointHelper uriEndpointHelper;
 
-	private ApplicationContext applicationContext;
+	@Autowired
+	private UserIdentityService userIdentityService;
 
 	@Path(AdmissionEndpointHelperImpl.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -115,11 +116,11 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response addAdmission(Admission admission) throws URISyntaxException {
+	public Response addAdmission(Admission admission) {
 		validateAndDeduplicateAndStore(admission);
-		URI uri = new URI(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH + admission.getCode());
-
-		return Response.created(uri).build();
+		return Response.created(
+				uriEndpointHelper.getAdmissionLocation(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH, admission))
+				.build();
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
