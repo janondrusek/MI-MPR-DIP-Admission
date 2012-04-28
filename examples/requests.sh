@@ -27,3 +27,12 @@ cat admission_0[1-3].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-A
 
 # Processing.deleteAmission, simply deletes admission in cascade with all its entites
 curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity] -X DELETE http://localhost:9090/admission/services/processing/admission/{admissionCode}
+
+# User.resetPassword, anonymous by User's {email}
+curl -i -X POST http://localhost:9090/admission/services/user/person/email:{email}/reset_password
+
+# User.resetPassword for User by Admission Code, send notification to User's Email and this {email}
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X POST http://localhost:9090/admission/services/user/admission/{admissionCode}/person/email:{email}/reset_password
+
+# User.updatePassword
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X POST http://localhost:9090/admission/services/user/identity/{userIdentity}/password/old:{oldPassword}/new:{newPassword}
