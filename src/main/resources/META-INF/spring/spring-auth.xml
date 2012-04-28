@@ -8,18 +8,23 @@
 	<bean id="ldapService" class="cz.cvut.fit.mi_mpr_dip.admission.service.auth.LdapAuthenticationService">
 		<property name="authenticationAdapter" ref="${ldap.adapter}ldapAdapter" />
 	</bean>
-	
+
 	<bean id="pwdService" class="cz.cvut.fit.mi_mpr_dip.admission.service.auth.PwdAuthenticationService">
 		<property name="authenticationAdapter" ref="${pwd.adapter}pwdAdapter" />
 	</bean>
 
+	<bean id="userPasswordService" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordServiceImpl">
+		<property name="authenticationAdapter" ref="${pwd.adapter}pwdAdapter" />
+	</bean>
+
 	<bean id="DUMMYldapAdapter" parent="dummyAuthenticationAdapter" />
-	<bean id="DUMMYpwdAdapter" parent="dummyAuthenticationAdapter" />
-	
+	<bean id="DUMMYpwdAdapter" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.DummyPwdAuthenticationAdapter" />
+
 	<bean id="PRODldapAdapter" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.LdapAuthenticationAdapter" />
 	<bean id="PRODpwdAdapter" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapterImpl" />
-	
-	<bean id="dummyAuthenticationAdapter" abstract="true" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.DummyAuthenticationAdapter" />
+
+	<bean id="dummyAuthenticationAdapter" abstract="true"
+		class="cz.cvut.fit.mi_mpr_dip.admission.adapter.DummyAuthenticationAdapter" />
 
 	<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
 		<property name="url" value="${ldap.url}" />

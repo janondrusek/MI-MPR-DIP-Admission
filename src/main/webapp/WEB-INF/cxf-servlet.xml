@@ -10,12 +10,10 @@
 	<context:annotation-config />
 	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
 	
-	<bean id="userEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.UserEndpointImpl" />
-
 	<jaxrs:server id="restContainer" address="/">
 		<jaxrs:serviceBeans>
-			<ref bean="mobileService" />
-			<ref bean="processingService" />
+			<ref bean="mobileEndpoint" />
+			<ref bean="processingEndpoint" />
 			<ref bean="userEndpoint"/>
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>

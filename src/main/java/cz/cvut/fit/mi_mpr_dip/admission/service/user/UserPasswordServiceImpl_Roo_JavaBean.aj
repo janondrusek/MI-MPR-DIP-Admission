@@ -32,10 +32,6 @@ privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
         return this.authenticationAdapter;
     }
     
-    public void UserPasswordServiceImpl.setAuthenticationAdapter(PwdAuthenticationAdapter authenticationAdapter) {
-        this.authenticationAdapter = authenticationAdapter;
-    }
-    
     public PersonDao UserPasswordServiceImpl.getPersonDao() {
         return this.personDao;
     }

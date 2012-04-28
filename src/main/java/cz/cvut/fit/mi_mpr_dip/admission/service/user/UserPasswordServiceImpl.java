@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
@@ -19,7 +19,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 
-@Service
 @RooJavaBean
 public class UserPasswordServiceImpl implements UserPasswordService {
 
@@ -29,7 +28,6 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	@Autowired
 	private PasswordGenerator passwordGenerator;
 
-	@Autowired
 	private PwdAuthenticationAdapter authenticationAdapter;
 
 	@Autowired
@@ -92,6 +90,11 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 				|| !getAuthenticationAdapter().authenticate(userIdentity, oldPassword)) {
 			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
 		}
+	}
+
+	@Required
+	public void setAuthenticationAdapter(PwdAuthenticationAdapter authenticationAdapter) {
+		this.authenticationAdapter = authenticationAdapter;
 	}
 
 }
