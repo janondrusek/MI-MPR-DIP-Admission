@@ -72,4 +72,9 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 		return null;
 	}
 
+	@Override
+	public UserIdentity updatePassword(UserIdentity userIdentity, String oldPassword, String newPassword) {
+		return null;
+	}
+
 }

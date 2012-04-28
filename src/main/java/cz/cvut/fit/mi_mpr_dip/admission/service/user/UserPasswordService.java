@@ -12,4 +12,6 @@ public interface UserPasswordService {
 	public UserIdentity createRandomPassword(UserIdentity userIdentity);
 
 	public UserIdentity createRandomPassword(Admission admission, String email);
+
+	public UserIdentity updatePassword(UserIdentity userIdentity, String oldPassword, String newPassword);
 }

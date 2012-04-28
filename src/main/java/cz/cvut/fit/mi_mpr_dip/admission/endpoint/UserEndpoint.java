@@ -7,4 +7,6 @@ public interface UserEndpoint {
 	public Response resetPassword(String email);
 
 	public Response resetPassword(String admissionCode, String email);
+
+	public Response updatePassword(String username, String oldPassword, String newPassword);
 }
