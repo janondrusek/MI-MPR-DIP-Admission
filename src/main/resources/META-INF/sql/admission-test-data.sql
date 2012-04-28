@@ -1,3 +1,5 @@
+use admission;
+
 INSERT IGNORE INTO `user_identity` (`username`, `authentication`) VALUES ('more', 'LDAP');
 INSERT IGNORE INTO `user_identity_role` 
   SELECT `user_identity_id`, `user_role_id`
