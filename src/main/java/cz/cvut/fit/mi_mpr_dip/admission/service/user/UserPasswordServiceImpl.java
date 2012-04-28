@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
+import cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.PersonDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -27,6 +28,9 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 
 	@Autowired
 	private PasswordGenerator passwordGenerator;
+
+	@Autowired
+	private PwdAuthenticationAdapter authenticationAdapter;
 
 	@Autowired
 	private PersonDao personDao;
@@ -68,13 +72,26 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	}
 
 	@Override
-	public UserIdentity createRandomPassword(Admission admission, String email) {
-		return null;
+	public UserIdentity createRandomPassword(Admission admission) {
+		if (admission.getCode() == null) {
+			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
+		}
+		return createRandomPassword(admission.getUserIdentity());
 	}
 
 	@Override
 	public UserIdentity updatePassword(UserIdentity userIdentity, String oldPassword, String newPassword) {
-		return null;
+		validate(userIdentity, oldPassword);
+
+		getPasswordGenerator().createUserPassword(newPassword, userIdentity.getUserPassword());
+		return userIdentity;
+	}
+
+	private void validate(UserIdentity userIdentity, String oldPassword) {
+		if (userIdentity.getUsername() == null || userIdentity.getUserPassword() == null
+				|| !getAuthenticationAdapter().authenticate(userIdentity, oldPassword)) {
+			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
+		}
 	}
 
 }

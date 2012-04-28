@@ -6,5 +6,7 @@ public interface PasswordGenerator {
 
 	public UserPassword createUserPassword();
 
+	public void createUserPassword(String plaintext, UserPassword userPassword);
+
 	public void resetUserPassword(UserPassword userPassword);
 }

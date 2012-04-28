@@ -98,7 +98,7 @@ public class UserEndpointTest {
 	@Test
 	public void testResetPasswordAdmissionCodeAndEmail() throws Exception {
 		expect(admissionDao.getAdmission(same(CODE))).andReturn(admission);
-		expect(userPasswordService.createRandomPassword(same(admission), same(EMAIL))).andReturn(userIdentity);
+		expect(userPasswordService.createRandomPassword(same(admission))).andReturn(userIdentity);
 		expect(uriEndpointHelper.getAdmissionLocation(eq(getAdmissionBaseLocation()), same(CODE))).andReturn(
 				new URI(URI));
 		expect(admission.getPerson()).andReturn(person);

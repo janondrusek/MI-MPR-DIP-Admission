@@ -17,7 +17,7 @@
 	<bean id="DUMMYpwdAdapter" parent="dummyAuthenticationAdapter" />
 	
 	<bean id="PRODldapAdapter" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.LdapAuthenticationAdapter" />
-	<bean id="PRODpwdAdapter" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter" />
+	<bean id="PRODpwdAdapter" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapterImpl" />
 	
 	<bean id="dummyAuthenticationAdapter" abstract="true" class="cz.cvut.fit.mi_mpr_dip.admission.adapter.DummyAuthenticationAdapter" />
 

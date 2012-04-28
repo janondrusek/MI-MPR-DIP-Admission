@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.PersonDao;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
@@ -25,6 +26,14 @@ privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
     
     public void UserPasswordServiceImpl.setPasswordGenerator(PasswordGenerator passwordGenerator) {
         this.passwordGenerator = passwordGenerator;
+    }
+    
+    public PwdAuthenticationAdapter UserPasswordServiceImpl.getAuthenticationAdapter() {
+        return this.authenticationAdapter;
+    }
+    
+    public void UserPasswordServiceImpl.setAuthenticationAdapter(PwdAuthenticationAdapter authenticationAdapter) {
+        this.authenticationAdapter = authenticationAdapter;
     }
     
     public PersonDao UserPasswordServiceImpl.getPersonDao() {

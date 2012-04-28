@@ -49,6 +49,8 @@
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/mobile/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/user/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 			</list>
 		</constructor-arg>
 	</bean>

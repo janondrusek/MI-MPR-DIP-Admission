@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
@@ -43,7 +44,7 @@ public class UserEndpointImpl implements UserEndpoint {
 			+ RESET_PASSWORD_PATH;
 	private static final String FULL_UPDATE_PASSWORD_PATH = AdmissionEndpointHelperImpl.IDENTITY_PATH
 			+ StringPool.SLASH + "{userIdentity}" + PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE + "{oldPassword}"
-			+ StringPool.SLASH + "{newPassword}";
+			+ StringPool.SLASH + NEW_ATTRIBUTE + "{newPassword}";
 
 	@Autowired
 	private AdmissionDao admissionDao;
@@ -60,6 +61,7 @@ public class UserEndpointImpl implements UserEndpoint {
 	@Autowired
 	private UserPasswordService userPasswordService;
 
+	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
 	@Path(FULL_RESET_PASSWORD_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
@@ -90,14 +92,6 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	@Transactional
-	private void doUpdatePassword(String username, String oldPassword, String newPassword) {
-		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
-		userIdentity = getUserPasswordService().updatePassword(userIdentity, oldPassword, newPassword);
-		
-		userIdentity.persist();
-	}
-
-	@Transactional
 	private void createAndStoreRandomPassword(String email) {
 		Set<UserIdentity> userIdentities = getUserPasswordService().createRandomPassword(email);
 		for (UserIdentity userIdentity : userIdentities) {
@@ -108,8 +102,16 @@ public class UserEndpointImpl implements UserEndpoint {
 	@Transactional
 	private void createAndStoreRandomPassword(String admissionCode, String email) {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);
-		UserIdentity userIdentity = getUserPasswordService().createRandomPassword(admission, email);
+		UserIdentity userIdentity = getUserPasswordService().createRandomPassword(admission);
 		storeAndEmail(userIdentity, email, admission.getPerson().getEmail());
+	}
+
+	@Transactional
+	private void doUpdatePassword(String username, String oldPassword, String newPassword) {
+		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
+		userIdentity = getUserPasswordService().updatePassword(userIdentity, oldPassword, newPassword);
+
+		userIdentity.persist();
 	}
 
 	private void storeAndEmail(UserIdentity userIdentity, String... emails) {
