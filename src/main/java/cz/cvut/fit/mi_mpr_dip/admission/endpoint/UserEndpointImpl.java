@@ -86,7 +86,8 @@ public class UserEndpointImpl implements UserEndpoint {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response updatePassword(String username, String oldPassword, String newPassword) {
+	public Response updatePassword(@PathParam("userIdentity") String username,
+			@PathParam("oldPassword") String oldPassword, @PathParam("newPassword") String newPassword) {
 		doUpdatePassword(username, oldPassword, newPassword);
 		return Response.ok().build();
 	}
