@@ -43,8 +43,8 @@ public class UserEndpointImpl implements UserEndpoint {
 	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + EMAIL_ATTRIBUTE + "{email}"
 			+ RESET_PASSWORD_PATH;
 	private static final String FULL_UPDATE_PASSWORD_PATH = AdmissionEndpointHelperImpl.IDENTITY_PATH
-			+ StringPool.SLASH + "{userIdentity}" + PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE + "{oldPassword}"
-			+ StringPool.SLASH + NEW_ATTRIBUTE + "{newPassword}";
+			+ StringPool.SLASH + "{userIdentity}" + PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE
+			+ "{oldPassword:.*?}" + StringPool.SLASH + NEW_ATTRIBUTE + "{newPassword:.*?}";
 
 	@Autowired
 	private AdmissionDao admissionDao;

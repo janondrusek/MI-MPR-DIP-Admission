@@ -2,6 +2,8 @@ package cz.cvut.fit.mi_mpr_dip.admission.authentication;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -17,6 +19,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.auth.AuthenticationService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 public class UserIdentityAuthenticationProvider implements AuthenticationProvider {
+
+	private static final Logger log = LoggerFactory.getLogger(UserIdentityAuthenticationProvider.class);
 
 	@Autowired
 	private AuthenticationUtil authenticationUtil;
@@ -35,7 +39,9 @@ public class UserIdentityAuthenticationProvider implements AuthenticationProvide
 		String username = authentication.getPrincipal().toString();
 		String password = authentication.getCredentials().toString();
 		UserIdentity userIdentity = userIdentityDao.getUserIdentity(username);
+		log.info("Authenticating, found [{}] for username [{}]", userIdentity, username);
 		if (isAuthentified(username, password, userIdentity)) {
+			log.info("Successfuly authentified [{}]", username);
 			return createAuthentication(username, password, userIdentity);
 		} else {
 			throw new BadCredentialsException(username + StringPool.COLON + password);
@@ -44,7 +50,10 @@ public class UserIdentityAuthenticationProvider implements AuthenticationProvide
 
 	private boolean isAuthentified(String username, String password, UserIdentity userIdentity) {
 		if (userIdentity.getUsername() != null) {
-			return authenticationServices.get(userIdentity.getAuthentication()).authenticate(username, password);
+			UserIdentityAuthentication authentication = userIdentity.getAuthentication();
+			AuthenticationService authenticationService = authenticationServices.get(authentication);
+			log.info("Found authenticationService [{}] for authentication [{}]", authenticationService, authentication);
+			return authenticationService.authenticate(username, password);
 		}
 		return false;
 	}
