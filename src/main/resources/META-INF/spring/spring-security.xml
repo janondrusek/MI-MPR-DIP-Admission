@@ -28,6 +28,7 @@
 
 	<bean id="mobileEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.MobileEndpointImpl" />
 	<bean id="processingEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingEndpointImpl" />
+	<bean id="termEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl" />
 	<bean id="userEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.UserEndpointImpl" />
 
 	<bean id="userIdentityEndpointHelper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl">
@@ -53,6 +54,10 @@
 				<security:filter-chain pattern="/services/mobile/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/user/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/term"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/term/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 			</list>
 		</constructor-arg>
