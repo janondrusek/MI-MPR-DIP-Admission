@@ -26,6 +26,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 public class UserPasswordServiceTest {
 
@@ -44,6 +45,7 @@ public class UserPasswordServiceTest {
 	private PasswordGenerator passwordGenerator;
 	private Person person;
 	private PersonDao personDao;
+	private PrincipalValidator principalValidator;
 	private UserIdentity userIdentity;
 	private UserPassword userPassword;
 
@@ -69,11 +71,13 @@ public class UserPasswordServiceTest {
 		person = createMock(Person.class);
 		personDao = createMock(PersonDao.class);
 		userPasswordService.setPersonDao(personDao);
+		principalValidator = createMock(PrincipalValidator.class);
+		userPasswordService.setPrincipalValidator(principalValidator);
 		userIdentity = createMock(UserIdentity.class);
 		userPassword = createMock(UserPassword.class);
 
 		mocks = new Object[] { admission, admissionDao, authenticationAdapter, businessExceptionUtil,
-				passwordGenerator, person, personDao, userIdentity, userPassword };
+				passwordGenerator, person, personDao, principalValidator, userIdentity, userPassword };
 	}
 
 	@Test
@@ -138,6 +142,7 @@ public class UserPasswordServiceTest {
 		setUserPasswordExpectations(userPassword);
 		setAuthenticationAdapterExpectations(true);
 		passwordGenerator.createUserPassword(same(NEW_PWD), same(userPassword));
+		principalValidator.validatePrincipal(same(USERNAME));
 
 		assertSame(userIdentity, doTestUpdatePassword());
 	}
@@ -197,7 +202,7 @@ public class UserPasswordServiceTest {
 	}
 
 	private void setUsernameExpectations(String username) {
-		expect(userIdentity.getUsername()).andReturn(username);
+		expect(userIdentity.getUsername()).andReturn(username).atLeastOnce();
 	}
 
 	private void setUserPasswordExpectations(UserPassword userPassword) {

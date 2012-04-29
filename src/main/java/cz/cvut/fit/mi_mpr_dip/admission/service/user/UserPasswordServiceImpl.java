@@ -18,6 +18,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 @RooJavaBean
 public class UserPasswordServiceImpl implements UserPasswordService {
@@ -26,15 +27,18 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	private AdmissionDao admissionDao;
 
 	@Autowired
+	private BusinessExceptionUtil businessExceptionUtil;
+
+	@Autowired
 	private PasswordGenerator passwordGenerator;
+
+	@Autowired
+	private PrincipalValidator principalValidator;
 
 	private PwdAuthenticationAdapter authenticationAdapter;
 
 	@Autowired
 	private PersonDao personDao;
-
-	@Autowired
-	private BusinessExceptionUtil businessExceptionUtil;
 
 	@Override
 	public Set<UserIdentity> createRandomPassword(String email) {
@@ -90,6 +94,8 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 				|| !getAuthenticationAdapter().authenticate(userIdentity, oldPassword)) {
 			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
 		}
+
+		getPrincipalValidator().validatePrincipal(userIdentity.getUsername());
 	}
 
 	@Required

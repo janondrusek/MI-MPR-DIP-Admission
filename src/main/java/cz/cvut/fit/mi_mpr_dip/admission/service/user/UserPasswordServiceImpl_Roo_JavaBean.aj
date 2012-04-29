@@ -9,6 +9,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.PersonDao;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.PasswordGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordServiceImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
     
@@ -20,12 +21,28 @@ privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
         this.admissionDao = admissionDao;
     }
     
+    public BusinessExceptionUtil UserPasswordServiceImpl.getBusinessExceptionUtil() {
+        return this.businessExceptionUtil;
+    }
+    
+    public void UserPasswordServiceImpl.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
+        this.businessExceptionUtil = businessExceptionUtil;
+    }
+    
     public PasswordGenerator UserPasswordServiceImpl.getPasswordGenerator() {
         return this.passwordGenerator;
     }
     
     public void UserPasswordServiceImpl.setPasswordGenerator(PasswordGenerator passwordGenerator) {
         this.passwordGenerator = passwordGenerator;
+    }
+    
+    public PrincipalValidator UserPasswordServiceImpl.getPrincipalValidator() {
+        return this.principalValidator;
+    }
+    
+    public void UserPasswordServiceImpl.setPrincipalValidator(PrincipalValidator principalValidator) {
+        this.principalValidator = principalValidator;
     }
     
     public PwdAuthenticationAdapter UserPasswordServiceImpl.getAuthenticationAdapter() {
@@ -38,14 +55,6 @@ privileged aspect UserPasswordServiceImpl_Roo_JavaBean {
     
     public void UserPasswordServiceImpl.setPersonDao(PersonDao personDao) {
         this.personDao = personDao;
-    }
-    
-    public BusinessExceptionUtil UserPasswordServiceImpl.getBusinessExceptionUtil() {
-        return this.businessExceptionUtil;
-    }
-    
-    public void UserPasswordServiceImpl.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
-        this.businessExceptionUtil = businessExceptionUtil;
     }
     
 }
