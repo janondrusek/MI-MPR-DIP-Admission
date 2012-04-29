@@ -6,15 +6,15 @@
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<bean id="ldapService" class="cz.cvut.fit.mi_mpr_dip.admission.service.auth.LdapAuthenticationService">
-		<property name="authenticationAdapter" ref="${ldap.adapter}ldapAdapter" />
+		<property name="authenticationAdapter" ref="${adapter.ldap}ldapAdapter" />
 	</bean>
 
 	<bean id="pwdService" class="cz.cvut.fit.mi_mpr_dip.admission.service.auth.PwdAuthenticationService">
-		<property name="authenticationAdapter" ref="${pwd.adapter}pwdAdapter" />
+		<property name="authenticationAdapter" ref="${adapter.pwd}pwdAdapter" />
 	</bean>
 
 	<bean id="userPasswordService" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordServiceImpl">
-		<property name="authenticationAdapter" ref="${pwd.adapter}pwdAdapter" />
+		<property name="authenticationAdapter" ref="${adapter.pwd}pwdAdapter" />
 	</bean>
 
 	<bean id="DUMMYldapAdapter" parent="dummyAuthenticationAdapter" />
@@ -27,10 +27,17 @@
 		class="cz.cvut.fit.mi_mpr_dip.admission.adapter.DummyAuthenticationAdapter" />
 
 	<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
-		<property name="url" value="${ldap.url}" />
-		<!-- <property name="userDn" value="${ldap.user.dn}" /> -->
-		<!-- <property name="password" value="${ldap.password}" /> -->
+		<property name="url" value="${adapter.ldap.url}" />
+		<!-- <property name="userDn" value="${adapter.ldap.user.dn}" /> -->
+		<!-- <property name="password" value="${adapter.ldap.password}" /> -->
 	</bean>
+
+	<bean id="DUMMYStringGenerator" class="cz.cvut.fit.mi_mpr_dip.admission.util.DummyStringGenerator">
+		<property name="random" value="${generator.string.dummy.random}" />
+		<property name="randomAlphanumeric" value="${generator.string.dummy.randomAlphanumeric}" />
+	</bean>
+
+	<bean id="UUIDStringGenerator" class="cz.cvut.fit.mi_mpr_dip.admission.util.UUIDStringGenerator" />
 
 	<bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
 		<constructor-arg ref="contextSource" />

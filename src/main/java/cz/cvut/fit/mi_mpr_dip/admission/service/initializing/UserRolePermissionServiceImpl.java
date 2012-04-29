@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service.user;
+package cz.cvut.fit.mi_mpr_dip.admission.service.initializing;
 
 import java.util.List;
 

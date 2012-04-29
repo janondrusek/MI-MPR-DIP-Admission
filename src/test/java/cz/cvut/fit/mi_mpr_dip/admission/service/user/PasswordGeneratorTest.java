@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 public class PasswordGeneratorTest {
 
@@ -31,7 +31,7 @@ public class PasswordGeneratorTest {
 	private UserPasswordGenerator passwordGenerator;
 
 	private PasswordEncoder passwordEncoder;
-	private RandomStringGenerator randomStringGenerator;
+	private StringGenerator stringGenerator;
 	private UserPassword userPassword;
 
 	private Object[] mocks;
@@ -50,11 +50,11 @@ public class PasswordGeneratorTest {
 	private void initMocks() {
 		passwordEncoder = createMock(PasswordEncoder.class);
 		passwordGenerator.setPasswordEncoder(passwordEncoder);
-		randomStringGenerator = createMock(RandomStringGenerator.class);
-		passwordGenerator.setRandomStringGenerator(randomStringGenerator);
+		stringGenerator = createMock(StringGenerator.class);
+		passwordGenerator.setStringGenerator(stringGenerator);
 		userPassword = createMock(UserPassword.class);
 
-		mocks = new Object[] { passwordEncoder, randomStringGenerator, userPassword };
+		mocks = new Object[] { passwordEncoder, stringGenerator, userPassword };
 	}
 
 	@Test
@@ -94,13 +94,13 @@ public class PasswordGeneratorTest {
 	}
 
 	private void setRandomStringGeneratorExpectations() {
-		expect(randomStringGenerator.generateRandomAlphanumeric()).andReturn(SALT_AND_PLAINTEXT);
+		expect(stringGenerator.generateRandomAlphanumeric()).andReturn(SALT_AND_PLAINTEXT);
 	}
 
 	private void setPasswordEncoderExpectations() {
 		expect(passwordEncoder.encodePassword(eq(PLAINTEXT), eq(SALT))).andReturn(HASH);
 	}
-	
+
 	private void setSaltAndHashExpectations() {
 		userPassword.setSalt(eq(SALT));
 		userPassword.setHash(same(HASH));

@@ -4,7 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordGenerator;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 privileged aspect UserPasswordGenerator_Roo_JavaBean {
@@ -13,12 +13,8 @@ privileged aspect UserPasswordGenerator_Roo_JavaBean {
         return this.passwordEncoder;
     }
     
-    public RandomStringGenerator UserPasswordGenerator.getRandomStringGenerator() {
-        return this.randomStringGenerator;
-    }
-    
-    public void UserPasswordGenerator.setRandomStringGenerator(RandomStringGenerator randomStringGenerator) {
-        this.randomStringGenerator = randomStringGenerator;
+    public StringGenerator UserPasswordGenerator.getStringGenerator() {
+        return this.stringGenerator;
     }
     
     public Integer UserPasswordGenerator.getSaltBeginning() {

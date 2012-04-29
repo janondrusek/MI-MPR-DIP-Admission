@@ -12,7 +12,7 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordGenerator;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 public class UserPasswordGeneratorTest {
 
@@ -29,7 +29,7 @@ public class UserPasswordGeneratorTest {
 
 	private UserPasswordGenerator generator;
 
-	private RandomStringGenerator randomStringGenerator;
+	private StringGenerator stringGenerator;
 	private PasswordEncoder passwordEncoder;
 
 	private Object[] mocks;
@@ -47,17 +47,17 @@ public class UserPasswordGeneratorTest {
 	}
 
 	private void initMocks() {
-		randomStringGenerator = createMock(RandomStringGenerator.class);
-		generator.setRandomStringGenerator(randomStringGenerator);
+		stringGenerator = createMock(StringGenerator.class);
+		generator.setStringGenerator(stringGenerator);
 		passwordEncoder = createMock(PasswordEncoder.class);
 		generator.setPasswordEncoder(passwordEncoder);
 
-		mocks = new Object[] { randomStringGenerator, passwordEncoder };
+		mocks = new Object[] { stringGenerator, passwordEncoder };
 	}
 
 	@Test
 	public void testCreateUserPassword() {
-		expect(randomStringGenerator.generateRandomAlphanumeric()).andReturn(RANDOM_STRING);
+		expect(stringGenerator.generateRandomAlphanumeric()).andReturn(RANDOM_STRING);
 		expect(passwordEncoder.encodePassword(PLAINTEXT, SALT)).andReturn(HASH);
 
 		UserPassword userPassword = doTestCreateUserPassword();

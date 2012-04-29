@@ -1,20 +1,19 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 @RooJavaBean
 public class UserPasswordGenerator implements PasswordGenerator {
 
 	private PasswordEncoder passwordEncoder;
-	@Autowired
-	private RandomStringGenerator randomStringGenerator;
+
+	private StringGenerator stringGenerator;
 
 	private Integer saltBeginning;
 	private Integer saltEnd;
@@ -32,7 +31,7 @@ public class UserPasswordGenerator implements PasswordGenerator {
 
 	@Override
 	public void createUserPassword(String plaintext, UserPassword userPassword) {
-		String random = randomStringGenerator.generateRandomAlphanumeric();
+		String random = stringGenerator.generateRandomAlphanumeric();
 		String salt = createSalt(random);
 		String hash = getHash(plaintext, salt);
 
@@ -45,7 +44,7 @@ public class UserPasswordGenerator implements PasswordGenerator {
 	}
 
 	private void generatePlaintextSaltAndHash(UserPassword userPassword) {
-		String random = randomStringGenerator.generateRandomAlphanumeric();
+		String random = stringGenerator.generateRandomAlphanumeric();
 		String plaintext = substring(random, plaintextBeginning, plaintextEnd);
 		String salt = createSalt(random);
 		String hash = getHash(plaintext, salt);
@@ -94,6 +93,11 @@ public class UserPasswordGenerator implements PasswordGenerator {
 	@Required
 	public void setPlaintextEnd(Integer plaintextEnd) {
 		this.plaintextEnd = plaintextEnd;
+	}
+
+	@Required
+	public void setStringGenerator(StringGenerator stringGenerator) {
+		this.stringGenerator = stringGenerator;
 	}
 
 }

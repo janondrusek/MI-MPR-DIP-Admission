@@ -2,10 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.util;
 
 import java.util.UUID;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class RandomStringGenerator {
+public class UUIDStringGenerator implements StringGenerator {
 
 	public String generateRandom() {
 		return UUID.randomUUID().toString();

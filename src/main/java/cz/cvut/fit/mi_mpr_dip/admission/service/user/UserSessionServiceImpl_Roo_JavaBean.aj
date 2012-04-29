@@ -4,7 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionServiceImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 privileged aspect UserSessionServiceImpl_Roo_JavaBean {
     
@@ -12,12 +12,12 @@ privileged aspect UserSessionServiceImpl_Roo_JavaBean {
         return this.grantValidSeconds;
     }
     
-    public RandomStringGenerator UserSessionServiceImpl.getRandomStringGenerator() {
-        return this.randomStringGenerator;
+    public StringGenerator UserSessionServiceImpl.getStringGenerator() {
+        return this.stringGenerator;
     }
     
-    public void UserSessionServiceImpl.setRandomStringGenerator(RandomStringGenerator randomStringGenerator) {
-        this.randomStringGenerator = randomStringGenerator;
+    public void UserSessionServiceImpl.setStringGenerator(StringGenerator stringGenerator) {
+        this.stringGenerator = stringGenerator;
     }
     
 }

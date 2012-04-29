@@ -8,13 +8,14 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
-import cz.cvut.fit.mi_mpr_dip.admission.util.RandomStringGenerator;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 @RooJavaBean
 public class UserSessionServiceImpl implements UserSessionService {
@@ -22,7 +23,8 @@ public class UserSessionServiceImpl implements UserSessionService {
 	private Long grantValidSeconds;
 
 	@Autowired
-	private RandomStringGenerator randomStringGenerator;
+	@Qualifier("UUIDStringGenerator")
+	private StringGenerator stringGenerator;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -61,7 +63,7 @@ public class UserSessionServiceImpl implements UserSessionService {
 
 	private UserSession createSession() {
 		UserSession session = new UserSession();
-		session.setIdentifier(getRandomStringGenerator().generateRandomAlphanumeric());
+		session.setIdentifier(getStringGenerator().generateRandomAlphanumeric());
 
 		return session;
 	}
@@ -87,4 +89,5 @@ public class UserSessionServiceImpl implements UserSessionService {
 	public void setGrantValidSeconds(Long grantValidSeconds) {
 		this.grantValidSeconds = grantValidSeconds;
 	}
+
 }

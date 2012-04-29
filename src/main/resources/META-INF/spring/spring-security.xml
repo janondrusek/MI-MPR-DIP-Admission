@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security" xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
@@ -43,9 +45,9 @@
 		<constructor-arg>
 			<list>
 				<security:filter-chain pattern="/services/mobile/identity"
-					filters="basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+					filters="sessionAuthenticationFilter,basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/processing/identity"
-					filters="basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+					filters="sessionAuthenticationFilter,basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/processing/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/mobile/**"
@@ -103,10 +105,11 @@
 
 	<bean id="passwordGenerator" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordGenerator">
 		<property name="passwordEncoder" ref="passwordEncoder" />
-		<property name="plaintextBeginning" value="${password.encoder.salt.beginning}" />
-		<property name="plaintextEnd" value="${password.encoder.salt.end}" />
-		<property name="saltBeginning" value="${password.encoder.plaintext.beginning}" />
-		<property name="saltEnd" value="${password.encoder.plaintext.end}" />
+		<property name="saltBeginning" value="${password.encoder.salt.beginning}" />
+		<property name="saltEnd" value="${password.encoder.salt.end}" />
+		<property name="plaintextBeginning" value="${password.encoder.plaintext.beginning}" />
+		<property name="plaintextEnd" value="${password.encoder.plaintext.end}" />
+		<property name="stringGenerator" ref="${generator.string}StringGenerator" />
 	</bean>
 
 	<util:constant id="LDAP" static-field="cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication.LDAP" />
