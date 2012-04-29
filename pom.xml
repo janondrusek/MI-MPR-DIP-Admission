@@ -16,7 +16,7 @@
 		<!-- Dependencies -->
 		<aspectj.version>1.6.12</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
-		<cxf.version>2.5.0</cxf.version>
+		<cxf.version>2.5.3</cxf.version>
 		<easymock.version>3.1</easymock.version>
 		<freemarker.version>2.3.18</freemarker.version>
 		<geronimo.2.5.version>1.1.2</geronimo.2.5.version>
