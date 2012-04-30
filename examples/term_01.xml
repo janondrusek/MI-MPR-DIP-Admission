@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<term>
+	<dateOfTerm>2012-06-01T00:00:00Z</dateOfTerm>
+	<room>T9:225</room>
+	<capacity>70</capacity>
+	<registerFrom>2012-05-14T00:00:00Z</registerFrom>
+	<registerTo>2012-05-21T00:00:00Z</registerTo>
+	<apologyTo>2012-05-23T00:00:00Z</apologyTo>
+	<programs>
+		<programme>
+			<name>WI</name>
+			<studyMode>
+				<name>Full-time</name>
+			</studyMode>
+			<degree>
+				<name>Ing.</name>
+			</degree>
+			<language>
+				<name>English</name>
+			</language>
+		</programme>
+		<programme>
+			<name>WI</name>
+			<studyMode>
+				<name>Combined</name>
+			</studyMode>
+			<degree>
+				<name>Bc.</name>
+			</degree>
+			<language>
+				<name>Czech</name>
+			</language>
+		</programme>
+	</programs>
+	<termType>
+		<name>Standard</name>
+	</termType>
+</term>
