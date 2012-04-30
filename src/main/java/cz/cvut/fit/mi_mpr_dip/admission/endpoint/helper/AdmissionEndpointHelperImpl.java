@@ -11,12 +11,16 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 
 @Service
 @RooJavaBean
-public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
+public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission> implements AdmissionEndpointHelper {
 
 	public static final String IDENTITY_PATH = "/identity";
+
+	@Autowired
+	private AdmissionCodeValidator admissionCodeValidator;
 
 	@Autowired
 	private AdmissionDao admissionDao;
@@ -31,7 +35,7 @@ public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 	public Response getAdmission(String admissionCode) {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);
 		validateAdmissionCode(admission);
-		return Response.ok(admission).build();
+		return getOkResponse(admission);
 	}
 
 	@Override
@@ -39,7 +43,7 @@ public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);
 		validateAdmissionCode(admission);
 		admission.remove();
-		return Response.ok().build();
+		return getOkResponse();
 	}
 
 	@Override
@@ -57,4 +61,9 @@ public class AdmissionEndpointHelperImpl implements AdmissionEndpointHelper {
 		}
 	}
 
+	@Override
+	public void validate(Admission admission) {
+		super.validate(admission);
+		getAdmissionCodeValidator().validate(admission);
+	}
 }

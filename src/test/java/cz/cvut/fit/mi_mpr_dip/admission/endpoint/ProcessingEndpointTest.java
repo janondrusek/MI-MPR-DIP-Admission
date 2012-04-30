@@ -6,6 +6,7 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.same;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import javax.ws.rs.core.Response;
 
@@ -17,8 +18,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
 public class ProcessingEndpointTest {
 
@@ -26,8 +25,6 @@ public class ProcessingEndpointTest {
 
 	private ProcessingEndpointImpl processingEndpoint;
 
-	private AdmissionCodeValidator admissionCodeValidator;
-	private AnnotatedBeanValidator annotatedBeanValidator;
 	private ApplicationContext applicationContext;
 	private DeduplicationService<Admission> deduplicationService;
 	private AdmissionEndpointHelper endpointHelper;
@@ -45,16 +42,11 @@ public class ProcessingEndpointTest {
 	private void initMocks() {
 		initDependencyMocks();
 
-		mocks = new Object[] { applicationContext, admissionCodeValidator, annotatedBeanValidator,
-				deduplicationService, endpointHelper, userIdentityService };
+		mocks = new Object[] { applicationContext, deduplicationService, endpointHelper, userIdentityService };
 	}
 
 	@SuppressWarnings("unchecked")
 	private void initDependencyMocks() {
-		admissionCodeValidator = createMock(AdmissionCodeValidator.class);
-		processingEndpoint.setAdmissionCodeValidator(admissionCodeValidator);
-		annotatedBeanValidator = createMock(AnnotatedBeanValidator.class);
-		processingEndpoint.setBeanValidator(annotatedBeanValidator);
 		applicationContext = createMock(ApplicationContext.class);
 		processingEndpoint.setApplicationContext(applicationContext);
 		deduplicationService = createMock(DeduplicationService.class);
@@ -75,4 +67,18 @@ public class ProcessingEndpointTest {
 		verify(mocks);
 	}
 
+	@Test
+	public void testAddAdmission() {
+		assertTrue(false);
+	}
+
+	@Test
+	public void testUpdateAdmission() {
+		assertTrue(false);
+	}
+
+	@Test
+	public void testDeleteAdmission() {
+		assertTrue(false);
+	}
 }

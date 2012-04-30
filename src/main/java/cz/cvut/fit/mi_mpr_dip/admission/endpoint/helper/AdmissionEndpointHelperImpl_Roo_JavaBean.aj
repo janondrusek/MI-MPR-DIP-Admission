@@ -7,8 +7,17 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 
 privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {
+    
+    public AdmissionCodeValidator AdmissionEndpointHelperImpl.getAdmissionCodeValidator() {
+        return this.admissionCodeValidator;
+    }
+    
+    public void AdmissionEndpointHelperImpl.setAdmissionCodeValidator(AdmissionCodeValidator admissionCodeValidator) {
+        this.admissionCodeValidator = admissionCodeValidator;
+    }
     
     public AdmissionDao AdmissionEndpointHelperImpl.getAdmissionDao() {
         return this.admissionDao;

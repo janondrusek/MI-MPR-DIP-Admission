@@ -32,8 +32,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
 @RooJavaBean
 @Path(ProcessingEndpointImpl.ENDPOINT_PATH)
@@ -45,13 +43,7 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	private static final String ADMISSIONS_PATH = "/admissions";
 
 	@Autowired
-	private AdmissionCodeValidator admissionCodeValidator;
-
-	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
-
-	@Autowired
-	private AnnotatedBeanValidator beanValidator;
 
 	private ApplicationContext applicationContext;
 
@@ -135,14 +127,9 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 
 	@Transactional
 	private void validateAndDeduplicateAndStore(Admission admission) {
-		validate(admission);
+		getAdmissionEndpointHelper().validate(admission);
 		deduplicateAndStore(admission);
 		// TODO: after @chobodav fixes processes, runJbpmProcess(admission);
-	}
-
-	private void validate(Admission admission) {
-		getBeanValidator().validate(admission);
-		getAdmissionCodeValidator().validate(admission);
 	}
 
 	private void deduplicateAndStore(Admission admission) {

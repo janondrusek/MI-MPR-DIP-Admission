@@ -29,7 +29,7 @@ public abstract class AbstractDao<T> {
 
 	protected T processException(Exception e) {
 		T o = createEmptyResult();
-		log.debug("Unable to get result for [{}]", o.getClass());
+		log.debug("Unable to get result for [{}], [{}]", o.getClass(), String.valueOf(e));
 
 		return o;
 	}
@@ -37,8 +37,10 @@ public abstract class AbstractDao<T> {
 	abstract protected T createEmptyResult();
 
 	protected List<T> processListException(Exception e) {
-		log.debug("Unable to find entiries [{}]", String.valueOf(e));
-		return createEmptyList();
+		List<T> list = createEmptyList();
+		log.debug("Unable to find entries for [{}], [{}]", list.getClass(), String.valueOf(e));
+		
+		return list;
 	}
 
 	protected List<T> createEmptyList() {

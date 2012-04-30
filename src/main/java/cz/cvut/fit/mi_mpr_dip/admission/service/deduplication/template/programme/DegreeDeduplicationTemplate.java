@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.programme;
+package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.programme;
 
 import java.util.List;
 

@@ -11,19 +11,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelp
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 import org.springframework.context.ApplicationContext;
 
 privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
-    
-    public AdmissionCodeValidator ProcessingEndpointImpl.getAdmissionCodeValidator() {
-        return this.admissionCodeValidator;
-    }
-    
-    public void ProcessingEndpointImpl.setAdmissionCodeValidator(AdmissionCodeValidator admissionCodeValidator) {
-        this.admissionCodeValidator = admissionCodeValidator;
-    }
     
     public AdmissionEndpointHelper ProcessingEndpointImpl.getAdmissionEndpointHelper() {
         return this.admissionEndpointHelper;
@@ -31,14 +21,6 @@ privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
     
     public void ProcessingEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
         this.admissionEndpointHelper = admissionEndpointHelper;
-    }
-    
-    public AnnotatedBeanValidator ProcessingEndpointImpl.getBeanValidator() {
-        return this.beanValidator;
-    }
-    
-    public void ProcessingEndpointImpl.setBeanValidator(AnnotatedBeanValidator beanValidator) {
-        this.beanValidator = beanValidator;
     }
     
     public ApplicationContext ProcessingEndpointImpl.getApplicationContext() {
