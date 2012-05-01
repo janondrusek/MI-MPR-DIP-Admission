@@ -13,7 +13,7 @@ public class AddressTypeDeduplicationTemplate extends AddressDeduplicationTempla
 
 	@Override
 	protected Set<AddressType> collect(Address address) {
-		return collect(address.getAddressType());
+		return wrap(address.getAddressType());
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class AddressTypeDeduplicationTemplate extends AddressDeduplicationTempla
 	}
 
 	@Override
-	protected void deduplicateAddress(AddressType addressType, Address address) {
+	protected void deduplicateItem(AddressType addressType, Address address) {
 		if (address.getAddressType().equals(addressType)) {
 			address.setAddressType(addressType);
 		}

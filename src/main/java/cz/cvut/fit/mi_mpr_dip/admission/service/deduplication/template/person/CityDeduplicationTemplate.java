@@ -22,7 +22,7 @@ public class CityDeduplicationTemplate extends CommonPersonDeduplicationTemplate
 
 	@Override
 	protected Set<City> collect(Address address) {
-		return collect(address.getCity());
+		return wrap(address.getCity());
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class CityDeduplicationTemplate extends CommonPersonDeduplicationTemplate
 	}
 
 	@Override
-	protected void deduplicateAddress(City city, Address address) {
+	protected void deduplicateItem(City city, Address address) {
 		if (city.equals(address.getCity())) {
 			address.setCity(city);
 		}

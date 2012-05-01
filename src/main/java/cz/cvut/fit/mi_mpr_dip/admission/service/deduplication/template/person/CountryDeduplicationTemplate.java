@@ -23,7 +23,7 @@ public class CountryDeduplicationTemplate extends CommonPersonDeduplicationTempl
 
 	@Override
 	protected Set<Country> collect(Address address) {
-		return collect(address.getCountry());
+		return wrap(address.getCountry());
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class CountryDeduplicationTemplate extends CommonPersonDeduplicationTempl
 	}
 
 	@Override
-	protected void deduplicateAddress(Country country, Address address) {
+	protected void deduplicateItem(Country country, Address address) {
 		if (country.equals(address.getCountry())) {
 			address.setCountry(country);
 		}

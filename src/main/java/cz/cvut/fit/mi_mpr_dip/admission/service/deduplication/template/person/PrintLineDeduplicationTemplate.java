@@ -31,7 +31,7 @@ public class PrintLineDeduplicationTemplate extends AddressDeduplicationTemplate
 	}
 
 	@Override
-	protected void deduplicateAddress(PrintLineType printLineType, Address address) {
+	protected void deduplicateItem(PrintLineType printLineType, Address address) {
 		for (PrintLine printLine : address.getPrintLines()) {
 			if (printLine.getPrintLineType().equals(printLineType)) {
 				printLine.setPrintLineType(printLineType);

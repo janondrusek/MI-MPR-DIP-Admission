@@ -20,6 +20,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.TermEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.TermDeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
 @Path(TermEndpointImpl.ENDPOINT_PATH)
@@ -61,7 +62,8 @@ public class TermEndpointImpl implements TermEndpoint {
 	@Override
 	public Response addTerm(Term term) {
 		validateAndDeduplicateAndStore(term);
-		return null;
+		return Response.seeOther(
+				getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + TERM_PATH + StringPool.SLASH, term)).build();
 	}
 
 	@Transactional

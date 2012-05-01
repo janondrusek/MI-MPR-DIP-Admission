@@ -32,14 +32,14 @@ public abstract class CommonPersonDeduplicationTemplate<T> extends AddressDedupl
 
 	private void deduplicatePerson(Person person, T item) {
 		deduplicatePersonDirectlyDescendant(person, item);
-		deduplicateAddresses(person, item);
+		deduplicateItems(person, item);
 	}
 
 	abstract protected void deduplicatePersonDirectlyDescendant(Person person, T item);
 
-	private void deduplicateAddresses(Person person, T item) {
+	private void deduplicateItems(Person person, T item) {
 		for (Address address : person.getAddresses()) {
-			deduplicateAddress(item, address);
+			deduplicateItem(item, address);
 		}
 	}
 }
