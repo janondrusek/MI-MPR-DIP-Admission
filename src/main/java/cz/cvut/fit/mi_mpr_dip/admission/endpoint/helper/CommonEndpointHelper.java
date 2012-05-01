@@ -14,15 +14,18 @@ public abstract class CommonEndpointHelper<T> implements EndpointHelper<T> {
 	@Autowired
 	private AnnotatedBeanValidator beanValidator;
 
-	protected Response getOkResponse() {
+	@Override
+	public Response getOkResponse() {
 		return build(Response.ok());
 	}
 
-	protected Response getOkResponse(Object o) {
+	@Override
+	public Response getOkResponse(Object o) {
 		return build(Response.ok(o));
 	}
 
-	protected Response build(ResponseBuilder builder) {
+	@Override
+	public Response build(ResponseBuilder builder) {
 		return builder.build();
 	}
 

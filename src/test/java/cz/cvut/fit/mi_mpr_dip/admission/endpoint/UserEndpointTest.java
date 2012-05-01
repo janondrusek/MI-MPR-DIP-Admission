@@ -127,7 +127,7 @@ public class UserEndpointTest {
 	}
 
 	private String getAdmissionBaseLocation() {
-		return ProcessingEndpointImpl.ENDPOINT_PATH + ProcessingEndpointImpl.ADMISSION_PATH;
+		return AdmissionEndpointImpl.ENDPOINT_PATH;
 	}
 
 	private void setPersistAndSendExpcetations(String... emails) {

@@ -17,7 +17,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
 
 @Service
 @RooJavaBean
-public class UriEndpointHelper implements EndpointHelper<URI> {
+public class UriEndpointHelper {
 
 	private static final Logger log = LoggerFactory.getLogger(UriEndpointHelper.class);
 

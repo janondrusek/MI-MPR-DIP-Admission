@@ -5,7 +5,7 @@ import javax.ws.rs.core.Response;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 
-public interface ProcessingEndpoint {
+public interface AdmissionEndpoint {
 
 	public Response getUserIdentity();
 

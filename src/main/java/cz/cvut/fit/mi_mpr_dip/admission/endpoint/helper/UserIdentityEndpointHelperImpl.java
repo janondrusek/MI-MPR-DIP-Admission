@@ -20,14 +20,11 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 @RooJavaBean
-public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelper {
-
-	@Autowired
-	private BeanValidator beanValidator;
+public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIdentity> implements
+		UserIdentityEndpointHelper {
 
 	@Autowired
 	private BusinessExceptionUtil businessExceptionUtil;

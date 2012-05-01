@@ -27,7 +27,7 @@
 	</bean>
 
 	<bean id="mobileEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.MobileEndpointImpl" />
-	<bean id="processingEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingEndpointImpl" />
+	<bean id="processingEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl" />
 	<bean id="termEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl" />
 	<bean id="userEndpoint" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.UserEndpointImpl" />
 

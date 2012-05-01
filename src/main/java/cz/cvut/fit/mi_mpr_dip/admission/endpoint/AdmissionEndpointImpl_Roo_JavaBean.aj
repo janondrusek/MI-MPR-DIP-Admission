@@ -4,7 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProcessingEndpointImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
@@ -13,57 +13,57 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationServi
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import org.springframework.context.ApplicationContext;
 
-privileged aspect ProcessingEndpointImpl_Roo_JavaBean {
+privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
-    public AdmissionEndpointHelper ProcessingEndpointImpl.getAdmissionEndpointHelper() {
+    public AdmissionEndpointHelper AdmissionEndpointImpl.getAdmissionEndpointHelper() {
         return this.admissionEndpointHelper;
     }
     
-    public void ProcessingEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
+    public void AdmissionEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
         this.admissionEndpointHelper = admissionEndpointHelper;
     }
     
-    public ApplicationContext ProcessingEndpointImpl.getApplicationContext() {
+    public ApplicationContext AdmissionEndpointImpl.getApplicationContext() {
         return this.applicationContext;
     }
     
-    public UserIdentityEndpointHelper ProcessingEndpointImpl.getUserIdentityEndpointHelper() {
+    public UserIdentityEndpointHelper AdmissionEndpointImpl.getUserIdentityEndpointHelper() {
         return this.userIdentityEndpointHelper;
     }
     
-    public void ProcessingEndpointImpl.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
+    public void AdmissionEndpointImpl.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
         this.userIdentityEndpointHelper = userIdentityEndpointHelper;
     }
     
-    public ProcessService ProcessingEndpointImpl.getProcessService() {
+    public ProcessService AdmissionEndpointImpl.getProcessService() {
         return this.processService;
     }
     
-    public void ProcessingEndpointImpl.setProcessService(ProcessService processService) {
+    public void AdmissionEndpointImpl.setProcessService(ProcessService processService) {
         this.processService = processService;
     }
     
-    public DeduplicationService<Admission> ProcessingEndpointImpl.getDeduplicationService() {
+    public DeduplicationService<Admission> AdmissionEndpointImpl.getDeduplicationService() {
         return this.deduplicationService;
     }
     
-    public void ProcessingEndpointImpl.setDeduplicationService(DeduplicationService<Admission> deduplicationService) {
+    public void AdmissionEndpointImpl.setDeduplicationService(DeduplicationService<Admission> deduplicationService) {
         this.deduplicationService = deduplicationService;
     }
     
-    public UriEndpointHelper ProcessingEndpointImpl.getUriEndpointHelper() {
+    public UriEndpointHelper AdmissionEndpointImpl.getUriEndpointHelper() {
         return this.uriEndpointHelper;
     }
     
-    public void ProcessingEndpointImpl.setUriEndpointHelper(UriEndpointHelper uriEndpointHelper) {
+    public void AdmissionEndpointImpl.setUriEndpointHelper(UriEndpointHelper uriEndpointHelper) {
         this.uriEndpointHelper = uriEndpointHelper;
     }
     
-    public UserIdentityService ProcessingEndpointImpl.getUserIdentityService() {
+    public UserIdentityService AdmissionEndpointImpl.getUserIdentityService() {
         return this.userIdentityService;
     }
     
-    public void ProcessingEndpointImpl.setUserIdentityService(UserIdentityService userIdentityService) {
+    public void AdmissionEndpointImpl.setUserIdentityService(UserIdentityService userIdentityService) {
         this.userIdentityService = userIdentityService;
     }
     

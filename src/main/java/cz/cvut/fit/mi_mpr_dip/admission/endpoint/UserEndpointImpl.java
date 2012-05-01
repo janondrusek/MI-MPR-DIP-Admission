@@ -72,7 +72,7 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	@Secured("PERM_RESET_PASSWORD")
-	@Path(ProcessingEndpointImpl.ADMISSION_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
+	@Path(AdmissionEndpointImpl.ENDPOINT_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
@@ -125,7 +125,7 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	private String getAdmissionBaseLocation() {
-		return ProcessingEndpointImpl.ENDPOINT_PATH + ProcessingEndpointImpl.ADMISSION_PATH;
+		return AdmissionEndpointImpl.ENDPOINT_PATH;
 	}
 
 }

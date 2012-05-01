@@ -8,19 +8,10 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 privileged aspect UserIdentityEndpointHelperImpl_Roo_JavaBean {
-    
-    public BeanValidator UserIdentityEndpointHelperImpl.getBeanValidator() {
-        return this.beanValidator;
-    }
-    
-    public void UserIdentityEndpointHelperImpl.setBeanValidator(BeanValidator beanValidator) {
-        this.beanValidator = beanValidator;
-    }
     
     public BusinessExceptionUtil UserIdentityEndpointHelperImpl.getBusinessExceptionUtil() {
         return this.businessExceptionUtil;

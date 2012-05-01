@@ -32,7 +32,7 @@ public class ProcessingEndpointTest {
 	private static final String CODE = "code";
 	private static final String URI = "http://api.example.com";
 
-	private ProcessingEndpointImpl processingEndpoint;
+	private AdmissionEndpointImpl processingEndpoint;
 
 	private Admission admission;
 	private ApplicationContext applicationContext;
@@ -45,7 +45,7 @@ public class ProcessingEndpointTest {
 
 	@Before
 	public void setUp() {
-		processingEndpoint = new ProcessingEndpointImpl();
+		processingEndpoint = new AdmissionEndpointImpl();
 
 		initMocks();
 	}

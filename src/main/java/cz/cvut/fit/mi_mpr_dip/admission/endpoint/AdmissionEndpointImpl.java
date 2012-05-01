@@ -34,13 +34,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
-@Path(ProcessingEndpointImpl.ENDPOINT_PATH)
-public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationContextAware {
+@Path(AdmissionEndpointImpl.ENDPOINT_PATH)
+public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationContextAware {
 
-	protected static final String ENDPOINT_PATH = "/processing";
+	protected static final String ENDPOINT_PATH = "/admission";
 
-	protected static final String ADMISSION_PATH = "/admission";
-	private static final String ADMISSIONS_PATH = "/admissions";
+	private static final String ADMISSION_CODE = "/{admissionCode}";
 
 	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
@@ -72,7 +71,7 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	}
 
 	@Secured("PERM_READ_ADMISSION")
-	@Path(ADMISSION_PATH + "/{admissionCode}")
+	@Path(ADMISSION_CODE)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
@@ -81,7 +80,6 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	}
 
 	@Secured("PERM_READ_ADMISSIONS")
-	@Path(ADMISSIONS_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
@@ -104,19 +102,17 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
-	@Path(ADMISSION_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
 	public Response addAdmission(Admission admission) {
 		validateAndDeduplicateAndStore(admission);
-		return Response.created(
-				uriEndpointHelper.getAdmissionLocation(ENDPOINT_PATH + ADMISSION_PATH + StringPool.SLASH, admission))
+		return Response.created(uriEndpointHelper.getAdmissionLocation(ENDPOINT_PATH + StringPool.SLASH, admission))
 				.build();
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
-	@Path(ADMISSION_PATH + "/{admissionCode}")
+	@Path(ADMISSION_CODE)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
@@ -142,7 +138,7 @@ public class ProcessingEndpointImpl implements ProcessingEndpoint, ApplicationCo
 	}
 
 	@Secured("PERM_DELETE_ADMISSION")
-	@Path(ADMISSION_PATH + "/{admissionCode}")
+	@Path(ADMISSION_CODE)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@DELETE
 	@Override
