@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,6 +32,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 /**
  * This is a sample file to launch a process.
  */
+@Ignore
 public class ProcessTest extends BaseSpringJbpmTest {
 
 	private static final String BLANK = "blank";
