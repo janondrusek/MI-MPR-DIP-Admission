@@ -9,20 +9,21 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="cz.cvut.fit.mi_mpr_dip" />
-	
+
 	<jaxrs:server id="restContainer" address="/">
 		<jaxrs:serviceBeans>
+			<ref bean="admissionEndpoint" />
 			<ref bean="mobileEndpoint" />
-			<ref bean="processingEndpoint" />
+			<ref bean="programmeEndpoint" />
 			<ref bean="termEndpoint" />
-			<ref bean="userEndpoint"/>
+			<ref bean="userEndpoint" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
 			<ref bean="accessDeniedExceptionMapper" />
 			<ref bean="businessExceptionMapper" />
 			<ref bean="technicalExceptionMapper" />
-			<ref bean="jaxbExceptionMapper"/>
+			<ref bean="jaxbExceptionMapper" />
 			<ref bean="webApplicationExceptionMapper" />
 			<ref bean="throwableExceptionMapper" />
 		</jaxrs:providers>
@@ -50,11 +51,11 @@
 		<value>role</value>
 		<value>session</value>
 	</util:list>
-	
+
 	<bean id="accessDeniedExceptionMapper" class="cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper.AccessDeniedExceptionMapper">
 		<property name="securityContextHolderStrategy" ref="securityContextHolderStrategy" />
 		<property name="authenticationTrustResolver" ref="authenticationTrustResolver" />
 	</bean>
-	
+
 	<bean id="authenticationTrustResolver" class="org.springframework.security.authentication.AuthenticationTrustResolverImpl" />
 </beans>

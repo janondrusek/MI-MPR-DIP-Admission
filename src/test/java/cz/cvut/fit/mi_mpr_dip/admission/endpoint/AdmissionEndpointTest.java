@@ -27,12 +27,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationServi
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
-public class ProcessingEndpointTest {
+public class AdmissionEndpointTest {
 
 	private static final String CODE = "code";
 	private static final String URI = "http://api.example.com";
 
-	private AdmissionEndpointImpl processingEndpoint;
+	private AdmissionEndpointImpl admissionEndpoint;
 
 	private Admission admission;
 	private ApplicationContext applicationContext;
@@ -45,7 +45,7 @@ public class ProcessingEndpointTest {
 
 	@Before
 	public void setUp() {
-		processingEndpoint = new AdmissionEndpointImpl();
+		admissionEndpoint = new AdmissionEndpointImpl();
 
 		initMocks();
 	}
@@ -62,15 +62,15 @@ public class ProcessingEndpointTest {
 	@SuppressWarnings("unchecked")
 	private void initDependencyMocks() {
 		applicationContext = createMock(ApplicationContext.class);
-		processingEndpoint.setApplicationContext(applicationContext);
+		admissionEndpoint.setApplicationContext(applicationContext);
 		deduplicationService = createMock(DeduplicationService.class);
-		processingEndpoint.setDeduplicationService(deduplicationService);
+		admissionEndpoint.setDeduplicationService(deduplicationService);
 		admissionEndpointHelper = createMock(AdmissionEndpointHelper.class);
-		processingEndpoint.setAdmissionEndpointHelper(admissionEndpointHelper);
+		admissionEndpoint.setAdmissionEndpointHelper(admissionEndpointHelper);
 		userIdentityService = createMock(UserIdentityService.class);
-		processingEndpoint.setUserIdentityService(userIdentityService);
+		admissionEndpoint.setUserIdentityService(userIdentityService);
 		uriEndpointHelper = createMock(UriEndpointHelper.class);
-		processingEndpoint.setUriEndpointHelper(uriEndpointHelper);
+		admissionEndpoint.setUriEndpointHelper(uriEndpointHelper);
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class ProcessingEndpointTest {
 		expect(admissionEndpointHelper.getAdmission(same(CODE))).andReturn(response);
 
 		replay(mocks);
-		assertSame(response, processingEndpoint.getAdmission(CODE));
+		assertSame(response, admissionEndpoint.getAdmission(CODE));
 		verify(mocks);
 	}
 
@@ -92,7 +92,7 @@ public class ProcessingEndpointTest {
 		userIdentityService.buildUserIdentity(same(admission));
 
 		replay(mocks);
-		Response response = processingEndpoint.addAdmission(admission);
+		Response response = admissionEndpoint.addAdmission(admission);
 		verify(mocks);
 		assertNotNull(response);
 		MultivaluedMap<String, Object> metadata = response.getMetadata();
@@ -110,7 +110,7 @@ public class ProcessingEndpointTest {
 		expect(admissionEndpointHelper.deleteAdmission(same(CODE))).andReturn(response);
 
 		replay(mocks);
-		assertSame(response, processingEndpoint.deleteAdmission(CODE));
+		assertSame(response, admissionEndpoint.deleteAdmission(CODE));
 		verify(mocks);
 	}
 }
