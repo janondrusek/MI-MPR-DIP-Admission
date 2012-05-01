@@ -14,5 +14,9 @@ public interface TermEndpointHelper {
 
 	public Response getTerm(Date dateOfTerm, String room);
 
+	public Response deleteTerm(String dateOfTerm, String room);
+
+	public Term validate(String dateOfTerm, String room, Term term);
+
 	public void validate(Term term);
 }

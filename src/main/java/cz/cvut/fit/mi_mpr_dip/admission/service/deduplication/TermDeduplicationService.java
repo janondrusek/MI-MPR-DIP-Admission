@@ -23,6 +23,13 @@ public class TermDeduplicationService implements DeduplicationService<Term> {
 		term.persist();
 	}
 
+	@Transactional
+	public void deduplicateAndMerge(Term term) {
+		deduplicate(term);
+
+		term.merge();
+	}
+
 	private void deduplicate(Term term) {
 		for (TermDeduplicationTemplate deduplicationTemplate : deduplicationTemplates) {
 			deduplicationTemplate.deduplicate(term);

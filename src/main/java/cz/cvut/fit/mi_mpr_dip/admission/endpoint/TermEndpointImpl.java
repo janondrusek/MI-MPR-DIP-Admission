@@ -62,8 +62,7 @@ public class TermEndpointImpl implements TermEndpoint {
 	@Override
 	public Response addTerm(Term term) {
 		validateAndDeduplicateAndStore(term);
-		return Response.seeOther(getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + StringPool.SLASH, term))
-				.build();
+		return Response.created(getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + StringPool.SLASH, term)).build();
 	}
 
 	@Transactional
@@ -82,7 +81,25 @@ public class TermEndpointImpl implements TermEndpoint {
 	@PUT
 	@Override
 	public Response updateTerm(@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room, Term term) {
-		return null;
+		validateAndUpdate(dateOfTerm, room, term);
+		return Response.ok().build();
+	}
+
+	private void validateAndUpdate(String dateOfTerm, String room, Term term) {
+		Term dbTerm = getTermEndpointHelper().validate(dateOfTerm, room, term);
+
+		dbTerm.setApologyTo(term.getApologyTo());
+		dbTerm.setCapacity(term.getCapacity());
+		dbTerm.setPrograms(term.getPrograms());
+		dbTerm.setRegisterFrom(term.getRegisterFrom());
+		dbTerm.setRegisterTo(term.getRegisterTo());
+		dbTerm.setTermType(term.getTermType());
+
+		deduplicateAndMerge(dbTerm);
+	}
+
+	private void deduplicateAndMerge(Term term) {
+		getTermDeduplicationService().deduplicateAndMerge(term);
 	}
 
 	@Secured("PERM_DELETE_TERM")
@@ -91,7 +108,7 @@ public class TermEndpointImpl implements TermEndpoint {
 	@DELETE
 	@Override
 	public Response deleteTerm(@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room) {
-		return null;
+		return getTermEndpointHelper().deleteTerm(dateOfTerm, room);
 	}
 
 }
