@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-04-16 00:15:48
+# Date/time:                    2012-05-01 18:51:08
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -822,6 +822,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   KEY `FKC4E39B5576BD9DF` (`gender`),
   KEY `FKC4E39B55676259EF` (`citizenship`),
   KEY `FKC4E39B55DC872581` (`city_of_birth`),
+  KEY `person_email` (`email`),
   CONSTRAINT `FKC4E39B55DC872581` FOREIGN KEY (`city_of_birth`) REFERENCES `city` (`city_id`),
   CONSTRAINT `FKC4E39B55676259EF` FOREIGN KEY (`citizenship`) REFERENCES `country` (`country_id`),
   CONSTRAINT `FKC4E39B5576BD9DF` FOREIGN KEY (`gender`) REFERENCES `gender` (`gender_id`),
@@ -1079,6 +1080,7 @@ CREATE TABLE IF NOT EXISTS `term` (
   `room` varchar(255) COLLATE utf8_bin NOT NULL,
   `term_type` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`term_id`),
+  UNIQUE KEY `date_of_term` (`date_of_term`,`room`),
   KEY `FK36446C11E82724` (`term_type`),
   CONSTRAINT `FK36446C11E82724` FOREIGN KEY (`term_type`) REFERENCES `term_type` (`term_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1086,17 +1088,16 @@ CREATE TABLE IF NOT EXISTS `term` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.term_programs
-DROP TABLE IF EXISTS `term_programs`;
-CREATE TABLE IF NOT EXISTS `term_programs` (
-  `term` bigint(20) NOT NULL,
-  `programs` bigint(20) NOT NULL,
-  PRIMARY KEY (`term`,`programs`),
-  UNIQUE KEY `programs` (`programs`),
-  KEY `FK374BD8E217CE5789` (`term`),
-  KEY `FK374BD8E2B2FBF855` (`programs`),
-  CONSTRAINT `FK374BD8E2B2FBF855` FOREIGN KEY (`programs`) REFERENCES `programme` (`programme_id`),
-  CONSTRAINT `FK374BD8E217CE5789` FOREIGN KEY (`term`) REFERENCES `term` (`term_id`)
+# Dumping structure for table admission.term_programme
+DROP TABLE IF EXISTS `term_programme`;
+CREATE TABLE IF NOT EXISTS `term_programme` (
+  `term_id` bigint(20) NOT NULL,
+  `programme_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`term_id`,`programme_id`),
+  KEY `FKB22F4309C2BDD8EB` (`term_id`),
+  KEY `FKB22F43093B49F704` (`programme_id`),
+  CONSTRAINT `FKB22F43093B49F704` FOREIGN KEY (`programme_id`) REFERENCES `programme` (`programme_id`),
+  CONSTRAINT `FKB22F4309C2BDD8EB` FOREIGN KEY (`term_id`) REFERENCES `term` (`term_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
