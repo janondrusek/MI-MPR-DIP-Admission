@@ -36,3 +36,15 @@ curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.get
 
 # User.updatePassword
 curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X POST http://localhost:9090/admission/services/user/identity/{userIdentity}/password/old:{oldPassword}/new:{newPassword}
+
+# Term.get
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
+
+# Term.add
+cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/term
+
+# Term.delete
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X DELETE http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
+
+# Term.update, Term Registrations are ignored
+cat examples/term_01.xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/term/ddateOfTerm:{dateOfTerm}/room:{room}
