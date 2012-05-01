@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Terms;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
+import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 @Service
 @RooJavaBean
@@ -26,6 +28,9 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 
 	@Autowired
 	private BusinessExceptionUtil businessExceptionUtil;
+
+	@Autowired
+	private TermDao termDao;
 
 	@Autowired
 	private TermDateUtils termDateUtils;
@@ -67,8 +72,15 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 
 	@Override
 	public Response getTerm(Date dateOfTerm, String room) {
+		Term term = getTermDao().getTerm(dateOfTerm, room);
+		validateNotFound(term);
+		return getOkResponse(term);
+	}
 
-		return null;
+	private void validateNotFound(Term term) {
+		if (term.getDateOfTerm() == null || term.getRoom() == null) {
+			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND, WebKeys.NOT_FOUND);
+		}
 	}
 
 	@Override

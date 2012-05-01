@@ -62,8 +62,8 @@ public class TermEndpointImpl implements TermEndpoint {
 	@Override
 	public Response addTerm(Term term) {
 		validateAndDeduplicateAndStore(term);
-		return Response.seeOther(
-				getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + TERM_PATH + StringPool.SLASH, term)).build();
+		return Response.seeOther(getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + StringPool.SLASH, term))
+				.build();
 	}
 
 	@Transactional

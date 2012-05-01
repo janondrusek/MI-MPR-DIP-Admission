@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
-import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.TermDeduplicationTemplate;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.term.TermDeduplicationTemplate;
 
 @Service
 public class TermDeduplicationService implements DeduplicationService<Term> {

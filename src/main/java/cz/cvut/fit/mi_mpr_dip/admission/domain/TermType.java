@@ -27,7 +27,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "termTypeId", "terms" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-@RooJpaActiveRecord
+@RooJpaActiveRecord(finders = { "findTermTypesByNameEquals" })
 public class TermType {
 
 	@Version
