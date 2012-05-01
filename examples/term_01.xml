@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <term>
-	<dateOfTerm>2012-06-01T00:00:00Z</dateOfTerm>
+	<dateOfTerm>2012-06-01T00:00:00</dateOfTerm>
 	<room>T9:225</room>
 	<capacity>70</capacity>
-	<registerFrom>2012-05-14T00:00:00Z</registerFrom>
-	<registerTo>2012-05-21T00:00:00Z</registerTo>
-	<apologyTo>2012-05-23T00:00:00Z</apologyTo>
+	<registerFrom>2012-05-14T00:00:00</registerFrom>
+	<registerTo>2012-05-21T00:00:00</registerTo>
+	<apologyTo>2012-05-23T00:00:00</apologyTo>
 	<programs>
 		<programme>
 			<name>WI</name>
