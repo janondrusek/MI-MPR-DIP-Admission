@@ -1,13 +1,19 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.same;
 import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import org.junit.Before;
@@ -16,18 +22,23 @@ import org.springframework.context.ApplicationContext;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 public class ProcessingEndpointTest {
 
 	private static final String CODE = "code";
+	private static final String URI = "http://api.example.com";
 
 	private ProcessingEndpointImpl processingEndpoint;
 
+	private Admission admission;
 	private ApplicationContext applicationContext;
 	private DeduplicationService<Admission> deduplicationService;
-	private AdmissionEndpointHelper endpointHelper;
+	private AdmissionEndpointHelper admissionEndpointHelper;
+	private UriEndpointHelper uriEndpointHelper;
 	private UserIdentityService userIdentityService;
 
 	private Object[] mocks;
@@ -42,7 +53,10 @@ public class ProcessingEndpointTest {
 	private void initMocks() {
 		initDependencyMocks();
 
-		mocks = new Object[] { applicationContext, deduplicationService, endpointHelper, userIdentityService };
+		admission = createMock(Admission.class);
+
+		mocks = new Object[] { admission, applicationContext, deduplicationService, admissionEndpointHelper,
+				uriEndpointHelper, userIdentityService };
 	}
 
 	@SuppressWarnings("unchecked")
@@ -51,16 +65,18 @@ public class ProcessingEndpointTest {
 		processingEndpoint.setApplicationContext(applicationContext);
 		deduplicationService = createMock(DeduplicationService.class);
 		processingEndpoint.setDeduplicationService(deduplicationService);
-		endpointHelper = createMock(AdmissionEndpointHelper.class);
-		processingEndpoint.setAdmissionEndpointHelper(endpointHelper);
+		admissionEndpointHelper = createMock(AdmissionEndpointHelper.class);
+		processingEndpoint.setAdmissionEndpointHelper(admissionEndpointHelper);
 		userIdentityService = createMock(UserIdentityService.class);
 		processingEndpoint.setUserIdentityService(userIdentityService);
+		uriEndpointHelper = createMock(UriEndpointHelper.class);
+		processingEndpoint.setUriEndpointHelper(uriEndpointHelper);
 	}
 
 	@Test
 	public void testGetAdmission() {
 		Response response = Response.ok().build();
-		expect(endpointHelper.getAdmission(same(CODE))).andReturn(response);
+		expect(admissionEndpointHelper.getAdmission(same(CODE))).andReturn(response);
 
 		replay(mocks);
 		assertSame(response, processingEndpoint.getAdmission(CODE));
@@ -68,17 +84,33 @@ public class ProcessingEndpointTest {
 	}
 
 	@Test
-	public void testAddAdmission() {
-		assertTrue(false);
+	public void testAddAdmission() throws URISyntaxException {
+		admissionEndpointHelper.validate(admission);
+		deduplicationService.deduplicateAndStore(same(admission));
+		expect(uriEndpointHelper.getAdmissionLocation(anyObject(String.class), same(admission)))
+				.andReturn(new URI(URI));
+		userIdentityService.buildUserIdentity(same(admission));
+
+		replay(mocks);
+		Response response = processingEndpoint.addAdmission(admission);
+		verify(mocks);
+		assertNotNull(response);
+		MultivaluedMap<String, Object> metadata = response.getMetadata();
+		assertArrayEquals(new String[] { URI }, metadata.get(WebKeys.LOCATION).toArray(new String[1]));
 	}
 
 	@Test
 	public void testUpdateAdmission() {
-		assertTrue(false);
+		// TODO:
 	}
 
 	@Test
 	public void testDeleteAdmission() {
-		assertTrue(false);
+		Response response = Response.ok().build();
+		expect(admissionEndpointHelper.deleteAdmission(same(CODE))).andReturn(response);
+
+		replay(mocks);
+		assertSame(response, processingEndpoint.deleteAdmission(CODE));
+		verify(mocks);
 	}
 }
