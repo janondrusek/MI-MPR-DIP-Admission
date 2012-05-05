@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
-public interface ProgrammeEndpointHelper {
+public interface ProgrammeEndpointHelper extends EndpointHelper<Programme> {
 
 	public Response getPrograms();
 

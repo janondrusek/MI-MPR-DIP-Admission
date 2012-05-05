@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
@@ -30,7 +31,6 @@ public class UriEndpointHelper {
 
 	public URI getAdmissionLocation(String baseLocation, String admissionCode) {
 		return buildURI(baseLocation, admissionCode);
-
 	}
 
 	public URI getTermLocation(String baseLocation, Term term) {
@@ -40,6 +40,10 @@ public class UriEndpointHelper {
 	public URI getTermLocation(String baseLocation, Date dateOfTerm, String room) {
 		String path = "dateOfTerm:" + formatDateAndReplaceSpaces(dateOfTerm) + "/room:" + room;
 		return buildURI(baseLocation, path);
+	}
+
+	public URI getProgrammeLocation(String baseLocation, Programme programme) {
+		return null;
 	}
 
 	private String formatDateAndReplaceSpaces(Date dateOfTerm) {

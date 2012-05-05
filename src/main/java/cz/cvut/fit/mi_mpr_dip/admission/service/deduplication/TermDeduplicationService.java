@@ -24,6 +24,7 @@ public class TermDeduplicationService implements DeduplicationService<Term> {
 	}
 
 	@Transactional
+	@Override
 	public void deduplicateAndMerge(Term term) {
 		deduplicate(term);
 

@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import java.net.URI;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -62,7 +64,8 @@ public class TermEndpointImpl implements TermEndpoint {
 	@Override
 	public Response addTerm(Term term) {
 		validateAndDeduplicateAndStore(term);
-		return Response.created(getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + StringPool.SLASH, term)).build();
+		URI uri = getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + StringPool.SLASH, term);
+		return getTermEndpointHelper().getCreatedResponse(uri);
 	}
 
 	@Transactional
@@ -82,7 +85,7 @@ public class TermEndpointImpl implements TermEndpoint {
 	@Override
 	public Response updateTerm(@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room, Term term) {
 		validateAndUpdate(dateOfTerm, room, term);
-		return Response.ok().build();
+		return getTermEndpointHelper().getOkResponse();
 	}
 
 	private void validateAndUpdate(String dateOfTerm, String room, Term term) {

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.AdmissionDeduplicationTemplate;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.DeduplicationTemplate;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.person.PersonDeduplicationTemplate;
 
 @Service
@@ -24,20 +24,26 @@ public class AdmissionDeduplicationService implements DeduplicationService<Admis
 	@Override
 	public void deduplicateAndStore(Admission admission) {
 		deduplicate(admission);
-		deduplicate(admission.getPerson());
 
 		admission.persist();
 	}
 
+	@Override
+	public void deduplicateAndMerge(Admission admission) {
+		deduplicate(admission);
+
+		admission.merge();
+	}
+
 	private void deduplicate(Admission admission) {
-		for (AdmissionDeduplicationTemplate deduplicationTemplate : admissionDeduplicationTemplates) {
-			deduplicationTemplate.deduplicate(admission);
+		deduplicate(admission, admissionDeduplicationTemplates);
+		deduplicate(admission.getPerson(), personDeduplicationTemplates);
+	}
+
+	private <T> void deduplicate(T deduplicant, Set<? extends DeduplicationTemplate<T>> templates) {
+		for (DeduplicationTemplate<T> template : templates) {
+			template.deduplicate(deduplicant);
 		}
 	}
 
-	private void deduplicate(Person person) {
-		for (PersonDeduplicationTemplate deduplicationTemplate : personDeduplicationTemplates) {
-			deduplicationTemplate.deduplicate(person);
-		}
-	}
 }

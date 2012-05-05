@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
+import java.net.URI;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -22,6 +24,11 @@ public abstract class CommonEndpointHelper<T> implements EndpointHelper<T> {
 	@Override
 	public Response getOkResponse(Object o) {
 		return build(Response.ok(o));
+	}
+
+	@Override
+	public Response getCreatedResponse(URI uri) {
+		return build(Response.created(uri));
 	}
 
 	@Override

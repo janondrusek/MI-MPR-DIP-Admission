@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 
-public interface TermEndpointHelper {
+public interface TermEndpointHelper extends EndpointHelper<Term> {
 
 	public Response getTerms();
 

@@ -6,8 +6,17 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProgrammeEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.ProgrammeEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.ProgrammeDeduplicationService;
 
 privileged aspect ProgrammeEndpointImpl_Roo_JavaBean {
+    
+    public ProgrammeDeduplicationService ProgrammeEndpointImpl.getProgrammeDeduplicationService() {
+        return this.programmeDeduplicationService;
+    }
+    
+    public void ProgrammeEndpointImpl.setProgrammeDeduplicationService(ProgrammeDeduplicationService programmeDeduplicationService) {
+        this.programmeDeduplicationService = programmeDeduplicationService;
+    }
     
     public ProgrammeEndpointHelper ProgrammeEndpointImpl.getProgrammeEndpointHelper() {
         return this.programmeEndpointHelper;
