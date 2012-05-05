@@ -25,13 +25,13 @@ import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
+import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
 @RooJavaBean
 @Path(AdmissionEndpointImpl.ENDPOINT_PATH)
@@ -61,7 +61,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	@Autowired
 	private UserIdentityService userIdentityService;
 
-	@Path(AdmissionEndpointHelperImpl.IDENTITY_PATH)
+	@Path(URIKeys.IDENTITY_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override

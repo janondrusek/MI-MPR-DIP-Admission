@@ -20,11 +20,11 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
+import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
 @Path(UserEndpointImpl.ENDPOINT_PATH)
 @RooJavaBean
@@ -42,9 +42,9 @@ public class UserEndpointImpl implements UserEndpoint {
 
 	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + EMAIL_ATTRIBUTE + "{email}"
 			+ RESET_PASSWORD_PATH;
-	private static final String FULL_UPDATE_PASSWORD_PATH = AdmissionEndpointHelperImpl.IDENTITY_PATH
-			+ StringPool.SLASH + "{userIdentity}" + PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE
-			+ "{oldPassword:.*?}" + StringPool.SLASH + NEW_ATTRIBUTE + "{newPassword:.*?}";
+	private static final String FULL_UPDATE_PASSWORD_PATH = URIKeys.IDENTITY_PATH + StringPool.SLASH + "{userIdentity}"
+			+ PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE + "{oldPassword:.*?}" + StringPool.SLASH + NEW_ATTRIBUTE
+			+ "{newPassword:.*?}";
 
 	@Autowired
 	private AdmissionDao admissionDao;

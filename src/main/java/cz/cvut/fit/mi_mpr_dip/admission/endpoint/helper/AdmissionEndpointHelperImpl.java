@@ -15,8 +15,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 @RooJavaBean
 public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission> implements AdmissionEndpointHelper {
 
-	public static final String IDENTITY_PATH = "/identity";
-
 	@Autowired
 	private AdmissionCodeValidator admissionCodeValidator;
 
