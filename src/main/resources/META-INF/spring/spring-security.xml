@@ -45,15 +45,21 @@
 	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
 		<constructor-arg>
 			<list>
-				<security:filter-chain pattern="/services/admission**"
+				<security:filter-chain pattern="/services/admission"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/admission/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/user/identity"
 					filters="sessionAuthenticationFilter,basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/user/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
-				<security:filter-chain pattern="/services/term**"
+				<security:filter-chain pattern="/services/term"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
-				<security:filter-chain pattern="/services/programme**"
+				<security:filter-chain pattern="/services/term/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/programme"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/programme/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 			</list>
 		</constructor-arg>

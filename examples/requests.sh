@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Mobile.saveResult
-cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/result
-
-# Mobile.savePhoto
-cat admission_photo.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/photo
-
 ##
 ## Admission
 ##
@@ -21,6 +15,12 @@ cat admission_0[1-3].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-A
 
 # Admission.delete, simply deletes admission in cascade with all its entites
 curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity] -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}
+
+# Admission.saveResult
+cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/admission/{admissionCode}/result
+
+# Admission.savePhoto
+cat admission_photo.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/admission/{admissionCode}/photo
 
 ##
 ## User
