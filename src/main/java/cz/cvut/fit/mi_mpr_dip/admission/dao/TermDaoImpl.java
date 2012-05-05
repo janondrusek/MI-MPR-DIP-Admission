@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 
 @Repository
-public class DefaultTermDao extends AbstractDao<Term> implements TermDao {
+public class TermDaoImpl extends AbstractDao<Term> implements TermDao {
 
 	@Transactional(readOnly = true)
 	@Override

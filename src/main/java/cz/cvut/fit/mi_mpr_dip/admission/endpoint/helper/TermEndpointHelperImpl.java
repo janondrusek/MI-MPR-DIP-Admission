@@ -19,9 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Terms;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
-import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.TermUniqueConstraintValidator;
 
 @Service
@@ -29,9 +27,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.validation.TermUniqueConstraintValidator
 public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implements TermEndpointHelper {
 
 	private static final Logger log = LoggerFactory.getLogger(TermEndpointHelperImpl.class);
-
-	@Autowired
-	private BusinessExceptionUtil businessExceptionUtil;
 
 	@Autowired
 	private TermDao termDao;
@@ -59,9 +54,7 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 		List<Term> dbTerms = Term.findAllTerms();
 		terms.setTerms(new HashSet<Term>(dbTerms));
 
-		Long count = new Long(dbTerms.size());
-		terms.setCount(count);
-		terms.setTotalCount(count);
+		updateCollectionDomainCounters(new Long(dbTerms.size()), terms);
 	}
 
 	@Override
@@ -122,10 +115,9 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 		return getTermDao().getTerm(dateOfTerm, room);
 	}
 
-	private void validateNotFound(Term term) {
-		if (term.getDateOfTerm() == null || term.getRoom() == null) {
-			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND, WebKeys.NOT_FOUND);
-		}
+	@Override
+	protected boolean isNotFound(Term term) {
+		return term.getDateOfTerm() == null || term.getRoom() == null;
 	}
 
 	@Override

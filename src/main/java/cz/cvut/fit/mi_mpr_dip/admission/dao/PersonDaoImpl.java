@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
 @Repository
-public class DefaultPersonDao extends AbstractDao<Person> implements PersonDao {
+public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
 
 	@Transactional(readOnly = true)
 	@Override

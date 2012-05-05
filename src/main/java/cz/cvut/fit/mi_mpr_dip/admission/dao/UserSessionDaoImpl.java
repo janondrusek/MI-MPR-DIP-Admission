@@ -10,7 +10,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 
 @Repository
-public class DefaultUserSessionDao extends AbstractDao<UserSession> implements UserSessionDao {
+public class UserSessionDaoImpl extends AbstractDao<UserSession> implements UserSessionDao {
 
 	@Transactional(readOnly = true)
 	@Override

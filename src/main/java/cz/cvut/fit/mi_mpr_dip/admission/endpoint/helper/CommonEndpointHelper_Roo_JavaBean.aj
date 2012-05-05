@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.CommonEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AnnotatedBeanValidator;
 
 privileged aspect CommonEndpointHelper_Roo_JavaBean {
@@ -14,6 +15,14 @@ privileged aspect CommonEndpointHelper_Roo_JavaBean {
     
     public void CommonEndpointHelper.setBeanValidator(AnnotatedBeanValidator beanValidator) {
         this.beanValidator = beanValidator;
+    }
+    
+    public BusinessExceptionUtil CommonEndpointHelper.getBusinessExceptionUtil() {
+        return this.businessExceptionUtil;
+    }
+    
+    public void CommonEndpointHelper.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
+        this.businessExceptionUtil = businessExceptionUtil;
     }
     
 }

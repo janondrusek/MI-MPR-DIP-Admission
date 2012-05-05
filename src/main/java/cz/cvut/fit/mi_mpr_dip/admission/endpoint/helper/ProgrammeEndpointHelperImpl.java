@@ -1,10 +1,14 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
+import java.util.HashSet;
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Programs;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 
 @Service
@@ -13,7 +17,22 @@ public class ProgrammeEndpointHelperImpl extends CommonEndpointHelper<Programme>
 
 	@Override
 	public Response getPrograms() {
-		return null;
+		Programs programs = createPrograms();
+		return getOkResponse(programs);
+	}
+
+	private Programs createPrograms() {
+		Programs programs = new Programs();
+		populate(programs);
+
+		return programs;
+	}
+
+	private void populate(Programs programs) {
+		List<Programme> dbPrograms = Programme.findAllProgrammes();
+		programs.setPrograms(new HashSet<Programme>(dbPrograms));
+
+		updateCollectionDomainCounters(new Long(dbPrograms.size()), programs);
 	}
 
 	@Override
@@ -29,6 +48,12 @@ public class ProgrammeEndpointHelperImpl extends CommonEndpointHelper<Programme>
 	@Override
 	public Programme validate(String name, String degree, String language, String studyMode, Programme programme) {
 		return null;
+	}
+
+	@Override
+	protected boolean isNotFound(Programme programme) {
+		return programme.getName() == null || programme.getDegree() == null || programme.getLanguage() == null
+				|| programme.getStudyMode() == null;
 	}
 
 	@Override

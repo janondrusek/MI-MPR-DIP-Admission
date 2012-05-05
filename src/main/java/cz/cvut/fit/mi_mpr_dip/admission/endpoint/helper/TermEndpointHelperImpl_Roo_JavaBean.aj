@@ -5,19 +5,10 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.TermEndpointHelperImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.TermUniqueConstraintValidator;
 
 privileged aspect TermEndpointHelperImpl_Roo_JavaBean {
-    
-    public BusinessExceptionUtil TermEndpointHelperImpl.getBusinessExceptionUtil() {
-        return this.businessExceptionUtil;
-    }
-    
-    public void TermEndpointHelperImpl.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
-        this.businessExceptionUtil = businessExceptionUtil;
-    }
     
     public TermDao TermEndpointHelperImpl.getTermDao() {
         return this.termDao;

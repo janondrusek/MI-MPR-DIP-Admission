@@ -10,7 +10,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 
 @Repository
-public class DefaultAdmissionDao extends AbstractDao<Admission> implements AdmissionDao {
+public class AdmissionDaoImpl extends AbstractDao<Admission> implements AdmissionDao {
 
 	@Transactional(readOnly = true)
 	@Override
