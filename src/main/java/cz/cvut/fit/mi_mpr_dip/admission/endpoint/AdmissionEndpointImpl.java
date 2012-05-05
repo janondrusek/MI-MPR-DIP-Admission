@@ -26,12 +26,10 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
-import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
 @RooJavaBean
 @Path(AdmissionEndpointImpl.ENDPOINT_PATH)
@@ -46,9 +44,6 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	private UserIdentityEndpointHelper userIdentityEndpointHelper;
-
-	@Autowired
 	private ProcessService processService;
 
 	@Autowired
@@ -60,14 +55,6 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 
 	@Autowired
 	private UserIdentityService userIdentityService;
-
-	@Path(URIKeys.IDENTITY_PATH)
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@GET
-	@Override
-	public Response getUserIdentity() {
-		return getUserIdentityEndpointHelper().getUserIdentity();
-	}
 
 	@Secured("PERM_READ_ADMISSION")
 	@Path(ADMISSION_PATH)

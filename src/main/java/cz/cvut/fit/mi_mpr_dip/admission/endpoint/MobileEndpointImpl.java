@@ -37,20 +37,12 @@ public class MobileEndpointImpl implements MobileEndpoint {
 
 	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
-
+	
 	@Autowired
 	private UserIdentityEndpointHelper userIdentityEndpointHelper;
 
 	@Autowired
 	private UserIdentityService userIdentityService;
-
-	@Path(URIKeys.IDENTITY_PATH)
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@GET
-	@Override
-	public Response getUserIdentity() {
-		return getUserIdentityEndpointHelper().getUserIdentity();
-	}
 
 	@Secured("PERM_DELETE_SESSION")
 	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + "/{sessionIdentifier}")

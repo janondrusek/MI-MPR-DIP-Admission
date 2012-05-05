@@ -8,8 +8,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 
 public interface MobileEndpoint {
 
-	public Response getUserIdentity();
-
 	public Response deleteUserSession(String username, String sessionIdentifier);
 
 	public Response updateUserRoles(String username, UserRoles userRoles);

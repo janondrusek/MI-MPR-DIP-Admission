@@ -4,6 +4,8 @@ import javax.ws.rs.core.Response;
 
 public interface UserEndpoint {
 
+	public Response getUserIdentity();
+
 	public Response resetPassword(String email);
 
 	public Response resetPassword(String admissionCode, String email);

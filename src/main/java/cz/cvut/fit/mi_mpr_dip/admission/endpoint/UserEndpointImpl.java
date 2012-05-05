@@ -3,6 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import java.net.URI;
 import java.util.Set;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -21,6 +22,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -57,9 +59,20 @@ public class UserEndpointImpl implements UserEndpoint {
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
+	
+	@Autowired
+	private UserIdentityEndpointHelper userIdentityEndpointHelper;
 
 	@Autowired
 	private UserPasswordService userPasswordService;
+	
+	@Path(URIKeys.IDENTITY_PATH)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@GET
+	@Override
+	public Response getUserIdentity() {
+		return getUserIdentityEndpointHelper().getUserIdentity();
+	}
 
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
 	@Path(FULL_RESET_PASSWORD_PATH)

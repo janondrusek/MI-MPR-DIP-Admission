@@ -7,7 +7,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
@@ -25,14 +24,6 @@ privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
     public ApplicationContext AdmissionEndpointImpl.getApplicationContext() {
         return this.applicationContext;
-    }
-    
-    public UserIdentityEndpointHelper AdmissionEndpointImpl.getUserIdentityEndpointHelper() {
-        return this.userIdentityEndpointHelper;
-    }
-    
-    public void AdmissionEndpointImpl.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
-        this.userIdentityEndpointHelper = userIdentityEndpointHelper;
     }
     
     public ProcessService AdmissionEndpointImpl.getProcessService() {
