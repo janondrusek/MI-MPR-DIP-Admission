@@ -3,16 +3,16 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper;
 
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper.AdmissionExceptionMapper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.mapper.BaseExceptionMapper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingService;
 
-privileged aspect AdmissionExceptionMapper_Roo_JavaBean {
+privileged aspect BaseExceptionMapper_Roo_JavaBean {
     
-    public LoggingService AdmissionExceptionMapper.getLoggingService() {
+    public LoggingService BaseExceptionMapper.getLoggingService() {
         return this.loggingService;
     }
     
-    public void AdmissionExceptionMapper.setLoggingService(LoggingService loggingService) {
+    public void BaseExceptionMapper.setLoggingService(LoggingService loggingService) {
         this.loggingService = loggingService;
     }
     

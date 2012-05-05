@@ -33,24 +33,15 @@ public class ProgrammeDaoImpl extends AbstractDao<Programme> implements Programm
 	}
 
 	private StudyMode getStudyMode(String studyModeName) {
-		StudyMode studyMode = new StudyMode();
-		studyMode.setName(studyModeName);
-
-		return studyMode;
+		return StudyMode.findStudyModesByNameEquals(studyModeName).getSingleResult();
 	}
 
 	private Language getLanguage(String languageName) {
-		Language language = new Language();
-		language.setName(languageName);
-
-		return language;
+		return Language.findLanguagesByNameEquals(languageName).getSingleResult();
 	}
 
 	private Degree getDegree(String degreeName) {
-		Degree degree = new Degree();
-		degree.setName(degreeName);
-
-		return degree;
+		return Degree.findDegreesByNameEquals(degreeName).getSingleResult();
 	}
 
 	@Override

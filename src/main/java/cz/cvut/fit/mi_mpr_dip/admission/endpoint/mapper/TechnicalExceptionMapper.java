@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 
 @Component
-public class TechnicalExceptionMapper extends AdmissionExceptionMapper<TechnicalException> implements
+public class TechnicalExceptionMapper extends BaseExceptionMapper<TechnicalException> implements
 		ExceptionMapper<TechnicalException> {
 
 	@Override

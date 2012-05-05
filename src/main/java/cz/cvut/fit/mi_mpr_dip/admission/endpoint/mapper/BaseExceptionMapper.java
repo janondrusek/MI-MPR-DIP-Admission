@@ -13,7 +13,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.logging.LoggingService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 @RooJavaBean
-public abstract class AdmissionExceptionMapper<E extends Throwable> implements ExceptionMapper<E> {
+public abstract class BaseExceptionMapper<E extends Throwable> implements ExceptionMapper<E> {
 
 	@Autowired
 	private LoggingService loggingService;

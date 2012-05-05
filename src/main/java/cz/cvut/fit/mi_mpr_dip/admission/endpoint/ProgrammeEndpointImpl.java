@@ -68,12 +68,12 @@ public class ProgrammeEndpointImpl implements ProgrammeEndpoint {
 		return getProgrammeEndpointHelper().getCreatedResponse(uri);
 	}
 
-	@Transactional
 	private void validateAndDeduplicateAndStore(Programme programme) {
 		getProgrammeEndpointHelper().validate(programme);
 		deduplicateAndStore(programme);
 	}
 
+	@Transactional
 	private void deduplicateAndStore(Programme programme) {
 		getProgrammeDeduplicationService().deduplicateAndStore(programme);
 	}

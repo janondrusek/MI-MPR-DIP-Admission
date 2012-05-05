@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 @Component
-public class ThrowableExceptionMapper extends AdmissionExceptionMapper<Throwable> {
+public class ThrowableExceptionMapper extends BaseExceptionMapper<Throwable> {
 
 	@Override
 	protected void logErrorResponse(Throwable throwable) {

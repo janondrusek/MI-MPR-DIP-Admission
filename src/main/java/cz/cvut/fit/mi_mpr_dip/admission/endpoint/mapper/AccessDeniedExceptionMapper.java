@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
 @RooJavaBean
-public class AccessDeniedExceptionMapper extends AdmissionExceptionMapper<AccessDeniedException> implements
+public class AccessDeniedExceptionMapper extends BaseExceptionMapper<AccessDeniedException> implements
 		ExceptionMapper<AccessDeniedException> {
 
 	private AuthenticationTrustResolver authenticationTrustResolver;

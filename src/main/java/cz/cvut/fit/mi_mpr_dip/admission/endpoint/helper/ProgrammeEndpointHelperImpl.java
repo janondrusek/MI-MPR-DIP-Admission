@@ -5,15 +5,20 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Programs;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.ProgrammeUniqueConstraintValidator;
 
 @Service
 @RooJavaBean
 public class ProgrammeEndpointHelperImpl extends CommonEndpointHelper<Programme> implements ProgrammeEndpointHelper {
+
+	@Autowired
+	private ProgrammeUniqueConstraintValidator uniqueConstraintValidator;
 
 	@Override
 	public Response getPrograms() {
@@ -59,6 +64,7 @@ public class ProgrammeEndpointHelperImpl extends CommonEndpointHelper<Programme>
 	@Override
 	public void validate(Programme programme) {
 		super.validate(programme);
+		getUniqueConstraintValidator().validate(programme);
 	}
 
 }
