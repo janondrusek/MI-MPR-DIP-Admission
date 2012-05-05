@@ -56,7 +56,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	@Autowired
 	private UserIdentityService userIdentityService;
 
-	@Secured("PERM_READ_ADMISSION")
+	@Secured({ "PERM_READ_ADMISSION", "PERM_READ_PERSON" })
 	@Path(ADMISSION_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET

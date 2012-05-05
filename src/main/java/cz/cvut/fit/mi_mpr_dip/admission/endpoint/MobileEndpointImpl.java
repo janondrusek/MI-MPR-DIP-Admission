@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -37,7 +36,7 @@ public class MobileEndpointImpl implements MobileEndpoint {
 
 	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
-	
+
 	@Autowired
 	private UserIdentityEndpointHelper userIdentityEndpointHelper;
 
@@ -61,14 +60,6 @@ public class MobileEndpointImpl implements MobileEndpoint {
 	@Override
 	public Response updateUserRoles(@PathParam("userIdentity") String username, UserRoles userRoles) {
 		return getUserIdentityEndpointHelper().updateUserRoles(username, userRoles);
-	}
-
-	@Secured("PERM_READ_PERSON")
-	@Path(ADMISSION_PATH + "/{admissionCode}")
-	@GET
-	@Override
-	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return getAdmissionEndpointHelper().getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_WRITE_RESULT")

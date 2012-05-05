@@ -6,17 +6,15 @@ curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session 
 # Mobile.updateRoles
 cat examples/user_roles.xml | curl -i -H "Accept: application/json" -H "Content-Type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/identity/{username}/roles
 
-# Mobile.getAdmission, valid session required as HTTP header
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" http://localhost:9090/admission/services/mobile/admission/{admissionCode}
-
 # Mobile.saveResult
 cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/result
 
 # Mobile.savePhoto
 cat admission_photo.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/photo
 
-# User.identity, username/password: more/more (DUMMY adapter)
-curl -i -H "Accept: application/json" -H "Authorization: Basic bW9yZTptb3JlCg==" http://localhost:9090/admission/services/user/identity
+##
+## Admission
+##
 
 # Admission.getAll 
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" http://localhost:9090/admission/services/admission
@@ -30,6 +28,13 @@ cat admission_0[1-3].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-A
 # Admission.delete, simply deletes admission in cascade with all its entites
 curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity] -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}
 
+##
+## User
+##
+
+# User.identity, username/password: more/more (DUMMY adapter)
+curl -i -H "Accept: application/json" -H "Authorization: Basic bW9yZTptb3JlCg==" http://localhost:9090/admission/services/user/identity
+
 # User.resetPassword, anonymous by User's {email}
 curl -i -X POST http://localhost:9090/admission/services/user/person/email:{email}/reset_password
 
@@ -38,6 +43,10 @@ curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]
 
 # User.updatePassword
 curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST http://localhost:9090/admission/services/user/identity/{userIdentity}/password/old:{oldPassword}/new:{newPassword}
+
+##
+## Term
+##
 
 # Term.getAll
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" http://localhost:9090/admission/services/term
@@ -53,6 +62,10 @@ curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session 
 
 # Term.update, Term Registrations are ignored
 cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/term/ddateOfTerm:{dateOfTerm}/room:{room}
+
+##
+## Programme
+##
 
 # Programme.getAll
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" http://localhost:9090/admission/services/programme

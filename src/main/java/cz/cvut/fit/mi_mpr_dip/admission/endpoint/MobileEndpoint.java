@@ -12,10 +12,7 @@ public interface MobileEndpoint {
 
 	public Response updateUserRoles(String username, UserRoles userRoles);
 
-	public Response getAdmission(String admissionCode);
-
 	public Response saveResult(String admissionCode, AdmissionResult result);
 
 	public Response savePhoto(String admissionCode, Appendix photo);
-
 }
