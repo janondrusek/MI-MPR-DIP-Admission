@@ -81,7 +81,8 @@ public class ProgrammeEndpointImpl implements ProgrammeEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
-	public Response updateProgramme(String name, String degree, String language, String studyMode, Programme programme) {
+	public Response updateProgramme(@PathParam("name") String name, @PathParam("degree") String degree,
+			@PathParam("language") String language, @PathParam("studyMode") String studyMode, Programme programme) {
 		validateAndUpdate(name, degree, language, studyMode, programme);
 		return getProgrammeEndpointHelper().getOkResponse();
 	}

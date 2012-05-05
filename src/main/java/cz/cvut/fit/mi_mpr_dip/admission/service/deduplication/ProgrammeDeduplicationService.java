@@ -2,6 +2,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.util.ProgrammeDeduplicationUtil;
@@ -12,6 +13,7 @@ public class ProgrammeDeduplicationService implements DeduplicationService<Progr
 	@Autowired
 	private ProgrammeDeduplicationUtil programmeDeduplicationUtil;
 
+	@Transactional
 	@Override
 	public void deduplicateAndStore(Programme programme) {
 		programme = deduplicate(programme);
@@ -19,6 +21,7 @@ public class ProgrammeDeduplicationService implements DeduplicationService<Progr
 		programme.persist();
 	}
 
+	@Transactional
 	@Override
 	public void deduplicateAndMerge(Programme programme) {
 		programme = deduplicate(programme);

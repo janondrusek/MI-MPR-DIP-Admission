@@ -3,10 +3,19 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.ProgrammeDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.ProgrammeEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.ProgrammeUniqueConstraintValidator;
 
 privileged aspect ProgrammeEndpointHelperImpl_Roo_JavaBean {
+    
+    public ProgrammeDao ProgrammeEndpointHelperImpl.getProgrammeDao() {
+        return this.programmeDao;
+    }
+    
+    public void ProgrammeEndpointHelperImpl.setProgrammeDao(ProgrammeDao programmeDao) {
+        this.programmeDao = programmeDao;
+    }
     
     public ProgrammeUniqueConstraintValidator ProgrammeEndpointHelperImpl.getUniqueConstraintValidator() {
         return this.uniqueConstraintValidator;
