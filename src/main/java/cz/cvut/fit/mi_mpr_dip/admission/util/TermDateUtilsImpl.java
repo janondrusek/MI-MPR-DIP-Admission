@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TermDateUtilsImpl implements TermDateUtils {
 
-	private static final DateFormat MYSQL_DATE_FORMAT = new SimpleDateFormat(
-			DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
+	private final DateFormat MYSQL_DATE_FORMAT = new SimpleDateFormat(DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
 
 	@Override
 	public Date fromUnderscoredIso(String text) throws ParseException {
