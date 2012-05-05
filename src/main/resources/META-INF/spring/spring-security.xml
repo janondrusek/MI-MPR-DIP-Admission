@@ -48,9 +48,11 @@
 			<list>
 				<security:filter-chain pattern="/services/mobile/identity"
 					filters="sessionAuthenticationFilter,basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
-				<security:filter-chain pattern="/services/processing/identity"
+				<security:filter-chain pattern="/services/admission/identity"
 					filters="sessionAuthenticationFilter,basicAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
-				<security:filter-chain pattern="/services/processing/**"
+				<security:filter-chain pattern="/services/admission"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/admission/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/mobile/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
@@ -59,6 +61,8 @@
 				<security:filter-chain pattern="/services/term"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/term/**"
+					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
+				<security:filter-chain pattern="/services/programme"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
 				<security:filter-chain pattern="/services/programme/**"
 					filters="sessionAuthenticationFilter,anonymousAuthFilter,exceptionTranslationFilter" />
