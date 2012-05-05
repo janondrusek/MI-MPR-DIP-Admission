@@ -13,7 +13,6 @@
 	<jaxrs:server id="restContainer" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="admissionEndpoint" />
-			<ref bean="mobileEndpoint" />
 			<ref bean="programmeEndpoint" />
 			<ref bean="termEndpoint" />
 			<ref bean="userEndpoint" />

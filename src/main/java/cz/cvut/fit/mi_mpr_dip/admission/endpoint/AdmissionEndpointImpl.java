@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,7 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
@@ -37,6 +41,8 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 
 	public static final String ENDPOINT_PATH = "/admission";
 	public static final String ADMISSION_PATH = "/{admissionCode}";
+	public static final String SAVE_PHOTO_PATH = "/photo";
+	public static final String RESULT_PATH = "/result";
 
 	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
@@ -137,4 +143,35 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 		this.applicationContext = applicationContext;
 	}
 
+	@Secured("PERM_WRITE_RESULT")
+	@Path(ADMISSION_PATH + RESULT_PATH)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
+	@Override
+	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result) {
+		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, ENDPOINT_PATH, result,
+				new AdmissionAction<AdmissionResult>() {
+
+					@Override
+					public void performAction(Admission admission, AdmissionResult actor) {
+						admission.setResult(result);
+					}
+				});
+	}
+
+	@Secured("PERM_WRITE_PHOTO")
+	@Path(ADMISSION_PATH + SAVE_PHOTO_PATH)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
+	@Override
+	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo) {
+		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, ENDPOINT_PATH, photo,
+				new AdmissionAction<Appendix>() {
+
+					@Override
+					public void performAction(Admission admission, Appendix actor) {
+						admission.getPhotos().add(photo);
+					}
+				});
+	}
 }

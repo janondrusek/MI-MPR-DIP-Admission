@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Mobile.deleteSession
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/mobile/identity/{username}/[session identifier from User.identity]
-
-# Mobile.updateRoles
-cat examples/user_roles.xml | curl -i -H "Accept: application/json" -H "Content-Type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/identity/{username}/roles
-
 # Mobile.saveResult
 cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/result
 
@@ -43,6 +37,12 @@ curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]
 
 # User.updatePassword
 curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST http://localhost:9090/admission/services/user/identity/{userIdentity}/password/old:{oldPassword}/new:{newPassword}
+
+# User.deleteSession
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/user/identity/{username}/session/identifier:[session identifier from User.identity]
+
+# User.updateRoles
+cat examples/user_roles.xml | curl -i -H "Accept: application/json" -H "Content-Type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/user/identity/{username}/roles
 
 ##
 ## Term
