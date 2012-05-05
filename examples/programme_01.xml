@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<programme>
+	<name>WI-L</name>
+	<degree>
+		<name>Bc. et Bc.</name>
+	</degree>
+	<studyMode>
+		<name>full-time, but does not attend any classes</name>
+	</studyMode>
+	<language>
+		<name>magyar</name>
+	</language>
+</programme>
