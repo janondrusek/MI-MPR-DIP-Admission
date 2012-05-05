@@ -14,7 +14,7 @@ curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session 
 cat admission_0[1-3].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/admission
 
 # Admission.delete, simply deletes admission in cascade with all its entites
-curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity] -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}
 
 # Admission.saveResult
 cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/admission/{admissionCode}/result
