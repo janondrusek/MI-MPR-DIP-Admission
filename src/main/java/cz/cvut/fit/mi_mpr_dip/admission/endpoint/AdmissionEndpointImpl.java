@@ -37,9 +37,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 @Path(AdmissionEndpointImpl.ENDPOINT_PATH)
 public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationContextAware {
 
-	protected static final String ENDPOINT_PATH = "/admission";
-
-	private static final String ADMISSION_CODE = "/{admissionCode}";
+	public static final String ENDPOINT_PATH = "/admission";
+	public static final String ADMISSION_PATH = "/{admissionCode}";
 
 	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
@@ -71,7 +70,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	}
 
 	@Secured("PERM_READ_ADMISSION")
-	@Path(ADMISSION_CODE)
+	@Path(ADMISSION_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@GET
 	@Override
@@ -112,7 +111,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
-	@Path(ADMISSION_CODE)
+	@Path(ADMISSION_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
@@ -138,7 +137,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	}
 
 	@Secured("PERM_DELETE_ADMISSION")
-	@Path(ADMISSION_CODE)
+	@Path(ADMISSION_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@DELETE
 	@Override

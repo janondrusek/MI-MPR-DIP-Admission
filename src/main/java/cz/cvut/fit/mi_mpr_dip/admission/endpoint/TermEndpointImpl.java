@@ -22,15 +22,13 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.TermEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.TermDeduplicationService;
-import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
 @Path(TermEndpointImpl.ENDPOINT_PATH)
 public class TermEndpointImpl implements TermEndpoint {
 
-	protected static final String ENDPOINT_PATH = "/term";
-
-	private static final String TERM_PATH = "/dateOfTerm:{dateOfTerm}/room:{room}";
+	public static final String ENDPOINT_PATH = "/term";
+	public static final String TERM_PATH = "/dateOfTerm:{dateOfTerm}/room:{room}";
 
 	@Autowired
 	private TermDeduplicationService termDeduplicationService;
@@ -64,7 +62,7 @@ public class TermEndpointImpl implements TermEndpoint {
 	@Override
 	public Response addTerm(Term term) {
 		validateAndDeduplicateAndStore(term);
-		URI uri = getUriEndpointHelper().getTermLocation(ENDPOINT_PATH + StringPool.SLASH, term);
+		URI uri = getUriEndpointHelper().getTermLocation(ENDPOINT_PATH, term);
 		return getTermEndpointHelper().getCreatedResponse(uri);
 	}
 

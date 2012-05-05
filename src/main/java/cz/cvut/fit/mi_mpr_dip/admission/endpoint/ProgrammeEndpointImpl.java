@@ -28,9 +28,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 @Path(ProgrammeEndpointImpl.ENDPOINT_PATH)
 public class ProgrammeEndpointImpl implements ProgrammeEndpoint {
 
-	protected static final String ENDPOINT_PATH = "/programme";
-
-	private static final String PROGRAMME_PATH = "/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}";
+	public static final String ENDPOINT_PATH = "/programme";
+	public static final String PROGRAMME_PATH = "/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}";
 
 	@Autowired
 	private ProgrammeDeduplicationService programmeDeduplicationService;
