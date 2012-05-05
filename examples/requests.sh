@@ -19,50 +19,56 @@ cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-typ
 # Mobile.savePhoto
 cat admission_photo.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from Mobile.getIdentity]" -X POST -d @- http://localhost:9090/admission/services/mobile/admission/{admissionCode}/photo
 
-# Processing.getIdentity, username/password: more/more (DUMMY adapter)
-curl -i -H "Accept: application/json" -H "Authorization: Basic bW9yZTptb3JlCg==" http://localhost:9090/admission/services/processing/identity
+# Admission.getIdentity, username/password: more/more (DUMMY adapter)
+curl -i -H "Accept: application/json" -H "Authorization: Basic bW9yZTptb3JlCg==" http://localhost:9090/admission/services/admission/identity
 
-# Processing.admission, uses example admission from XML file and POST request to add it 
-cat admission_0[1-3].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/processing/admission
+# Admission.getAll 
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" http://localhost:9090/admission/services/admission
 
-# Processing.deleteAmission, simply deletes admission in cascade with all its entites
-curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity] -X DELETE http://localhost:9090/admission/services/processing/admission/{admissionCode}
+# Admission.get 
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" http://localhost:9090/admission/services/admission/{admissionCode}
+
+# Admission.add, uses example admission from XML file and POST request to add it 
+cat admission_0[1-3].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/admission
+
+# Admission.delete, simply deletes admission in cascade with all its entites
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity] -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}
 
 # User.resetPassword, anonymous by User's {email}
 curl -i -X POST http://localhost:9090/admission/services/user/person/email:{email}/reset_password
 
 # User.resetPassword for User by Admission Code, send notification to User's Email and this {email}
-curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X POST http://localhost:9090/admission/services/user/admission/{admissionCode}/person/email:{email}/reset_password
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -X POST http://localhost:9090/admission/services/user/admission/{admissionCode}/person/email:{email}/reset_password
 
 # User.updatePassword
-curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X POST http://localhost:9090/admission/services/user/identity/{userIdentity}/password/old:{oldPassword}/new:{newPassword}
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -X POST http://localhost:9090/admission/services/user/identity/{userIdentity}/password/old:{oldPassword}/new:{newPassword}
 
 # Term.getAll
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" http://localhost:9090/admission/services/term
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" http://localhost:9090/admission/services/term
 
 # Term.get
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
 
 # Term.add
-cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/term
+cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/term
 
 # Term.delete
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X DELETE http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -X DELETE http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
 
 # Term.update, Term Registrations are ignored
-cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/term/ddateOfTerm:{dateOfTerm}/room:{room}
+cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/term/ddateOfTerm:{dateOfTerm}/room:{room}
 
 # Programme.getAll
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" http://localhost:9090/admission/services/programme
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" http://localhost:9090/admission/services/programme
 
 # Programme.get
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" http://localhost:9090/admission/services/programme/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" http://localhost:9090/admission/services/programme/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}
 
 # Programme.add
-cat examples/programme_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/programme
+cat examples/programme_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/programme
 
 # Programme.delete
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -X DELETE http://localhost:9090/admission/services/programme/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -X DELETE http://localhost:9090/admission/services/programme/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}
 
 # Programme.update, makes no sense as unique constraint contains all fields, update possible with equal resource only
-cat examples/programme_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Processing.getIdentity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/programme/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}
+cat examples/programme_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from Admission.getIdentity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/programme/name:{name}/degree:{degree}/language:{language}/studyMode:{studyMode}
