@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.ProgrammeEndpointHelper;
@@ -73,7 +72,6 @@ public class ProgrammeEndpointImpl implements ProgrammeEndpoint {
 		deduplicateAndStore(programme);
 	}
 
-	@Transactional
 	private void deduplicateAndStore(Programme programme) {
 		getProgrammeDeduplicationService().deduplicateAndStore(programme);
 	}

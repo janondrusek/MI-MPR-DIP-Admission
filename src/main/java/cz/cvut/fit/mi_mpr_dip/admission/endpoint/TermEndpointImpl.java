@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.TermEndpointHelper;
@@ -66,7 +65,6 @@ public class TermEndpointImpl implements TermEndpoint {
 		return getTermEndpointHelper().getCreatedResponse(uri);
 	}
 
-	@Transactional
 	private void validateAndDeduplicateAndStore(Term term) {
 		getTermEndpointHelper().validate(term);
 		deduplicateAndStore(term);
