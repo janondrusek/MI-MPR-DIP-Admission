@@ -13,7 +13,7 @@ public class MaritalStatusDeduplicationTemplate extends SimpleDeduplicationTempl
 		PersonDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<MaritalStatus> findDegreesByNameEquals(Person person) {
+	protected TypedQuery<MaritalStatus> findByNameEquals(Person person) {
 		return MaritalStatus.findMaritalStatusesByNameEquals(person.getMaritalStatus().getName());
 	}
 

@@ -19,7 +19,7 @@ public class AdmissionStateDeduplicationTemplate extends SimpleDeduplicationTemp
 	}
 
 	@Override
-	protected TypedQuery<AdmissionState> findDegreesByNameEquals(Admission admission) {
+	protected TypedQuery<AdmissionState> findByNameEquals(Admission admission) {
 		return AdmissionState.findAdmissionStatesByCodeEquals(admission.getAdmissionState().getCode());
 	}
 

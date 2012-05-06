@@ -13,7 +13,7 @@ public class TermTypeDeduplicationTemplate extends SimpleDeduplicationTemplate<T
 		TermDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<TermType> findDegreesByNameEquals(Term term) {
+	protected TypedQuery<TermType> findByNameEquals(Term term) {
 		return TermType.findTermTypesByNameEquals(term.getTermType().getName());
 	}
 

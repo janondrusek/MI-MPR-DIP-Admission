@@ -12,7 +12,7 @@ public class FacultyDeduplicationTemplate extends SimpleDeduplicationTemplate<Ad
 		AdmissionDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<Faculty> findDegreesByNameEquals(Admission admission) {
+	protected TypedQuery<Faculty> findByNameEquals(Admission admission) {
 		return Faculty.findFacultysByNameEquals(admission.getFaculty().getName());
 	}
 

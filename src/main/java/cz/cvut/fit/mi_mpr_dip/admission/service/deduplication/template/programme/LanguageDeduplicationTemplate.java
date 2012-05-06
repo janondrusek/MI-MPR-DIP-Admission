@@ -13,7 +13,7 @@ public class LanguageDeduplicationTemplate extends SimpleDeduplicationTemplate<P
 		ProgrammeDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<Language> findDegreesByNameEquals(Programme programme) {
+	protected TypedQuery<Language> findByNameEquals(Programme programme) {
 		return Language.findLanguagesByNameEquals(programme.getLanguage().getName());
 	}
 

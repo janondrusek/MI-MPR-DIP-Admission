@@ -13,7 +13,7 @@ public class StudyModeDeduplicationTemplate extends SimpleDeduplicationTemplate<
 		ProgrammeDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<StudyMode> findDegreesByNameEquals(Programme programme) {
+	protected TypedQuery<StudyMode> findByNameEquals(Programme programme) {
 		return StudyMode.findStudyModesByNameEquals(programme.getStudyMode().getName());
 	}
 

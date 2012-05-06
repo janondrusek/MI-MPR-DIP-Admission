@@ -12,7 +12,7 @@ public class AppendixTypeDeduplicationTemplate extends SimpleDeduplicationTempla
 		AppendixDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<AppendixType> findDegreesByNameEquals(Appendix appendix) {
+	protected TypedQuery<AppendixType> findByNameEquals(Appendix appendix) {
 		return AppendixType.findAppendixTypesByNameEquals(appendix.getAttachmentType().getName());
 	}
 

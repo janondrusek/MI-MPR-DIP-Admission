@@ -10,17 +10,17 @@ public abstract class SimpleDeduplicationTemplate<T, E> implements Deduplication
 
 	@Override
 	public void deduplicate(T deduplicant) {
-		List<E> collection = findDegreesByNameEquals(findDegreesByNameEquals(deduplicant));
+		List<E> collection = findByNameEquals(findByNameEquals(deduplicant));
 		if (CollectionUtils.isNotEmpty(collection)) {
 			setFound(deduplicant, collection.get(0));
 		}
 	}
 
-	protected List<E> findDegreesByNameEquals(TypedQuery<E> query) {
+	protected List<E> findByNameEquals(TypedQuery<E> query) {
 		return query.getResultList();
 	}
 
-	protected abstract TypedQuery<E> findDegreesByNameEquals(T deduplicant);
+	protected abstract TypedQuery<E> findByNameEquals(T deduplicant);
 
 	protected abstract void setFound(T deduplicant, E found);
 }

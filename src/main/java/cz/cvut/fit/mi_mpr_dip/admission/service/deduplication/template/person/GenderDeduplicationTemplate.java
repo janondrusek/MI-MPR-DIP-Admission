@@ -13,7 +13,7 @@ public class GenderDeduplicationTemplate extends SimpleDeduplicationTemplate<Per
 		PersonDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<Gender> findDegreesByNameEquals(Person person) {
+	protected TypedQuery<Gender> findByNameEquals(Person person) {
 		return Gender.findGendersByNameEquals(person.getGender().getName());
 	}
 

@@ -13,7 +13,7 @@ public class DegreeDeduplicationTemplate extends SimpleDeduplicationTemplate<Pro
 		ProgrammeDeduplicationTemplate {
 
 	@Override
-	protected TypedQuery<Degree> findDegreesByNameEquals(Programme programme) {
+	protected TypedQuery<Degree> findByNameEquals(Programme programme) {
 		return Degree.findDegreesByNameEquals(programme.getDegree().getName());
 	}
 
