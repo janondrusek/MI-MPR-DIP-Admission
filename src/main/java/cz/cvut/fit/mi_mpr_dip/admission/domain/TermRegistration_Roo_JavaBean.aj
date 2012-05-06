@@ -50,12 +50,12 @@ privileged aspect TermRegistration_Roo_JavaBean {
         this.apology = apology;
     }
     
-    public Boolean TermRegistration.getAttendance() {
-        return this.attendance;
+    public Boolean TermRegistration.getAttended() {
+        return this.attended;
     }
     
-    public void TermRegistration.setAttendance(Boolean attendance) {
-        this.attendance = attendance;
+    public void TermRegistration.setAttended(Boolean attended) {
+        this.attended = attended;
     }
     
 }

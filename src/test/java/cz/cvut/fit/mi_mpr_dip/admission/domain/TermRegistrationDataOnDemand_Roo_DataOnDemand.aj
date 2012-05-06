@@ -36,7 +36,7 @@ privileged aspect TermRegistrationDataOnDemand_Roo_DataOnDemand {
     public TermRegistration TermRegistrationDataOnDemand.getNewTransientTermRegistration(int index) {
         TermRegistration obj = new TermRegistration();
         setAdmission(obj, index);
-        setAttendance(obj, index);
+        setAttended(obj, index);
         setTerm(obj, index);
         return obj;
     }
@@ -46,9 +46,9 @@ privileged aspect TermRegistrationDataOnDemand_Roo_DataOnDemand {
         obj.setAdmission(admission);
     }
     
-    public void TermRegistrationDataOnDemand.setAttendance(TermRegistration obj, int index) {
-        Boolean attendance = Boolean.TRUE;
-        obj.setAttendance(attendance);
+    public void TermRegistrationDataOnDemand.setAttended(TermRegistration obj, int index) {
+        Boolean attended = Boolean.TRUE;
+        obj.setAttended(attended);
     }
     
     public void TermRegistrationDataOnDemand.setTerm(TermRegistration obj, int index) {

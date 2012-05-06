@@ -79,7 +79,7 @@ public class Term {
 	@XmlElement(name = "programme")
 	private Set<Programme> programs;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER, mappedBy = "term")
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")
 	private Set<TermRegistration> registrations;

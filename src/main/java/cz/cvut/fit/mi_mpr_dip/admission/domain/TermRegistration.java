@@ -6,7 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "termRegistrationId", "admission" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "admission", "term" }))
 public class TermRegistration {
 
 	@Version
@@ -50,5 +53,5 @@ public class TermRegistration {
 	@Valid
 	private Apology apology;
 
-	private Boolean attendance;
+	private Boolean attended;
 }
