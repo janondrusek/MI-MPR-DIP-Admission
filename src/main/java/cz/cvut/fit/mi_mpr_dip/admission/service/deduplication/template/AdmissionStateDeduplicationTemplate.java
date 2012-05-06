@@ -1,26 +1,31 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template;
 
-import java.util.List;
+import javax.persistence.TypedQuery;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 
 @Service
-public class AdmissionStateDeduplicationTemplate implements AdmissionDeduplicationTemplate {
+public class AdmissionStateDeduplicationTemplate extends SimpleDeduplicationTemplate<Admission, AdmissionState>
+		implements AdmissionDeduplicationTemplate {
 
 	@Override
 	public void deduplicate(Admission admission) {
-		AdmissionState admissionState = admission.getAdmissionState();
-		if (admissionState != null) {
-			List<AdmissionState> admissionStates = AdmissionState.findAdmissionStatesByCodeEquals(
-					admissionState.getCode()).getResultList();
-			if (CollectionUtils.isNotEmpty(admissionStates)) {
-				admission.setAdmissionState(admissionStates.get(0));
-			}
+		if (admission.getAdmissionState() != null) {
+			super.deduplicate(admission);
 		}
+	}
+
+	@Override
+	protected TypedQuery<AdmissionState> findDegreesByNameEquals(Admission admission) {
+		return AdmissionState.findAdmissionStatesByCodeEquals(admission.getAdmissionState().getCode());
+	}
+
+	@Override
+	protected void setFound(Admission admission, AdmissionState admissionState) {
+		admission.setAdmissionState(admissionState);
 	}
 
 }

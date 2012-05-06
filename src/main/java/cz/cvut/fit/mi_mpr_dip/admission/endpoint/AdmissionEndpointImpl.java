@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -31,7 +30,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AppendixDeduplicationSevice;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
@@ -45,16 +45,18 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	public static final String RESULT_PATH = "/result";
 
 	@Autowired
+	private AdmissionDeduplicationService admissionDeduplicationService;
+
+	@Autowired
 	private AdmissionEndpointHelper admissionEndpointHelper;
+
+	@Autowired
+	private AppendixDeduplicationSevice appendixDeduplicationSevice;
 
 	private ApplicationContext applicationContext;
 
 	@Autowired
 	private ProcessService processService;
-
-	@Autowired
-	@Qualifier("admissionDeduplicationService")
-	private DeduplicationService<Admission> deduplicationService;
 
 	@Autowired
 	private UriEndpointHelper uriEndpointHelper;
@@ -122,7 +124,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 
 	private void deduplicateAndStore(Admission admission) {
 		getUserIdentityService().buildUserIdentity(admission);
-		getDeduplicationService().deduplicateAndStore(admission);
+		getAdmissionDeduplicationService().deduplicateAndStore(admission);
 	}
 
 	private void runJbpmProcess(Admission admission) {
@@ -136,11 +138,6 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	@Override
 	public Response deleteAdmission(@PathParam("admissionCode") String admissionCode) {
 		return getAdmissionEndpointHelper().deleteAdmission(admissionCode);
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
 	}
 
 	@Secured("PERM_WRITE_RESULT")
@@ -170,8 +167,15 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 
 					@Override
 					public void performAction(Admission admission, Appendix actor) {
+						getAppendixDeduplicationSevice().deduplicateAndStore(photo);
 						admission.getPhotos().add(photo);
 					}
 				});
 	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+
 }

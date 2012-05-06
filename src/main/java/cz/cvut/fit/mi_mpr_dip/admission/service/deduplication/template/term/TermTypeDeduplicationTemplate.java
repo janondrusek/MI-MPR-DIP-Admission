@@ -1,21 +1,25 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.term;
 
-import java.util.List;
+import javax.persistence.TypedQuery;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermType;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.SimpleDeduplicationTemplate;
 
 @Service
-public class TermTypeDeduplicationTemplate implements TermDeduplicationTemplate {
+public class TermTypeDeduplicationTemplate extends SimpleDeduplicationTemplate<Term, TermType> implements
+		TermDeduplicationTemplate {
 
 	@Override
-	public void deduplicate(Term term) {
-		List<TermType> termTypes = TermType.findTermTypesByNameEquals(term.getTermType().getName()).getResultList();
-		if (CollectionUtils.isNotEmpty(termTypes)) {
-			term.setTermType(termTypes.get(0));
-		}
+	protected TypedQuery<TermType> findDegreesByNameEquals(Term term) {
+		return TermType.findTermTypesByNameEquals(term.getTermType().getName());
 	}
+
+	@Override
+	protected void setFound(Term term, TermType termType) {
+		term.setTermType(termType);
+	}
+
 }

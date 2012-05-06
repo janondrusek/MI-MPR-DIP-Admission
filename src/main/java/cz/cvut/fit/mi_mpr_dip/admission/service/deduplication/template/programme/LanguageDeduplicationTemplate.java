@@ -1,23 +1,25 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.programme;
 
-import java.util.List;
+import javax.persistence.TypedQuery;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Language;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.SimpleDeduplicationTemplate;
 
 @Service
-public class LanguageDeduplicationTemplate implements ProgrammeDeduplicationTemplate {
+public class LanguageDeduplicationTemplate extends SimpleDeduplicationTemplate<Programme, Language> implements
+		ProgrammeDeduplicationTemplate {
 
 	@Override
-	public void deduplicate(Programme programme) {
-		List<Language> languages = Language.findLanguagesByNameEquals(programme.getLanguage().getName())
-				.getResultList();
-		if (CollectionUtils.isNotEmpty(languages)) {
-			programme.setLanguage(languages.get(0));
-		}
+	protected TypedQuery<Language> findDegreesByNameEquals(Programme programme) {
+		return Language.findLanguagesByNameEquals(programme.getLanguage().getName());
+	}
+
+	@Override
+	protected void setFound(Programme programme, Language language) {
+		programme.setLanguage(language);
 	}
 
 }

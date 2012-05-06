@@ -1,23 +1,24 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.programme;
 
-import java.util.List;
+import javax.persistence.TypedQuery;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.SimpleDeduplicationTemplate;
 
 @Service
-public class StudyModeDeduplicationTemplate implements ProgrammeDeduplicationTemplate {
+public class StudyModeDeduplicationTemplate extends SimpleDeduplicationTemplate<Programme, StudyMode> implements
+		ProgrammeDeduplicationTemplate {
 
 	@Override
-	public void deduplicate(Programme programme) {
-		List<StudyMode> studyModes = StudyMode.findStudyModesByNameEquals(programme.getStudyMode().getName())
-				.getResultList();
-		if (CollectionUtils.isNotEmpty(studyModes)) {
-			programme.setStudyMode(studyModes.get(0));
-		}
+	protected TypedQuery<StudyMode> findDegreesByNameEquals(Programme programme) {
+		return StudyMode.findStudyModesByNameEquals(programme.getStudyMode().getName());
 	}
 
+	@Override
+	protected void setFound(Programme programme, StudyMode studyMode) {
+		programme.setStudyMode(studyMode);
+	}
 }

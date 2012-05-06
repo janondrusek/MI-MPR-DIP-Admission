@@ -23,7 +23,7 @@ import org.springframework.context.ApplicationContext;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
@@ -36,7 +36,7 @@ public class AdmissionEndpointTest {
 
 	private Admission admission;
 	private ApplicationContext applicationContext;
-	private DeduplicationService<Admission> deduplicationService;
+	private AdmissionDeduplicationService admissionDeduplicationService;
 	private AdmissionEndpointHelper admissionEndpointHelper;
 	private UriEndpointHelper uriEndpointHelper;
 	private UserIdentityService userIdentityService;
@@ -55,16 +55,15 @@ public class AdmissionEndpointTest {
 
 		admission = createMock(Admission.class);
 
-		mocks = new Object[] { admission, applicationContext, deduplicationService, admissionEndpointHelper,
+		mocks = new Object[] { admission, applicationContext, admissionDeduplicationService, admissionEndpointHelper,
 				uriEndpointHelper, userIdentityService };
 	}
 
-	@SuppressWarnings("unchecked")
 	private void initDependencyMocks() {
 		applicationContext = createMock(ApplicationContext.class);
 		admissionEndpoint.setApplicationContext(applicationContext);
-		deduplicationService = createMock(DeduplicationService.class);
-		admissionEndpoint.setDeduplicationService(deduplicationService);
+		admissionDeduplicationService = createMock(AdmissionDeduplicationService.class);
+		admissionEndpoint.setAdmissionDeduplicationService(admissionDeduplicationService);
 		admissionEndpointHelper = createMock(AdmissionEndpointHelper.class);
 		admissionEndpoint.setAdmissionEndpointHelper(admissionEndpointHelper);
 		userIdentityService = createMock(UserIdentityService.class);
@@ -86,7 +85,7 @@ public class AdmissionEndpointTest {
 	@Test
 	public void testAddAdmission() throws URISyntaxException {
 		admissionEndpointHelper.validate(admission);
-		deduplicationService.deduplicateAndStore(same(admission));
+		admissionDeduplicationService.deduplicateAndStore(same(admission));
 		expect(uriEndpointHelper.getAdmissionLocation(anyObject(String.class), same(admission)))
 				.andReturn(new URI(URI));
 		userIdentityService.buildUserIdentity(same(admission));

@@ -3,16 +3,24 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AppendixDeduplicationSevice;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import org.springframework.context.ApplicationContext;
 
 privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
+    
+    public AdmissionDeduplicationService AdmissionEndpointImpl.getAdmissionDeduplicationService() {
+        return this.admissionDeduplicationService;
+    }
+    
+    public void AdmissionEndpointImpl.setAdmissionDeduplicationService(AdmissionDeduplicationService admissionDeduplicationService) {
+        this.admissionDeduplicationService = admissionDeduplicationService;
+    }
     
     public AdmissionEndpointHelper AdmissionEndpointImpl.getAdmissionEndpointHelper() {
         return this.admissionEndpointHelper;
@@ -20,6 +28,14 @@ privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
     public void AdmissionEndpointImpl.setAdmissionEndpointHelper(AdmissionEndpointHelper admissionEndpointHelper) {
         this.admissionEndpointHelper = admissionEndpointHelper;
+    }
+    
+    public AppendixDeduplicationSevice AdmissionEndpointImpl.getAppendixDeduplicationSevice() {
+        return this.appendixDeduplicationSevice;
+    }
+    
+    public void AdmissionEndpointImpl.setAppendixDeduplicationSevice(AppendixDeduplicationSevice appendixDeduplicationSevice) {
+        this.appendixDeduplicationSevice = appendixDeduplicationSevice;
     }
     
     public ApplicationContext AdmissionEndpointImpl.getApplicationContext() {
@@ -32,14 +48,6 @@ privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
     public void AdmissionEndpointImpl.setProcessService(ProcessService processService) {
         this.processService = processService;
-    }
-    
-    public DeduplicationService<Admission> AdmissionEndpointImpl.getDeduplicationService() {
-        return this.deduplicationService;
-    }
-    
-    public void AdmissionEndpointImpl.setDeduplicationService(DeduplicationService<Admission> deduplicationService) {
-        this.deduplicationService = deduplicationService;
     }
     
     public UriEndpointHelper AdmissionEndpointImpl.getUriEndpointHelper() {
