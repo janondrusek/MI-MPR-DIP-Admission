@@ -45,6 +45,7 @@ public class TermRegistration {
 
 	@NotNull
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@XmlTransient
 	private Admission admission;
 
 	@Transient
