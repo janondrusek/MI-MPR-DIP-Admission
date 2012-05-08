@@ -7,6 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
+import org.springframework.context.ApplicationContext;
 
 privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {
     
@@ -24,6 +25,10 @@ privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {
     
     public void AdmissionEndpointHelperImpl.setAdmissionDao(AdmissionDao admissionDao) {
         this.admissionDao = admissionDao;
+    }
+    
+    public ApplicationContext AdmissionEndpointHelperImpl.getApplicationContext() {
+        return this.applicationContext;
     }
     
     public UriEndpointHelper AdmissionEndpointHelperImpl.getUriEndpointHelper() {

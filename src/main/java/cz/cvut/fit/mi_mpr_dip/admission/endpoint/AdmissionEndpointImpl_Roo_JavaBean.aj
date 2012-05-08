@@ -10,7 +10,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AppendixDeduplicationSevice;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import org.springframework.context.ApplicationContext;
 
 privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
@@ -36,10 +35,6 @@ privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
     public void AdmissionEndpointImpl.setAppendixDeduplicationSevice(AppendixDeduplicationSevice appendixDeduplicationSevice) {
         this.appendixDeduplicationSevice = appendixDeduplicationSevice;
-    }
-    
-    public ApplicationContext AdmissionEndpointImpl.getApplicationContext() {
-        return this.applicationContext;
     }
     
     public ProcessService AdmissionEndpointImpl.getProcessService() {
