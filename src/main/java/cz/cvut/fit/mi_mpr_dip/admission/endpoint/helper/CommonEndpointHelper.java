@@ -39,6 +39,11 @@ public abstract class CommonEndpointHelper<T> implements EndpointHelper<T> {
 	}
 
 	@Override
+	public Response getSeeOtherResponse(URI uri) {
+		return build(Response.seeOther(uri));
+	}
+
+	@Override
 	public Response build(ResponseBuilder builder) {
 		return builder.build();
 	}

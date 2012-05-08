@@ -26,9 +26,14 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 
 	@Override
 	public Response getAdmission(String admissionCode) {
+		Admission admission = getAdmissionOrThrowNotFound(admissionCode);
+		return getOkResponse(admission);
+	}
+
+	private Admission getAdmissionOrThrowNotFound(String admissionCode) {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);
 		validateNotFound(admission);
-		return getOkResponse(admission);
+		return admission;
 	}
 
 	@Override
@@ -45,7 +50,8 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 		validateNotFound(admission);
 		action.performAction(admission, actor);
 		admission.merge();
-		return Response.seeOther(getUriEndpointHelper().getAdmissionLocation(baseLocation, admission)).build();
+		
+		return getSeeOtherResponse(getUriEndpointHelper().getAdmissionLocation(baseLocation, admission));
 	}
 
 	@Override

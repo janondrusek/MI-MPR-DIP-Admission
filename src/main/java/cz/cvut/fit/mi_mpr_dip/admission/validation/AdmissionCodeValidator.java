@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.BaseUniqueConstraintValidator;
 
 @RooJavaBean
 @Service

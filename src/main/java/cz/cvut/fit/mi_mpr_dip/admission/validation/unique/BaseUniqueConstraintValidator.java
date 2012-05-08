@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.validation;
+package cz.cvut.fit.mi_mpr_dip.admission.validation.unique;
 
 import java.lang.annotation.ElementType;
 import java.util.HashSet;
