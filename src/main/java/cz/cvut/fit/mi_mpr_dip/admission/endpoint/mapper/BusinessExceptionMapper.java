@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
 @Component
-public class BusinessExceptionMapper extends AdmissionExceptionMapper<BusinessException> implements
+public class BusinessExceptionMapper extends BaseExceptionMapper<BusinessException> implements
 		ExceptionMapper<BusinessException> {
 
 	@Override

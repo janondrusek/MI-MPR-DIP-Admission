@@ -46,4 +46,9 @@ public class UserRoleDeduplicationService implements DeduplicationService<UserRo
 		}
 		return userRole;
 	}
+
+	@Override
+	public void deduplicateAndMerge(UserRole deduplicant) {
+		
+	}
 }

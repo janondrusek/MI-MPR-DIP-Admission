@@ -16,7 +16,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
 @RooJavaBean
 @Component
-public class WebApplicationExceptionMapper extends AdmissionExceptionMapper<WebApplicationException> implements
+public class WebApplicationExceptionMapper extends BaseExceptionMapper<WebApplicationException> implements
 		ExceptionMapper<WebApplicationException> {
 
 	@Autowired

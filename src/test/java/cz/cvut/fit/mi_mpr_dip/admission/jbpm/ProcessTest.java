@@ -12,6 +12,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.drools.runtime.process.WorkItem;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.JbpmAccessiblePropertyConfigurer;
@@ -25,6 +26,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator;
 /**
  * This is a sample file to launch a process.
  */
+@Ignore
 public class ProcessTest extends BaseSpringJbpmTest {
 
 	private static final String DOMAIN = "cz.cvut.fit.mi_mpr_dip.admission.";

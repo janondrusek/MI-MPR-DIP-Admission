@@ -3,6 +3,9 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 import java.net.URI;
 import java.util.Set;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -19,12 +22,15 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
+import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
 @Path(UserEndpointImpl.ENDPOINT_PATH)
 @RooJavaBean
@@ -35,16 +41,18 @@ public class UserEndpointImpl implements UserEndpoint {
 	private static final String PASSWORD_PATH = "/password";
 	private static final String PERSON_PATH = "/person";
 	private static final String RESET_PASSWORD_PATH = "/reset_password";
+	private static final String SESSION_PATH = "/session";
 
 	private static final String EMAIL_ATTRIBUTE = "email:";
+	private static final String IDENTIFIER_ATTRIBUTE = "identifier:";
 	private static final String NEW_ATTRIBUTE = "new:";
 	private static final String OLD_ATTRIBUTE = "old:";
 
 	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + EMAIL_ATTRIBUTE + "{email}"
 			+ RESET_PASSWORD_PATH;
-	private static final String FULL_UPDATE_PASSWORD_PATH = AdmissionEndpointHelperImpl.IDENTITY_PATH
-			+ StringPool.SLASH + "{userIdentity}" + PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE
-			+ "{oldPassword:.*?}" + StringPool.SLASH + NEW_ATTRIBUTE + "{newPassword:.*?}";
+	private static final String FULL_UPDATE_PASSWORD_PATH = URIKeys.IDENTITY_PATH + StringPool.SLASH + "{userIdentity}"
+			+ PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE + "{oldPassword:.*?}" + StringPool.SLASH + NEW_ATTRIBUTE
+			+ "{newPassword:.*?}";
 
 	@Autowired
 	private AdmissionDao admissionDao;
@@ -59,7 +67,21 @@ public class UserEndpointImpl implements UserEndpoint {
 	private UserIdentityDao userIdentityDao;
 
 	@Autowired
+	private UserIdentityEndpointHelper userIdentityEndpointHelper;
+
+	@Autowired
+	private UserIdentityService userIdentityService;
+
+	@Autowired
 	private UserPasswordService userPasswordService;
+
+	@Path(URIKeys.IDENTITY_PATH)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@GET
+	@Override
+	public Response getUserIdentity() {
+		return getUserIdentityEndpointHelper().getUserIdentity();
+	}
 
 	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
 	@Path(FULL_RESET_PASSWORD_PATH)
@@ -72,7 +94,7 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	@Secured("PERM_RESET_PASSWORD")
-	@Path(ProcessingEndpointImpl.ADMISSION_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
+	@Path(AdmissionEndpointImpl.ENDPOINT_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
@@ -90,6 +112,26 @@ public class UserEndpointImpl implements UserEndpoint {
 			@PathParam("oldPassword") String oldPassword, @PathParam("newPassword") String newPassword) {
 		doUpdatePassword(username, oldPassword, newPassword);
 		return Response.ok().build();
+	}
+
+	@Secured("PERM_DELETE_SESSION")
+	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + SESSION_PATH + StringPool.SLASH + IDENTIFIER_ATTRIBUTE
+			+ "{sessionIdentifier}")
+	@Produces
+	@DELETE
+	@Override
+	public Response deleteUserSession(@PathParam("userIdentity") String username,
+			@PathParam("sessionIdentifier") String identifier) {
+		return getUserIdentityEndpointHelper().deleteUserSession(username, identifier);
+	}
+
+	@Secured("PERM_WRITE_USER_ROLES")
+	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + "/roles")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
+	@Override
+	public Response updateUserRoles(@PathParam("userIdentity") String username, UserRoles userRoles) {
+		return getUserIdentityEndpointHelper().updateUserRoles(username, userRoles);
 	}
 
 	@Transactional
@@ -125,7 +167,7 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	private String getAdmissionBaseLocation() {
-		return ProcessingEndpointImpl.ENDPOINT_PATH + ProcessingEndpointImpl.ADMISSION_PATH;
+		return AdmissionEndpointImpl.ENDPOINT_PATH;
 	}
 
 }

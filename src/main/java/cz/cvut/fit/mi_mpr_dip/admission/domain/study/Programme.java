@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,6 +27,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "programmeId" })
 @RooJpaActiveRecord(finders = { "findProgrammesByNameEqualsAndStudyModeAndDegreeAndLanguage" })
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "name", "study_mode", "degree", "language" }))
 public class Programme {
 

@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,7 +39,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 @RooEquals(excludeFields = { "termId", "programs", "registrations" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-@RooJpaActiveRecord
+@RooJpaActiveRecord(finders = { "findTermsByDateOfTermEqualsAndRoomEquals" })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "dateOfTerm", "room" }))
 public class Term {
 
@@ -49,7 +52,7 @@ public class Term {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
 	private Long termId;
-	
+
 	@NotNull
 	private Date dateOfTerm;
 
@@ -69,7 +72,9 @@ public class Term {
 	@NotNull
 	private Date apologyTo;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinTable(name = "term_programme", joinColumns = { @JoinColumn(name = "term_id", referencedColumnName = "termId") }, inverseJoinColumns = { @JoinColumn(name = "programme_id", referencedColumnName = "programmeId") })
+	@Valid
 	@XmlElementWrapper(name = "programs")
 	@XmlElement(name = "programme")
 	private Set<Programme> programs;

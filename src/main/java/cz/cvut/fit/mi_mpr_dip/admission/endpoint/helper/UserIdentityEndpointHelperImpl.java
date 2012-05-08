@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -18,19 +17,12 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.BeanValidator;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 @RooJavaBean
-public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelper {
-
-	@Autowired
-	private BeanValidator beanValidator;
-
-	@Autowired
-	private BusinessExceptionUtil businessExceptionUtil;
+public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIdentity> implements
+		UserIdentityEndpointHelper {
 
 	@Autowired
 	private PrincipalValidator principalValidator;
@@ -86,10 +78,6 @@ public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelpe
 		return Response.ok().build();
 	}
 
-	private void throwNotFoundBusinessException() {
-		getBusinessExceptionUtil().throwException(HttpServletResponse.SC_NOT_FOUND);
-	}
-
 	private boolean isNotEqual(String one, String two) {
 		return !StringUtils.equals(one, two);
 	}
@@ -100,6 +88,11 @@ public class UserIdentityEndpointHelperImpl implements UserIdentityEndpointHelpe
 		}
 		getPrincipalValidator().validatePrincipal(userIdentity.getUsername());
 		getBeanValidator().validate(userRoles);
+	}
+
+	@Override
+	protected boolean isNotFound(UserIdentity userIdentity) {
+		return userIdentity.getUsername() == null;
 	}
 
 	@Required

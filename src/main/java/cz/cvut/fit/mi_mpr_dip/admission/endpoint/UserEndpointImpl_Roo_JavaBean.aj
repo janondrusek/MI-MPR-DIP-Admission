@@ -7,7 +7,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.UserEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.mail.PasswordResetService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 
 privileged aspect UserEndpointImpl_Roo_JavaBean {
@@ -42,6 +44,22 @@ privileged aspect UserEndpointImpl_Roo_JavaBean {
     
     public void UserEndpointImpl.setUserIdentityDao(UserIdentityDao userIdentityDao) {
         this.userIdentityDao = userIdentityDao;
+    }
+    
+    public UserIdentityEndpointHelper UserEndpointImpl.getUserIdentityEndpointHelper() {
+        return this.userIdentityEndpointHelper;
+    }
+    
+    public void UserEndpointImpl.setUserIdentityEndpointHelper(UserIdentityEndpointHelper userIdentityEndpointHelper) {
+        this.userIdentityEndpointHelper = userIdentityEndpointHelper;
+    }
+    
+    public UserIdentityService UserEndpointImpl.getUserIdentityService() {
+        return this.userIdentityService;
+    }
+    
+    public void UserEndpointImpl.setUserIdentityService(UserIdentityService userIdentityService) {
+        this.userIdentityService = userIdentityService;
     }
     
     public UserPasswordService UserEndpointImpl.getUserPasswordService() {
