@@ -56,24 +56,34 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 		return getSeeOtherResponse(getUriEndpointHelper().getTermLocation(TermEndpointImpl.ENDPOINT_PATH, term));
 	}
 
+	@Transactional
 	@Override
 	public Response deleteRegistration(String admissionCode, String dateOfTerm, String room) {
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
-
 		termRegistration.remove();
+
 		return getOkResponse();
 	}
 
 	private TermRegistration getTermRegistrationOrThrowNotFound(String admissionCode, String dateOfTerm, String room) {
-		return null;
+		Date date = getTermService().getDate(dateOfTerm);
+		TermRegistration termRegistration = getTermRegistration(admissionCode, room, date);
+		validateNotFound(termRegistration);
+
+		return termRegistration;
 	}
 
 	private void validate(String admissionCode, String dateOfTerm, String room) {
 		Date date = getTermService().getDate(dateOfTerm);
-		TermRegistration termRegistration = getTermRegistrationDao().getTermRegistration(admissionCode, date, room);
+		TermRegistration termRegistration = getTermRegistration(admissionCode, room, date);
 		if (isFound(termRegistration)) {
 			getUniqueConstraintValidator().validate(termRegistration);
 		}
+	}
+
+	private TermRegistration getTermRegistration(String admissionCode, String room, Date date) {
+		TermRegistration termRegistration = getTermRegistrationDao().getTermRegistration(admissionCode, date, room);
+		return termRegistration;
 	}
 
 	@Override

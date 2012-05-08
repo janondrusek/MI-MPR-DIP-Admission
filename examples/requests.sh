@@ -87,7 +87,7 @@ cat examples/programme_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-
 ##
 
 # Registration.add
-curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X POST http://localhost:9090/admission/services/admission/{admissionCode}/registration
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X POST http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}
 
 # Registration.delete
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}
