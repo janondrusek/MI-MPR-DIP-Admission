@@ -57,6 +57,10 @@ public class TermRegistration {
 	@Valid
 	@XmlTransient
 	private Term term;
+	
+	@Transient
+	@XmlElement(name = WebKeys.TERM)
+	private Term termLink;
 
 	@Transient
 	@OneToOne(mappedBy = "termRegistration", cascade = CascadeType.ALL)

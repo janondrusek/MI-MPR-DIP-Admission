@@ -55,6 +55,9 @@ public class Term {
 
 	@NotNull
 	private Date dateOfTerm;
+	
+	@Transient
+	private Link link;
 
 	@NotEmpty
 	@NotNull

@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Link;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
@@ -48,6 +50,11 @@ public class TermServiceImpl implements TermService {
 	@Override
 	public void addLinks(Term term) {
 		Set<TermRegistration> registrations = term.getRegistrations();
+		addLinks(registrations);
+	}
+
+	@Override
+	public void addLinks(Set<TermRegistration> registrations) {
 		if (CollectionUtils.isNotEmpty(registrations)) {
 			for (TermRegistration termRegistration : registrations) {
 				addLink(termRegistration);
@@ -56,6 +63,11 @@ public class TermServiceImpl implements TermService {
 	}
 
 	private void addLink(TermRegistration termRegistration) {
+		addAdmissionLink(termRegistration);
+		addTermLink(termRegistration);
+	}
+
+	private void addAdmissionLink(TermRegistration termRegistration) {
 		Admission admission = termRegistration.getAdmission();
 		if (admission != null) {
 			termRegistration.setAdmissionLink(getAdmissionLink(admission));
@@ -64,31 +76,52 @@ public class TermServiceImpl implements TermService {
 
 	private Admission getAdmissionLink(Admission admission) {
 		Admission admissionLink = new Admission();
-		admissionLink.setLink(getLink(admission));
+		admissionLink.setLink(getLink(WebKeys.ADMISSION, getUri(admission)));
 
 		return admissionLink;
 	}
 
-	private Link getLink(Admission admission) {
+	private void addTermLink(TermRegistration termRegistration) {
+		Term term = termRegistration.getTerm();
+		if (term != null) {
+			termRegistration.setTermLink(getTermLink(term));
+		}
+	}
+
+	private Term getTermLink(Term term) {
+		Term termLink = new Term();
+		termLink.setLink(getLink(WebKeys.TERM, getUri(term)));
+
+		return termLink;
+	}
+
+	private URI getUri(Admission admission) {
+		return getUriEndpointHelper().getAdmissionLocation(AdmissionEndpointImpl.ENDPOINT_PATH, admission);
+	}
+
+	private URI getUri(Term term) {
+		return getUriEndpointHelper().getTermLocation(TermEndpointImpl.ENDPOINT_PATH, term);
+	}
+
+	private Link getLink(String rel, URI uri) {
 		Link link = new Link();
 		try {
-			String href = getHref(admission);
+			String href = getHref(uri);
 			link.setHref(href);
 		} catch (Exception e) {
 			log.error("Unable to build link [{}]", String.valueOf(e));
 			throw new TechnicalException(e);
 		}
 		link.setMethod(HttpMethod.GET);
-		link.setRel(WebKeys.ADMISSION);
+		link.setRel(rel);
 
 		return link;
 	}
 
-	private String getHref(Admission admission) {
-		Response response = Response.created(
-				getUriEndpointHelper().getAdmissionLocation(AdmissionEndpointImpl.ENDPOINT_PATH, admission)).build();
+	private String getHref(URI uri) {
+		Response response = Response.created(uri).build();
 		List<Object> headers = response.getMetadata().get(WebKeys.LOCATION);
-		
+
 		return String.valueOf(headers.get(0));
 	}
 

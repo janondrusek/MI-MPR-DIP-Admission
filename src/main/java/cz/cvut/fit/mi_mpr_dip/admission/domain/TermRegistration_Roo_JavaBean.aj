@@ -50,6 +50,14 @@ privileged aspect TermRegistration_Roo_JavaBean {
         this.term = term;
     }
     
+    public Term TermRegistration.getTermLink() {
+        return this.termLink;
+    }
+    
+    public void TermRegistration.setTermLink(Term termLink) {
+        this.termLink = termLink;
+    }
+    
     public Apology TermRegistration.getApology() {
         return this.apology;
     }

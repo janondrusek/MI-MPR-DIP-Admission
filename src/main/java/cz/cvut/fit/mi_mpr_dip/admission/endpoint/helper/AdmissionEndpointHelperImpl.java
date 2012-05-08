@@ -14,6 +14,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
+import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 
 @Service
@@ -28,6 +29,9 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 	private AdmissionDao admissionDao;
 
 	private ApplicationContext applicationContext;
+
+	@Autowired
+	private TermService termService;
 
 	@Autowired
 	private UriEndpointHelper uriEndpointHelper;
