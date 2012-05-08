@@ -61,7 +61,7 @@ cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-F
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
 
 # Term.update, Term Registrations are ignored
-cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/term/ddateOfTerm:{dateOfTerm}/room:{room}
+cat examples/term_0[1-2].xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/term/dateOfTerm:{dateOfTerm}/room:{room}
 
 ##
 ## Programme
