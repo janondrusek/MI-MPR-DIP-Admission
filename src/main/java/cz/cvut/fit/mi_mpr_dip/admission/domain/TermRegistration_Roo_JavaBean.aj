@@ -34,6 +34,14 @@ privileged aspect TermRegistration_Roo_JavaBean {
         this.admission = admission;
     }
     
+    public Admission TermRegistration.getAdmissionLink() {
+        return this.admissionLink;
+    }
+    
+    public void TermRegistration.setAdmissionLink(Admission admissionLink) {
+        this.admissionLink = admissionLink;
+    }
+    
     public Term TermRegistration.getTerm() {
         return this.term;
     }

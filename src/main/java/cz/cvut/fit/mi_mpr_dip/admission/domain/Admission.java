@@ -95,6 +95,9 @@ public class Admission {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@Valid
 	private Faculty faculty;
+	
+	@Transient
+	private Link link;
 
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
