@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-05-01 18:51:08
+# Date/time:                    2012-05-08 20:44:00
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -228,22 +228,6 @@ CREATE TABLE IF NOT EXISTS `admission_reference_numbers` (
   KEY `FKDDF76AA014DCE801` (`admission`),
   CONSTRAINT `FKDDF76AA014DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`),
   CONSTRAINT `FKDDF76AA0BDD0E479` FOREIGN KEY (`reference_numbers`) REFERENCES `reference_number` (`reference_number_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-# Data exporting was unselected.
-
-
-# Dumping structure for table admission.admission_registrations
-DROP TABLE IF EXISTS `admission_registrations`;
-CREATE TABLE IF NOT EXISTS `admission_registrations` (
-  `admission` bigint(20) NOT NULL,
-  `registrations` bigint(20) NOT NULL,
-  PRIMARY KEY (`admission`,`registrations`),
-  UNIQUE KEY `registrations` (`registrations`),
-  KEY `FK4B15D52414DCE801` (`admission`),
-  KEY `FK4B15D5242C33BB50` (`registrations`),
-  CONSTRAINT `FK4B15D5242C33BB50` FOREIGN KEY (`registrations`) REFERENCES `term_registration` (`term_registration_id`),
-  CONSTRAINT `FK4B15D52414DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -1107,30 +1091,15 @@ CREATE TABLE IF NOT EXISTS `term_programme` (
 DROP TABLE IF EXISTS `term_registration`;
 CREATE TABLE IF NOT EXISTS `term_registration` (
   `term_registration_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `attendance` tinyint(1) DEFAULT NULL,
+  `attended` tinyint(1) DEFAULT NULL,
   `admission` bigint(20) NOT NULL,
   `term` bigint(20) NOT NULL,
   PRIMARY KEY (`term_registration_id`),
+  UNIQUE KEY `admission` (`admission`,`term`),
   KEY `FKECCC9DAC14DCE801` (`admission`),
   KEY `FKECCC9DAC17CE5789` (`term`),
   CONSTRAINT `FKECCC9DAC17CE5789` FOREIGN KEY (`term`) REFERENCES `term` (`term_id`),
   CONSTRAINT `FKECCC9DAC14DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-# Data exporting was unselected.
-
-
-# Dumping structure for table admission.term_registrations
-DROP TABLE IF EXISTS `term_registrations`;
-CREATE TABLE IF NOT EXISTS `term_registrations` (
-  `term` bigint(20) NOT NULL,
-  `registrations` bigint(20) NOT NULL,
-  PRIMARY KEY (`term`,`registrations`),
-  UNIQUE KEY `registrations` (`registrations`),
-  KEY `FKACC7184717CE5789` (`term`),
-  KEY `FKACC718472C33BB50` (`registrations`),
-  CONSTRAINT `FKACC718472C33BB50` FOREIGN KEY (`registrations`) REFERENCES `term_registration` (`term_registration_id`),
-  CONSTRAINT `FKACC7184717CE5789` FOREIGN KEY (`term`) REFERENCES `term` (`term_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
