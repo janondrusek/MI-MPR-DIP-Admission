@@ -2,6 +2,10 @@ package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
 import java.util.Date;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +15,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 
 @Repository
 public class TermRegistrationDaoImpl extends AbstractDao<TermRegistration> implements TermRegistrationDao {
+
+	@PersistenceContext
+	transient EntityManager entityManager;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -47,5 +54,16 @@ public class TermRegistrationDaoImpl extends AbstractDao<TermRegistration> imple
 		termRegistration.setTerm(new Term());
 
 		return termRegistration;
+	}
+
+	@Transactional
+	@Override
+	public void delete(TermRegistration termRegistration) {
+		termRegistration.remove();
+		Query query = entityManager.createQuery("delete from " + TermRegistration.class.getName()
+				+ " where termRegistrationId = :id");
+		query.setParameter("id", termRegistration.getTermRegistrationId());
+
+		query.executeUpdate();
 	}
 }
