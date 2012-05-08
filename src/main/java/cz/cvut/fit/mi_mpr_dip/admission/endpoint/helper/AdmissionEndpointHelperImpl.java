@@ -47,6 +47,7 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 		admissionsBuilder.createNew();
 		admissionsBuilder.buildLimit(count, page);
 		admissionsBuilder.buildAdmissions();
+		admissionsBuilder.buildLinks();
 
 		return admissionsBuilder.get();
 	}
@@ -64,6 +65,8 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 	private Admission getAdmissionOrThrowNotFound(String admissionCode) {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);
 		validateNotFound(admission);
+		getTermService().addLinks(admission.getRegistrations());
+
 		return admission;
 	}
 

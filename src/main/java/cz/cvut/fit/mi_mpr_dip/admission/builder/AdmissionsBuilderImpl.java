@@ -1,12 +1,16 @@
 package cz.cvut.fit.mi_mpr_dip.admission.builder;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
 
 public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 
@@ -17,6 +21,9 @@ public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 	private Integer maxLimit;
 
 	private Integer offset = new Integer(0);
+
+	@Autowired
+	private TermService termService;
 
 	@Override
 	public void createNew() {
@@ -58,6 +65,29 @@ public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 	@Override
 	public void buildAdmissions(List<Admission> admissions) {
 		this.admissions.setAdmissions(admissions);
+	}
+
+	@Override
+	public void buildLinks() {
+		addLinks(admissions.getAdmissions());
+	}
+
+	private void addLinks(List<Admission> admissions) {
+		if (CollectionUtils.isNotEmpty(admissions)) {
+			for (Admission admission : admissions) {
+				addLinks(admission);
+			}
+		}
+	}
+
+	private void addLinks(Admission admission) {
+		addLinks(admission.getRegistrations());
+	}
+
+	private void addLinks(Set<TermRegistration> registrations) {
+		if (CollectionUtils.isNotEmpty(registrations)) {
+			termService.addLinks(registrations);
+		}
 	}
 
 	@Required
