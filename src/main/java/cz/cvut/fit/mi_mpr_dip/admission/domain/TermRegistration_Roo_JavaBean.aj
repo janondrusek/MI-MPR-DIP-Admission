@@ -34,12 +34,28 @@ privileged aspect TermRegistration_Roo_JavaBean {
         this.admission = admission;
     }
     
+    public Admission TermRegistration.getAdmissionLink() {
+        return this.admissionLink;
+    }
+    
+    public void TermRegistration.setAdmissionLink(Admission admissionLink) {
+        this.admissionLink = admissionLink;
+    }
+    
     public Term TermRegistration.getTerm() {
         return this.term;
     }
     
     public void TermRegistration.setTerm(Term term) {
         this.term = term;
+    }
+    
+    public Term TermRegistration.getTermLink() {
+        return this.termLink;
+    }
+    
+    public void TermRegistration.setTermLink(Term termLink) {
+        this.termLink = termLink;
     }
     
     public Apology TermRegistration.getApology() {
@@ -50,12 +66,12 @@ privileged aspect TermRegistration_Roo_JavaBean {
         this.apology = apology;
     }
     
-    public Boolean TermRegistration.getAttendance() {
-        return this.attendance;
+    public Boolean TermRegistration.getAttended() {
+        return this.attended;
     }
     
-    public void TermRegistration.setAttendance(Boolean attendance) {
-        this.attendance = attendance;
+    public void TermRegistration.setAttended(Boolean attended) {
+        this.attended = attended;
     }
     
 }

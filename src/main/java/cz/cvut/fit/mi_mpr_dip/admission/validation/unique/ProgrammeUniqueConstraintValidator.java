@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.validation;
+package cz.cvut.fit.mi_mpr_dip.admission.validation.unique;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

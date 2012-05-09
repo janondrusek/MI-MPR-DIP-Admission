@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.validation;
+package cz.cvut.fit.mi_mpr_dip.admission.validation.unique;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;

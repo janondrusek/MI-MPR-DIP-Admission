@@ -5,7 +5,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.ProgrammeDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.ProgrammeEndpointHelperImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.ProgrammeUniqueConstraintValidator;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.ProgrammeUniqueConstraintValidator;
 
 privileged aspect ProgrammeEndpointHelperImpl_Roo_JavaBean {
     

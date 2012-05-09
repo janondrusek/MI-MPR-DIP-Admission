@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.ProgrammeDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Programs;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.ProgrammeUniqueConstraintValidator;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.ProgrammeUniqueConstraintValidator;
 
 @Service
 @RooJavaBean

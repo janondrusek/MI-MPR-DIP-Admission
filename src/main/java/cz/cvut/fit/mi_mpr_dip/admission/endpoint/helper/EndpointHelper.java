@@ -12,6 +12,8 @@ public interface EndpointHelper<T> {
 	public Response getOkResponse(Object o);
 
 	public Response getCreatedResponse(URI uri);
+	
+	public Response getSeeOtherResponse(URI uri);
 
 	public Response build(ResponseBuilder builder);
 }

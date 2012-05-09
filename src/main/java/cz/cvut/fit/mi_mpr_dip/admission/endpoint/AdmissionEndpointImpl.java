@@ -13,15 +13,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
@@ -37,7 +33,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
 @Path(AdmissionEndpointImpl.ENDPOINT_PATH)
-public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationContextAware {
+public class AdmissionEndpointImpl implements AdmissionEndpoint {
 
 	public static final String ENDPOINT_PATH = "/admission";
 	public static final String ADMISSION_PATH = "/{admissionCode}";
@@ -52,8 +48,6 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 
 	@Autowired
 	private AppendixDeduplicationSevice appendixDeduplicationSevice;
-
-	private ApplicationContext applicationContext;
 
 	@Autowired
 	private ProcessService processService;
@@ -78,21 +72,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 	@GET
 	@Override
 	public Admissions getAdmissions(@QueryParam("count") Integer count, @QueryParam("page") Integer page) {
-		return buildAdmissions(count, page);
-	}
-
-	private Admissions buildAdmissions(Integer count, Integer page) {
-		AdmissionsBuilder admissionsBuilder = getAdmissionsBuilder();
-
-		admissionsBuilder.createNew();
-		admissionsBuilder.buildLimit(count, page);
-		admissionsBuilder.buildAdmissions();
-
-		return admissionsBuilder.get();
-	}
-
-	private AdmissionsBuilder getAdmissionsBuilder() {
-		return getApplicationContext().getBean(AdmissionsBuilder.class);
+		return getAdmissionEndpointHelper().getAdmissions(count, page);
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
@@ -171,11 +151,6 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint, ApplicationCont
 						admission.getPhotos().add(photo);
 					}
 				});
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
 	}
 
 }

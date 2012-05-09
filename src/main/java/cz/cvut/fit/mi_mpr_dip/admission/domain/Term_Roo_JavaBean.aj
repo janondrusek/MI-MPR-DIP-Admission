@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Link;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermType;
@@ -34,6 +35,14 @@ privileged aspect Term_Roo_JavaBean {
     
     public void Term.setDateOfTerm(Date dateOfTerm) {
         this.dateOfTerm = dateOfTerm;
+    }
+    
+    public Link Term.getLink() {
+        return this.link;
+    }
+    
+    public void Term.setLink(Link link) {
+        this.link = link;
     }
     
     public String Term.getRoom() {

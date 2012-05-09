@@ -96,6 +96,9 @@ public class Admission {
 	@Valid
 	private Faculty faculty;
 
+	@Transient
+	private Link link;
+
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
 	@Valid
@@ -110,7 +113,7 @@ public class Admission {
 	@Valid
 	private Set<Appendix> photos;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "admission")
 	@Valid
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")

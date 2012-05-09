@@ -6,7 +6,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Apology;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.ApologyDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistrationDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect ApologyDataOnDemand_Roo_DataOnDemand {
@@ -24,9 +22,6 @@ privileged aspect ApologyDataOnDemand_Roo_DataOnDemand {
     private Random ApologyDataOnDemand.rnd = new SecureRandom();
     
     private List<Apology> ApologyDataOnDemand.data;
-    
-    @Autowired
-    private TermRegistrationDataOnDemand ApologyDataOnDemand.termRegistrationDataOnDemand;
     
     public Apology ApologyDataOnDemand.getNewTransientApology(int index) {
         Apology obj = new Apology();
@@ -42,7 +37,7 @@ privileged aspect ApologyDataOnDemand_Roo_DataOnDemand {
     }
     
     public void ApologyDataOnDemand.setRegistration(Apology obj, int index) {
-        TermRegistration registration = termRegistrationDataOnDemand.getSpecificTermRegistration(index);
+        TermRegistration registration = null;
         obj.setRegistration(registration);
     }
     

@@ -18,7 +18,6 @@ import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
@@ -35,7 +34,6 @@ public class AdmissionEndpointTest {
 	private AdmissionEndpointImpl admissionEndpoint;
 
 	private Admission admission;
-	private ApplicationContext applicationContext;
 	private AdmissionDeduplicationService admissionDeduplicationService;
 	private AdmissionEndpointHelper admissionEndpointHelper;
 	private UriEndpointHelper uriEndpointHelper;
@@ -55,13 +53,11 @@ public class AdmissionEndpointTest {
 
 		admission = createMock(Admission.class);
 
-		mocks = new Object[] { admission, applicationContext, admissionDeduplicationService, admissionEndpointHelper,
-				uriEndpointHelper, userIdentityService };
+		mocks = new Object[] { admission, admissionDeduplicationService, admissionEndpointHelper, uriEndpointHelper,
+				userIdentityService };
 	}
 
 	private void initDependencyMocks() {
-		applicationContext = createMock(ApplicationContext.class);
-		admissionEndpoint.setApplicationContext(applicationContext);
 		admissionDeduplicationService = createMock(AdmissionDeduplicationService.class);
 		admissionEndpoint.setAdmissionDeduplicationService(admissionDeduplicationService);
 		admissionEndpointHelper = createMock(AdmissionEndpointHelper.class);
