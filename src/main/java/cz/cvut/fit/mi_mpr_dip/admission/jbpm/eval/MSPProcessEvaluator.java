@@ -8,10 +8,15 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 	private final String CZ = "Česká republika"; // CZ or something else
 	private final String SK = "Slovenská republika"; // CZ or something else
-	private Double h8 = 1.9;
-	private Integer h2 = 70;
-//	private Integer h3 = 0;
-//	private Integer h4 = 1;
+
+	private String admissionTestPoints = "h2";
+	private Integer limitAdmissionTestPoints = 70; // h2
+	private String neededDocuments = "h3";
+	private Integer limitNeededDocuments = 1; // h3
+	private String czechLanguageExamination = "h4";
+	private Integer limitCzechLanguageExamination = 1; // h4
+	private String bachelorStudyAverageGrade = "h8";
+	private Double limitBachelorStudyAverageGrade = 1.9; // h4
 
 	@Override
 	public Boolean evalAcceptWithoutAT(Admission admission) {
@@ -19,11 +24,16 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 			return true;
 		}
 
+		if (admission.getEvaluations() == null) {
+			return false;
+		}
+
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName().toLowerCase();
 
-			if (type.equals("h8") && Double.valueOf(value) <= h8) {
+			if (type.equals(bachelorStudyAverageGrade) && Double.valueOf(value) > 0
+					&& Double.valueOf(value) <= limitBachelorStudyAverageGrade) {
 				return true;
 			}
 		}
@@ -39,19 +49,24 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 			return true;
 		}
 
+		if (admission.getEvaluations() == null) {
+			return false;
+		}
+
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName().toLowerCase();
 			String citizenship = admission.getPerson().getCitizenship().getName();
 
 			if (citizenship.equals(CZ) || citizenship.equals(SK)) {
-				if (type.equals("h3") && Double.valueOf(value) > 0) {
+				if (type.equals(neededDocuments) && Double.valueOf(value) > limitNeededDocuments) {
 					return true;
 				}
 			} else {
-				if (type.equals("h3") && Double.valueOf(value) > 0) {
+				if (type.equals(neededDocuments) && Double.valueOf(value) > limitNeededDocuments) {
 					h3 = true;
-				} else if (type.equals("h4") && Double.valueOf(value) > 0) {
+				} else if (type.equals(czechLanguageExamination)
+						&& Double.valueOf(value) > limitCzechLanguageExamination) {
 					h4 = true;
 				}
 			}
@@ -63,7 +78,7 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 		return false;
 	}
-	
+
 	@Override
 	public Boolean evalAdmissionSWCTwo(Admission admission) {
 		boolean prep = this.evalAcceptWithoutAT(admission);
@@ -79,28 +94,32 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 
 	@Override
 	public Boolean EnoughTestPoints(Admission admission) {
+		if (admission.getEvaluations() == null) {
+			return false;
+		}
+
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName().toLowerCase();
 
-			if (type.equals("h2") && Double.valueOf(value) >= h2) {
+			if (type.equals(admissionTestPoints) && Double.valueOf(value) >= limitAdmissionTestPoints) {
 				return true;
 			}
 		}
 
 		return false;
 	}
-	
+
 	public void testGeneratingDecisionType(Admission admission) {
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName().toLowerCase();
 			System.out.println("> TYPE: " + type + " / VALUE: " + value);
 		}
-		
+
 		boolean result = false;
 		String type = "";
-		
+
 		for (Appeal appeal : admission.getAppeals()) {
 			result = appeal.getAccepted();
 			type = appeal.getAppealType().getName();
