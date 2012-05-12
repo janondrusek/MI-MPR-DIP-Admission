@@ -12,7 +12,6 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.drools.runtime.process.WorkItem;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.JbpmAccessiblePropertyConfigurer;
@@ -26,7 +25,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.ProcessEvaluator;
 /**
  * This is a sample file to launch a process.
  */
-@Ignore
 public class ProcessTest extends BaseSpringJbpmTest {
 
 	private static final String DOMAIN = "cz.cvut.fit.mi_mpr_dip.admission.";
@@ -34,7 +32,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 	private static final String BPMN = ".bpmn";
 	private static final String EMAIL_TO = "emailTo";
 
-	private static String debugEmail = "root@localhost";
+	private static String debugEmail = "chobodav@fit";
 
 	@Autowired
 	private JbpmAccessiblePropertyConfigurer propertyConfigurer;
@@ -72,19 +70,30 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		for (int i = 0; i < 6; i++) {
 			knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 		}
+		// TODO
 	}
 
 	@Test
 	public void runMSPMainProcess() {
 		StatefulKnowledgeSession knowledgeSession = createKnowledgeSession(readKnowledgeBase());
 
-		// knowledgeSession.startProcess(DOMAIN + "2012_msp_main", getProcessParameters(admission));
+		// Test HumanTaskHandler
+		TestWorkItemHandler testHandler = new TestWorkItemHandler();
+		knowledgeSession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
+		knowledgeSession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
+
+		knowledgeSession.startProcess(DOMAIN + "2012_msp_main", getProcessParameters(admission));
+		
+		for (int i = 0; i < 6; i++) {
+			knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
+		}
+		// TODO
 	}
 
 	@Test
 	public void runAdmissionTestSubprocess() {
 		StatefulKnowledgeSession knowledgeSession = createKnowledgeSession(readKnowledgeBase());
-		
+
 		TestWorkItemHandler testHandler = new TestWorkItemHandler();
 		knowledgeSession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
 		knowledgeSession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
@@ -93,26 +102,27 @@ public class ProcessTest extends BaseSpringJbpmTest {
 				getProcessParameters(admission));
 
 		assertProcessInstanceActive(processInstance.getId(), knowledgeSession);
-		assertNodeTriggered(processInstance.getId(), "StartProcess", "Gateway - Invited to regular AT", "Register for regular AT");
+		assertNodeTriggered(processInstance.getId(), "StartProcess", "Gateway - Invited to regular AT",
+				"Register for regular AT");
 		assertNodeActive(processInstance.getId(), knowledgeSession, "Register for regular AT");
 
 		knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 
 		assertNodeTriggered(processInstance.getId(), "Gateway - Regular AT action (REG/APP)");
-		
+
 		ProcessEvaluator evaluator = new DefaultProcessEvaluator();
-		
+
 		if (evaluator.evalRegisterForAT(admission)) {
 			completeNodes(2, knowledgeSession, testHandler);
 			assertNodeTriggered(processInstance.getId(), "Gateway - Backtrack from AT");
-			
+
 			if (evaluator.evalBackFromAT(admission)) {
 				// TODO
 			}
 		} else if (evaluator.evalApologyFromAT(admission)) {
 			completeNodes(1, knowledgeSession, testHandler);
 			assertNodeTriggered(processInstance.getId(), "Gateway - Apology from regular AT request result");
-			
+
 			if (evaluator.evalApologyApproval(admission)) {
 				assertNodeTriggered(processInstance.getId(), "Register for alternative AT");
 				assertNodeActive(processInstance.getId(), knowledgeSession, "Register for alternative AT");
@@ -126,12 +136,12 @@ public class ProcessTest extends BaseSpringJbpmTest {
 				// TODO
 			}
 		}
-		
+
 		assertNodeTriggered(processInstance.getId(), "Gateway - Test completed", "Admission test result");
 		assertNodeActive(processInstance.getId(), knowledgeSession, "Admission test result");
 
 		knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-		
+
 		assertNodeTriggered(processInstance.getId(), "End");
 		assertProcessInstanceCompleted(processInstance.getId(), knowledgeSession);
 
@@ -147,7 +157,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 
 		ProcessInstance processInstance = knowledgeSession.startProcess(DOMAIN + "2012_registration",
 				getProcessParameters(admission));
-		
+
 		assertProcessInstanceActive(processInstance.getId(), knowledgeSession);
 		assertNodeTriggered(processInstance.getId(), "StartProcess", "Gateway - Invited to RR", "Register for RR");
 		assertNodeActive(processInstance.getId(), knowledgeSession, "Register for RR");
@@ -155,13 +165,13 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 
 		assertNodeTriggered(processInstance.getId(), "Gateway - Regular R action (REG/APP)");
-		
+
 		ProcessEvaluator evaluator = new DefaultProcessEvaluator();
 
 		if (evaluator.evalRegisterForREG(admission)) {
 			completeNodes(1, knowledgeSession, testHandler);
 			assertNodeTriggered(processInstance.getId(), "Gateway - Backtrack from RR");
-			
+
 			if (evaluator.evalBackFromREG(admission)) {
 				// TODO
 			} else if (evaluator.evalRegistrationDone(admission)) {
@@ -169,18 +179,18 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		} else if (evaluator.evalApologyFromREG(admission)) {
 			completeNodes(1, knowledgeSession, testHandler);
 			assertNodeTriggered(processInstance.getId(), "Gateway - Apology from RR request result");
-			
+
 			if (evaluator.evalRegistrationApologyApproval(admission)) {
 				assertNodeTriggered(processInstance.getId(), "Gateway - Invited to AR", "Register for AR");
 				assertNodeActive(processInstance.getId(), knowledgeSession, "Register for AR");
-				
+
 				completeNodes(1, knowledgeSession, testHandler);
 				assertNodeTriggered(processInstance.getId(), "Gateway - alternative R action (REG/APP)");
-				
+
 				if (evaluator.evalRegisterForREG(admission)) {
 					completeNodes(1, knowledgeSession, testHandler);
 					assertNodeTriggered(processInstance.getId(), "Gateway - Backtrack from AR");
-					
+
 					if (evaluator.evalBackFromREG(admission)) {
 						// TODO
 					} else if (evaluator.evalRegistrationDone(admission)) {
@@ -188,19 +198,19 @@ public class ProcessTest extends BaseSpringJbpmTest {
 				} else if (evaluator.evalApologyFromREG(admission)) {
 					completeNodes(1, knowledgeSession, testHandler);
 					assertNodeTriggered(processInstance.getId(), "Gateway - Apology from AR request result");
-					
+
 					if (evaluator.evalRegistrationApologyApproval(admission)) {
 						completeNodes(1, knowledgeSession, testHandler);
 					} else {
 						// TODO
 					}
 				}
-				
+
 			} else {
 				// TODO
 			}
 		}
-		
+
 		assertNodeTriggered(processInstance.getId(), "Gateway - Registration complete", "Registration");
 		assertNodeActive(processInstance.getId(), knowledgeSession, "Registration");
 
@@ -276,7 +286,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 
 				assertNodeTriggered(processInstance.getId(), "Decision generate", "Decision sent");
 				assertNodeActive(processInstance.getId(), knowledgeSession, "Decision sent");
-				
+
 				if (evaluator.evalAdmissionAcceptance(admission)) {
 					assertNodeTriggered(processInstance.getId(), "End");
 				} else {
@@ -397,7 +407,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		processParameters.put(EMAIL_TO, debugEmail);
 		return processParameters;
 	}
-	
+
 	private void completeNodes(int count, StatefulKnowledgeSession knowledgeSession, TestWorkItemHandler testHandler) {
 		for (int i = 0; i < count; i++) {
 			knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);

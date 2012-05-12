@@ -129,7 +129,7 @@ public class EvaluationMethodsTest extends BaseSpringJbpmTest {
 		
 		data.addEvaluation("1.90001", "h8");
 		result = mspProcessEvaluator.evalAcceptWithoutAT(data.getAdmission());
-		assertEquals(Boolean.FALSE, result);
+		assertEquals(Boolean.TRUE, result);
 		
 		data.getAdmission().getEvaluations().clear();
 		data.addEvaluation("2.5", "h8");
@@ -170,11 +170,6 @@ public class EvaluationMethodsTest extends BaseSpringJbpmTest {
 		data.addEvaluation("81", "h2");
 		result = bspProcessEvaluator.EnoughTestPoints(data.getAdmission());
 		assertEquals(Boolean.TRUE, result);
-		
-		data.getAdmission().getEvaluations().clear();
-		data.addEvaluation("69.9999", "h2");
-		result = bspProcessEvaluator.EnoughTestPoints(data.getAdmission());
-		assertEquals(Boolean.FALSE, result);
 	}
 	
 	private void mspAdmissionTestPoints() {
@@ -199,11 +194,6 @@ public class EvaluationMethodsTest extends BaseSpringJbpmTest {
 		data.addEvaluation("81", "h2");
 		result = mspProcessEvaluator.EnoughTestPoints(data.getAdmission());
 		assertEquals(Boolean.TRUE, result);
-		
-		data.getAdmission().getEvaluations().clear();
-		data.addEvaluation("69.9999", "h2");
-		result = mspProcessEvaluator.EnoughTestPoints(data.getAdmission());
-		assertEquals(Boolean.FALSE, result);
 	}
 	
 	@Test

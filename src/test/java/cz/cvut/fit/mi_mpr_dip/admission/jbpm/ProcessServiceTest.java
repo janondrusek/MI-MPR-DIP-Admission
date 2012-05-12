@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
-import org.jbpm.test.JbpmJUnitTestCase.TestWorkItemHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +31,11 @@ public class ProcessServiceTest extends BaseSpringJbpmTest {
 	
 	@Test
 	public void testRunProcess() {
-		for (int i = 0; i < 3000; i++) {
+		for (int i = 0; i < 3; i++) {
 			processService.runProcess(admission);
 		}
 	}
 
-
-	
 //	@Test
 //	public void testHumanTaskProcess() {
 //		try {
@@ -68,17 +65,4 @@ public class ProcessServiceTest extends BaseSpringJbpmTest {
 //			t.printStackTrace();
 //		}
 //	}
-
-	// @Test
-	// public void testFireSignalEvent() {
-	// TestWorkItemHandler testHandler = new TestWorkItemHandler();
-	//
-	// ksession.getWorkItemManager().registerWorkItemHandler("Human Task", testHandler);
-	// ProcessInstance processInstance = ksession.startProcess("cz.cvut.fit.mi_mpr_dip.admission.test.signal_event");
-	//
-	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-	// processInstance.signalEvent("backToUserAction", null);
-	// ksession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
-	// }
-	
 }

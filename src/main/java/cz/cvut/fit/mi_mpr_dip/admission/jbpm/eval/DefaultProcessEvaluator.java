@@ -34,11 +34,13 @@ public class DefaultProcessEvaluator implements ProcessEvaluator {
 
 	@Override
 	public Boolean evalRegisterForAT(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S10")) { // getName REGISTRED_TO_ADMISSION_TEST
-			return true;
-		} else {
-			return false;
-		}
+		return true;
+// TODO
+//		if (admission.getAdmissionState().getCode().equals("S10")) { // getName REGISTRED_TO_ADMISSION_TEST
+//			return true;
+//		} else {
+//			return false;
+//		}
 	}
 
 	@Override
@@ -91,11 +93,13 @@ public class DefaultProcessEvaluator implements ProcessEvaluator {
 
 	@Override
 	public Boolean evalRegisterForREG(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S30")) { // getName REGISTRED_TO_REGISTRATION
-			return true;
-		} else {
-			return false;
-		}
+		return true;
+// TODO
+//		if (admission.getAdmissionState().getCode().equals("S30")) { // getName REGISTRED_TO_REGISTRATION
+//			return true;
+//		} else {
+//			return false;
+//		}
 	}
 
 	@Override
