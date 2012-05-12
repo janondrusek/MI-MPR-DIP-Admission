@@ -32,9 +32,12 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
+
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "userIdentityId", "roles", "sessions", "userPassword" })
+@RooEquals(excludeFields = { "admissionLink", "userIdentityId", "roles", "sessions", "userPassword" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findUserIdentitysByUsernameEquals",
@@ -45,6 +48,10 @@ public class UserIdentity {
 	@Transient
 	@XmlTransient
 	private int version;
+
+	@Transient
+	@XmlElement(name = WebKeys.ADMISSION)
+	private Admission admissionLink;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

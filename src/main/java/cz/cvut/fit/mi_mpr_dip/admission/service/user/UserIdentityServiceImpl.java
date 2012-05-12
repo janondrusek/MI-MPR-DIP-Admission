@@ -19,13 +19,16 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.comparator.NaturalOrderComparator;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.AdmissionUniqueConstraint;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
+import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
@@ -35,6 +38,12 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	private static final String USENAME_ORDER_PATTERN = ".*\\d+";
 
 	private String[] defaultRoles;
+
+	@Autowired
+	private AdmissionDao admissionDao;
+
+	@Autowired
+	private LinkService linkService;
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
@@ -47,6 +56,27 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 
 	@Autowired
 	private UserSessionService userSessionService;
+
+	@Override
+	public void addAdmissionLink(UserIdentity userIdentity) {
+		Admission admission = getAdmissionDao().getAdmission(userIdentity);
+		if (isFound(admission)) {
+			Admission admissionLink = getAdmissionLink(admission);
+			userIdentity.setAdmissionLink(admissionLink);
+		}
+	}
+
+	private boolean isFound(Admission admission) {
+		AdmissionUniqueConstraint uniqueConstraint = new AdmissionUniqueConstraint(admission);
+		return uniqueConstraint.isFound();
+	}
+
+	private Admission getAdmissionLink(Admission admission) {
+		Admission admissionLink = new Admission();
+		admissionLink.setLink(getLinkService().getAdmissionLink(admission));
+
+		return admissionLink;
+	}
 
 	@Transactional
 	@Override

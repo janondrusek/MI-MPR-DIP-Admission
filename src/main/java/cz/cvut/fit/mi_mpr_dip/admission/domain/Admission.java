@@ -39,7 +39,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 @RooEquals(excludeFields = { "admissionId" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@RooJpaActiveRecord(finders = { "findAdmissionsByCodeEquals", "findAdmissionsByPerson" })
+@RooJpaActiveRecord(finders = { "findAdmissionsByCodeEquals", "findAdmissionsByPerson", "findAdmissionsByUserIdentity" })
 public class Admission {
 
 	@Version

@@ -6,6 +6,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.service;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermServiceImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
 
@@ -17,6 +18,14 @@ privileged aspect TermServiceImpl_Roo_JavaBean {
     
     public void TermServiceImpl.setBusinessExceptionUtil(BusinessExceptionUtil businessExceptionUtil) {
         this.businessExceptionUtil = businessExceptionUtil;
+    }
+    
+    public LinkService TermServiceImpl.getLinkService() {
+        return this.linkService;
+    }
+    
+    public void TermServiceImpl.setLinkService(LinkService linkService) {
+        this.linkService = linkService;
     }
     
     public TermDao TermServiceImpl.getTermDao() {

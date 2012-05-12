@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPassword;
@@ -18,6 +19,14 @@ privileged aspect UserIdentity_Roo_JavaBean {
     
     public void UserIdentity.setVersion(int version) {
         this.version = version;
+    }
+    
+    public Admission UserIdentity.getAdmissionLink() {
+        return this.admissionLink;
+    }
+    
+    public void UserIdentity.setAdmissionLink(Admission admissionLink) {
+        this.admissionLink = admissionLink;
     }
     
     public Long UserIdentity.getUserIdentityId() {

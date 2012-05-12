@@ -37,7 +37,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 
 	public static final String ENDPOINT_PATH = "/admission";
 	public static final String ADMISSION_PATH = "/{admissionCode}";
-	public static final String SAVE_PHOTO_PATH = "/photo";
+	public static final String PHOTO_PATH = "/photo";
 	public static final String RESULT_PATH = "/result";
 
 	@Autowired
@@ -137,7 +137,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	}
 
 	@Secured("PERM_WRITE_PHOTO")
-	@Path(ADMISSION_PATH + SAVE_PHOTO_PATH)
+	@Path(ADMISSION_PATH + PHOTO_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override

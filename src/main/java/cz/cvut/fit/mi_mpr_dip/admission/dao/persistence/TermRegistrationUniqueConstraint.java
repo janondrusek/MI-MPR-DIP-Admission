@@ -30,6 +30,11 @@ public class TermRegistrationUniqueConstraint implements UniqueConstraint<TermRe
 	}
 
 	@Override
+	public Boolean isFound() {
+		return !isFound();
+	}
+
+	@Override
 	public Boolean isNotFound() {
 		return getAdmissionCode() == null || getDateOfTerm() == null || getRoom() == null;
 	}

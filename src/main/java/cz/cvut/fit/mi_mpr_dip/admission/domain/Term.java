@@ -75,6 +75,8 @@ public class Term {
 	@NotNull
 	private Date apologyTo;
 
+	@NotNull
+	@NotEmpty
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinTable(name = "term_programme", joinColumns = { @JoinColumn(name = "term_id", referencedColumnName = "termId") }, inverseJoinColumns = { @JoinColumn(name = "programme_id", referencedColumnName = "programmeId") })
 	@Valid
@@ -83,10 +85,12 @@ public class Term {
 	private Set<Programme> programs;
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "term")
+	@Valid
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")
 	private Set<TermRegistration> registrations;
 
+	@NotNull
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@Valid
 	private TermType termType;
