@@ -4,5 +4,7 @@ public interface UniqueConstraint<T> {
 
 	public Boolean isDuplicate(T duplicate);
 
+	public Boolean isFound();
+
 	public Boolean isNotFound();
 }

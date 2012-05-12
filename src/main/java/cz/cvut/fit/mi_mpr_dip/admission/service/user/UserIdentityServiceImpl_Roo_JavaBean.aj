@@ -3,8 +3,10 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
+import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityServiceImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionService;
@@ -13,6 +15,22 @@ privileged aspect UserIdentityServiceImpl_Roo_JavaBean {
     
     public String[] UserIdentityServiceImpl.getDefaultRoles() {
         return this.defaultRoles;
+    }
+    
+    public AdmissionDao UserIdentityServiceImpl.getAdmissionDao() {
+        return this.admissionDao;
+    }
+    
+    public void UserIdentityServiceImpl.setAdmissionDao(AdmissionDao admissionDao) {
+        this.admissionDao = admissionDao;
+    }
+    
+    public LinkService UserIdentityServiceImpl.getLinkService() {
+        return this.linkService;
+    }
+    
+    public void UserIdentityServiceImpl.setLinkService(LinkService linkService) {
+        this.linkService = linkService;
     }
     
     public UserIdentityDao UserIdentityServiceImpl.getUserIdentityDao() {

@@ -23,6 +23,11 @@ public class AdmissionUniqueConstraint implements UniqueConstraint<Admission> {
 	}
 
 	@Override
+	public Boolean isFound() {
+		return !isNotFound();
+	}
+
+	@Override
 	public Boolean isNotFound() {
 		return admissionCode == null;
 	}

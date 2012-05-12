@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,10 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 	@Override
 	public Response getUserIdentity() {
 		Authentication authentication = getAuthentication();
-		return Response.ok(getUserIdentityService().getUserIdentity(authentication.getPrincipal().toString())).build();
+		UserIdentity userIdentity = getUserIdentityService().getUserIdentity(authentication.getPrincipal().toString());
+		getUserIdentityService().addAdmissionLink(userIdentity);
+		
+		return getOkResponse(userIdentity);
 	}
 
 	private Authentication getAuthentication() {
@@ -54,11 +56,9 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 		UserSession userSession = getUserSessionDao().getUserSession(identifier);
 		UserIdentity userIdentity = userSession.getUserIdentity();
 		validateUserSession(username, userIdentity, userSession);
-		ResponseBuilder builder;
 		getUserSessionDao().remove(username, identifier);
-		builder = Response.ok();
 
-		return builder.build();
+		return getOkResponse();
 	}
 
 	private void validateUserSession(String username, UserIdentity userIdentity, UserSession userSession) {
@@ -75,7 +75,7 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 
 		validateUserRoles(username, userIdentity, userRoles);
 		getUserIdentityService().updateUserRoles(userIdentity, userRoles);
-		return Response.ok().build();
+		return getOkResponse();
 	}
 
 	private boolean isNotEqual(String one, String two) {

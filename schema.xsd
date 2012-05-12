@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="admission" type="admission"/>
+
+  <xs:element name="admissionResult" type="admissionResult"/>
+
+  <xs:element name="admissions" type="admissions"/>
+
+  <xs:element name="appeal" type="appeal"/>
+
+  <xs:element name="appealType" type="appealType"/>
+
+  <xs:element name="appendix" type="appendix"/>
+
+  <xs:element name="domainCollection" type="domainCollection"/>
+
+  <xs:element name="errorResponse" type="errorResponse"/>
+
+  <xs:element name="programme" type="programme"/>
+
+  <xs:element name="programs" type="programs"/>
+
+  <xs:element name="referenceNumber" type="referenceNumber"/>
+
+  <xs:element name="referenceNumberType" type="referenceNumberType"/>
+
+  <xs:element name="roles" type="userRoles"/>
+
+  <xs:element name="term" type="term"/>
+
+  <xs:element name="termType" type="termType"/>
+
+  <xs:element name="terms" type="terms"/>
+
+  <xs:element name="userIdentity" type="userIdentity"/>
+
+  <xs:complexType name="addressType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="errorResponse">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+      <xs:element name="internalRequestId" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="programme">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="studyMode" type="studyMode" minOccurs="0"/>
+      <xs:element name="degree" type="degree" minOccurs="0"/>
+      <xs:element name="language" type="language" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="studyMode">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="degree">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="language">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accomplishmentValue">
+    <xs:sequence>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appeal">
+    <xs:sequence>
+      <xs:element name="accepted" type="xs:boolean" minOccurs="0"/>
+      <xs:element ref="appealType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appealType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="printLine">
+    <xs:sequence>
+      <xs:element name="printLineType" type="printLineType" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="printLineType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="link">
+    <xs:sequence/>
+    <xs:attribute name="href" type="xs:string"/>
+    <xs:attribute name="method" type="xs:string"/>
+    <xs:attribute name="rel" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="person">
+    <xs:sequence>
+      <xs:element name="citizenship" type="country" minOccurs="0"/>
+      <xs:element name="prefix" type="xs:string" minOccurs="0"/>
+      <xs:element name="suffix" type="xs:string" minOccurs="0"/>
+      <xs:element name="firstname" type="xs:string" minOccurs="0"/>
+      <xs:element name="middlename" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastname" type="xs:string" minOccurs="0"/>
+      <xs:element name="maidenname" type="xs:string" minOccurs="0"/>
+      <xs:element name="maritalStatus" type="maritalStatus" minOccurs="0"/>
+      <xs:element name="permanentResidenceGranted" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="documents" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="document" type="document" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addresses" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="birthdate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="birthIdentificationNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="gender" type="gender" minOccurs="0"/>
+      <xs:element name="cityOfBirth" type="city" minOccurs="0"/>
+      <xs:element name="countryOfBirth" type="country" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="email" type="xs:string" minOccurs="0"/>
+      <xs:element name="disabilities" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="disability" type="disabilityType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="country">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="maritalStatus">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="document">
+    <xs:sequence>
+      <xs:element name="documentType" type="documentType" minOccurs="0"/>
+      <xs:element name="number" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="documentType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element name="addressType" type="addressType" minOccurs="0"/>
+      <xs:element name="street" type="xs:string" minOccurs="0"/>
+      <xs:element name="houseNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="city" type="city" minOccurs="0"/>
+      <xs:element name="postNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="postalCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="country" type="country" minOccurs="0"/>
+      <xs:element name="printLines" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="printLine" type="printLine" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="city">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="part" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="gender">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="disabilityType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="evaluationType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userRoles">
+    <xs:complexContent>
+      <xs:extension base="domainCollection">
+        <xs:sequence>
+          <xs:element name="role" type="userRole" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="domainCollection" abstract="true">
+    <xs:sequence>
+      <xs:element name="count" type="xs:long" minOccurs="0"/>
+      <xs:element name="totalCount" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userRole">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="permissions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="permission" type="userPermission" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userPermission">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="referenceNumber">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" minOccurs="0"/>
+      <xs:element name="executed" type="xs:dateTime" minOccurs="0"/>
+      <xs:element ref="referenceNumberType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="referenceNumberType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="apology">
+    <xs:sequence>
+      <xs:element name="registration" type="termRegistration" minOccurs="0"/>
+      <xs:element name="approved" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="text" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="termRegistration">
+    <xs:sequence>
+      <xs:element ref="admission" minOccurs="0"/>
+      <xs:element ref="term" minOccurs="0"/>
+      <xs:element name="apology" type="apology" minOccurs="0"/>
+      <xs:element name="attended" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="admission">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+      <xs:element name="accepted" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="accomplishments" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="accomplishment" type="accomplishment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="appeals" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="appeal" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dormitoryRequest" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="admissionState" type="admissionState" minOccurs="0"/>
+      <xs:element name="result" type="admissionResult" minOccurs="0"/>
+      <xs:element name="evaluations" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="evaluation" type="evaluation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="faculty" type="faculty" minOccurs="0"/>
+      <xs:element name="link" type="link" minOccurs="0"/>
+      <xs:element name="person" type="person" minOccurs="0"/>
+      <xs:element ref="programme" minOccurs="0"/>
+      <xs:element name="registrations" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="registration" type="termRegistration" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="userIdentity" minOccurs="0"/>
+      <xs:element name="referenceNumbers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="referenceNumber" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accomplishment">
+    <xs:sequence>
+      <xs:element name="accomplishmentType" type="accomplishmentType" minOccurs="0"/>
+      <xs:element name="accomplishmentValues" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="accomplishmentValue" type="accomplishmentValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accomplishmentType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="admissionState">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="desciption" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="admissionResult">
+    <xs:sequence>
+      <xs:element name="value" type="xs:double" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="evaluation">
+    <xs:sequence>
+      <xs:element name="evaluationType" type="evaluationType" minOccurs="0"/>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="faculty">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userIdentity">
+    <xs:sequence>
+      <xs:element ref="admission" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+      <xs:element name="roles" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="role" type="userRole" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sessions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="session" type="userSession" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="authentication" type="userIdentityAuthentication" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userSession">
+    <xs:sequence>
+      <xs:element name="identifier" type="xs:string" minOccurs="0"/>
+      <xs:element name="grantValidTo" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="term">
+    <xs:sequence>
+      <xs:element name="dateOfTerm" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="link" type="link" minOccurs="0"/>
+      <xs:element name="room" type="xs:string" minOccurs="0"/>
+      <xs:element name="capacity" type="xs:int" minOccurs="0"/>
+      <xs:element name="registerFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="registerTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="apologyTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="programs" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="programme" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="registrations" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="registration" type="termRegistration" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="termType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="termType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="programs">
+    <xs:complexContent>
+      <xs:extension base="domainCollection">
+        <xs:sequence>
+          <xs:element ref="programme" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="appendixType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appendix">
+    <xs:sequence>
+      <xs:element name="filename" type="xs:string" minOccurs="0"/>
+      <xs:element name="mimeType" type="xs:string" minOccurs="0"/>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="attachmentType" type="appendixType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="terms">
+    <xs:complexContent>
+      <xs:extension base="domainCollection">
+        <xs:sequence>
+          <xs:element ref="term" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="userPassword">
+    <xs:sequence>
+      <xs:element name="hash" type="xs:string" minOccurs="0"/>
+      <xs:element name="plaintext" type="xs:string" minOccurs="0"/>
+      <xs:element name="salt" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="admissions">
+    <xs:complexContent>
+      <xs:extension base="domainCollection">
+        <xs:sequence>
+          <xs:element ref="admission" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="userIdentityAuthentication">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LDAP"/>
+      <xs:enumeration value="PWD"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

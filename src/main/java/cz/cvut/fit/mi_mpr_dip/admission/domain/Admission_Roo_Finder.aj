@@ -5,6 +5,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -23,6 +24,14 @@ privileged aspect Admission_Roo_Finder {
         EntityManager em = Admission.entityManager();
         TypedQuery<Admission> q = em.createQuery("SELECT o FROM Admission AS o WHERE o.person = :person", Admission.class);
         q.setParameter("person", person);
+        return q;
+    }
+    
+    public static TypedQuery<Admission> Admission.findAdmissionsByUserIdentity(UserIdentity userIdentity) {
+        if (userIdentity == null) throw new IllegalArgumentException("The userIdentity argument is required");
+        EntityManager em = Admission.entityManager();
+        TypedQuery<Admission> q = em.createQuery("SELECT o FROM Admission AS o WHERE o.userIdentity = :userIdentity", Admission.class);
+        q.setParameter("userIdentity", userIdentity);
         return q;
     }
     

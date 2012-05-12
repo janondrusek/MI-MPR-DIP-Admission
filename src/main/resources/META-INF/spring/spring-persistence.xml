@@ -8,9 +8,9 @@
      http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd     
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
-<!-- 	<jdbc:initialize-database data-source="dataSource"> -->
-<!-- 		<jdbc:script location="classpath:META-INF/sql/admission-test-data.sql" /> -->
-<!-- 	</jdbc:initialize-database> -->
+	<!-- <jdbc:initialize-database data-source="dataSource"> -->
+	<!-- <jdbc:script location="classpath:META-INF/sql/admission-test-data.sql" /> -->
+	<!-- </jdbc:initialize-database> -->
 
 	<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
 		<property name="driverClassName" value="${database.driverClassName}" />
@@ -32,6 +32,12 @@
 	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
 		<property name="persistenceUnitName" value="persistenceUnit" />
 		<property name="dataSource" ref="dataSource" />
+		<property name="jpaProperties">
+			<map>
+				<entry key="hibernate.dialect" value="${hibernate.dialect}" />
+				<entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
+			</map>
+		</property>
 	</bean>
 
 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />

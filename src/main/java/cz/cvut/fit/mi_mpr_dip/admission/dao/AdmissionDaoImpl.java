@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
 @Repository
 public class AdmissionDaoImpl extends AbstractDao<Admission> implements AdmissionDao {
@@ -42,6 +43,22 @@ public class AdmissionDaoImpl extends AbstractDao<Admission> implements Admissio
 		Admission admission;
 		try {
 			admission = Admission.findAdmissionsByPerson(person).getSingleResult();
+		} catch (Exception e) {
+			admission = processException(e);
+		}
+		return admission;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Admission getAdmission(UserIdentity userIdentity) {
+		return getAdmissionQuietly(userIdentity);
+	}
+
+	private Admission getAdmissionQuietly(UserIdentity userIdentity) {
+		Admission admission;
+		try {
+			admission = Admission.findAdmissionsByUserIdentity(userIdentity).getSingleResult();
 		} catch (Exception e) {
 			admission = processException(e);
 		}

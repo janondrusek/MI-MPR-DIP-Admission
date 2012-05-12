@@ -6,6 +6,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
 public interface UserIdentityService {
 
+	public void addAdmissionLink(UserIdentity userIdentity);
+
 	public UserIdentity getUserIdentity(String username);
 
 	public void buildUserIdentity(Admission admission);

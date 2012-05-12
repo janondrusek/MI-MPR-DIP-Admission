@@ -1,13 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service;
 
-import java.net.URI;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.Response;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -18,13 +14,9 @@ import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Link;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
-import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
@@ -37,6 +29,9 @@ public class TermServiceImpl implements TermService {
 
 	@Autowired
 	private BusinessExceptionUtil businessExceptionUtil;
+
+	@Autowired
+	private LinkService linkService;
 
 	@Autowired
 	private TermDao termDao;
@@ -76,7 +71,7 @@ public class TermServiceImpl implements TermService {
 
 	private Admission getAdmissionLink(Admission admission) {
 		Admission admissionLink = new Admission();
-		admissionLink.setLink(getLink(WebKeys.ADMISSION, getUri(admission)));
+		admissionLink.setLink(getLinkService().getAdmissionLink(admission));
 
 		return admissionLink;
 	}
@@ -90,39 +85,9 @@ public class TermServiceImpl implements TermService {
 
 	private Term getTermLink(Term term) {
 		Term termLink = new Term();
-		termLink.setLink(getLink(WebKeys.TERM, getUri(term)));
+		termLink.setLink(getLinkService().getTermLink(term));
 
 		return termLink;
-	}
-
-	private URI getUri(Admission admission) {
-		return getUriEndpointHelper().getAdmissionLocation(AdmissionEndpointImpl.ENDPOINT_PATH, admission);
-	}
-
-	private URI getUri(Term term) {
-		return getUriEndpointHelper().getTermLocation(TermEndpointImpl.ENDPOINT_PATH, term);
-	}
-
-	private Link getLink(String rel, URI uri) {
-		Link link = new Link();
-		try {
-			String href = getHref(uri);
-			link.setHref(href);
-		} catch (Exception e) {
-			log.error("Unable to build link [{}]", String.valueOf(e));
-			throw new TechnicalException(e);
-		}
-		link.setMethod(HttpMethod.GET);
-		link.setRel(rel);
-
-		return link;
-	}
-
-	private String getHref(URI uri) {
-		Response response = Response.created(uri).build();
-		List<Object> headers = response.getMetadata().get(WebKeys.LOCATION);
-
-		return String.valueOf(headers.get(0));
 	}
 
 	@Override
