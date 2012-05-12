@@ -31,18 +31,6 @@ privileged aspect TermDataOnDemand_Roo_DataOnDemand {
     @Autowired
     private TermTypeDataOnDemand TermDataOnDemand.termTypeDataOnDemand;
     
-    public Term TermDataOnDemand.getNewTransientTerm(int index) {
-        Term obj = new Term();
-        setApologyTo(obj, index);
-        setCapacity(obj, index);
-        setDateOfTerm(obj, index);
-        setRegisterFrom(obj, index);
-        setRegisterTo(obj, index);
-        setRoom(obj, index);
-        setTermType(obj, index);
-        return obj;
-    }
-    
     public void TermDataOnDemand.setApologyTo(Term obj, int index) {
         Date apologyTo = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setApologyTo(apologyTo);
