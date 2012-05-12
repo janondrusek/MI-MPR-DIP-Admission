@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,7 +25,6 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooEquals(excludeFields = { "referenceNumberId" })
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
 @RooJpaActiveRecord
 public class ReferenceNumber {
 
@@ -39,15 +37,15 @@ public class ReferenceNumber {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
 	private Long referenceNumberId;
-	
-	@NotEmpty
-    @NotNull
-    private String code;
 
-    @NotNull
-    private Date executed;
-    
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@NotEmpty
+	@NotNull
+	private String code;
+
+	@NotNull
+	private Date executed;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@Valid
 	private ReferenceNumberType referenceNumberType;
 }
