@@ -3,7 +3,7 @@
 This application is a result of Master project at FIT CTU in Prague.
 Implements entire admission process to master studies.
 
-## Admisson procedure - automatic processing of applications for masters study program
+## Admission procedure - automatic processing of applications for masters study program
 
 * Familiarize with Conditions for admission and Dean’s Directive on the admission process to master study programme taught at FIT CTU.
 
