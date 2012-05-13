@@ -1,12 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
-import java.util.HashSet;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
@@ -16,11 +13,7 @@ public class AdmissionDaoImpl extends AbstractDao<Admission> implements Admissio
 	@Transactional(readOnly = true)
 	@Override
 	public Admission getAdmission(String code) {
-		Admission admission = getAdmissionQuietly(code);
-		if (admission.getPhotos() == null) {
-			admission.setPhotos(new HashSet<Appendix>());
-		}
-		return admission;
+		return getAdmissionQuietly(code);
 	}
 
 	private Admission getAdmissionQuietly(String code) {

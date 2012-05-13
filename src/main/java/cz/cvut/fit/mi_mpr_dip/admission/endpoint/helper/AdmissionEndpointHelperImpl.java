@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
@@ -78,6 +79,7 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 		return getOkResponse();
 	}
 
+	@Transactional
 	@Override
 	public <T> Response mergeAdmission(String admissionCode, String baseLocation, T actor, AdmissionAction<T> action) {
 		Admission admission = getAdmissionDao().getAdmission(admissionCode);

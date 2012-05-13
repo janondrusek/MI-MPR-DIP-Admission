@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import java.util.HashSet;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -141,16 +143,31 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response savePhoto(@PathParam("admissionCode") String admissionCode, @Valid final Appendix photo) {
+	public Response savePhoto(@PathParam("admissionCode") String admissionCode, Appendix photo) {
 		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, ENDPOINT_PATH, photo,
-				new AdmissionAction<Appendix>() {
+				new SavePhotoAdmissionAction(photo));
+	}
 
-					@Override
-					public void performAction(Admission admission, Appendix actor) {
-						getAppendixDeduplicationSevice().deduplicateAndStore(photo);
-						admission.getPhotos().add(photo);
-					}
-				});
+	private class SavePhotoAdmissionAction implements AdmissionAction<Appendix> {
+
+		private Appendix photo;
+
+		public SavePhotoAdmissionAction(Appendix photo) {
+			this.photo = photo;
+		}
+
+		@Override
+		public void performAction(Admission admission, Appendix actor) {
+			getAppendixDeduplicationSevice().deduplicateAndStore(photo);
+			ensurePhotos(admission);
+			admission.getPhotos().add(photo);
+		}
+
+		private void ensurePhotos(Admission admission) {
+			if (admission.getPhotos() == null) {
+				admission.setPhotos(new HashSet<Appendix>());
+			}
+		}
 	}
 
 }

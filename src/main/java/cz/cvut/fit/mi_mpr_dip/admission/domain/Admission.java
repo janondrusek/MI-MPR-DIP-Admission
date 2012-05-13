@@ -109,7 +109,7 @@ public class Admission {
 	private Programme programme;
 
 	@XmlTransient
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Valid
 	private Set<Appendix> photos;
 
