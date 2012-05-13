@@ -7,9 +7,9 @@
 
   <xs:element name="admissions" type="admissions"/>
 
-  <xs:element name="appeal" type="appeal"/>
+  <xs:element name="apology" type="apology"/>
 
-  <xs:element name="appealType" type="appealType"/>
+  <xs:element name="appeal" type="appeal"/>
 
   <xs:element name="appendix" type="appendix"/>
 
@@ -21,15 +21,9 @@
 
   <xs:element name="programs" type="programs"/>
 
-  <xs:element name="referenceNumber" type="referenceNumber"/>
-
-  <xs:element name="referenceNumberType" type="referenceNumberType"/>
-
   <xs:element name="roles" type="userRoles"/>
 
   <xs:element name="term" type="term"/>
-
-  <xs:element name="termType" type="termType"/>
 
   <xs:element name="terms" type="terms"/>
 
@@ -84,7 +78,7 @@
   <xs:complexType name="appeal">
     <xs:sequence>
       <xs:element name="accepted" type="xs:boolean" minOccurs="0"/>
-      <xs:element ref="appealType" minOccurs="0"/>
+      <xs:element name="appealType" type="appealType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -265,7 +259,7 @@
     <xs:sequence>
       <xs:element name="code" type="xs:string" minOccurs="0"/>
       <xs:element name="executed" type="xs:dateTime" minOccurs="0"/>
-      <xs:element ref="referenceNumberType" minOccurs="0"/>
+      <xs:element name="referenceNumberType" type="referenceNumberType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -277,9 +271,58 @@
 
   <xs:complexType name="apology">
     <xs:sequence>
-      <xs:element name="registration" type="termRegistration" minOccurs="0"/>
       <xs:element name="approved" type="xs:boolean" minOccurs="0"/>
       <xs:element name="text" type="xs:string" minOccurs="0"/>
+      <xs:element name="appendices" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="appendix" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appendix">
+    <xs:sequence>
+      <xs:element name="filename" type="xs:string" minOccurs="0"/>
+      <xs:element name="link" type="link" minOccurs="0"/>
+      <xs:element name="mimeType" type="xs:string" minOccurs="0"/>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="appendixType" type="appendixType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appendixType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="term">
+    <xs:sequence>
+      <xs:element name="dateOfTerm" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="link" type="link" minOccurs="0"/>
+      <xs:element name="room" type="xs:string" minOccurs="0"/>
+      <xs:element name="capacity" type="xs:int" minOccurs="0"/>
+      <xs:element name="registerFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="registerTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="apologyTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="programs" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="programme" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="registrations" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="registration" type="termRegistration" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="termType" type="termType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -287,7 +330,7 @@
     <xs:sequence>
       <xs:element ref="admission" minOccurs="0"/>
       <xs:element ref="term" minOccurs="0"/>
-      <xs:element name="apology" type="apology" minOccurs="0"/>
+      <xs:element ref="apology" minOccurs="0"/>
       <xs:element name="attended" type="xs:boolean" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -336,7 +379,7 @@
       <xs:element name="referenceNumbers" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
-            <xs:element ref="referenceNumber" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="referenceNumber" type="referenceNumber" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -418,33 +461,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="term">
-    <xs:sequence>
-      <xs:element name="dateOfTerm" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="link" type="link" minOccurs="0"/>
-      <xs:element name="room" type="xs:string" minOccurs="0"/>
-      <xs:element name="capacity" type="xs:int" minOccurs="0"/>
-      <xs:element name="registerFrom" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="registerTo" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="apologyTo" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="programs" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element ref="programme" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="registrations" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="registration" type="termRegistration" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element ref="termType" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="termType">
     <xs:sequence>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
@@ -459,21 +475,6 @@
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="appendixType">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="appendix">
-    <xs:sequence>
-      <xs:element name="filename" type="xs:string" minOccurs="0"/>
-      <xs:element name="mimeType" type="xs:string" minOccurs="0"/>
-      <xs:element name="content" type="xs:string" minOccurs="0"/>
-      <xs:element name="attachmentType" type="appendixType" minOccurs="0"/>
-    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="terms">
