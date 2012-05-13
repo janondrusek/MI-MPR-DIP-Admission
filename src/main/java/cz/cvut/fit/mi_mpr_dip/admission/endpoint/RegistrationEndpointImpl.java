@@ -1,7 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Apology;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.RegistrationEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
@@ -22,6 +25,7 @@ public class RegistrationEndpointImpl implements RegistrationEndpoint {
 	public static final String ENDPOINT_PATH = AdmissionEndpointImpl.ENDPOINT_PATH
 			+ AdmissionEndpointImpl.ADMISSION_PATH + URIKeys.REGISTRATION_PATH;
 	public static final String REGISTRATION_PATH = TermEndpointImpl.ENDPOINT_PATH + TermEndpointImpl.TERM_PATH;
+	public static final String APOLOGY_PATH = REGISTRATION_PATH + URIKeys.APOLOGY_PATH;
 
 	@Autowired
 	private RegistrationEndpointHelper registrationEndpointHelper;
@@ -44,6 +48,35 @@ public class RegistrationEndpointImpl implements RegistrationEndpoint {
 	public Response deleteRegistration(@PathParam("admissionCode") String admissionCode,
 			@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room) {
 		return getRegistrationEndpointHelper().deleteRegistration(admissionCode, dateOfTerm, room);
+	}
+
+	@Secured("PERM_WRITE_APOLOGY")
+	@Path(APOLOGY_PATH)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@POST
+	@Override
+	public Response addApology(@PathParam("admissionCode") String admissionCode,
+			@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room, Apology apology) {
+		return getRegistrationEndpointHelper().addApology(admissionCode, dateOfTerm, room, apology);
+	}
+
+	@Secured("PERM_DELETE_APOLOGY")
+	@Path(APOLOGY_PATH)
+	@DELETE
+	@Override
+	public Response deleteApology(@PathParam("admissionCode") String admissionCode,
+			@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room) {
+		return getRegistrationEndpointHelper().deleteApology(admissionCode, dateOfTerm, room);
+	}
+
+	@Secured("PERM_WRITE_APOLOGY")
+	@Path(APOLOGY_PATH)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@PUT
+	@Override
+	public Response updateApology(@PathParam("admissionCode") String admissionCode,
+			@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room, Apology apology) {
+		return getRegistrationEndpointHelper().updateApology(admissionCode, dateOfTerm, room, apology);
 	}
 
 }

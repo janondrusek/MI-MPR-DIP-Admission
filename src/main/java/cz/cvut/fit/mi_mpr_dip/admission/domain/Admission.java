@@ -35,7 +35,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 
 @RooJavaBean
-@RooToString
+@RooToString(excludeFields = { "photos" })
 @RooEquals(excludeFields = { "admissionId" })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

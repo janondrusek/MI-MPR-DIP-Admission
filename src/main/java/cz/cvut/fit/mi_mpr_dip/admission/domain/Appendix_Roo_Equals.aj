@@ -17,11 +17,11 @@ privileged aspect Appendix_Roo_Equals {
             return true;
         }
         Appendix rhs = (Appendix) obj;
-        return new EqualsBuilder().append(attachmentType, rhs.attachmentType).append(content, rhs.content).append(filename, rhs.filename).append(mimeType, rhs.mimeType).isEquals();
+        return new EqualsBuilder().append(attachmentType, rhs.attachmentType).append(content, rhs.content).append(filename, rhs.filename).append(link, rhs.link).append(mimeType, rhs.mimeType).isEquals();
     }
     
     public int Appendix.hashCode() {
-        return new HashCodeBuilder().append(attachmentType).append(content).append(filename).append(mimeType).toHashCode();
+        return new HashCodeBuilder().append(attachmentType).append(content).append(filename).append(link).append(mimeType).toHashCode();
     }
     
 }

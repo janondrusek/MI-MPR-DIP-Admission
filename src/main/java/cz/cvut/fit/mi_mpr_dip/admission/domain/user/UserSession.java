@@ -22,7 +22,7 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
+@RooToString(excludeFields = { "userIdentity" })
 @RooEquals(excludeFields = { "userSessionId", "grantValidTo", "userIdentity" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findUserSessionsByIdentifierEqualsAndGrantValidToGreaterThan" })

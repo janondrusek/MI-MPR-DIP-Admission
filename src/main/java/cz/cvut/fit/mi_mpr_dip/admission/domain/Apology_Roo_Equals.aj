@@ -17,11 +17,11 @@ privileged aspect Apology_Roo_Equals {
             return true;
         }
         Apology rhs = (Apology) obj;
-        return new EqualsBuilder().append(approved, rhs.approved).append(registration, rhs.registration).append(text, rhs.text).isEquals();
+        return new EqualsBuilder().append(approved, rhs.approved).append(text, rhs.text).isEquals();
     }
     
     public int Apology.hashCode() {
-        return new HashCodeBuilder().append(approved).append(registration).append(text).toHashCode();
+        return new HashCodeBuilder().append(approved).append(text).toHashCode();
     }
     
 }

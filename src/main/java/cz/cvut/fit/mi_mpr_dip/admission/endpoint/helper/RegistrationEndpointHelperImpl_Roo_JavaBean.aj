@@ -8,6 +8,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.RegistrationEndpointHelp
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.ApologyDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.TermRegistrationUniqueConstraintValidator;
 
 privileged aspect RegistrationEndpointHelperImpl_Roo_JavaBean {
@@ -18,6 +19,14 @@ privileged aspect RegistrationEndpointHelperImpl_Roo_JavaBean {
     
     public void RegistrationEndpointHelperImpl.setAdmissionService(AdmissionService admissionService) {
         this.admissionService = admissionService;
+    }
+    
+    public ApologyDeduplicationService RegistrationEndpointHelperImpl.getApologyDeduplicationService() {
+        return this.apologyDeduplicationService;
+    }
+    
+    public void RegistrationEndpointHelperImpl.setApologyDeduplicationService(ApologyDeduplicationService apologyDeduplicationService) {
+        this.apologyDeduplicationService = apologyDeduplicationService;
     }
     
     public TermRegistrationDao RegistrationEndpointHelperImpl.getTermRegistrationDao() {

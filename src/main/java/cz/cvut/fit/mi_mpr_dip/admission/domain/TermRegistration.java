@@ -26,7 +26,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 @RooJavaBean
-@RooToString
+@RooToString(excludeFields = { "admission" })
 @RooEquals(excludeFields = { "termRegistrationId", "admission" })
 @RooJpaActiveRecord(finders = { "findTermRegistrationsByAdmissionAndTerm" })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "admission", "term" }))
@@ -57,13 +57,12 @@ public class TermRegistration {
 	@Valid
 	@XmlTransient
 	private Term term;
-	
+
 	@Transient
 	@XmlElement(name = WebKeys.TERM)
 	private Term termLink;
 
-	@Transient
-	@OneToOne(mappedBy = "termRegistration", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "registration", cascade = CascadeType.ALL)
 	@Valid
 	private Apology apology;
 

@@ -4,6 +4,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.ext.ExceptionMapper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -15,11 +17,16 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 @RooJavaBean
 public abstract class BaseExceptionMapper<E extends Throwable> implements ExceptionMapper<E> {
 
+	private static final Logger log = LoggerFactory.getLogger(BaseExceptionMapper.class);
+
 	@Autowired
 	private LoggingService loggingService;
 
 	@Override
 	public Response toResponse(E exception) {
+		log.info("In exception mapper [{}]", String.valueOf(exception));
+		log.debug("Exception occured", exception);
+
 		setLogErrorResponse();
 		ErrorResponse response = new ErrorResponse();
 		response.setMessage(createMessage(exception));

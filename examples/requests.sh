@@ -91,3 +91,12 @@ curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session 
 
 # Registration.delete
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}
+
+# Apology.add
+cat examples/apology_01.xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X POST -d @- http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}/apology
+
+# Apology.delete
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X DELETE http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}/apology
+
+# Apology.update
+cat examples/apology_01.xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}/apology

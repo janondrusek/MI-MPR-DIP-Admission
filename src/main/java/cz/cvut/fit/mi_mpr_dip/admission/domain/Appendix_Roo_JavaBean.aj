@@ -5,6 +5,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Link;
 
 privileged aspect Appendix_Roo_JavaBean {
     
@@ -30,6 +31,14 @@ privileged aspect Appendix_Roo_JavaBean {
     
     public void Appendix.setFilename(String filename) {
         this.filename = filename;
+    }
+    
+    public Link Appendix.getLink() {
+        return this.link;
+    }
+    
+    public void Appendix.setLink(Link link) {
+        this.link = link;
     }
     
     public String Appendix.getMimeType() {

@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -15,6 +16,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,10 +28,11 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
-@RooEquals(excludeFields = { "apologyId" })
-@XmlAccessorType(XmlAccessType.FIELD)
+@RooToString(excludeFields = { "registration", "appendices" })
+@RooEquals(excludeFields = { "apologyId", "registration" })
 @RooJpaActiveRecord
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class Apology {
 
 	@Version
@@ -40,7 +45,8 @@ public class Apology {
 	@XmlTransient
 	private Long apologyId;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@XmlTransient
 	private TermRegistration registration;
 
 	@NotNull
@@ -48,10 +54,16 @@ public class Apology {
 
 	@NotEmpty
 	@NotNull
+	@Lob
 	private String text;
 
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@XmlTransient
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
+	private Set<Appendix> appendices;
+
+	@Transient
 	@Valid
-	private Set<Appendix> files;
+	@XmlElementWrapper(name = "appendices")
+	@XmlElement(name = "appendix")
+	private Set<Appendix> marshalledAppendices;
 }

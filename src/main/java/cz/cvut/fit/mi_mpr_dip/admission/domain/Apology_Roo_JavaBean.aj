@@ -50,12 +50,20 @@ privileged aspect Apology_Roo_JavaBean {
         this.text = text;
     }
     
-    public Set<Appendix> Apology.getFiles() {
-        return this.files;
+    public Set<Appendix> Apology.getAppendices() {
+        return this.appendices;
     }
     
-    public void Apology.setFiles(Set<Appendix> files) {
-        this.files = files;
+    public void Apology.setAppendices(Set<Appendix> appendices) {
+        this.appendices = appendices;
+    }
+    
+    public Set<Appendix> Apology.getMarshalledAppendices() {
+        return this.marshalledAppendices;
+    }
+    
+    public void Apology.setMarshalledAppendices(Set<Appendix> marshalledAppendices) {
+        this.marshalledAppendices = marshalledAppendices;
     }
     
 }

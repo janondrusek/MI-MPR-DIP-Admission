@@ -41,6 +41,9 @@ public class Appendix {
 
 	private String filename;
 
+	@Transient
+	private Link link;
+
 	@NotEmpty
 	@NotNull
 	private String mimeType;
@@ -50,7 +53,7 @@ public class Appendix {
 	@Lob
 	private String content;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@Valid
 	private AppendixType attachmentType;
 }

@@ -22,7 +22,7 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
+@RooToString(excludeFields = { "roles" })
 @RooEquals(excludeFields = { "userPermissionId", "roles" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -45,5 +45,5 @@ public class UserPermission {
 
 	@ManyToMany(mappedBy = "permissions", fetch = FetchType.EAGER)
 	@XmlTransient
-	Set<UserRole> roles;
+	private Set<UserRole> roles;
 }
