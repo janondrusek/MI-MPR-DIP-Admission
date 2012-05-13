@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -58,6 +60,7 @@ public class Apology {
 	private String text;
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinTable(name = "apology_appendix", joinColumns = { @JoinColumn(name = "apology_id", referencedColumnName = "apologyId") }, inverseJoinColumns = { @JoinColumn(name = "appendix_id", referencedColumnName = "appendixId") })
 	@XmlTransient
 	private Set<Appendix> appendices;
 

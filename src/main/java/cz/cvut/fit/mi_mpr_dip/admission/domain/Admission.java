@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -65,12 +67,14 @@ public class Admission {
 	private Boolean accepted = Boolean.FALSE;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "admission_accomplishment", joinColumns = { @JoinColumn(name = "admission_id", referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "accomplishment_id", referencedColumnName = "accomplishmentId") })
 	@Valid
 	@XmlElementWrapper(name = "accomplishments")
 	@XmlElement(name = "accomplishment")
 	private Set<Accomplishment> accomplishments;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "admission_appeal", joinColumns = { @JoinColumn(name = "admission_id", referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "appeal_id", referencedColumnName = "appealId") })
 	@Valid
 	@XmlElementWrapper(name = "appeals")
 	@XmlElement(name = "appeal")
@@ -87,6 +91,7 @@ public class Admission {
 	private AdmissionResult result;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "admission_evaluation", joinColumns = { @JoinColumn(name = "admission_id", referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "evaluation_id", referencedColumnName = "evaluationId") })
 	@Valid
 	@XmlElementWrapper(name = "evaluations")
 	@XmlElement(name = "evaluation")
@@ -110,6 +115,7 @@ public class Admission {
 
 	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "admission_appendix", joinColumns = { @JoinColumn(name = "admission_id", referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "appendix_id", referencedColumnName = "appendixId") })
 	@Valid
 	private Set<Appendix> photos;
 
@@ -123,6 +129,7 @@ public class Admission {
 	private UserIdentity userIdentity;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "admission_reference_number", joinColumns = { @JoinColumn(name = "admission_id", referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "reference_number_id", referencedColumnName = "referenceNumberId") })
 	@Valid
 	@XmlElementWrapper(name = "referenceNumbers")
 	@XmlElement(name = "referenceNumber")

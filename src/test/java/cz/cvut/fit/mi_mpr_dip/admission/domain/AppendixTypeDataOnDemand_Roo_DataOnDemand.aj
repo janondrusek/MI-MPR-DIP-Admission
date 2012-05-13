@@ -42,14 +42,14 @@ privileged aspect AppendixTypeDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         AppendixType obj = data.get(index);
-        Long id = obj.getAttachmentTypeId();
+        Long id = obj.getAppendixTypeId();
         return AppendixType.findAppendixType(id);
     }
     
     public AppendixType AppendixTypeDataOnDemand.getRandomAppendixType() {
         init();
         AppendixType obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getAttachmentTypeId();
+        Long id = obj.getAppendixTypeId();
         return AppendixType.findAppendixType(id);
     }
     

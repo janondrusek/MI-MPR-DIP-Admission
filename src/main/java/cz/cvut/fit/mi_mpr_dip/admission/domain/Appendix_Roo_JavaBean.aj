@@ -17,12 +17,12 @@ privileged aspect Appendix_Roo_JavaBean {
         this.version = version;
     }
     
-    public Long Appendix.getAttachmentId() {
-        return this.attachmentId;
+    public Long Appendix.getAppendixId() {
+        return this.appendixId;
     }
     
-    public void Appendix.setAttachmentId(Long attachmentId) {
-        this.attachmentId = attachmentId;
+    public void Appendix.setAppendixId(Long appendixId) {
+        this.appendixId = appendixId;
     }
     
     public String Appendix.getFilename() {
@@ -57,12 +57,12 @@ privileged aspect Appendix_Roo_JavaBean {
         this.content = content;
     }
     
-    public AppendixType Appendix.getAttachmentType() {
-        return this.attachmentType;
+    public AppendixType Appendix.getAppendixType() {
+        return this.appendixType;
     }
     
-    public void Appendix.setAttachmentType(AppendixType attachmentType) {
-        this.attachmentType = attachmentType;
+    public void Appendix.setAppendixType(AppendixType appendixType) {
+        this.appendixType = appendixType;
     }
     
 }

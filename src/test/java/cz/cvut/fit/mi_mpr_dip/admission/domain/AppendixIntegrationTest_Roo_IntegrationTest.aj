@@ -37,11 +37,11 @@ privileged aspect AppendixIntegrationTest_Roo_IntegrationTest {
     public void AppendixIntegrationTest.testFindAppendix() {
         Appendix obj = dod.getRandomAppendix();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentId();
+        Long id = obj.getAppendixId();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to provide an identifier", id);
         obj = Appendix.findAppendix(id);
         Assert.assertNotNull("Find method for 'Appendix' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'Appendix' returned the incorrect identifier", id, obj.getAttachmentId());
+        Assert.assertEquals("Find method for 'Appendix' returned the incorrect identifier", id, obj.getAppendixId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect AppendixIntegrationTest_Roo_IntegrationTest {
     public void AppendixIntegrationTest.testFlush() {
         Appendix obj = dod.getRandomAppendix();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentId();
+        Long id = obj.getAppendixId();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to provide an identifier", id);
         obj = Appendix.findAppendix(id);
         Assert.assertNotNull("Find method for 'Appendix' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect AppendixIntegrationTest_Roo_IntegrationTest {
     public void AppendixIntegrationTest.testMergeUpdate() {
         Appendix obj = dod.getRandomAppendix();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentId();
+        Long id = obj.getAppendixId();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to provide an identifier", id);
         obj = Appendix.findAppendix(id);
         boolean modified =  dod.modifyAppendix(obj);
         Integer currentVersion = obj.getVersion();
         Appendix merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getAttachmentId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getAppendixId(), id);
         Assert.assertTrue("Version for 'Appendix' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect AppendixIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'Appendix' failed to initialize correctly", dod.getRandomAppendix());
         Appendix obj = dod.getNewTransientAppendix(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'Appendix' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'Appendix' identifier to be null", obj.getAttachmentId());
+        Assert.assertNull("Expected 'Appendix' identifier to be null", obj.getAppendixId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'Appendix' identifier to no longer be null", obj.getAttachmentId());
+        Assert.assertNotNull("Expected 'Appendix' identifier to no longer be null", obj.getAppendixId());
     }
     
     @Test
     public void AppendixIntegrationTest.testRemove() {
         Appendix obj = dod.getRandomAppendix();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentId();
+        Long id = obj.getAppendixId();
         Assert.assertNotNull("Data on demand for 'Appendix' failed to provide an identifier", id);
         obj = Appendix.findAppendix(id);
         obj.remove();

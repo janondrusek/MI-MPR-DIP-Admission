@@ -23,7 +23,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "attachmentId" })
+@RooEquals(excludeFields = { "appendixId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
@@ -37,7 +37,7 @@ public class Appendix {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long attachmentId;
+	private Long appendixId;
 
 	private String filename;
 
@@ -55,5 +55,5 @@ public class Appendix {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@Valid
-	private AppendixType attachmentType;
+	private AppendixType appendixType;
 }

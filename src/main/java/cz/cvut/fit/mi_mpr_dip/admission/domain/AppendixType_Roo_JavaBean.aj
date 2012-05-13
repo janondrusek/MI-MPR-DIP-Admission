@@ -15,12 +15,12 @@ privileged aspect AppendixType_Roo_JavaBean {
         this.version = version;
     }
     
-    public Long AppendixType.getAttachmentTypeId() {
-        return this.attachmentTypeId;
+    public Long AppendixType.getAppendixTypeId() {
+        return this.appendixTypeId;
     }
     
-    public void AppendixType.setAttachmentTypeId(Long attachmentTypeId) {
-        this.attachmentTypeId = attachmentTypeId;
+    public void AppendixType.setAppendixTypeId(Long appendixTypeId) {
+        this.appendixTypeId = appendixTypeId;
     }
     
     public String AppendixType.getName() {

@@ -19,7 +19,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooEquals(excludeFields = { "attachmentTypeId" })
+@RooEquals(excludeFields = { "appendixTypeId" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAppendixTypesByNameEquals" })
 public class AppendixType {
@@ -32,7 +32,7 @@ public class AppendixType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlTransient
-	private Long attachmentTypeId;
+	private Long appendixTypeId;
 
 	@NotEmpty
 	@NotNull

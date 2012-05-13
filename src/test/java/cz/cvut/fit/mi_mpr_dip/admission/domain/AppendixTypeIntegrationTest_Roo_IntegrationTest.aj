@@ -37,11 +37,11 @@ privileged aspect AppendixTypeIntegrationTest_Roo_IntegrationTest {
     public void AppendixTypeIntegrationTest.testFindAppendixType() {
         AppendixType obj = dod.getRandomAppendixType();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentTypeId();
+        Long id = obj.getAppendixTypeId();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to provide an identifier", id);
         obj = AppendixType.findAppendixType(id);
         Assert.assertNotNull("Find method for 'AppendixType' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'AppendixType' returned the incorrect identifier", id, obj.getAttachmentTypeId());
+        Assert.assertEquals("Find method for 'AppendixType' returned the incorrect identifier", id, obj.getAppendixTypeId());
     }
     
     @Test
@@ -70,7 +70,7 @@ privileged aspect AppendixTypeIntegrationTest_Roo_IntegrationTest {
     public void AppendixTypeIntegrationTest.testFlush() {
         AppendixType obj = dod.getRandomAppendixType();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentTypeId();
+        Long id = obj.getAppendixTypeId();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to provide an identifier", id);
         obj = AppendixType.findAppendixType(id);
         Assert.assertNotNull("Find method for 'AppendixType' illegally returned null for id '" + id + "'", obj);
@@ -84,14 +84,14 @@ privileged aspect AppendixTypeIntegrationTest_Roo_IntegrationTest {
     public void AppendixTypeIntegrationTest.testMergeUpdate() {
         AppendixType obj = dod.getRandomAppendixType();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentTypeId();
+        Long id = obj.getAppendixTypeId();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to provide an identifier", id);
         obj = AppendixType.findAppendixType(id);
         boolean modified =  dod.modifyAppendixType(obj);
         Integer currentVersion = obj.getVersion();
         AppendixType merged = obj.merge();
         obj.flush();
-        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getAttachmentTypeId(), id);
+        Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getAppendixTypeId(), id);
         Assert.assertTrue("Version for 'AppendixType' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
@@ -100,17 +100,17 @@ privileged aspect AppendixTypeIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to initialize correctly", dod.getRandomAppendixType());
         AppendixType obj = dod.getNewTransientAppendixType(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'AppendixType' identifier to be null", obj.getAttachmentTypeId());
+        Assert.assertNull("Expected 'AppendixType' identifier to be null", obj.getAppendixTypeId());
         obj.persist();
         obj.flush();
-        Assert.assertNotNull("Expected 'AppendixType' identifier to no longer be null", obj.getAttachmentTypeId());
+        Assert.assertNotNull("Expected 'AppendixType' identifier to no longer be null", obj.getAppendixTypeId());
     }
     
     @Test
     public void AppendixTypeIntegrationTest.testRemove() {
         AppendixType obj = dod.getRandomAppendixType();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to initialize correctly", obj);
-        Long id = obj.getAttachmentTypeId();
+        Long id = obj.getAppendixTypeId();
         Assert.assertNotNull("Data on demand for 'AppendixType' failed to provide an identifier", id);
         obj = AppendixType.findAppendixType(id);
         obj.remove();

@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -65,6 +67,7 @@ public class Address {
 	private Country country;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "address_print_line", joinColumns = { @JoinColumn(name = "address_id", referencedColumnName = "addressId") }, inverseJoinColumns = { @JoinColumn(name = "print_line_id", referencedColumnName = "printLineId") })
 	@Valid
 	@XmlElementWrapper(name = "printLines")
 	@XmlElement(name = "printLine")

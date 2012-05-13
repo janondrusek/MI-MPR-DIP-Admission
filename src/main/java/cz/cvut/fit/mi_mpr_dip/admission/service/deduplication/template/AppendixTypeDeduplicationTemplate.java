@@ -13,12 +13,12 @@ public class AppendixTypeDeduplicationTemplate extends SimpleDeduplicationTempla
 
 	@Override
 	protected TypedQuery<AppendixType> findByNameEquals(Appendix appendix) {
-		return AppendixType.findAppendixTypesByNameEquals(appendix.getAttachmentType().getName());
+		return AppendixType.findAppendixTypesByNameEquals(appendix.getAppendixType().getName());
 	}
 
 	@Override
 	protected void setFound(Appendix appendix, AppendixType appendixType) {
-		appendix.setAttachmentType(appendixType);
+		appendix.setAppendixType(appendixType);
 	}
 
 }

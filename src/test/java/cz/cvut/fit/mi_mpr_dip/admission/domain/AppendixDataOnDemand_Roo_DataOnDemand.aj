@@ -30,16 +30,16 @@ privileged aspect AppendixDataOnDemand_Roo_DataOnDemand {
     
     public Appendix AppendixDataOnDemand.getNewTransientAppendix(int index) {
         Appendix obj = new Appendix();
-        setAttachmentType(obj, index);
+        setAppendixType(obj, index);
         setContent(obj, index);
         setFilename(obj, index);
         setMimeType(obj, index);
         return obj;
     }
     
-    public void AppendixDataOnDemand.setAttachmentType(Appendix obj, int index) {
-        AppendixType attachmentType = appendixTypeDataOnDemand.getRandomAppendixType();
-        obj.setAttachmentType(attachmentType);
+    public void AppendixDataOnDemand.setAppendixType(Appendix obj, int index) {
+        AppendixType appendixType = appendixTypeDataOnDemand.getRandomAppendixType();
+        obj.setAppendixType(appendixType);
     }
     
     public void AppendixDataOnDemand.setContent(Appendix obj, int index) {
@@ -66,14 +66,14 @@ privileged aspect AppendixDataOnDemand_Roo_DataOnDemand {
             index = data.size() - 1;
         }
         Appendix obj = data.get(index);
-        Long id = obj.getAttachmentId();
+        Long id = obj.getAppendixId();
         return Appendix.findAppendix(id);
     }
     
     public Appendix AppendixDataOnDemand.getRandomAppendix() {
         init();
         Appendix obj = data.get(rnd.nextInt(data.size()));
-        Long id = obj.getAttachmentId();
+        Long id = obj.getAppendixId();
         return Appendix.findAppendix(id);
     }
     

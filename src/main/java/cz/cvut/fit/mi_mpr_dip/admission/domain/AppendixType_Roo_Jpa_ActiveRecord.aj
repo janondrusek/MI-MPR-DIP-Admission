@@ -28,9 +28,9 @@ privileged aspect AppendixType_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM AppendixType o", AppendixType.class).getResultList();
     }
     
-    public static AppendixType AppendixType.findAppendixType(Long attachmentTypeId) {
-        if (attachmentTypeId == null) return null;
-        return entityManager().find(AppendixType.class, attachmentTypeId);
+    public static AppendixType AppendixType.findAppendixType(Long appendixTypeId) {
+        if (appendixTypeId == null) return null;
+        return entityManager().find(AppendixType.class, appendixTypeId);
     }
     
     public static List<AppendixType> AppendixType.findAppendixTypeEntries(int firstResult, int maxResults) {
@@ -49,7 +49,7 @@ privileged aspect AppendixType_Roo_Jpa_ActiveRecord {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            AppendixType attached = AppendixType.findAppendixType(this.attachmentTypeId);
+            AppendixType attached = AppendixType.findAppendixType(this.appendixTypeId);
             this.entityManager.remove(attached);
         }
     }

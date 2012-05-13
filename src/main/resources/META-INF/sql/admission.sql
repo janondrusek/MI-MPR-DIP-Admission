@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-05-08 20:44:00
+# Date/time:                    2012-05-13 15:30:32
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -30,17 +30,17 @@ CREATE TABLE IF NOT EXISTS `accomplishment` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.accomplishment_accomplishment_values
-DROP TABLE IF EXISTS `accomplishment_accomplishment_values`;
-CREATE TABLE IF NOT EXISTS `accomplishment_accomplishment_values` (
-  `accomplishment` bigint(20) NOT NULL,
-  `accomplishment_values` bigint(20) NOT NULL,
-  PRIMARY KEY (`accomplishment`,`accomplishment_values`),
-  UNIQUE KEY `accomplishment_values` (`accomplishment_values`),
-  KEY `FK924E256226C62B79` (`accomplishment`),
-  KEY `FK924E2562C356AFF9` (`accomplishment_values`),
-  CONSTRAINT `FK924E2562C356AFF9` FOREIGN KEY (`accomplishment_values`) REFERENCES `accomplishment_value` (`accomplishment_value_id`),
-  CONSTRAINT `FK924E256226C62B79` FOREIGN KEY (`accomplishment`) REFERENCES `accomplishment` (`accomplishment_id`)
+# Dumping structure for table admission.accomplishment_accomplishment_value
+DROP TABLE IF EXISTS `accomplishment_accomplishment_value`;
+CREATE TABLE IF NOT EXISTS `accomplishment_accomplishment_value` (
+  `accomplishment_id` bigint(20) NOT NULL,
+  `accomplishment_value_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`accomplishment_id`,`accomplishment_value_id`),
+  UNIQUE KEY `accomplishment_value_id` (`accomplishment_value_id`),
+  KEY `FKEBF20131B2C5151` (`accomplishment_id`),
+  KEY `FKEBF201316FF33200` (`accomplishment_value_id`),
+  CONSTRAINT `FKEBF201316FF33200` FOREIGN KEY (`accomplishment_value_id`) REFERENCES `accomplishment_value` (`accomplishment_value_id`),
+  CONSTRAINT `FKEBF20131B2C5151` FOREIGN KEY (`accomplishment_id`) REFERENCES `accomplishment` (`accomplishment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -92,17 +92,17 @@ CREATE TABLE IF NOT EXISTS `address` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.address_print_lines
-DROP TABLE IF EXISTS `address_print_lines`;
-CREATE TABLE IF NOT EXISTS `address_print_lines` (
-  `address` bigint(20) NOT NULL,
-  `print_lines` bigint(20) NOT NULL,
-  PRIMARY KEY (`address`,`print_lines`),
-  UNIQUE KEY `print_lines` (`print_lines`),
-  KEY `FK95FD9B222C36589D` (`address`),
-  KEY `FK95FD9B2224CA6EA3` (`print_lines`),
-  CONSTRAINT `FK95FD9B2224CA6EA3` FOREIGN KEY (`print_lines`) REFERENCES `print_line` (`print_line_id`),
-  CONSTRAINT `FK95FD9B222C36589D` FOREIGN KEY (`address`) REFERENCES `address` (`address_id`)
+# Dumping structure for table admission.address_print_line
+DROP TABLE IF EXISTS `address_print_line`;
+CREATE TABLE IF NOT EXISTS `address_print_line` (
+  `address_id` bigint(20) NOT NULL,
+  `print_line_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`address_id`,`print_line_id`),
+  UNIQUE KEY `print_line_id` (`print_line_id`),
+  KEY `FK1D9CD371BA8A296A` (`print_line_id`),
+  KEY `FK1D9CD371C08D9DEF` (`address_id`),
+  CONSTRAINT `FK1D9CD371C08D9DEF` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`),
+  CONSTRAINT `FK1D9CD371BA8A296A` FOREIGN KEY (`print_line_id`) REFERENCES `print_line` (`print_line_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -153,81 +153,81 @@ CREATE TABLE IF NOT EXISTS `admission` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.admission_accomplishments
-DROP TABLE IF EXISTS `admission_accomplishments`;
-CREATE TABLE IF NOT EXISTS `admission_accomplishments` (
-  `admission` bigint(20) NOT NULL,
-  `accomplishments` bigint(20) NOT NULL,
-  PRIMARY KEY (`admission`,`accomplishments`),
-  UNIQUE KEY `accomplishments` (`accomplishments`),
-  KEY `FKD5F6BA3C14DCE801` (`admission`),
-  KEY `FKD5F6BA3C7BD263CA` (`accomplishments`),
-  CONSTRAINT `FKD5F6BA3C7BD263CA` FOREIGN KEY (`accomplishments`) REFERENCES `accomplishment` (`accomplishment_id`),
-  CONSTRAINT `FKD5F6BA3C14DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`)
+# Dumping structure for table admission.admission_accomplishment
+DROP TABLE IF EXISTS `admission_accomplishment`;
+CREATE TABLE IF NOT EXISTS `admission_accomplishment` (
+  `admission_id` bigint(20) NOT NULL,
+  `accomplishment_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`admission_id`,`accomplishment_id`),
+  UNIQUE KEY `accomplishment_id` (`accomplishment_id`),
+  KEY `FKC4D66917B2C5151` (`accomplishment_id`),
+  KEY `FKC4D6691721474109` (`admission_id`),
+  CONSTRAINT `FKC4D6691721474109` FOREIGN KEY (`admission_id`) REFERENCES `admission` (`admission_id`),
+  CONSTRAINT `FKC4D66917B2C5151` FOREIGN KEY (`accomplishment_id`) REFERENCES `accomplishment` (`accomplishment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.admission_appeals
-DROP TABLE IF EXISTS `admission_appeals`;
-CREATE TABLE IF NOT EXISTS `admission_appeals` (
-  `admission` bigint(20) NOT NULL,
-  `appeals` bigint(20) NOT NULL,
-  PRIMARY KEY (`admission`,`appeals`),
-  UNIQUE KEY `appeals` (`appeals`),
-  KEY `FK3DB68A8E14DCE801` (`admission`),
-  KEY `FK3DB68A8E42C298C4` (`appeals`),
-  CONSTRAINT `FK3DB68A8E42C298C4` FOREIGN KEY (`appeals`) REFERENCES `appeal` (`appeal_id`),
-  CONSTRAINT `FK3DB68A8E14DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`)
+# Dumping structure for table admission.admission_appeal
+DROP TABLE IF EXISTS `admission_appeal`;
+CREATE TABLE IF NOT EXISTS `admission_appeal` (
+  `admission_id` bigint(20) NOT NULL,
+  `appeal_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`admission_id`,`appeal_id`),
+  UNIQUE KEY `appeal_id` (`appeal_id`),
+  KEY `FK54924685E91C39CB` (`appeal_id`),
+  KEY `FK5492468521474109` (`admission_id`),
+  CONSTRAINT `FK5492468521474109` FOREIGN KEY (`admission_id`) REFERENCES `admission` (`admission_id`),
+  CONSTRAINT `FK54924685E91C39CB` FOREIGN KEY (`appeal_id`) REFERENCES `appeal` (`appeal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.admission_evaluations
-DROP TABLE IF EXISTS `admission_evaluations`;
-CREATE TABLE IF NOT EXISTS `admission_evaluations` (
-  `admission` bigint(20) NOT NULL,
-  `evaluations` bigint(20) NOT NULL,
-  PRIMARY KEY (`admission`,`evaluations`),
-  UNIQUE KEY `evaluations` (`evaluations`),
-  KEY `FK571A918114DCE801` (`admission`),
-  KEY `FK571A918186FF2DE4` (`evaluations`),
-  CONSTRAINT `FK571A918186FF2DE4` FOREIGN KEY (`evaluations`) REFERENCES `evaluation` (`evaluation_id`),
-  CONSTRAINT `FK571A918114DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`)
+# Dumping structure for table admission.admission_appendix
+DROP TABLE IF EXISTS `admission_appendix`;
+CREATE TABLE IF NOT EXISTS `admission_appendix` (
+  `admission_id` bigint(20) NOT NULL,
+  `appendix_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`admission_id`,`appendix_id`),
+  UNIQUE KEY `appendix_id` (`appendix_id`),
+  KEY `FK7920913F21474109` (`admission_id`),
+  KEY `FK7920913FB598BF4B` (`appendix_id`),
+  CONSTRAINT `FK7920913FB598BF4B` FOREIGN KEY (`appendix_id`) REFERENCES `appendix` (`appendix_id`),
+  CONSTRAINT `FK7920913F21474109` FOREIGN KEY (`admission_id`) REFERENCES `admission` (`admission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.admission_photos
-DROP TABLE IF EXISTS `admission_photos`;
-CREATE TABLE IF NOT EXISTS `admission_photos` (
-  `admission` bigint(20) NOT NULL,
-  `photos` bigint(20) NOT NULL,
-  PRIMARY KEY (`admission`,`photos`),
-  UNIQUE KEY `photos` (`photos`),
-  KEY `FK6DBA0177EA83147B` (`photos`),
-  KEY `FK6DBA017714DCE801` (`admission`),
-  CONSTRAINT `FK6DBA017714DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`),
-  CONSTRAINT `FK6DBA0177EA83147B` FOREIGN KEY (`photos`) REFERENCES `appendix` (`attachment_id`)
+# Dumping structure for table admission.admission_evaluation
+DROP TABLE IF EXISTS `admission_evaluation`;
+CREATE TABLE IF NOT EXISTS `admission_evaluation` (
+  `admission_id` bigint(20) NOT NULL,
+  `evaluation_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`admission_id`,`evaluation_id`),
+  UNIQUE KEY `evaluation_id` (`evaluation_id`),
+  KEY `FK65E8153245499E2B` (`evaluation_id`),
+  KEY `FK65E8153221474109` (`admission_id`),
+  CONSTRAINT `FK65E8153221474109` FOREIGN KEY (`admission_id`) REFERENCES `admission` (`admission_id`),
+  CONSTRAINT `FK65E8153245499E2B` FOREIGN KEY (`evaluation_id`) REFERENCES `evaluation` (`evaluation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.admission_reference_numbers
-DROP TABLE IF EXISTS `admission_reference_numbers`;
-CREATE TABLE IF NOT EXISTS `admission_reference_numbers` (
-  `admission` bigint(20) NOT NULL,
-  `reference_numbers` bigint(20) NOT NULL,
-  PRIMARY KEY (`admission`,`reference_numbers`),
-  UNIQUE KEY `reference_numbers` (`reference_numbers`),
-  KEY `FKDDF76AA0BDD0E479` (`reference_numbers`),
-  KEY `FKDDF76AA014DCE801` (`admission`),
-  CONSTRAINT `FKDDF76AA014DCE801` FOREIGN KEY (`admission`) REFERENCES `admission` (`admission_id`),
-  CONSTRAINT `FKDDF76AA0BDD0E479` FOREIGN KEY (`reference_numbers`) REFERENCES `reference_number` (`reference_number_id`)
+# Dumping structure for table admission.admission_reference_number
+DROP TABLE IF EXISTS `admission_reference_number`;
+CREATE TABLE IF NOT EXISTS `admission_reference_number` (
+  `admission_id` bigint(20) NOT NULL,
+  `reference_number_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`admission_id`,`reference_number_id`),
+  UNIQUE KEY `reference_number_id` (`reference_number_id`),
+  KEY `FK938C1C3321474109` (`admission_id`),
+  KEY `FK938C1C3346F7A900` (`reference_number_id`),
+  CONSTRAINT `FK938C1C3346F7A900` FOREIGN KEY (`reference_number_id`) REFERENCES `reference_number` (`reference_number_id`),
+  CONSTRAINT `FK938C1C3321474109` FOREIGN KEY (`admission_id`) REFERENCES `admission` (`admission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -263,7 +263,7 @@ DROP TABLE IF EXISTS `apology`;
 CREATE TABLE IF NOT EXISTS `apology` (
   `apology_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `approved` tinyint(1) NOT NULL,
-  `text` varchar(255) COLLATE utf8_bin NOT NULL,
+  `text` longtext COLLATE utf8_bin NOT NULL,
   `registration` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`apology_id`),
   KEY `FKD0AA2FD59ABE752F` (`registration`),
@@ -273,17 +273,17 @@ CREATE TABLE IF NOT EXISTS `apology` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.apology_files
-DROP TABLE IF EXISTS `apology_files`;
-CREATE TABLE IF NOT EXISTS `apology_files` (
-  `apology` bigint(20) NOT NULL,
-  `files` bigint(20) NOT NULL,
-  PRIMARY KEY (`apology`,`files`),
-  UNIQUE KEY `files` (`files`),
-  KEY `FK1985598DA0484759` (`apology`),
-  KEY `FK1985598D2B454671` (`files`),
-  CONSTRAINT `FK1985598D2B454671` FOREIGN KEY (`files`) REFERENCES `appendix` (`attachment_id`),
-  CONSTRAINT `FK1985598DA0484759` FOREIGN KEY (`apology`) REFERENCES `apology` (`apology_id`)
+# Dumping structure for table admission.apology_appendix
+DROP TABLE IF EXISTS `apology_appendix`;
+CREATE TABLE IF NOT EXISTS `apology_appendix` (
+  `apology_id` bigint(20) NOT NULL,
+  `appendix_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`apology_id`,`appendix_id`),
+  UNIQUE KEY `appendix_id` (`appendix_id`),
+  KEY `FK56C87EF35C73CD49` (`apology_id`),
+  KEY `FK56C87EF3B598BF4B` (`appendix_id`),
+  CONSTRAINT `FK56C87EF3B598BF4B` FOREIGN KEY (`appendix_id`) REFERENCES `appendix` (`appendix_id`),
+  CONSTRAINT `FK56C87EF35C73CD49` FOREIGN KEY (`apology_id`) REFERENCES `apology` (`apology_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -318,14 +318,14 @@ CREATE TABLE IF NOT EXISTS `appeal_type` (
 # Dumping structure for table admission.appendix
 DROP TABLE IF EXISTS `appendix`;
 CREATE TABLE IF NOT EXISTS `appendix` (
-  `attachment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `appendix_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` longtext COLLATE utf8_bin NOT NULL,
   `filename` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `mime_type` varchar(255) COLLATE utf8_bin NOT NULL,
-  `attachment_type` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`attachment_id`),
-  KEY `FK45ED7DC97072F2A` (`attachment_type`),
-  CONSTRAINT `FK45ED7DC97072F2A` FOREIGN KEY (`attachment_type`) REFERENCES `appendix_type` (`attachment_type_id`)
+  `appendix_type` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`appendix_id`),
+  KEY `FK45ED7DC93F8C0244` (`appendix_type`),
+  CONSTRAINT `FK45ED7DC93F8C0244` FOREIGN KEY (`appendix_type`) REFERENCES `appendix_type` (`appendix_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -334,9 +334,9 @@ CREATE TABLE IF NOT EXISTS `appendix` (
 # Dumping structure for table admission.appendix_type
 DROP TABLE IF EXISTS `appendix_type`;
 CREATE TABLE IF NOT EXISTS `appendix_type` (
-  `attachment_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `appendix_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`attachment_type_id`),
+  PRIMARY KEY (`appendix_type_id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -817,17 +817,17 @@ CREATE TABLE IF NOT EXISTS `person` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.person_addresses
-DROP TABLE IF EXISTS `person_addresses`;
-CREATE TABLE IF NOT EXISTS `person_addresses` (
-  `person` bigint(20) NOT NULL,
-  `addresses` bigint(20) NOT NULL,
-  PRIMARY KEY (`person`,`addresses`),
-  UNIQUE KEY `addresses` (`addresses`),
-  KEY `FK8AEAB3826272B07` (`person`),
-  KEY `FK8AEAB38A4BF384B` (`addresses`),
-  CONSTRAINT `FK8AEAB38A4BF384B` FOREIGN KEY (`addresses`) REFERENCES `address` (`address_id`),
-  CONSTRAINT `FK8AEAB3826272B07` FOREIGN KEY (`person`) REFERENCES `person` (`person_id`)
+# Dumping structure for table admission.person_address
+DROP TABLE IF EXISTS `person_address`;
+CREATE TABLE IF NOT EXISTS `person_address` (
+  `person_id` bigint(20) NOT NULL,
+  `address_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`person_id`,`address_id`),
+  UNIQUE KEY `address_id` (`address_id`),
+  KEY `FK23F8B90A941E29F7` (`person_id`),
+  KEY `FK23F8B90AC08D9DEF` (`address_id`),
+  CONSTRAINT `FK23F8B90AC08D9DEF` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`),
+  CONSTRAINT `FK23F8B90A941E29F7` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -848,17 +848,17 @@ CREATE TABLE IF NOT EXISTS `person_disability_type` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table admission.person_documents
-DROP TABLE IF EXISTS `person_documents`;
-CREATE TABLE IF NOT EXISTS `person_documents` (
-  `person` bigint(20) NOT NULL,
-  `documents` bigint(20) NOT NULL,
-  PRIMARY KEY (`person`,`documents`),
-  UNIQUE KEY `documents` (`documents`),
-  KEY `FKCCB824E26272B07` (`person`),
-  KEY `FKCCB824E6FCE74F0` (`documents`),
-  CONSTRAINT `FKCCB824E6FCE74F0` FOREIGN KEY (`documents`) REFERENCES `document` (`document_id`),
-  CONSTRAINT `FKCCB824E26272B07` FOREIGN KEY (`person`) REFERENCES `person` (`person_id`)
+# Dumping structure for table admission.person_document
+DROP TABLE IF EXISTS `person_document`;
+CREATE TABLE IF NOT EXISTS `person_document` (
+  `person_id` bigint(20) NOT NULL,
+  `document_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`person_id`,`document_id`),
+  UNIQUE KEY `document_id` (`document_id`),
+  KEY `FKD71F56C555C468F7` (`document_id`),
+  KEY `FKD71F56C5941E29F7` (`person_id`),
+  CONSTRAINT `FKD71F56C5941E29F7` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
+  CONSTRAINT `FKD71F56C555C468F7` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
@@ -895,9 +895,9 @@ DROP TABLE IF EXISTS `programme`;
 CREATE TABLE IF NOT EXISTS `programme` (
   `programme_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `degree` bigint(20) DEFAULT NULL,
-  `language` bigint(20) DEFAULT NULL,
-  `study_mode` bigint(20) DEFAULT NULL,
+  `degree` bigint(20) NOT NULL,
+  `language` bigint(20) NOT NULL,
+  `study_mode` bigint(20) NOT NULL,
   PRIMARY KEY (`programme_id`),
   UNIQUE KEY `name` (`name`,`study_mode`,`degree`,`language`),
   KEY `FKC6419B1C9798742F` (`study_mode`),
@@ -1062,7 +1062,7 @@ CREATE TABLE IF NOT EXISTS `term` (
   `register_from` datetime NOT NULL,
   `register_to` datetime NOT NULL,
   `room` varchar(255) COLLATE utf8_bin NOT NULL,
-  `term_type` bigint(20) DEFAULT NULL,
+  `term_type` bigint(20) NOT NULL,
   PRIMARY KEY (`term_id`),
   UNIQUE KEY `date_of_term` (`date_of_term`,`room`),
   KEY `FK36446C11E82724` (`term_type`),

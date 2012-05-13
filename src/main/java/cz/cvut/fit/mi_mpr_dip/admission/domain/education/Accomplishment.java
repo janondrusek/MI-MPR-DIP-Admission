@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -50,6 +52,7 @@ public class Accomplishment {
 	@NotNull
 	@NotEmpty
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "accomplishment_accomplishment_value", joinColumns = { @JoinColumn(name = "accomplishment_id", referencedColumnName = "accomplishmentId") }, inverseJoinColumns = { @JoinColumn(name = "accomplishment_value_id", referencedColumnName = "accomplishmentValueId") })
 	@Valid
 	@XmlElementWrapper(name = "accomplishmentValues")
 	@XmlElement(name = "accomplishmentValue")

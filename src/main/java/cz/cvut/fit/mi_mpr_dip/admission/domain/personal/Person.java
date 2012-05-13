@@ -78,12 +78,14 @@ public class Person {
 	private Boolean permanentResidenceGranted;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "person_document", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "document_id", referencedColumnName = "documentId") })
 	@Valid
 	@XmlElementWrapper(name = "documents")
 	@XmlElement(name = "document")
 	private Set<Document> documents;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "person_address", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "address_id", referencedColumnName = "addressId") })
 	@Valid
 	@XmlElementWrapper(name = "addresses")
 	@XmlElement(name = "address")
