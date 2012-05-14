@@ -1,5 +1,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.BeansException;
@@ -12,10 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.builder.AdmissionsBuilder;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.AdmissionUniqueConstraint;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.Action;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
 
 @Service
@@ -97,7 +105,77 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 
 	@Override
 	public void update(Admission admission, Admission dbAdmission) {
+		AdmissionUniqueConstraint original = new AdmissionUniqueConstraint(dbAdmission);
+		AdmissionUniqueConstraint updated = new AdmissionUniqueConstraint(admission);
+		validate(original, updated);
 
+		setUpdatedToOriginal(admission, dbAdmission);
+		dbAdmission.persist();
+	}
+
+	private void setUpdatedToOriginal(Admission admission, Admission dbAdmission) {
+		dbAdmission.setAccepted(admission.getAccepted());
+		removeAndAddAccomplishments(admission, dbAdmission);
+		dbAdmission.setAdmissionState(admission.getAdmissionState());
+		dbAdmission.setAppeals(admission.getAppeals());
+		dbAdmission.setDormitoryRequest(admission.getDormitoryRequest());
+		removeAndAddEvaluations(admission, dbAdmission);
+		dbAdmission.setFaculty(admission.getFaculty());
+		removeAndAddPerson(admission, dbAdmission);
+		dbAdmission.setProgramme(admission.getProgramme());
+		dbAdmission.setReferenceNumbers(admission.getReferenceNumbers());
+		removeAndAddRegistrations(admission, dbAdmission);
+		dbAdmission.setResult(admission.getResult());
+		dbAdmission.setType(admission.getType());
+	}
+
+	private void removeAndAddAccomplishments(Admission admission, Admission dbAdmission) {
+		removeAndAdd(dbAdmission.getAccomplishments(), new Action<Accomplishment>() {
+
+			@Override
+			public void perform(Accomplishment accomplishment) {
+				accomplishment.remove();
+			}
+
+		}, admission, dbAdmission);
+		dbAdmission.setAccomplishments(admission.getAccomplishments());
+	}
+
+	private void removeAndAddEvaluations(Admission admission, Admission dbAdmission) {
+		removeAndAdd(dbAdmission.getEvaluations(), new Action<Evaluation>() {
+
+			@Override
+			public void perform(Evaluation evaluation) {
+				evaluation.remove();
+			}
+
+		}, admission, dbAdmission);
+		dbAdmission.setEvaluations(admission.getEvaluations());
+	}
+
+	private void removeAndAddPerson(Admission admission, Admission dbAdmission) {
+		dbAdmission.getPerson().remove();
+		dbAdmission.setPerson(admission.getPerson());
+	}
+
+	private void removeAndAddRegistrations(Admission admission, Admission dbAdmission) {
+		removeAndAdd(dbAdmission.getRegistrations(), new Action<TermRegistration>() {
+
+			@Override
+			public void perform(TermRegistration termRegistration) {
+				termRegistration.remove();
+			}
+
+		}, admission, dbAdmission);
+		dbAdmission.setRegistrations(admission.getRegistrations());
+	}
+
+	private <T> void removeAndAdd(Collection<T> collection, Action<T> action, Admission admission, Admission dbAdmission) {
+		for (Iterator<T> iterator = collection.iterator(); iterator.hasNext();) {
+			T item = iterator.next();
+			iterator.remove();
+			action.perform(item);
+		}
 	}
 
 	@Override
@@ -108,7 +186,14 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 
 	@Override
 	public Admission validate(String admissionCode, Admission admission) {
-		return null;
+		super.validate(admission);
+		validateSameInstant(admissionCode, admission);
+		Admission dbAdmission = getAdmissionOrThrowNotFound(admissionCode);
+		return dbAdmission;
+	}
+
+	private void validateSameInstant(String admissionCode, Admission admission) {
+
 	}
 
 	@Override

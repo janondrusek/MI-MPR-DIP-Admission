@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.UniqueConstraint;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.DomainCollection;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
@@ -46,6 +48,13 @@ public abstract class CommonEndpointHelper<T> implements EndpointHelper<T> {
 	@Override
 	public Response build(ResponseBuilder builder) {
 		return builder.build();
+	}
+
+	protected void validate(UniqueConstraint<T> original, UniqueConstraint<T> updated) {
+		if (ObjectUtils.notEqual(original, updated)) {
+			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_BAD_REQUEST,
+					"Unique constraint change requested");
+		}
 	}
 
 	protected void validate(T o) {

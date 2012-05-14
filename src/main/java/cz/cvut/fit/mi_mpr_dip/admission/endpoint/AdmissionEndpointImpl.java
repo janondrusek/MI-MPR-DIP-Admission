@@ -97,6 +97,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 		return getAdmissionEndpointHelper().getOkResponse();
 	}
 
+	@Transactional
 	private void validateAndUpdate(String admissionCode, Admission admission) {
 		Admission dbAdmission = getAdmissionEndpointHelper().validate(admissionCode, admission);
 		getAdmissionDeduplicationService().deduplicate(admission);
