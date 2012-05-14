@@ -92,9 +92,15 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@PUT
 	@Override
-	public Response updateAdmission(Admission admission) {
-		// TODO:
-		return null;
+	public Response updateAdmission(@PathParam("admissionCode") String admissionCode, Admission admission) {
+		validateAndUpdate(admissionCode, admission);
+		return getAdmissionEndpointHelper().getOkResponse();
+	}
+
+	private void validateAndUpdate(String admissionCode, Admission admission) {
+		Admission dbAdmission = getAdmissionEndpointHelper().validate(admissionCode, admission);
+		getAdmissionDeduplicationService().deduplicate(admission);
+		getAdmissionEndpointHelper().update(admission, dbAdmission);
 	}
 
 	@Transactional

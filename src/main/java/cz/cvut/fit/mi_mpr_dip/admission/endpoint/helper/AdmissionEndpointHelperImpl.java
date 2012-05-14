@@ -96,9 +96,19 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 	}
 
 	@Override
+	public void update(Admission admission, Admission dbAdmission) {
+
+	}
+
+	@Override
 	public void validate(Admission admission) {
 		super.validate(admission);
 		getAdmissionCodeValidator().validate(admission);
+	}
+
+	@Override
+	public Admission validate(String admissionCode, Admission admission) {
+		return null;
 	}
 
 	@Override

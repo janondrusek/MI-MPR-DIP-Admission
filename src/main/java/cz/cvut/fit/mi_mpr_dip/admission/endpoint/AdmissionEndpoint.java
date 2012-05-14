@@ -13,7 +13,7 @@ public interface AdmissionEndpoint {
 
 	public Admissions getAdmissions(Integer count, Integer page);
 
-	public Response updateAdmission(Admission admission);
+	public Response updateAdmission(String admissionCode, Admission admission);
 
 	public Response addAdmission(Admission admission);
 

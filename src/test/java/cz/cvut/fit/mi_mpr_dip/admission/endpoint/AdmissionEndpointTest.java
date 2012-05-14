@@ -34,6 +34,7 @@ public class AdmissionEndpointTest {
 	private AdmissionEndpointImpl admissionEndpoint;
 
 	private Admission admission;
+	private Admission dbAdmission;
 	private AdmissionDeduplicationService admissionDeduplicationService;
 	private AdmissionEndpointHelper admissionEndpointHelper;
 	private UriEndpointHelper uriEndpointHelper;
@@ -52,9 +53,10 @@ public class AdmissionEndpointTest {
 		initDependencyMocks();
 
 		admission = createMock(Admission.class);
+		dbAdmission = createMock(Admission.class);
 
-		mocks = new Object[] { admission, admissionDeduplicationService, admissionEndpointHelper, uriEndpointHelper,
-				userIdentityService };
+		mocks = new Object[] { admission, admissionDeduplicationService, admissionEndpointHelper, dbAdmission,
+				uriEndpointHelper, userIdentityService };
 	}
 
 	private void initDependencyMocks() {
@@ -80,7 +82,7 @@ public class AdmissionEndpointTest {
 
 	@Test
 	public void testAddAdmission() throws URISyntaxException {
-		admissionEndpointHelper.validate(admission);
+		admissionEndpointHelper.validate(same(admission));
 		admissionDeduplicationService.deduplicateAndStore(same(admission));
 		expect(uriEndpointHelper.getAdmissionLocation(anyObject(String.class), same(admission)))
 				.andReturn(new URI(URI));
@@ -96,7 +98,15 @@ public class AdmissionEndpointTest {
 
 	@Test
 	public void testUpdateAdmission() {
-		// TODO:
+		Response response = Response.ok().build();
+		expect(admissionEndpointHelper.validate(same(CODE), same(admission))).andReturn(dbAdmission);
+		admissionDeduplicationService.deduplicate(admission);
+		admissionEndpointHelper.update(admission, dbAdmission);
+		expect(admissionEndpointHelper.getOkResponse()).andReturn(response);
+
+		replay(mocks);
+		assertSame(response, admissionEndpoint.updateAdmission(CODE, admission));
+		verify(mocks);
 	}
 
 	@Test

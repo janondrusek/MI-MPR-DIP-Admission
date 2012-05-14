@@ -16,5 +16,9 @@ public interface AdmissionEndpointHelper extends EndpointHelper<Admission> {
 
 	public <T> Response mergeAdmission(String admissionCode, String baseLocation, T actor, AdmissionAction<T> action);
 
+	public void update(Admission admission, Admission dbAdmission);
+
 	public void validate(Admission admission);
+
+	public Admission validate(String admissionCode, Admission admission);
 }
