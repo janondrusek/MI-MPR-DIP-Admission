@@ -24,7 +24,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.Action;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.AdmissionCodeValidator;
 
 @Service
 @RooJavaBean

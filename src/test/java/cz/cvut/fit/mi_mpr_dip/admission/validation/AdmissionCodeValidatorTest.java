@@ -16,6 +16,7 @@ import org.junit.Test;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.AdmissionCodeValidator;
 
 public class AdmissionCodeValidatorTest {
 

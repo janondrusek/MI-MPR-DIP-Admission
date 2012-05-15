@@ -31,6 +31,7 @@ public class ApologyDeduplicationService implements DeduplicationService<Apology
 		apology.merge();
 	}
 
+	@Override
 	public void deduplicate(Apology apology) {
 		if (CollectionUtils.isNotEmpty(apology.getAppendices())) {
 			for (Appendix appendix : apology.getAppendices()) {

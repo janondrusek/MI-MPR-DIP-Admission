@@ -31,7 +31,8 @@ public class AppendixDeduplicationSevice implements DeduplicationService<Appendi
 		appendix.merge();
 	}
 
-	private void deduplicate(Appendix appendix) {
+	@Override
+	public void deduplicate(Appendix appendix) {
 		for (AppendixDeduplicationTemplate deduplicationTemplate : deduplicationTemplates) {
 			deduplicationTemplate.deduplicate(appendix);
 		}

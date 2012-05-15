@@ -7,7 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
-import cz.cvut.fit.mi_mpr_dip.admission.validation.AdmissionCodeValidator;
+import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.AdmissionCodeValidator;
 import org.springframework.context.ApplicationContext;
 
 privileged aspect AdmissionEndpointHelperImpl_Roo_JavaBean {

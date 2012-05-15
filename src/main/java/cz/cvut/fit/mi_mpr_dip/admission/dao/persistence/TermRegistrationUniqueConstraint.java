@@ -2,12 +2,16 @@ package cz.cvut.fit.mi_mpr_dip.admission.dao.persistence;
 
 import java.util.Date;
 
+import org.springframework.roo.addon.equals.RooEquals;
 import org.springframework.roo.addon.javabean.RooJavaBean;
+import org.springframework.roo.addon.tostring.RooToString;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 
+@RooEquals
 @RooJavaBean
-public class TermRegistrationUniqueConstraint implements UniqueConstraint<TermRegistration> {
+@RooToString
+public class TermRegistrationUniqueConstraint extends BaseUniqueConstraint<TermRegistration> {
 
 	private String admissionCode;
 	private Date dateOfTerm;
@@ -27,11 +31,6 @@ public class TermRegistrationUniqueConstraint implements UniqueConstraint<TermRe
 	@Override
 	public Boolean isDuplicate(TermRegistration duplicate) {
 		return null;
-	}
-
-	@Override
-	public Boolean isFound() {
-		return !isFound();
 	}
 
 	@Override

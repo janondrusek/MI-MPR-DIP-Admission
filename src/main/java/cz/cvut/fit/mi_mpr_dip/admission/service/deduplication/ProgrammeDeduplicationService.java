@@ -16,7 +16,7 @@ public class ProgrammeDeduplicationService implements DeduplicationService<Progr
 	@Transactional
 	@Override
 	public void deduplicateAndStore(Programme programme) {
-		programme = deduplicate(programme);
+		programme = deduplicateProgramme(programme);
 
 		programme.persist();
 	}
@@ -24,12 +24,17 @@ public class ProgrammeDeduplicationService implements DeduplicationService<Progr
 	@Transactional
 	@Override
 	public void deduplicateAndMerge(Programme programme) {
-		programme = deduplicate(programme);
+		programme = deduplicateProgramme(programme);
 
 		programme.merge();
 	}
 
-	private Programme deduplicate(Programme programme) {
+	@Override
+	public void deduplicate(Programme programme) {
+		programme = deduplicateProgramme(programme);
+	}
+
+	private Programme deduplicateProgramme(Programme programme) {
 		return programmeDeduplicationUtil.deduplicate(programme);
 	}
 }

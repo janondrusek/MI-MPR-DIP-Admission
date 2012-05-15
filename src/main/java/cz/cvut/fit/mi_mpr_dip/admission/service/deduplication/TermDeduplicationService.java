@@ -31,7 +31,8 @@ public class TermDeduplicationService implements DeduplicationService<Term> {
 		term.merge();
 	}
 
-	private void deduplicate(Term term) {
+	@Override
+	public void deduplicate(Term term) {
 		for (TermDeduplicationTemplate deduplicationTemplate : deduplicationTemplates) {
 			deduplicationTemplate.deduplicate(term);
 		}

@@ -22,7 +22,7 @@ public class UserRoleDeduplicationService implements DeduplicationService<UserRo
 		List<UserPermission> dbPermissions = UserPermission.findAllUserPermissions();
 
 		deduplicate(userRole.getPermissions(), dbPermissions);
-		deduplicate(userRole).persist();
+		deduplicateUserRole(userRole).persist();
 	}
 
 	private void deduplicate(Set<UserPermission> permissions, List<UserPermission> dbPermissions) {
@@ -37,9 +37,9 @@ public class UserRoleDeduplicationService implements DeduplicationService<UserRo
 		permissions.addAll(replacements);
 	}
 
-	private UserRole deduplicate(UserRole userRole) {
+	private UserRole deduplicateUserRole(UserRole userRole) {
 		List<UserRole> userRoles = UserRole.findUserRolesByNameEquals(userRole.getName()).getResultList();
-		if (CollectionUtils.isNotEmpty(userRoles))  {
+		if (CollectionUtils.isNotEmpty(userRoles)) {
 			UserRole dbUserRole = userRoles.get(0);
 			dbUserRole.getPermissions().addAll(userRole.getPermissions());
 			userRole = dbUserRole;
@@ -48,7 +48,13 @@ public class UserRoleDeduplicationService implements DeduplicationService<UserRo
 	}
 
 	@Override
-	public void deduplicateAndMerge(UserRole deduplicant) {
-		
+	public void deduplicateAndMerge(UserRole userRole) {
+
 	}
+
+	@Override
+	public void deduplicate(UserRole userRole) {
+
+	}
+
 }

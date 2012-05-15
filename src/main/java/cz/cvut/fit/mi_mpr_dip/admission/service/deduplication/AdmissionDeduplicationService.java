@@ -35,6 +35,7 @@ public class AdmissionDeduplicationService implements DeduplicationService<Admis
 		admission.merge();
 	}
 
+	@Override
 	public void deduplicate(Admission admission) {
 		deduplicate(admission, admissionDeduplicationTemplates);
 		deduplicate(admission.getPerson(), personDeduplicationTemplates);
