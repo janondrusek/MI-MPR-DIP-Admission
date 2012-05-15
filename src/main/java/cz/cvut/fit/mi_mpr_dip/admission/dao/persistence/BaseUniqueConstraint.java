@@ -4,6 +4,6 @@ public abstract class BaseUniqueConstraint<T> implements UniqueConstraint<T> {
 
 	@Override
 	public Boolean isFound() {
-		return !isFound();
+		return !isNotFound();
 	}
 }
