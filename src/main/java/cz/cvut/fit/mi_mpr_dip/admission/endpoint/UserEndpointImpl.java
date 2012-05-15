@@ -40,6 +40,7 @@ public class UserEndpointImpl implements UserEndpoint {
 
 	private static final String PASSWORD_PATH = "/password";
 	private static final String PERSON_PATH = "/person";
+	private static final String ROLES_PATH = "/roles";
 	private static final String RESET_PASSWORD_PATH = "/reset_password";
 	private static final String SESSION_PATH = "/session";
 
@@ -125,8 +126,18 @@ public class UserEndpointImpl implements UserEndpoint {
 		return getUserIdentityEndpointHelper().deleteUserSession(username, identifier);
 	}
 
+	@Secured("PERM_DELETE_USER_ROLE")
+	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + ROLES_PATH + "/{userRoleName}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@DELETE
+	@Override
+	public Response deleteUserRole(@PathParam("userIdentity") String username,
+			@PathParam("userRoleName") String userRoleName) {
+		return getUserIdentityEndpointHelper().deleteUserRole(username, userRoleName);
+	}
+
 	@Secured("PERM_WRITE_USER_ROLES")
-	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + "/roles")
+	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + ROLES_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override

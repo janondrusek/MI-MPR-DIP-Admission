@@ -16,5 +16,7 @@ public interface UserEndpoint {
 
 	public Response deleteUserSession(String username, String sessionIdentifier);
 
+	public Response deleteUserRole(String username, String userRoleName);
+
 	public Response updateUserRoles(String username, UserRoles userRoles);
 }

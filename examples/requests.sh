@@ -44,6 +44,9 @@ curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]
 # User.deleteSession
 curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/user/identity/{username}/session/identifier:[session identifier from User.identity]
 
+# User.deleteRole
+curl -i -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X DELETE http://localhost:9090/admission/services/user/identity/{userIdentity}/roles/{userRoleName}
+
 # User.updateRoles
 cat examples/user_roles.xml | curl -i -H "Accept: application/json" -H "Content-Type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/user/identity/{username}/roles
 

@@ -1,7 +1,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
+import java.util.Set;
+
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -12,9 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.UserRoleUniqueConstraint;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.UserRoles;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
@@ -35,6 +41,9 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 	private UserIdentityDao userIdentityDao;
 
 	@Autowired
+	private UserRoleDao userRoleDao;
+
+	@Autowired
 	private UserSessionDao userSessionDao;
 
 	@PreAuthorize("!hasRole('ROLE_ANONYMOUS')")
@@ -43,7 +52,7 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 		Authentication authentication = getAuthentication();
 		UserIdentity userIdentity = getUserIdentityService().getUserIdentity(authentication.getPrincipal().toString());
 		getUserIdentityService().addAdmissionLink(userIdentity);
-		
+
 		return getOkResponse(userIdentity);
 	}
 
@@ -70,16 +79,40 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 
 	@Transactional
 	@Override
+	public Response deleteUserRole(String username, String userRoleName) {
+		UserIdentity userIdentity = getUserIdentityOrThrowNotFound(username);
+		UserRole userRole = getUserRoleOrThrowNotFound(userRoleName);
+		validate(userRole, userIdentity);
+		userIdentity.getRoles().remove(userRole);
+		userIdentity.persist();
+
+		return getOkResponse();
+	}
+
+	private UserRole getUserRoleOrThrowNotFound(String userRoleName) {
+		UserRole userRole = getUserRoleDao().getUserRole(userRoleName);
+		UserRoleUniqueConstraint uniqueConstraint = new UserRoleUniqueConstraint(userRole);
+		if (uniqueConstraint.isNotFound()) {
+			throwNotFoundBusinessException();
+		}
+		return userRole;
+	}
+
+	private void validate(UserRole userRole, UserIdentity userIdentity) {
+		Set<UserRole> roles = userIdentity.getRoles();
+		if (CollectionUtils.isEmpty(roles) || !roles.contains(userRole)) {
+			throwNotFoundBusinessException();
+		}
+	}
+
+	@Transactional
+	@Override
 	public Response updateUserRoles(String username, UserRoles userRoles) {
-		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
+		UserIdentity userIdentity = getUserIdentityOrThrowNotFound(username);
 
 		validateUserRoles(username, userIdentity, userRoles);
 		getUserIdentityService().updateUserRoles(userIdentity, userRoles);
 		return getOkResponse();
-	}
-
-	private boolean isNotEqual(String one, String two) {
-		return !StringUtils.equals(one, two);
 	}
 
 	private void validateUserRoles(String username, UserIdentity userIdentity, UserRoles userRoles) {
@@ -88,6 +121,16 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 		}
 		getPrincipalValidator().validatePrincipal(userIdentity.getUsername());
 		getBeanValidator().validate(userRoles);
+	}
+
+	private UserIdentity getUserIdentityOrThrowNotFound(String username) {
+		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
+		validateNotFound(userIdentity);
+		return userIdentity;
+	}
+
+	private boolean isNotEqual(String one, String two) {
+		return !StringUtils.equals(one, two);
 	}
 
 	@Override

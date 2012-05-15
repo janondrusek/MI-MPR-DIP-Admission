@@ -4,6 +4,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
@@ -38,6 +39,14 @@ privileged aspect UserIdentityEndpointHelperImpl_Roo_JavaBean {
     
     public void UserIdentityEndpointHelperImpl.setUserIdentityDao(UserIdentityDao userIdentityDao) {
         this.userIdentityDao = userIdentityDao;
+    }
+    
+    public UserRoleDao UserIdentityEndpointHelperImpl.getUserRoleDao() {
+        return this.userRoleDao;
+    }
+    
+    public void UserIdentityEndpointHelperImpl.setUserRoleDao(UserRoleDao userRoleDao) {
+        this.userRoleDao = userRoleDao;
     }
     
     public UserSessionDao UserIdentityEndpointHelperImpl.getUserSessionDao() {
