@@ -29,12 +29,6 @@
 
   <xs:element name="userIdentity" type="userIdentity"/>
 
-  <xs:complexType name="addressType">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="errorResponse">
     <xs:sequence>
       <xs:element name="message" type="xs:string" minOccurs="0"/>
@@ -42,36 +36,9 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="programme">
+  <xs:complexType name="addressType">
     <xs:sequence>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
-      <xs:element name="studyMode" type="studyMode" minOccurs="0"/>
-      <xs:element name="degree" type="degree" minOccurs="0"/>
-      <xs:element name="language" type="language" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="studyMode">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="degree">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="language">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="accomplishmentValue">
-    <xs:sequence>
-      <xs:element name="value" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -83,6 +50,12 @@
   </xs:complexType>
 
   <xs:complexType name="appealType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="studyMode">
     <xs:sequence>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
     </xs:sequence>
@@ -285,6 +258,7 @@
 
   <xs:complexType name="appendix">
     <xs:sequence>
+      <xs:element name="identifier" type="xs:string" minOccurs="0"/>
       <xs:element name="filename" type="xs:string" minOccurs="0"/>
       <xs:element name="link" type="link" minOccurs="0"/>
       <xs:element name="mimeType" type="xs:string" minOccurs="0"/>
@@ -323,6 +297,27 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="termType" type="termType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="programme">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="studyMode" type="studyMode" minOccurs="0"/>
+      <xs:element name="degree" type="degree" minOccurs="0"/>
+      <xs:element name="language" type="language" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="degree">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="language">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -368,6 +363,13 @@
       <xs:element name="link" type="link" minOccurs="0"/>
       <xs:element name="person" type="person" minOccurs="0"/>
       <xs:element ref="programme" minOccurs="0"/>
+      <xs:element name="photos" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="photo" type="appendix" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="registrations" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
@@ -402,6 +404,12 @@
   <xs:complexType name="accomplishmentType">
     <xs:sequence>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accomplishmentValue">
+    <xs:sequence>
+      <xs:element name="value" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -467,26 +475,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="programs">
-    <xs:complexContent>
-      <xs:extension base="domainCollection">
-        <xs:sequence>
-          <xs:element ref="programme" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="terms">
-    <xs:complexContent>
-      <xs:extension base="domainCollection">
-        <xs:sequence>
-          <xs:element ref="term" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="userPassword">
     <xs:sequence>
       <xs:element name="hash" type="xs:string" minOccurs="0"/>
@@ -500,6 +488,30 @@
       <xs:extension base="domainCollection">
         <xs:sequence>
           <xs:element ref="admission" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="programs">
+    <xs:complexContent>
+      <xs:extension base="domainCollection">
+        <xs:sequence>
+          <xs:element ref="programme" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="appendixContent">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="terms">
+    <xs:complexContent>
+      <xs:extension base="domainCollection">
+        <xs:sequence>
+          <xs:element ref="term" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
