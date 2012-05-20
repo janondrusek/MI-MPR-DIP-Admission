@@ -52,7 +52,11 @@ public class LinkServiceImpl implements LinkService {
 
 	@Override
 	public Link getAppendixLink(String admissionCode, Term term, Appendix appendix) {
-		return null;
+		return getLink(WebKeys.APPENDIX, getUri(admissionCode, term, appendix));
+	}
+
+	private URI getUri(String admissionCode, Term term, Appendix appendix) {
+		return getUriEndpointHelper().getAppendixLocation(admissionCode, term, appendix);
 	}
 
 	private URI getUri(Admission admission) {

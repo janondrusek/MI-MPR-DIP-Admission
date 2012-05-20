@@ -35,6 +35,11 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 
 	@Override
 	public void addLinks(Admission admission) {
+		addPhotoLinks(admission);
+		addTermRegistrationLinks(admission);
+	}
+
+	private void addPhotoLinks(Admission admission) {
 		Set<Appendix> photos = admission.getPhotos();
 		if (CollectionUtils.isNotEmpty(photos)) {
 			admission.setPhotoLinks(getLinks(admission.getCode(), photos));
@@ -47,6 +52,15 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 			photoLinks.add(getLink(admissionCode, photo));
 		}
 		return photoLinks;
+	}
+
+	private void addTermRegistrationLinks(Admission admission) {
+		Set<TermRegistration> registrations = admission.getRegistrations();
+		if (CollectionUtils.isNotEmpty(registrations)) {
+			for (TermRegistration termRegistration : registrations) {
+				addLinks(termRegistration);
+			}
+		}
 	}
 
 	@Override
@@ -99,6 +113,15 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	}
 
 	@Override
+	public void addContents(Set<Appendix> appendices) {
+		if (CollectionUtils.isNotEmpty(appendices)) {
+			for (Appendix appendix : appendices) {
+				addContent(appendix);
+			}
+		}
+	}
+
+	@Override
 	public void addIdentifier(Appendix appendix) {
 		appendix.setIdentifier(stringGenerator.generateRandom());
 	}
@@ -126,7 +149,7 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 		Appendix appendix = getAppendix(uniqueConstraint);
 		validateNotFound(new AppendixUniqueConstraint(appendix));
 		appendix.setContent(appendix.getAppendixContent().getContent());
-		
+
 		return appendix;
 	}
 

@@ -14,6 +14,8 @@ public interface AppendixService extends CrudService<Appendix> {
 
 	public void addContent(Appendix appendix);
 
+	public void addContents(Set<Appendix> appendices);
+
 	public void addIdentifier(Appendix appendix);
 
 	public void addIdentifiers(Set<Appendix> appendices);

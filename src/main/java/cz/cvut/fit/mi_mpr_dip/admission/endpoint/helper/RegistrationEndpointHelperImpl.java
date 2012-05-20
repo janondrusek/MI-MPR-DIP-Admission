@@ -21,6 +21,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.ApologyDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.TermRegistrationUniqueConstraintValidator;
@@ -35,6 +36,9 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 
 	@Autowired
 	private ApologyDeduplicationService apologyDeduplicationService;
+
+	@Autowired
+	private AppendixService appendixService;
 
 	@Autowired
 	private TermRegistrationDao termRegistrationDao;
@@ -98,6 +102,8 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 	@Transactional
 	@Override
 	public Response addApology(String admissionCode, String dateOfTerm, String room, Apology apology) {
+		getAppendixService().addIdentifiers(apology.getMarshalledAppendices());
+		getAppendixService().addContents(apology.getMarshalledAppendices());
 		validate(apology);
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
 		if (isApologyUpdate(termRegistration)) {
@@ -121,7 +127,7 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 
 		return getOkResponse();
 	}
-	
+
 	private void validate(Apology apology) {
 		getBeanValidator().validate(apology);
 	}
@@ -135,6 +141,7 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 	@Transactional
 	@Override
 	public Response updateApology(String admissionCode, String dateOfTerm, String room, Apology apology) {
+		getAppendixService().addContents(apology.getMarshalledAppendices());
 		validate(apology);
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
 		if (isApologyUpdate(termRegistration)) {

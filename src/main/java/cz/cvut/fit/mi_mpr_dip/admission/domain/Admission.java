@@ -120,6 +120,8 @@ public class Admission {
 	private Set<Appendix> photos;
 
 	@Transient
+	@XmlElementWrapper(name = "photos")
+	@XmlElement(name = "photo")
 	private Set<Appendix> photoLinks;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "admission")

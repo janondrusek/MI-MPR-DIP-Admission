@@ -18,6 +18,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.ProgrammeEndpointImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.RegistrationEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -66,6 +67,16 @@ public class UriEndpointHelper {
 	public URI getAppendixLocation(String admissionCode, Appendix appendix) {
 		String path = replace(AdmissionEndpointImpl.ENDPOINT_PATH + AdmissionEndpointImpl.PHOTO_PATH,
 				URIKeys.ADMISSION_CODE, admissionCode);
+		path = replace(path, URIKeys.IDENTIFIER, appendix.getIdentifier());
+
+		return buildURI(StringPool.BLANK, path);
+	}
+
+	public URI getAppendixLocation(String admissionCode, Term term, Appendix appendix) {
+		String path = replace(RegistrationEndpointImpl.ENDPOINT_PATH + RegistrationEndpointImpl.APPENDIX_PATH,
+				URIKeys.ADMISSION_CODE, admissionCode);
+		path = replace(path, URIKeys.DATE_OF_TERM, formatDateAndReplaceSpaces(term.getDateOfTerm()));
+		path = replace(path, URIKeys.ROOM, term.getRoom());
 		path = replace(path, URIKeys.IDENTIFIER, appendix.getIdentifier());
 
 		return buildURI(StringPool.BLANK, path);

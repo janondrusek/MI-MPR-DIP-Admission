@@ -93,7 +93,8 @@ public class RegistrationEndpointImpl implements RegistrationEndpoint {
 	@GET
 	@Override
 	public Response getApologyAppendix(@PathParam("admissionCode") String admissionCode,
-			@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room, String identifier) {
+			@PathParam("dateOfTerm") String dateOfTerm, @PathParam("room") String room,
+			@PathParam("identifier") String identifier) {
 		return getAppendixEndpointHelper().getApologyAppendix(admissionCode, dateOfTerm, room, identifier);
 	}
 }
