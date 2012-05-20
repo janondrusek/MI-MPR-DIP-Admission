@@ -3,11 +3,11 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixIntegrationTest;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContentDataOnDemand;
 import org.springframework.beans.factory.annotation.Configurable;
 
-privileged aspect AppendixIntegrationTest_Roo_Configurable {
+privileged aspect AppendixContentDataOnDemand_Roo_Configurable {
     
-    declare @type: AppendixIntegrationTest: @Configurable;
+    declare @type: AppendixContentDataOnDemand: @Configurable;
     
 }
