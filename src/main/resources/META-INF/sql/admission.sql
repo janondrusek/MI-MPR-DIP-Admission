@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-05-13 15:30:32
+# Date/time:                    2012-05-20 16:53:46
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -319,13 +319,29 @@ CREATE TABLE IF NOT EXISTS `appeal_type` (
 DROP TABLE IF EXISTS `appendix`;
 CREATE TABLE IF NOT EXISTS `appendix` (
   `appendix_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `content` longtext COLLATE utf8_bin NOT NULL,
   `filename` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `identifier` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `mime_type` varchar(255) COLLATE utf8_bin NOT NULL,
   `appendix_type` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`appendix_id`),
+  UNIQUE KEY `identifier` (`identifier`),
   KEY `FK45ED7DC93F8C0244` (`appendix_type`),
   CONSTRAINT `FK45ED7DC93F8C0244` FOREIGN KEY (`appendix_type`) REFERENCES `appendix_type` (`appendix_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table admission.appendix_content
+DROP TABLE IF EXISTS `appendix_content`;
+CREATE TABLE IF NOT EXISTS `appendix_content` (
+  `appendix_content_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` longtext COLLATE utf8_bin NOT NULL,
+  `appendix` bigint(20) NOT NULL,
+  PRIMARY KEY (`appendix_content_id`),
+  UNIQUE KEY `appendix` (`appendix`),
+  KEY `FKA22280036B6409C3` (`appendix`),
+  CONSTRAINT `FKA22280036B6409C3` FOREIGN KEY (`appendix`) REFERENCES `appendix` (`appendix_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 # Data exporting was unselected.
