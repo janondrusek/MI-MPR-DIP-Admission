@@ -125,6 +125,8 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	private Appendix getAppendixOrThrowNotFound(UniqueConstraint<Appendix> uniqueConstraint) {
 		Appendix appendix = getAppendix(uniqueConstraint);
 		validateNotFound(new AppendixUniqueConstraint(appendix));
+		appendix.setContent(appendix.getAppendixContent().getContent());
+		
 		return appendix;
 	}
 
