@@ -25,6 +25,9 @@ cat admission_result.xml | curl -i -H "Accept: application/json" -H "Content-typ
 # Admission.savePhoto
 cat admission_photo.xml | curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -X POST -d @- http://localhost:9090/admission/services/admission/{admissionCode}/photo
 
+# Admission.getPhoto
+curl -i -H "Accept: application/json" -H "Content-type: application/xml" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" http://localhost:9090/admission/services/admission/{admissionCode}/photo/identifier:{identifier}
+
 ##
 ## User
 ##
@@ -106,3 +109,6 @@ curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session 
 
 # Apology.update
 cat examples/apology_01.xml | curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" -X PUT -d @- http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}/apology
+
+# Apology.getAppendix
+curl -i -H "Accept: application/json" -H "X-CTU-FIT-Admission-Session: [session identifier from User.identity]" -H "Content-type: application/xml" http://localhost:9090/admission/services/admission/{admissionCode}/registration/term/dateOfTerm:{dateOfTerm}/room:{room}/apology/appendix/identifier:{identifier}
