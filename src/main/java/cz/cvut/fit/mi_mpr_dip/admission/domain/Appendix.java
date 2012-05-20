@@ -1,11 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.Valid;
@@ -22,9 +24,9 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
-@RooEquals(excludeFields = { "appendixId" })
-@RooJpaActiveRecord
+@RooToString(excludeFields = { "appendixContent" })
+@RooEquals(excludeFields = { "appendixId", "appendixContent" })
+@RooJpaActiveRecord(finders = { "findAppendixesByIdentifierEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class Appendix {
@@ -39,6 +41,9 @@ public class Appendix {
 	@XmlTransient
 	private Long appendixId;
 
+	@Column(unique = true)
+	private String identifier;
+
 	private String filename;
 
 	@Transient
@@ -48,9 +53,13 @@ public class Appendix {
 	@NotNull
 	private String mimeType;
 
-	@NotEmpty
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false, mappedBy = "appendix")
 	@NotNull
-	@Lob
+	@Valid
+	@XmlTransient
+	private AppendixContent appendixContent;
+
+	@Transient
 	private String content;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })

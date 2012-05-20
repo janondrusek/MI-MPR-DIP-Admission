@@ -3,6 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.util;
 public interface WebKeys {
 
 	public static final String ADMISSION = "admission";
+	public static final String APPENDIX = "appendix";
 	public static final String CALL_IDENTIFIER = "call-identifier";
 	public static final String CODE = "code";
 	public static final String DURATION = "duration";

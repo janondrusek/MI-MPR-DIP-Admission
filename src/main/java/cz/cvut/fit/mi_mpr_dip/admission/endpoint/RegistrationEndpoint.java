@@ -15,4 +15,6 @@ public interface RegistrationEndpoint {
 	public Response deleteApology(String admissionCode, String dateOfTerm, String room);
 
 	public Response updateApology(String admissionCode, String dateOfTerm, String room, Apology apology);
+
+	public Response getApologyAppendix(String admissionCode, String dateOfTerm, String room, String identifier);
 }

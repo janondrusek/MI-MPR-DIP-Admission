@@ -119,6 +119,9 @@ public class Admission {
 	@Valid
 	private Set<Appendix> photos;
 
+	@Transient
+	private Set<Appendix> photoLinks;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "admission")
 	@Valid
 	@XmlElementWrapper(name = "registrations")

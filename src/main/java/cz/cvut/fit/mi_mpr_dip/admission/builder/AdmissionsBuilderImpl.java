@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Required;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
+import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
 
 public class AdmissionsBuilderImpl implements AdmissionsBuilder {
@@ -21,6 +22,9 @@ public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 	private Integer maxLimit;
 
 	private Integer offset = new Integer(0);
+
+	@Autowired
+	private AppendixService appendixService;
 
 	@Autowired
 	private TermService termService;
@@ -82,6 +86,7 @@ public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 
 	private void addLinks(Admission admission) {
 		addLinks(admission.getRegistrations());
+		appendixService.addLinks(admission);
 	}
 
 	private void addLinks(Set<TermRegistration> registrations) {

@@ -3,14 +3,14 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContent;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-privileged aspect Appendix_Roo_ToString {
+privileged aspect AppendixContent_Roo_ToString {
     
-    public String Appendix.toString() {
-        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("appendixContent").toString();
+    public String AppendixContent.toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
     
 }

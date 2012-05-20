@@ -4,9 +4,18 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.RegistrationEndpointImpl;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AppendixEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.RegistrationEndpointHelper;
 
 privileged aspect RegistrationEndpointImpl_Roo_JavaBean {
+    
+    public AppendixEndpointHelper RegistrationEndpointImpl.getAppendixEndpointHelper() {
+        return this.appendixEndpointHelper;
+    }
+    
+    public void RegistrationEndpointImpl.setAppendixEndpointHelper(AppendixEndpointHelper appendixEndpointHelper) {
+        this.appendixEndpointHelper = appendixEndpointHelper;
+    }
     
     public RegistrationEndpointHelper RegistrationEndpointImpl.getRegistrationEndpointHelper() {
         return this.registrationEndpointHelper;

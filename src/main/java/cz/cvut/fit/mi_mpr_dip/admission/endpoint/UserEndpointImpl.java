@@ -44,16 +44,11 @@ public class UserEndpointImpl implements UserEndpoint {
 	private static final String RESET_PASSWORD_PATH = "/reset_password";
 	private static final String SESSION_PATH = "/session";
 
-	private static final String EMAIL_ATTRIBUTE = "email:";
-	private static final String IDENTIFIER_ATTRIBUTE = "identifier:";
-	private static final String NEW_ATTRIBUTE = "new:";
-	private static final String OLD_ATTRIBUTE = "old:";
-
-	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + EMAIL_ATTRIBUTE + "{email}"
-			+ RESET_PASSWORD_PATH;
+	private static final String FULL_RESET_PASSWORD_PATH = PERSON_PATH + StringPool.SLASH + URIKeys.EMAIL_ATTRIBUTE
+			+ "{email}" + RESET_PASSWORD_PATH;
 	private static final String FULL_UPDATE_PASSWORD_PATH = URIKeys.IDENTITY_PATH + StringPool.SLASH + "{userIdentity}"
-			+ PASSWORD_PATH + StringPool.SLASH + OLD_ATTRIBUTE + "{oldPassword:.*?}" + StringPool.SLASH + NEW_ATTRIBUTE
-			+ "{newPassword:.*?}";
+			+ PASSWORD_PATH + StringPool.SLASH + URIKeys.OLD_ATTRIBUTE + "{oldPassword:.*?}" + StringPool.SLASH
+			+ URIKeys.NEW_ATTRIBUTE + "{newPassword:.*?}";
 
 	@Autowired
 	private AdmissionDao admissionDao;
@@ -95,7 +90,7 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	@Secured("PERM_RESET_PASSWORD")
-	@Path(AdmissionEndpointImpl.ENDPOINT_PATH + "/{admissionCode}" + FULL_RESET_PASSWORD_PATH)
+	@Path(AdmissionEndpointImpl.ENDPOINT_PATH + AdmissionEndpointImpl.ADMISSION_PATH + FULL_RESET_PASSWORD_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
@@ -116,13 +111,13 @@ public class UserEndpointImpl implements UserEndpoint {
 	}
 
 	@Secured("PERM_DELETE_SESSION")
-	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + SESSION_PATH + StringPool.SLASH + IDENTIFIER_ATTRIBUTE
-			+ "{sessionIdentifier}")
+	@Path(URIKeys.IDENTITY_PATH + "/{userIdentity}" + SESSION_PATH + StringPool.SLASH + URIKeys.IDENTIFIER_ATTRIBUTE
+			+ URIKeys.IDENTIFIER)
 	@Produces
 	@DELETE
 	@Override
 	public Response deleteUserSession(@PathParam("userIdentity") String username,
-			@PathParam("sessionIdentifier") String identifier) {
+			@PathParam("identifier") String identifier) {
 		return getUserIdentityEndpointHelper().deleteUserSession(username, identifier);
 	}
 

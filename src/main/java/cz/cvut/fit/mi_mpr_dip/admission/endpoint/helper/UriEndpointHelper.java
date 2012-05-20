@@ -13,6 +13,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
@@ -62,6 +63,14 @@ public class UriEndpointHelper {
 		return buildURI(baseLocation, path);
 	}
 
+	public URI getAppendixLocation(String admissionCode, Appendix appendix) {
+		String path = replace(AdmissionEndpointImpl.ENDPOINT_PATH + AdmissionEndpointImpl.PHOTO_PATH,
+				URIKeys.ADMISSION_CODE, admissionCode);
+		path = replace(path, URIKeys.IDENTIFIER, appendix.getIdentifier());
+
+		return buildURI(StringPool.BLANK, path);
+	}
+
 	private String formatDateAndReplaceSpaces(Date dateOfTerm) {
 		return getTermDateUtils().toUnderscoredIso(dateOfTerm);
 	}
@@ -80,4 +89,5 @@ public class UriEndpointHelper {
 			throw new TechnicalException(e);
 		}
 	}
+
 }

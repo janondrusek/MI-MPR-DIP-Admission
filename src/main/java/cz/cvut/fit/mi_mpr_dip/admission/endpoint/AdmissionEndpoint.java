@@ -21,5 +21,7 @@ public interface AdmissionEndpoint {
 
 	public Response saveResult(String admissionCode, AdmissionResult result);
 
+	public Response getAdmissionPhoto(String admissionCode, String identifier);
+
 	public Response savePhoto(String admissionCode, Appendix photo);
 }

@@ -13,6 +13,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Link;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
@@ -38,6 +39,20 @@ public class LinkServiceImpl implements LinkService {
 	@Override
 	public Link getTermLink(Term term) {
 		return getLink(WebKeys.TERM, getUri(term));
+	}
+
+	@Override
+	public Link getAppendixLink(String admissionCode, Appendix appendix) {
+		return getLink(WebKeys.APPENDIX, getUri(admissionCode, appendix));
+	}
+
+	private URI getUri(String admissionCode, Appendix appendix) {
+		return getUriEndpointHelper().getAppendixLocation(admissionCode, appendix);
+	}
+
+	@Override
+	public Link getAppendixLink(String admissionCode, Term term, Appendix appendix) {
+		return null;
 	}
 
 	private URI getUri(Admission admission) {

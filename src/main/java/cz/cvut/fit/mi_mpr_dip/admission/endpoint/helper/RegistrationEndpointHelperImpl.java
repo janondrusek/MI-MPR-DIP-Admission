@@ -98,6 +98,7 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 	@Transactional
 	@Override
 	public Response addApology(String admissionCode, String dateOfTerm, String room, Apology apology) {
+		validate(apology);
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
 		if (isApologyUpdate(termRegistration)) {
 			getBusinessExceptionUtil().throwException(HttpServletResponse.SC_BAD_REQUEST, "Update required");
@@ -111,7 +112,7 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 	@Override
 	public Response deleteApology(String admissionCode, String dateOfTerm, String room) {
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
-		validate(termRegistration.getApology());
+		validateNotNull(termRegistration.getApology());
 
 		termRegistration.getApology().setRegistration(null);
 		termRegistration.getApology().remove();
@@ -120,8 +121,12 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 
 		return getOkResponse();
 	}
-
+	
 	private void validate(Apology apology) {
+		getBeanValidator().validate(apology);
+	}
+
+	private void validateNotNull(Apology apology) {
 		if (apology == null) {
 			throwNotFoundBusinessException();
 		}
@@ -130,6 +135,7 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 	@Transactional
 	@Override
 	public Response updateApology(String admissionCode, String dateOfTerm, String room, Apology apology) {
+		validate(apology);
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
 		if (isApologyUpdate(termRegistration)) {
 			updateApology(termRegistration, apology);

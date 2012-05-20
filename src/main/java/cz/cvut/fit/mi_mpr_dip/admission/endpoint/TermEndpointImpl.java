@@ -21,12 +21,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.TermEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.TermDeduplicationService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
 @RooJavaBean
 @Path(TermEndpointImpl.ENDPOINT_PATH)
 public class TermEndpointImpl implements TermEndpoint {
 
-	public static final String ENDPOINT_PATH = "/term";
+	public static final String ENDPOINT_PATH = URIKeys.TERM_PATH;
+
 	public static final String TERM_PATH = "/dateOfTerm:{dateOfTerm}/room:{room}";
 
 	@Autowired

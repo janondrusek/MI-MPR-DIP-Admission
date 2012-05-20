@@ -5,8 +5,10 @@ package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.AdmissionEndpointImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AppendixEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AppendixDeduplicationSevice;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
@@ -35,6 +37,22 @@ privileged aspect AdmissionEndpointImpl_Roo_JavaBean {
     
     public void AdmissionEndpointImpl.setAppendixDeduplicationSevice(AppendixDeduplicationSevice appendixDeduplicationSevice) {
         this.appendixDeduplicationSevice = appendixDeduplicationSevice;
+    }
+    
+    public AppendixEndpointHelper AdmissionEndpointImpl.getAppendixEndpointHelper() {
+        return this.appendixEndpointHelper;
+    }
+    
+    public void AdmissionEndpointImpl.setAppendixEndpointHelper(AppendixEndpointHelper appendixEndpointHelper) {
+        this.appendixEndpointHelper = appendixEndpointHelper;
+    }
+    
+    public AppendixService AdmissionEndpointImpl.getAppendixService() {
+        return this.appendixService;
+    }
+    
+    public void AdmissionEndpointImpl.setAppendixService(AppendixService appendixService) {
+        this.appendixService = appendixService;
     }
     
     public ProcessService AdmissionEndpointImpl.getProcessService() {

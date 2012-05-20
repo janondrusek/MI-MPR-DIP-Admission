@@ -149,6 +149,14 @@ privileged aspect Admission_Roo_JavaBean {
         this.photos = photos;
     }
     
+    public Set<Appendix> Admission.getPhotoLinks() {
+        return this.photoLinks;
+    }
+    
+    public void Admission.setPhotoLinks(Set<Appendix> photoLinks) {
+        this.photoLinks = photoLinks;
+    }
+    
     public Set<TermRegistration> Admission.getRegistrations() {
         return this.registrations;
     }

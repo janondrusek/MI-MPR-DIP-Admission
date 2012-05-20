@@ -26,21 +26,25 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AppendixEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AppendixDeduplicationSevice;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
+import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
 @RooJavaBean
 @Path(AdmissionEndpointImpl.ENDPOINT_PATH)
 public class AdmissionEndpointImpl implements AdmissionEndpoint {
 
 	public static final String ENDPOINT_PATH = "/admission";
-	public static final String ADMISSION_PATH = "/{admissionCode}";
-	public static final String PHOTO_PATH = "/photo";
-	public static final String RESULT_PATH = "/result";
+
+	public static final String ADMISSION_PATH = StringPool.SLASH + URIKeys.ADMISSION_CODE;
+	public static final String PHOTO_PATH = AdmissionEndpointImpl.ADMISSION_PATH + URIKeys.PHOTO_PATH
+			+ StringPool.SLASH + URIKeys.IDENTIFIER_ATTRIBUTE + URIKeys.IDENTIFIER;
 
 	@Autowired
 	private AdmissionDeduplicationService admissionDeduplicationService;
@@ -50,6 +54,12 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 
 	@Autowired
 	private AppendixDeduplicationSevice appendixDeduplicationSevice;
+
+	@Autowired
+	private AppendixEndpointHelper appendixEndpointHelper;
+
+	@Autowired
+	private AppendixService appendixService;
 
 	@Autowired
 	private ProcessService processService;
@@ -130,7 +140,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	}
 
 	@Secured("PERM_WRITE_RESULT")
-	@Path(ADMISSION_PATH + RESULT_PATH)
+	@Path(ADMISSION_PATH + URIKeys.RESULT_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
@@ -145,27 +155,33 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 				});
 	}
 
+	@Secured("PERM_READ_PHOTO")
+	@Path(PHOTO_PATH)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@GET
+	@Override
+	public Response getAdmissionPhoto(@PathParam("admissionCode") String admissionCode,
+			@PathParam("identifier") String identifier) {
+		return getAppendixEndpointHelper().getAdmissionPhoto(admissionCode, identifier);
+	}
+
 	@Secured("PERM_WRITE_PHOTO")
-	@Path(ADMISSION_PATH + PHOTO_PATH)
+	@Path(ADMISSION_PATH + URIKeys.PHOTO_PATH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
 	public Response savePhoto(@PathParam("admissionCode") String admissionCode, Appendix photo) {
 		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, ENDPOINT_PATH, photo,
-				new SavePhotoAdmissionAction(photo));
+				new SavePhotoAdmissionAction());
 	}
 
 	private class SavePhotoAdmissionAction implements AdmissionAction<Appendix> {
 
-		private Appendix photo;
-
-		public SavePhotoAdmissionAction(Appendix photo) {
-			this.photo = photo;
-		}
-
 		@Override
-		public void performAction(Admission admission, Appendix actor) {
-			getAppendixDeduplicationSevice().deduplicateAndStore(photo);
+		public void performAction(Admission admission, Appendix photo) {
+			getAppendixService().addContent(photo);
+			getAppendixDeduplicationSevice().deduplicate(photo);
+			getAppendixService().addIdentifier(photo);
 			ensurePhotos(admission);
 			admission.getPhotos().add(photo);
 		}
