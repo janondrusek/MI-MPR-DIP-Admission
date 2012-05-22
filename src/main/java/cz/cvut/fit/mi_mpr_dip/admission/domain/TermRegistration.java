@@ -27,7 +27,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 
 @RooJavaBean
 @RooToString(excludeFields = { "admission" })
-@RooEquals(excludeFields = { "termRegistrationId", "admission" })
+@RooEquals(excludeFields = { "termRegistrationId" })
 @RooJpaActiveRecord(finders = { "findTermRegistrationsByAdmissionAndTerm" })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "admission", "term" }))
 @XmlAccessorType(XmlAccessType.FIELD)
