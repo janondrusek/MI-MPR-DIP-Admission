@@ -6,11 +6,20 @@ package cz.cvut.fit.mi_mpr_dip.admission.service;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermServiceImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
 
 privileged aspect TermServiceImpl_Roo_JavaBean {
+    
+    public AppendixService TermServiceImpl.getAppendixService() {
+        return this.appendixService;
+    }
+    
+    public void TermServiceImpl.setAppendixService(AppendixService appendixService) {
+        this.appendixService = appendixService;
+    }
     
     public BusinessExceptionUtil TermServiceImpl.getBusinessExceptionUtil() {
         return this.businessExceptionUtil;

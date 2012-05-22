@@ -38,6 +38,7 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 	@Autowired
 	private TermUniqueConstraintValidator uniqueConstraintValidator;
 
+	@Transactional(readOnly = true)
 	@Override
 	public Response getTerms() {
 		Terms terms = createTerms();
@@ -75,6 +76,7 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 		return getTerm(date, room);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Response getTerm(Date dateOfTerm, String room) {
 		Term term = getTermOrThrowNotFound(dateOfTerm, room);

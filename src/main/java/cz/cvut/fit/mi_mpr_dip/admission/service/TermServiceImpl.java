@@ -28,6 +28,9 @@ public class TermServiceImpl implements TermService {
 	private static final Logger log = LoggerFactory.getLogger(TermServiceImpl.class);
 
 	@Autowired
+	private AppendixService appendixService;
+
+	@Autowired
 	private BusinessExceptionUtil businessExceptionUtil;
 
 	@Autowired
@@ -59,6 +62,7 @@ public class TermServiceImpl implements TermService {
 
 	private void addLink(TermRegistration termRegistration) {
 		addAdmissionLink(termRegistration);
+		addApologyLink(termRegistration);
 		addTermLink(termRegistration);
 	}
 
@@ -67,6 +71,10 @@ public class TermServiceImpl implements TermService {
 		if (admission != null) {
 			termRegistration.setAdmissionLink(getAdmissionLink(admission));
 		}
+	}
+
+	private void addApologyLink(TermRegistration termRegistration) {
+		getAppendixService().addLinks(termRegistration);
 	}
 
 	private Admission getAdmissionLink(Admission admission) {
