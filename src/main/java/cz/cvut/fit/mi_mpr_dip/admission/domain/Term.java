@@ -55,7 +55,7 @@ public class Term {
 
 	@NotNull
 	private Date dateOfTerm;
-	
+
 	@Transient
 	private Link link;
 
@@ -84,7 +84,7 @@ public class Term {
 	@XmlElement(name = "programme")
 	private Set<Programme> programs;
 
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "term")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "term", orphanRemoval = true)
 	@Valid
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")

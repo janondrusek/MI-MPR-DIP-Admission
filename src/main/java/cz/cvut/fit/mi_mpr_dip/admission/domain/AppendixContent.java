@@ -1,12 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -38,8 +35,4 @@ public class AppendixContent {
 	@NotNull
 	@Lob
 	private String content;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@XmlTransient
-	private Appendix appendix;
 }

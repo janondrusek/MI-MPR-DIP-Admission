@@ -80,6 +80,8 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 	@Override
 	public Response getTerm(Date dateOfTerm, String room) {
 		Term term = getTermOrThrowNotFound(dateOfTerm, room);
+		addLinks(term);
+
 		return getOkResponse(term);
 	}
 
@@ -87,7 +89,7 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 	public Response deleteTerm(String dateOfTerm, String room) {
 		Date date = getTermService().getDate(dateOfTerm);
 		Term term = getTermOrThrowNotFound(date, room);
-		getTermDao().delete(term);
+		term.remove();
 
 		return getOkResponse();
 	}
@@ -111,7 +113,6 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 	private Term getTermOrThrowNotFound(Date dateOfTerm, String room) {
 		Term term = findTerm(dateOfTerm, room);
 		validateNotFound(term);
-		addLinks(term);
 
 		return term;
 	}

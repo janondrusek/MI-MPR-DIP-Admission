@@ -114,7 +114,7 @@ public class Admission {
 	private Programme programme;
 
 	@XmlTransient
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinTable(name = "admission_appendix", joinColumns = { @JoinColumn(name = "admission_id", referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "appendix_id", referencedColumnName = "appendixId") })
 	@Valid
 	private Set<Appendix> photos;
@@ -124,7 +124,7 @@ public class Admission {
 	@XmlElement(name = "photo")
 	private Set<Appendix> photoLinks;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "admission")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "admission", orphanRemoval = true)
 	@Valid
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")

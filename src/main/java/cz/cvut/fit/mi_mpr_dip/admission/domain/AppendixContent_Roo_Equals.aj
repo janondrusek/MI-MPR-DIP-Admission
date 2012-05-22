@@ -17,11 +17,11 @@ privileged aspect AppendixContent_Roo_Equals {
             return true;
         }
         AppendixContent rhs = (AppendixContent) obj;
-        return new EqualsBuilder().append(appendix, rhs.appendix).append(content, rhs.content).isEquals();
+        return new EqualsBuilder().append(content, rhs.content).isEquals();
     }
     
     public int AppendixContent.hashCode() {
-        return new HashCodeBuilder().append(appendix).append(content).toHashCode();
+        return new HashCodeBuilder().append(content).toHashCode();
     }
     
 }

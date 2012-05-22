@@ -4,6 +4,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContent;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContentDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixTypeDataOnDemand;
@@ -26,7 +28,25 @@ privileged aspect AppendixDataOnDemand_Roo_DataOnDemand {
     private List<Appendix> AppendixDataOnDemand.data;
     
     @Autowired
+    private AppendixContentDataOnDemand AppendixDataOnDemand.appendixContentDataOnDemand;
+    
+    @Autowired
     private AppendixTypeDataOnDemand AppendixDataOnDemand.appendixTypeDataOnDemand;
+    
+    public Appendix AppendixDataOnDemand.getNewTransientAppendix(int index) {
+        Appendix obj = new Appendix();
+        setAppendixContent(obj, index);
+        setAppendixType(obj, index);
+        setFilename(obj, index);
+        setIdentifier(obj, index);
+        setMimeType(obj, index);
+        return obj;
+    }
+    
+    public void AppendixDataOnDemand.setAppendixContent(Appendix obj, int index) {
+        AppendixContent appendixContent = appendixContentDataOnDemand.getSpecificAppendixContent(index);
+        obj.setAppendixContent(appendixContent);
+    }
     
     public void AppendixDataOnDemand.setAppendixType(Appendix obj, int index) {
         AppendixType appendixType = appendixTypeDataOnDemand.getRandomAppendixType();

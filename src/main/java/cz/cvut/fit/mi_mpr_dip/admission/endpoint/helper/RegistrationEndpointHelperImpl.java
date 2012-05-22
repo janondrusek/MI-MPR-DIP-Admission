@@ -68,12 +68,11 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 		return getSeeOtherResponse(term);
 	}
 
-	@Transactional
 	@Override
 	public Response deleteRegistration(String admissionCode, String dateOfTerm, String room) {
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
-		getTermRegistrationDao().delete(termRegistration);
-
+		termRegistration.remove();
+		
 		return getOkResponse();
 	}
 

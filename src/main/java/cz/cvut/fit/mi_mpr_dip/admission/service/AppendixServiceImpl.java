@@ -109,7 +109,6 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 		appendixContent.setContent(appendix.getContent());
 
 		appendix.setAppendixContent(appendixContent);
-		appendixContent.setAppendix(appendix);
 	}
 
 	@Override

@@ -3,10 +3,8 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContent;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContentDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +12,6 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect AppendixContentDataOnDemand_Roo_DataOnDemand {
@@ -25,19 +22,10 @@ privileged aspect AppendixContentDataOnDemand_Roo_DataOnDemand {
     
     private List<AppendixContent> AppendixContentDataOnDemand.data;
     
-    @Autowired
-    private AppendixDataOnDemand AppendixContentDataOnDemand.appendixDataOnDemand;
-    
     public AppendixContent AppendixContentDataOnDemand.getNewTransientAppendixContent(int index) {
         AppendixContent obj = new AppendixContent();
-        setAppendix(obj, index);
         setContent(obj, index);
         return obj;
-    }
-    
-    public void AppendixContentDataOnDemand.setAppendix(AppendixContent obj, int index) {
-        Appendix appendix = appendixDataOnDemand.getSpecificAppendix(index);
-        obj.setAppendix(appendix);
     }
     
     public void AppendixContentDataOnDemand.setContent(AppendixContent obj, int index) {

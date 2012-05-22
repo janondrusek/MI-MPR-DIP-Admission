@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,16 +53,5 @@ public class TermRegistrationDaoImpl extends AbstractDao<TermRegistration> imple
 		termRegistration.setTerm(new Term());
 
 		return termRegistration;
-	}
-
-	@Transactional
-	@Override
-	public void delete(TermRegistration termRegistration) {
-		termRegistration.remove();
-		Query query = entityManager.createQuery("delete from " + TermRegistration.class.getName()
-				+ " where termRegistrationId = :id");
-		query.setParameter("id", termRegistration.getTermRegistrationId());
-
-		query.executeUpdate();
 	}
 }

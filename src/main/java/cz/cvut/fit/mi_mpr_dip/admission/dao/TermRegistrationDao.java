@@ -8,5 +8,4 @@ public interface TermRegistrationDao {
 
 	public TermRegistration getTermRegistration(String admissionCode, Date dateOfTerm, String room);
 
-	public void delete(TermRegistration termRegistration);
 }

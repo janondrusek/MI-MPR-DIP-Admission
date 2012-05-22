@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContent;
 
 privileged aspect AppendixContent_Roo_JavaBean {
@@ -30,14 +29,6 @@ privileged aspect AppendixContent_Roo_JavaBean {
     
     public void AppendixContent.setContent(String content) {
         this.content = content;
-    }
-    
-    public Appendix AppendixContent.getAppendix() {
-        return this.appendix;
-    }
-    
-    public void AppendixContent.setAppendix(Appendix appendix) {
-        this.appendix = appendix;
     }
     
 }
