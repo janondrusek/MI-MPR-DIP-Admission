@@ -47,7 +47,7 @@ public class Apology {
 	@XmlTransient
 	private Long apologyId;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@OneToOne(cascade = CascadeType.ALL)
 	@XmlTransient
 	private TermRegistration registration;
 
@@ -59,7 +59,7 @@ public class Apology {
 	@Lob
 	private String text;
 
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "apology_appendix", joinColumns = { @JoinColumn(name = "apology_id", referencedColumnName = "apologyId") }, inverseJoinColumns = { @JoinColumn(name = "appendix_id", referencedColumnName = "appendixId") })
 	@XmlTransient
 	private Set<Appendix> appendices;

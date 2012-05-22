@@ -83,13 +83,12 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 		return getOkResponse(term);
 	}
 
-	@Transactional
 	@Override
 	public Response deleteTerm(String dateOfTerm, String room) {
 		Date date = getTermService().getDate(dateOfTerm);
 		Term term = getTermOrThrowNotFound(date, room);
+		getTermDao().delete(term);
 
-		term.remove();
 		return getOkResponse();
 	}
 
