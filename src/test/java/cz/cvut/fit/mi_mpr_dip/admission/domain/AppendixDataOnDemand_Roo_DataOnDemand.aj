@@ -7,7 +7,6 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContent;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContentDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixTypeDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ privileged aspect AppendixDataOnDemand_Roo_DataOnDemand {
     public Appendix AppendixDataOnDemand.getNewTransientAppendix(int index) {
         Appendix obj = new Appendix();
         setAppendixContent(obj, index);
-        setAppendixType(obj, index);
         setFilename(obj, index);
         setIdentifier(obj, index);
         setMimeType(obj, index);
@@ -46,11 +44,6 @@ privileged aspect AppendixDataOnDemand_Roo_DataOnDemand {
     public void AppendixDataOnDemand.setAppendixContent(Appendix obj, int index) {
         AppendixContent appendixContent = appendixContentDataOnDemand.getSpecificAppendixContent(index);
         obj.setAppendixContent(appendixContent);
-    }
-    
-    public void AppendixDataOnDemand.setAppendixType(Appendix obj, int index) {
-        AppendixType appendixType = appendixTypeDataOnDemand.getRandomAppendixType();
-        obj.setAppendixType(appendixType);
     }
     
     public void AppendixDataOnDemand.setFilename(Appendix obj, int index) {

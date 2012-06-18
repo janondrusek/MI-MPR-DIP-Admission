@@ -3,13 +3,9 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.address.City;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.CityDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.CountryDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Gender;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.GenderDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatus;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.MaritalStatusDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
@@ -50,15 +46,10 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
         Person obj = new Person();
         setBirthIdentificationNumber(obj, index);
         setBirthdate(obj, index);
-        setCitizenship(obj, index);
-        setCityOfBirth(obj, index);
-        setCountryOfBirth(obj, index);
         setEmail(obj, index);
         setFirstname(obj, index);
-        setGender(obj, index);
         setLastname(obj, index);
         setMaidenname(obj, index);
-        setMaritalStatus(obj, index);
         setMiddlename(obj, index);
         setPermanentResidenceGranted(obj, index);
         setPhone(obj, index);
@@ -77,21 +68,6 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
         obj.setBirthdate(birthdate);
     }
     
-    public void PersonDataOnDemand.setCitizenship(Person obj, int index) {
-        Country citizenship = countryDataOnDemand.getRandomCountry();
-        obj.setCitizenship(citizenship);
-    }
-    
-    public void PersonDataOnDemand.setCityOfBirth(Person obj, int index) {
-        City cityOfBirth = cityDataOnDemand.getRandomCity();
-        obj.setCityOfBirth(cityOfBirth);
-    }
-    
-    public void PersonDataOnDemand.setCountryOfBirth(Person obj, int index) {
-        Country countryOfBirth = countryDataOnDemand.getRandomCountry();
-        obj.setCountryOfBirth(countryOfBirth);
-    }
-    
     public void PersonDataOnDemand.setEmail(Person obj, int index) {
         String email = "foo" + index + "@bar.com";
         obj.setEmail(email);
@@ -102,11 +78,6 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
         obj.setFirstname(firstname);
     }
     
-    public void PersonDataOnDemand.setGender(Person obj, int index) {
-        Gender gender = genderDataOnDemand.getRandomGender();
-        obj.setGender(gender);
-    }
-    
     public void PersonDataOnDemand.setLastname(Person obj, int index) {
         String lastname = "lastname_" + index;
         obj.setLastname(lastname);
@@ -115,11 +86,6 @@ privileged aspect PersonDataOnDemand_Roo_DataOnDemand {
     public void PersonDataOnDemand.setMaidenname(Person obj, int index) {
         String maidenname = "maidenname_" + index;
         obj.setMaidenname(maidenname);
-    }
-    
-    public void PersonDataOnDemand.setMaritalStatus(Person obj, int index) {
-        MaritalStatus maritalStatus = maritalStatusDataOnDemand.getRandomMaritalStatus();
-        obj.setMaritalStatus(maritalStatus);
     }
     
     public void PersonDataOnDemand.setMiddlename(Person obj, int index) {

@@ -5,7 +5,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumber;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumberDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumberType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.ReferenceNumberTypeDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ privileged aspect ReferenceNumberDataOnDemand_Roo_DataOnDemand {
         ReferenceNumber obj = new ReferenceNumber();
         setCode(obj, index);
         setExecuted(obj, index);
-        setReferenceNumberType(obj, index);
         return obj;
     }
     
@@ -47,11 +45,6 @@ privileged aspect ReferenceNumberDataOnDemand_Roo_DataOnDemand {
     public void ReferenceNumberDataOnDemand.setExecuted(ReferenceNumber obj, int index) {
         Date executed = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setExecuted(executed);
-    }
-    
-    public void ReferenceNumberDataOnDemand.setReferenceNumberType(ReferenceNumber obj, int index) {
-        ReferenceNumberType referenceNumberType = referenceNumberTypeDataOnDemand.getRandomReferenceNumberType();
-        obj.setReferenceNumberType(referenceNumberType);
     }
     
     public ReferenceNumber ReferenceNumberDataOnDemand.getSpecificReferenceNumber(int index) {

@@ -5,7 +5,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AppealTypeDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -31,18 +30,12 @@ privileged aspect AppealDataOnDemand_Roo_DataOnDemand {
     public Appeal AppealDataOnDemand.getNewTransientAppeal(int index) {
         Appeal obj = new Appeal();
         setAccepted(obj, index);
-        setAppealType(obj, index);
         return obj;
     }
     
     public void AppealDataOnDemand.setAccepted(Appeal obj, int index) {
         Boolean accepted = Boolean.TRUE;
         obj.setAccepted(accepted);
-    }
-    
-    public void AppealDataOnDemand.setAppealType(Appeal obj, int index) {
-        AppealType appealType = appealTypeDataOnDemand.getRandomAppealType();
-        obj.setAppealType(appealType);
     }
     
     public Appeal AppealDataOnDemand.getSpecificAppeal(int index) {

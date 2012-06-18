@@ -3,7 +3,6 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSessionDataOnDemand;
@@ -35,7 +34,6 @@ privileged aspect UserSessionDataOnDemand_Roo_DataOnDemand {
         UserSession obj = new UserSession();
         setGrantValidTo(obj, index);
         setIdentifier(obj, index);
-        setUserIdentity(obj, index);
         return obj;
     }
     
@@ -47,11 +45,6 @@ privileged aspect UserSessionDataOnDemand_Roo_DataOnDemand {
     public void UserSessionDataOnDemand.setIdentifier(UserSession obj, int index) {
         String identifier = "identifier_" + index;
         obj.setIdentifier(identifier);
-    }
-    
-    public void UserSessionDataOnDemand.setUserIdentity(UserSession obj, int index) {
-        UserIdentity userIdentity = userIdentityDataOnDemand.getRandomUserIdentity();
-        obj.setUserIdentity(userIdentity);
     }
     
     public UserSession UserSessionDataOnDemand.getSpecificUserSession(int index) {

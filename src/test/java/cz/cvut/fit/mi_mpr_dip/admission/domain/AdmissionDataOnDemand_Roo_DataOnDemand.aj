@@ -5,17 +5,12 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResultDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionStateDataOnDemand;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.PersonDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Faculty;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.FacultyDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.ProgrammeDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -56,26 +51,16 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
     public Admission AdmissionDataOnDemand.getNewTransientAdmission(int index) {
         Admission obj = new Admission();
         setAccepted(obj, index);
-        setAdmissionState(obj, index);
         setCode(obj, index);
         setDormitoryRequest(obj, index);
-        setFaculty(obj, index);
         setPerson(obj, index);
-        setProgramme(obj, index);
-        setResult(obj, index);
         setType(obj, index);
-        setUserIdentity(obj, index);
         return obj;
     }
     
     public void AdmissionDataOnDemand.setAccepted(Admission obj, int index) {
         Boolean accepted = Boolean.FALSE;
         obj.setAccepted(accepted);
-    }
-    
-    public void AdmissionDataOnDemand.setAdmissionState(Admission obj, int index) {
-        AdmissionState admissionState = admissionStateDataOnDemand.getRandomAdmissionState();
-        obj.setAdmissionState(admissionState);
     }
     
     public void AdmissionDataOnDemand.setCode(Admission obj, int index) {
@@ -88,34 +73,14 @@ privileged aspect AdmissionDataOnDemand_Roo_DataOnDemand {
         obj.setDormitoryRequest(dormitoryRequest);
     }
     
-    public void AdmissionDataOnDemand.setFaculty(Admission obj, int index) {
-        Faculty faculty = facultyDataOnDemand.getRandomFaculty();
-        obj.setFaculty(faculty);
-    }
-    
     public void AdmissionDataOnDemand.setPerson(Admission obj, int index) {
         Person person = personDataOnDemand.getSpecificPerson(index);
         obj.setPerson(person);
     }
     
-    public void AdmissionDataOnDemand.setProgramme(Admission obj, int index) {
-        Programme programme = programmeDataOnDemand.getRandomProgramme();
-        obj.setProgramme(programme);
-    }
-    
-    public void AdmissionDataOnDemand.setResult(Admission obj, int index) {
-        AdmissionResult result = admissionResultDataOnDemand.getSpecificAdmissionResult(index);
-        obj.setResult(result);
-    }
-    
     public void AdmissionDataOnDemand.setType(Admission obj, int index) {
         String type = "type_" + index;
         obj.setType(type);
-    }
-    
-    public void AdmissionDataOnDemand.setUserIdentity(Admission obj, int index) {
-        UserIdentity userIdentity = userIdentityDataOnDemand.getSpecificUserIdentity(index);
-        obj.setUserIdentity(userIdentity);
     }
     
     public Admission AdmissionDataOnDemand.getSpecificAdmission(int index) {

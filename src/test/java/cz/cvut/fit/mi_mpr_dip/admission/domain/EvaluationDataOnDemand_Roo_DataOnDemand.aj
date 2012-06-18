@@ -5,7 +5,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationDataOnDemand;
-import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.EvaluationTypeDataOnDemand;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -30,14 +29,8 @@ privileged aspect EvaluationDataOnDemand_Roo_DataOnDemand {
     
     public Evaluation EvaluationDataOnDemand.getNewTransientEvaluation(int index) {
         Evaluation obj = new Evaluation();
-        setEvaluationType(obj, index);
         setValue(obj, index);
         return obj;
-    }
-    
-    public void EvaluationDataOnDemand.setEvaluationType(Evaluation obj, int index) {
-        EvaluationType evaluationType = evaluationTypeDataOnDemand.getRandomEvaluationType();
-        obj.setEvaluationType(evaluationType);
     }
     
     public void EvaluationDataOnDemand.setValue(Evaluation obj, int index) {
