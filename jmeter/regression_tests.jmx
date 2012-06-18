@@ -48,6 +48,11 @@
               <stringProp name="Argument.value">/admission/admin/viewproperties</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
+            <elementProp name="admissionsPath" elementType="Argument">
+              <stringProp name="Argument.name">admissionsPath</stringProp>
+              <stringProp name="Argument.value">/admission</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
@@ -154,7 +159,7 @@
               <hashTree/>
               <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="XPath Extractor" enabled="true">
                 <stringProp name="XPathExtractor.default"></stringProp>
-                <stringProp name="XPathExtractor.refname">${identifier}</stringProp>
+                <stringProp name="XPathExtractor.refname">identifier</stringProp>
                 <stringProp name="XPathExtractor.xpathQuery">//session/identifier</stringProp>
                 <boolProp name="XPathExtractor.validate">false</boolProp>
                 <boolProp name="XPathExtractor.tolerant">false</boolProp>
@@ -173,7 +178,356 @@
               <savedValue>0.0</savedValue>
             </FloatProperty>
           </ThroughputController>
-          <hashTree/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getAdmissions HTTP Request" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">${basePath}${admissionsPath}</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <boolProp name="HTTPSampler.monitor">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                <collectionProp name="HeaderManager.headers">
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">X-CTU-FIT-Admission-Session</stringProp>
+                    <stringProp name="Header.value">${identifier}</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </HeaderManager>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <XMLAssertion guiclass="XMLAssertionGui" testclass="XMLAssertion" testname="XML Assertion" enabled="true"/>
+              <hashTree/>
+              <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion" enabled="true">
+                <boolProp name="XPath.negate">false</boolProp>
+                <stringProp name="XPath.xpath">/admissions/count &gt;= 0</stringProp>
+                <boolProp name="XPath.validate">false</boolProp>
+                <boolProp name="XPath.whitespace">false</boolProp>
+                <boolProp name="XPath.tolerant">false</boolProp>
+                <boolProp name="XPath.namespace">false</boolProp>
+              </XPathAssertion>
+              <hashTree/>
+              <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion" enabled="true">
+                <boolProp name="XPath.negate">false</boolProp>
+                <stringProp name="XPath.xpath">/admissions/totalCount &gt;= 0</stringProp>
+                <boolProp name="XPath.validate">false</boolProp>
+                <boolProp name="XPath.whitespace">false</boolProp>
+                <boolProp name="XPath.tolerant">false</boolProp>
+                <boolProp name="XPath.namespace">false</boolProp>
+              </XPathAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="addAdmission HTTP Request" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#xd;
+&lt;admission&gt;&#xd;
+	&lt;code&gt;${__RandomString(50,qwertyuiopasdfghjklzxcvbnm1234567890,)}&lt;/code&gt;&#xd;
+	&lt;!-- Maybe paper or electronic form --&gt;&#xd;
+	&lt;type /&gt;&#xd;
+	&lt;!-- Mark if attendant was successful in admission process --&gt;&#xd;
+	&lt;accomplishments&gt;&#xd;
+		&lt;accomplishment&gt;&#xd;
+			&lt;accomplishmentType&gt;&#xd;
+				&lt;name&gt;SCIO&lt;/name&gt;&#xd;
+			&lt;/accomplishmentType&gt;&#xd;
+			&lt;accomplishmentValues&gt;&#xd;
+				&lt;accomplishmentValue&gt;&#xd;
+					&lt;value&gt;10.01&lt;/value&gt;&#xd;
+				&lt;/accomplishmentValue&gt;&#xd;
+				&lt;accomplishmentValue&gt;&#xd;
+					&lt;value&gt;20.01&lt;/value&gt;&#xd;
+				&lt;/accomplishmentValue&gt;&#xd;
+			&lt;/accomplishmentValues&gt;&#xd;
+		&lt;/accomplishment&gt;&#xd;
+		&lt;accomplishment&gt;&#xd;
+			&lt;accomplishmentType&gt;&#xd;
+				&lt;name&gt;SCIO&lt;/name&gt;&#xd;
+			&lt;/accomplishmentType&gt;&#xd;
+			&lt;accomplishmentValues&gt;&#xd;
+				&lt;accomplishmentValue&gt;&#xd;
+					&lt;value&gt;10.01&lt;/value&gt;&#xd;
+				&lt;/accomplishmentValue&gt;&#xd;
+				&lt;accomplishmentValue&gt;&#xd;
+					&lt;value&gt;20.01&lt;/value&gt;&#xd;
+				&lt;/accomplishmentValue&gt;&#xd;
+			&lt;/accomplishmentValues&gt;&#xd;
+		&lt;/accomplishment&gt;&#xd;
+		&lt;accomplishment&gt;&#xd;
+			&lt;accomplishmentType&gt;&#xd;
+				&lt;name&gt;English A2&lt;/name&gt;&#xd;
+			&lt;/accomplishmentType&gt;&#xd;
+			&lt;accomplishmentValues&gt;&#xd;
+				&lt;accomplishmentValue&gt;&#xd;
+					&lt;value&gt;50.01&lt;/value&gt;&#xd;
+				&lt;/accomplishmentValue&gt;&#xd;
+				&lt;accomplishmentValue&gt;&#xd;
+					&lt;value&gt;79.01&lt;/value&gt;&#xd;
+				&lt;/accomplishmentValue&gt;&#xd;
+			&lt;/accomplishmentValues&gt;&#xd;
+		&lt;/accomplishment&gt;&#xd;
+	&lt;/accomplishments&gt;&#xd;
+	&lt;!-- Mark if attendant fails in admission process but appeals the decision --&gt;&#xd;
+	&lt;appeal /&gt;&#xd;
+	&lt;dormitoryRequest&gt;true&lt;/dormitoryRequest&gt;&#xd;
+	&lt;admissionState&gt;&#xd;
+		&lt;code&gt;state-123-456-01&lt;/code&gt;&#xd;
+		&lt;name&gt;new&lt;/name&gt;&#xd;
+		&lt;description&gt;new and better&lt;/description&gt;&#xd;
+	&lt;/admissionState&gt;&#xd;
+	&lt;evaluations&gt;&#xd;
+		&lt;evaluation&gt;&#xd;
+			&lt;evaluationType&gt;&#xd;
+				&lt;name&gt;h1&lt;/name&gt;&#xd;
+			&lt;/evaluationType&gt;&#xd;
+			&lt;value&gt;10.01&lt;/value&gt;&#xd;
+		&lt;/evaluation&gt;&#xd;
+		&lt;evaluation&gt;&#xd;
+			&lt;evaluationType&gt;&#xd;
+				&lt;name&gt;h1&lt;/name&gt;&#xd;
+			&lt;/evaluationType&gt;&#xd;
+			&lt;value&gt;11.01&lt;/value&gt;&#xd;
+		&lt;/evaluation&gt;&#xd;
+		&lt;evaluation&gt;&#xd;
+			&lt;evaluationType&gt;&#xd;
+				&lt;name&gt;h2&lt;/name&gt;&#xd;
+			&lt;/evaluationType&gt;&#xd;
+			&lt;value&gt;4.01&lt;/value&gt;&#xd;
+		&lt;/evaluation&gt;&#xd;
+	&lt;/evaluations&gt;&#xd;
+	&lt;faculty&gt;&#xd;
+		&lt;name&gt;FIT&lt;/name&gt;&#xd;
+	&lt;/faculty&gt;&#xd;
+	&lt;person&gt;&#xd;
+		&lt;citizenship&gt;&#xd;
+			&lt;name&gt;Czech republic&lt;/name&gt;&#xd;
+		&lt;/citizenship&gt;&#xd;
+		&lt;prefix&gt;Don&lt;/prefix&gt;&#xd;
+		&lt;suffix&gt;Css&lt;/suffix&gt;&#xd;
+		&lt;firstname&gt;Benjamin&lt;/firstname&gt;&#xd;
+		&lt;middlename&gt;Azurit&lt;/middlename&gt;&#xd;
+		&lt;lastname&gt;Bukvica&lt;/lastname&gt;&#xd;
+		&lt;maidenname&gt;Trp&lt;/maidenname&gt;&#xd;
+		&lt;maritalStatus&gt;&#xd;
+			&lt;name&gt;single&lt;/name&gt;&#xd;
+		&lt;/maritalStatus&gt;&#xd;
+		&lt;permanentResidenceGranted&gt;true&lt;/permanentResidenceGranted&gt;&#xd;
+		&lt;documents&gt;&#xd;
+			&lt;document&gt;&#xd;
+				&lt;documentType&gt;&#xd;
+					&lt;name&gt;Passport&lt;/name&gt;&#xd;
+				&lt;/documentType&gt;&#xd;
+				&lt;number&gt;678-901-01&lt;/number&gt;&#xd;
+			&lt;/document&gt;&#xd;
+		&lt;/documents&gt;&#xd;
+		&lt;addresses&gt;&#xd;
+			&lt;address&gt;&#xd;
+				&lt;addressType&gt;&#xd;
+					&lt;name&gt;contact&lt;/name&gt;&#xd;
+				&lt;/addressType&gt;&#xd;
+				&lt;street&gt;Gagarinova&lt;/street&gt;&#xd;
+				&lt;houseNumber&gt;1&lt;/houseNumber&gt;&#xd;
+				&lt;city&gt;&#xd;
+					&lt;name&gt;Žigulov&lt;/name&gt;&#xd;
+				&lt;/city&gt;&#xd;
+				&lt;postNumber&gt;123 45&lt;/postNumber&gt;&#xd;
+				&lt;postalCode&gt;543 21&lt;/postalCode&gt;&#xd;
+				&lt;country&gt;&#xd;
+					&lt;name&gt;Bahrajn&lt;/name&gt;&#xd;
+				&lt;/country&gt;&#xd;
+				&lt;printLines&gt;&#xd;
+					&lt;printLine&gt;&#xd;
+						&lt;value&gt;Don Benjamin Azurit Bukvica&lt;/value&gt;&#xd;
+						&lt;printLineType&gt;&#xd;
+							&lt;name&gt;1st line&lt;/name&gt;&#xd;
+						&lt;/printLineType&gt;&#xd;
+					&lt;/printLine&gt;&#xd;
+					&lt;printLine&gt;&#xd;
+						&lt;value&gt;Gagarinova 1&lt;/value&gt;&#xd;
+						&lt;printLineType&gt;&#xd;
+							&lt;name&gt;2nd line&lt;/name&gt;&#xd;
+						&lt;/printLineType&gt;&#xd;
+					&lt;/printLine&gt;&#xd;
+					&lt;printLine&gt;&#xd;
+						&lt;value&gt;123 45 Žigulov&lt;/value&gt;&#xd;
+						&lt;printLineType&gt;&#xd;
+							&lt;name&gt;3rd line&lt;/name&gt;&#xd;
+						&lt;/printLineType&gt;&#xd;
+					&lt;/printLine&gt;&#xd;
+					&lt;printLine&gt;&#xd;
+						&lt;value&gt;Bahrajn&lt;/value&gt;&#xd;
+						&lt;printLineType&gt;&#xd;
+							&lt;name&gt;4th line&lt;/name&gt;&#xd;
+						&lt;/printLineType&gt;&#xd;
+					&lt;/printLine&gt;&#xd;
+				&lt;/printLines&gt;&#xd;
+			&lt;/address&gt;&#xd;
+		&lt;/addresses&gt;&#xd;
+		&lt;birthdate&gt;2000-05-30T00:00:00Z&lt;/birthdate&gt;&#xd;
+		&lt;birthIdentificationNumber&gt;000101/1234&lt;/birthIdentificationNumber&gt;&#xd;
+		&lt;gender&gt;&#xd;
+			&lt;name&gt;M&lt;/name&gt;&#xd;
+		&lt;/gender&gt;&#xd;
+		&lt;cityOfBirth&gt;&#xd;
+			&lt;name&gt;Prague&lt;/name&gt;&#xd;
+		&lt;/cityOfBirth&gt;&#xd;
+		&lt;countryOfBirth&gt;&#xd;
+			&lt;name&gt;Czech republic&lt;/name&gt;&#xd;
+		&lt;/countryOfBirth&gt;&#xd;
+		&lt;phone&gt;603123456&lt;/phone&gt;&#xd;
+		&lt;email&gt;dyg@more.com&lt;/email&gt;&#xd;
+		&lt;disabilities&gt;&#xd;
+			&lt;disability&gt;&#xd;
+				&lt;name&gt;blind&lt;/name&gt;&#xd;
+			&lt;/disability&gt;&#xd;
+			&lt;disability&gt;&#xd;
+				&lt;name&gt;deaf&lt;/name&gt;&#xd;
+			&lt;/disability&gt;&#xd;
+			&lt;disability&gt;&#xd;
+				&lt;name&gt;dumb&lt;/name&gt;&#xd;
+			&lt;/disability&gt;&#xd;
+		&lt;/disabilities&gt;&#xd;
+	&lt;/person&gt;&#xd;
+	&lt;programme&gt;&#xd;
+		&lt;name&gt;MI&lt;/name&gt;&#xd;
+		&lt;degree&gt;&#xd;
+			&lt;name&gt;Bc.&lt;/name&gt;&#xd;
+		&lt;/degree&gt;&#xd;
+		&lt;studyMode&gt;&#xd;
+			&lt;name&gt;full-time&lt;/name&gt;&#xd;
+		&lt;/studyMode&gt;&#xd;
+		&lt;language&gt;&#xd;
+			&lt;name&gt;czech&lt;/name&gt;&#xd;
+		&lt;/language&gt;&#xd;
+	&lt;/programme&gt;&#xd;
+&lt;/admission&gt;</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">${basePath}${admissionsPath}</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <boolProp name="HTTPSampler.monitor">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                <collectionProp name="HeaderManager.headers">
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">X-CTU-FIT-Admission-Session</stringProp>
+                    <stringProp name="Header.value">${identifier}</stringProp>
+                  </elementProp>
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">Content-type</stringProp>
+                    <stringProp name="Header.value">application/xml</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </HeaderManager>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49587">201</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+                <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+                <stringProp name="RegexExtractor.refname">admissionLocation</stringProp>
+                <stringProp name="RegexExtractor.regex">Location:\s(.*)</stringProp>
+                <stringProp name="RegexExtractor.template">$1$</stringProp>
+                <stringProp name="RegexExtractor.default">EMPTY</stringProp>
+                <stringProp name="RegexExtractor.match_number">1</stringProp>
+              </RegexExtractor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getAdmission HTTP Request" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">${admissionLocation}</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <boolProp name="HTTPSampler.monitor">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                <collectionProp name="HeaderManager.headers">
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">X-CTU-FIT-Admission-Session</stringProp>
+                    <stringProp name="Header.value">${identifier}</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </HeaderManager>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <XMLAssertion guiclass="XMLAssertionGui" testclass="XMLAssertion" testname="XML Assertion" enabled="true"/>
+              <hashTree/>
+              <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion" enabled="true">
+                <boolProp name="XPath.negate">false</boolProp>
+                <stringProp name="XPath.xpath">/admission</stringProp>
+                <boolProp name="XPath.validate">false</boolProp>
+                <boolProp name="XPath.whitespace">false</boolProp>
+                <boolProp name="XPath.tolerant">false</boolProp>
+                <boolProp name="XPath.namespace">false</boolProp>
+              </XPathAssertion>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
         </hashTree>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
