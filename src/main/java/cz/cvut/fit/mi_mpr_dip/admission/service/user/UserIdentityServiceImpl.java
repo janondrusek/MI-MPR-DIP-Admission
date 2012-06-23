@@ -11,10 +11,12 @@ import java.util.regex.Pattern;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,13 +96,25 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	@Transactional(readOnly = true)
 	@Override
 	public void buildUserIdentity(Admission admission) {
-		UserIdentity userIdentity = getUniqueUserIdentity(admission.getPerson().getLastname());
+		String normalizedLowercase = getNormalizedLastname(StringUtils.trimToEmpty(admission.getPerson().getLastname()))
+				.toLowerCase();
+		UserIdentity userIdentity = getUniqueUserIdentity(normalizedLowercase);
+		storeUserIdentity(normalizedLowercase, userIdentity);
 		admission.setUserIdentity(userIdentity);
 	}
 
-	private UserIdentity getUniqueUserIdentity(String lastname) {
-		String normalizedLowercase = getNormalizedLastname(StringUtils.trimToEmpty(lastname)).toLowerCase();
+	private void storeUserIdentity(String normalizedLowercase, UserIdentity userIdentity) {
+		try {
+			userIdentity.persist();
+		} catch (JpaSystemException | ConstraintViolationException e) {
+			log.debug("Retrying to get new UserIdentity [{}], [{}]", userIdentity, String.valueOf(e));
+			userIdentity.clear();
+			userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
+			storeUserIdentity(normalizedLowercase, userIdentity);
+		}
+	}
 
+	private UserIdentity getUniqueUserIdentity(String normalizedLowercase) {
 		UserIdentity userIdentity = new UserIdentity();
 		userIdentity.setAuthentication(UserIdentityAuthentication.PWD);
 		userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
