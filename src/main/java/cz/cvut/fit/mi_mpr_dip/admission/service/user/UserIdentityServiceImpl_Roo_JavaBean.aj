@@ -10,6 +10,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityServiceImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserPasswordService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 privileged aspect UserIdentityServiceImpl_Roo_JavaBean {
     
@@ -31,6 +32,18 @@ privileged aspect UserIdentityServiceImpl_Roo_JavaBean {
     
     public void UserIdentityServiceImpl.setLinkService(LinkService linkService) {
         this.linkService = linkService;
+    }
+    
+    public Integer UserIdentityServiceImpl.getRandomizedUsernamePartLenght() {
+        return this.randomizedUsernamePartLenght;
+    }
+    
+    public StringGenerator UserIdentityServiceImpl.getStringGenerator() {
+        return this.stringGenerator;
+    }
+    
+    public void UserIdentityServiceImpl.setStringGenerator(StringGenerator stringGenerator) {
+        this.stringGenerator = stringGenerator;
     }
     
     public UserIdentityDao UserIdentityServiceImpl.getUserIdentityDao() {

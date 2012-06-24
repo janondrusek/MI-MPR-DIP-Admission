@@ -6,6 +6,8 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -23,11 +25,14 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 
 @RooJavaBean
 public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIdentity> implements
 		UserIdentityEndpointHelper {
+
+	private static final Logger log = LoggerFactory.getLogger(UserIdentityEndpointHelperImpl.class);
 
 	@Autowired
 	private PrincipalValidator principalValidator;
@@ -36,6 +41,9 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 
 	@Autowired
 	private UserIdentityService userIdentityService;
+
+	@Autowired
+	private UserSessionService userSessionService;
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
@@ -50,10 +58,29 @@ public class UserIdentityEndpointHelperImpl extends CommonEndpointHelper<UserIde
 	@Override
 	public Response getUserIdentity() {
 		Authentication authentication = getAuthentication();
-		UserIdentity userIdentity = getUserIdentityService().getUserIdentity(authentication.getPrincipal().toString());
+		UserIdentity userIdentity = doGetUserIdentityWithRetry(authentication);
 		getUserIdentityService().addAdmissionLink(userIdentity);
 
 		return getOkResponse(userIdentity);
+	}
+
+	private UserIdentity doGetUserIdentityWithRetry(Authentication authentication) {
+		try {
+			return doGetUserIdentity(authentication);
+		} catch (Exception e) {
+			log.info("Failed to get UserIdentity, retrying [{}]", String.valueOf(e));
+			return doGetUserIdentityWithRetry(authentication);
+		}
+	}
+
+	@Transactional
+	private UserIdentity doGetUserIdentity(Authentication authentication) {
+		UserIdentity userIdentity = getUserIdentityService().getUserIdentity(authentication.getPrincipal().toString());
+		getUserSessionService().removeExpired(userIdentity);
+		getUserSessionService().ensureUserSession(userIdentity);
+		getUserSessionService().prolong(userIdentity);
+
+		return userIdentity;
 	}
 
 	private Authentication getAuthentication() {

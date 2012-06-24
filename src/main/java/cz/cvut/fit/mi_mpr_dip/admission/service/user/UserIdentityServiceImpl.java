@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -31,6 +31,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
 @RooJavaBean
@@ -46,6 +47,12 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 
 	@Autowired
 	private LinkService linkService;
+
+	private Integer randomizedUsernamePartLenght;
+
+	@Autowired
+	@Qualifier("UUIDStringGenerator")
+	private StringGenerator stringGenerator;
 
 	@Autowired
 	private UserIdentityDao userIdentityDao;
@@ -80,38 +87,48 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 		return admissionLink;
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	@Override
 	public UserIdentity getUserIdentity(String username) {
-		UserIdentity userIdentity = getUserIdentityDao().getUserIdentity(username);
-		ensureSession(userIdentity);
-		userIdentity.persist();
-		return userIdentity;
+		return getUserIdentityDao().getUserIdentity(username);
 	}
 
-	private void ensureSession(UserIdentity userIdentity) {
-		getUserSessionService().ensureUserSession(userIdentity);
-	}
-
-	@Transactional(readOnly = true)
 	@Override
 	public void buildUserIdentity(Admission admission) {
 		String normalizedLowercase = getNormalizedLastname(StringUtils.trimToEmpty(admission.getPerson().getLastname()))
 				.toLowerCase();
+		try {
+			buildSequentialUserIdentity(admission, normalizedLowercase);
+		} catch (JpaSystemException e) {
+			buildRandomizedUserIdentity(admission, normalizedLowercase, e);
+		}
+	}
+
+	@Transactional
+	private void buildSequentialUserIdentity(Admission admission, String normalizedLowercase) {
 		UserIdentity userIdentity = getUniqueUserIdentity(normalizedLowercase);
-		storeUserIdentity(normalizedLowercase, userIdentity);
+		persistAndAssignUserIdentity(admission, userIdentity);
+	}
+
+	@Transactional
+	private void buildRandomizedUserIdentity(Admission admission, String normalizedLowercase, JpaSystemException e) {
+		log.debug("Retrying to get new UserIdentity [{}]", String.valueOf(e));
+		UserIdentity userIdentity = getUniqueUserIdentity(normalizedLowercase);
+		userIdentity.setUsername(getRandomizedUniqueUsername(normalizedLowercase));
+		log.debug("Randomized UserIdentity [{}]", userIdentity);
+		persistAndAssignUserIdentity(admission, userIdentity);
+	}
+
+	private void persistAndAssignUserIdentity(Admission admission, UserIdentity userIdentity) {
+		userIdentity.persist();
 		admission.setUserIdentity(userIdentity);
 	}
 
-	private void storeUserIdentity(String normalizedLowercase, UserIdentity userIdentity) {
-		try {
-			userIdentity.persist();
-		} catch (JpaSystemException | ConstraintViolationException e) {
-			log.debug("Retrying to get new UserIdentity [{}], [{}]", userIdentity, String.valueOf(e));
-			userIdentity.clear();
-			userIdentity.setUsername(findUniqueUsername(normalizedLowercase));
-			storeUserIdentity(normalizedLowercase, userIdentity);
-		}
+	private String getRandomizedUniqueUsername(String normalizedLowercase) {
+		String username = normalizedLowercase
+				+ StringUtils.substring(getStringGenerator().generateRandomAlphanumeric(), 0,
+						getRandomizedUsernamePartLenght());
+		return username;
 	}
 
 	private UserIdentity getUniqueUserIdentity(String normalizedLowercase) {
@@ -228,4 +245,8 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 		this.defaultRoles = defaultRoles;
 	}
 
+	@Required
+	public void setRandomizedUsernamePartLenght(Integer randomizedUsernamePartLenght) {
+		this.randomizedUsernamePartLenght = randomizedUsernamePartLenght;
+	}
 }

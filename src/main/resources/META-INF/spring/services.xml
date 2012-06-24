@@ -9,6 +9,7 @@
 
 	<bean id="userIdentityService" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityServiceImpl">
 		<property name="defaultRoles" value="${user.identity.roles.default}" />
+		<property name="randomizedUsernamePartLenght" value="${user.identity.username.randomizedPart.lenght}" />
 	</bean>
 
 	<bean id="userSessionService" class="cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionServiceImpl">

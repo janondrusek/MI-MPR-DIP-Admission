@@ -48,10 +48,6 @@ public class UserRole {
 	@Column(unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-	@XmlTransient
-	private Set<UserIdentity> identities;
-
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id", referencedColumnName = "userPermissionId") })
 	@XmlElementWrapper(name = "permissions")

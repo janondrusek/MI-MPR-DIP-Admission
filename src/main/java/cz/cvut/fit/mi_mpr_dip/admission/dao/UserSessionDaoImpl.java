@@ -2,7 +2,10 @@ package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +14,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 
 @Repository
 public class UserSessionDaoImpl extends AbstractDao<UserSession> implements UserSessionDao {
+
+	private static final Logger log = LoggerFactory.getLogger(UserSessionDaoImpl.class);
 
 	@Transactional(readOnly = true)
 	@Override
@@ -29,13 +34,17 @@ public class UserSessionDaoImpl extends AbstractDao<UserSession> implements User
 		return userSession;
 	}
 
-	private Date getNow() {
-		return new Date();
+	@Override
+	public void remove(String username, String identifier) {
+		try {
+			doRemove(username, identifier);
+		} catch (Exception e) {
+			log.info("Unable to delete [{}]", String.valueOf(e));
+		}
 	}
 
 	@Transactional
-	@Override
-	public void remove(String username, String identifier) {
+	private void doRemove(String username, String identifier) {
 		UserIdentity userIdentity = UserIdentity.findUserIdentitysByUsernameEquals(username).getSingleResult();
 		for (Iterator<UserSession> iterator = userIdentity.getSessions().iterator(); iterator.hasNext();) {
 			UserSession userSession = iterator.next();
@@ -44,6 +53,36 @@ public class UserSessionDaoImpl extends AbstractDao<UserSession> implements User
 				userSession.remove();
 			}
 		}
+	}
+
+	@Override
+	public void removeExpired(Set<UserSession> sessions) {
+		try {
+			doRemoveExpired(sessions);
+		} catch (Exception e) {
+			log.info("Unable to delete [{}]", String.valueOf(e));
+		}
+	}
+
+	@Transactional
+	private void doRemoveExpired(Set<UserSession> sessions) {
+		Iterator<UserSession> iterator = sessions.iterator();
+		while (iterator.hasNext()) {
+			UserSession session = iterator.next();
+			if (isExpired(session)) {
+				sessions.remove(session);
+				session.remove();
+			}
+		}
+	}
+
+	private boolean isExpired(UserSession session) {
+		Date now = getNow();
+		return session.getGrantValidTo().before(now);
+	}
+
+	private Date getNow() {
+		return new Date();
 	}
 
 	@Override

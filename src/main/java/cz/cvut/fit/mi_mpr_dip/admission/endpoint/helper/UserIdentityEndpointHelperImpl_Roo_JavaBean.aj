@@ -8,6 +8,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.UserRoleDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UserIdentityEndpointHelperImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.PrincipalValidator;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
@@ -31,6 +32,14 @@ privileged aspect UserIdentityEndpointHelperImpl_Roo_JavaBean {
     
     public void UserIdentityEndpointHelperImpl.setUserIdentityService(UserIdentityService userIdentityService) {
         this.userIdentityService = userIdentityService;
+    }
+    
+    public UserSessionService UserIdentityEndpointHelperImpl.getUserSessionService() {
+        return this.userSessionService;
+    }
+    
+    public void UserIdentityEndpointHelperImpl.setUserSessionService(UserSessionService userSessionService) {
+        this.userSessionService = userSessionService;
     }
     
     public UserIdentityDao UserIdentityEndpointHelperImpl.getUserIdentityDao() {

@@ -114,15 +114,19 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 		getAdmissionEndpointHelper().update(admission, dbAdmission);
 	}
 
-	@Transactional
 	private void validateAndDeduplicateAndStore(Admission admission) {
 		getAdmissionEndpointHelper().validate(admission);
+		getUserIdentityService().buildUserIdentity(admission);
+		deduplicateAndStoreAndRunJbpmProcess(admission);
+	}
+
+	@Transactional
+	private void deduplicateAndStoreAndRunJbpmProcess(Admission admission) {
 		deduplicateAndStore(admission);
 		// TODO: after @chobodav fixes processes, runJbpmProcess(admission);
 	}
 
 	private void deduplicateAndStore(Admission admission) {
-		getUserIdentityService().buildUserIdentity(admission);
 		getAdmissionDeduplicationService().deduplicateAndStore(admission);
 	}
 

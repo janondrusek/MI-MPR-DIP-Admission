@@ -5,4 +5,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 public interface UserSessionService {
 
 	public void ensureUserSession(UserIdentity userIdentity);
+
+	public void removeExpired(UserIdentity userIdentity);
+	
+	public void prolong(UserIdentity userIdentity);
 }

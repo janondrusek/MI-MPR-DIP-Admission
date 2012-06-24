@@ -3,6 +3,7 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
+import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserSessionServiceImpl;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
@@ -18,6 +19,14 @@ privileged aspect UserSessionServiceImpl_Roo_JavaBean {
     
     public void UserSessionServiceImpl.setStringGenerator(StringGenerator stringGenerator) {
         this.stringGenerator = stringGenerator;
+    }
+    
+    public UserSessionDao UserSessionServiceImpl.getUserSessionDao() {
+        return this.userSessionDao;
+    }
+    
+    public void UserSessionServiceImpl.setUserSessionDao(UserSessionDao userSessionDao) {
+        this.userSessionDao = userSessionDao;
     }
     
 }
