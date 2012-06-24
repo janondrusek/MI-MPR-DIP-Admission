@@ -48,6 +48,11 @@
             <stringProp name="Argument.value">100</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="user.deleteSession.pattern" elementType="Argument">
+            <stringProp name="Argument.name">user.deleteSession.pattern</stringProp>
+            <stringProp name="Argument.value">200</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
         <stringProp name="TestPlan.comments">Single Cycle Test</stringProp>
       </Arguments>
@@ -87,6 +92,11 @@
           <elementProp name="throughput.programme.crud" elementType="Argument">
             <stringProp name="Argument.name">throughput.programme.crud</stringProp>
             <stringProp name="Argument.value">10</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="user.deleteSession.pattern" elementType="Argument">
+            <stringProp name="Argument.name">user.deleteSession.pattern</stringProp>
+            <stringProp name="Argument.value">200|404|401</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -1115,11 +1125,11 @@
               <hashTree/>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
+                  <stringProp name="1404291420">${user.deleteSession.pattern}</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
+                <boolProp name="Assertion.assume_success">true</boolProp>
+                <intProp name="Assertion.test_type">1</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
