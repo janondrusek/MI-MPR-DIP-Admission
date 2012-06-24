@@ -2,7 +2,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +39,7 @@ public class UserSessionDaoImpl extends AbstractDao<UserSession> implements User
 			doRemove(username, identifier);
 		} catch (Exception e) {
 			log.info("Unable to delete [{}]", String.valueOf(e));
+			log.debug("Unable to delete", e);
 		}
 	}
 
@@ -56,21 +56,22 @@ public class UserSessionDaoImpl extends AbstractDao<UserSession> implements User
 	}
 
 	@Override
-	public void removeExpired(Set<UserSession> sessions) {
+	public void removeExpired(UserIdentity userIdentity) {
 		try {
-			doRemoveExpired(sessions);
+			doRemoveExpired(userIdentity);
 		} catch (Exception e) {
 			log.info("Unable to delete [{}]", String.valueOf(e));
+			log.debug("Unable to delete", e);
 		}
 	}
 
 	@Transactional
-	private void doRemoveExpired(Set<UserSession> sessions) {
-		Iterator<UserSession> iterator = sessions.iterator();
+	private void doRemoveExpired(UserIdentity userIdentity) {
+		Iterator<UserSession> iterator = userIdentity.getSessions().iterator();
 		while (iterator.hasNext()) {
 			UserSession session = iterator.next();
 			if (isExpired(session)) {
-				sessions.remove(session);
+				iterator.remove();
 				session.remove();
 			}
 		}

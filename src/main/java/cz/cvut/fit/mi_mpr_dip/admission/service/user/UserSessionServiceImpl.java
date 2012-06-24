@@ -72,7 +72,7 @@ public class UserSessionServiceImpl implements UserSessionService {
 	@Transactional
 	@Override
 	public void removeExpired(UserIdentity userIdentity) {
-		getUserSessionDao().removeExpired(userIdentity.getSessions());
+		getUserSessionDao().removeExpired(userIdentity);
 		userIdentity.persist();
 	}
 

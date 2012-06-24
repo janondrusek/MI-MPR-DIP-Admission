@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.dao;
 
-import java.util.Set;
-
+import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 
 public interface UserSessionDao {
@@ -9,5 +8,5 @@ public interface UserSessionDao {
 
 	public void remove(String username, String identifier);
 
-	public void removeExpired(Set<UserSession> sessions);
+	public void removeExpired(UserIdentity userIdentity);
 }
