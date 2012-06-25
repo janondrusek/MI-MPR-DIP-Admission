@@ -17,6 +17,8 @@
 	<logger name="org.hibernate" level="WARN" />
 	<logger name="cz.cvut" level="INFO" />
 	<logger name="org.apache.cxf" level="WARN" />
+	<logger name="admission-request-body" level="WARN" />
+	<logger name="admission-response-body" level="WARN" />
 
 	<root>
 		<level value="INFO" />
