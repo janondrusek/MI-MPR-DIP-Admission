@@ -22,7 +22,7 @@ public class TermRegistrationUniqueConstraint extends BaseUniqueConstraint<TermR
 				.getTerm().getRoom());
 	}
 
-	public TermRegistrationUniqueConstraint(String admissionCode, Date dateOfTerm, String room) {
+	private TermRegistrationUniqueConstraint(String admissionCode, Date dateOfTerm, String room) {
 		this.admissionCode = admissionCode;
 		this.dateOfTerm = dateOfTerm;
 		this.room = room;
