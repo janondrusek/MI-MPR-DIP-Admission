@@ -7,7 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.AppendixUniqueConstraint
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 
 @Repository
-public class AppendixDaoImpl extends AbstractDao<Appendix> implements AppendixDao {
+public class AppendixDaoImpl extends Dao<Appendix> implements AppendixDao {
 
 	@Transactional(readOnly = true)
 	@Override

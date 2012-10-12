@@ -9,7 +9,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.StudyMode;
 
 @Repository
-public class ProgrammeDaoImpl extends AbstractDao<Programme> implements ProgrammeDao {
+public class ProgrammeDaoImpl extends Dao<Programme> implements ProgrammeDao {
 
 	@Transactional(readOnly = true)
 	@Override

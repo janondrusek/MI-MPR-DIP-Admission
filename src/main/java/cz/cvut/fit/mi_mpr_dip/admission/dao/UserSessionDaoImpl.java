@@ -12,7 +12,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserSession;
 
 @Repository
-public class UserSessionDaoImpl extends AbstractDao<UserSession> implements UserSessionDao {
+public class UserSessionDaoImpl extends Dao<UserSession> implements UserSessionDao {
 
 	private static final Logger log = LoggerFactory.getLogger(UserSessionDaoImpl.class);
 

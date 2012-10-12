@@ -13,7 +13,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 
 @Repository
-public class TermRegistrationDaoImpl extends AbstractDao<TermRegistration> implements TermRegistrationDao {
+public class TermRegistrationDaoImpl extends Dao<TermRegistration> implements TermRegistrationDao {
 
 	@PersistenceContext
 	transient EntityManager entityManager;

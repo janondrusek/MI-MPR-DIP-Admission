@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 
 @Repository
-public class UserRoleDaoImpl extends AbstractDao<UserRole> implements UserRoleDao {
+public class UserRoleDaoImpl extends Dao<UserRole> implements UserRoleDao {
 
 	@Transactional(readOnly = true)
 	@Override

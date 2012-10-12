@@ -7,7 +7,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentityAuthentication;
 
 @Repository
-public class UserIdentityDaoImpl extends AbstractDao<UserIdentity> implements UserIdentityDao {
+public class UserIdentityDaoImpl extends Dao<UserIdentity> implements UserIdentityDao {
 
 	@Transactional(readOnly = true)
 	@Override

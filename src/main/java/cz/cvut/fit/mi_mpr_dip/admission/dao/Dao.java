@@ -11,9 +11,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public abstract class AbstractDao<T> {
+public abstract class Dao<T> {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractDao.class);
+	private static final Logger log = LoggerFactory.getLogger(Dao.class);
 
 	protected T uniqueResult(TypedQuery<T> query) {
 		T result;

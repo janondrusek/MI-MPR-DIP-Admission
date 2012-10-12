@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionState;
 
 @Repository
-public class AdmissionStateDaoImpl extends AbstractDao<AdmissionState> implements AdmissionStateDao {
+public class AdmissionStateDaoImpl extends Dao<AdmissionState> implements AdmissionStateDao {
 
 	@Transactional(readOnly = true)
 	@Override
