@@ -28,7 +28,6 @@
 		<hsql.version>2.2.6</hsql.version>
 		<javax.transaction.version>1.1</javax.transaction.version>
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
-		<jetty.version>6.1.26</jetty.version>
 		<jstl.version>1.2</jstl.version>
 		<logback.version>1.0.0</logback.version>
 		<mysql.version>5.1.18</mysql.version>
@@ -38,7 +37,7 @@
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<spring.security.version>3.1.0.RELEASE</spring.security.version>
 		<spring.ws.version>2.0.3.RELEASE</spring.ws.version>
-		<tomcat.version>7.0.23</tomcat.version>
+		<tomcat.version>7.0.30</tomcat.version>
 		<commons.dbcp.version>1.3</commons.dbcp.version>
 		<commons.lang3.version>3.1</commons.lang3.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
@@ -55,7 +54,7 @@
 		<maven.lifecycle.version>1.0.0</maven.lifecycle.version>
 		<maven.resources.version>2.5</maven.resources.version>
 		<maven.surefire.version>2.9</maven.surefire.version>
-		<maven.tomcat7.version>2.0-beta-1</maven.tomcat7.version>
+		<maven.tomcat7.version>2.0</maven.tomcat7.version>
 		<maven.tomcat7.url>http://pririz.is.fit.cvut.cz:9090/manager/html</maven.tomcat7.url>
 		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
 		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
@@ -143,12 +142,6 @@
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
-		<!-- Jetty is needed if you're using the CXFServlet -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http-jetty</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
 		<!-- Apache CXF end -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -162,15 +155,9 @@
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-servlet_3.0_spec</artifactId>
-			<version>${geronimo.3.0.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-servlet_2.5_spec</artifactId>
-			<version>${geronimo.2.5.version}</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Spring start -->
@@ -346,11 +333,6 @@
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>cglib</groupId> -->
-<!-- 			<artifactId>cglib-nodep</artifactId> -->
-<!-- 			<version>${cglib.version}</version> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
@@ -520,20 +502,27 @@
 			<version>${jstl.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-servlet-api</artifactId>
-			<version>${tomcat.version}</version>
-			<scope>provided</scope>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jstl-impl</artifactId>
+			<version>1.2</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jsp-api</artifactId>
+					<groupId>javax.servlet.jsp</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jstl-api</artifactId>
+					<groupId>javax.servlet.jsp.jstl</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
-			<version>${tomcat.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper-el</artifactId>
 			<version>${tomcat.version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -632,34 +621,6 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 				<version>${maven.compiler.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>${jetty.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.mortbay.jetty</groupId>
-						<artifactId>jetty-ajp</artifactId>
-						<version>${jetty.version}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<webAppConfig>
-						<contextPath>/admission</contextPath>
-					</webAppConfig>
-					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<stopPort>9005</stopPort>
-					<stopKey>STOP</stopKey>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>9090</port>
-						</connector>
-						<connector implementation="org.mortbay.jetty.ajp.Ajp13SocketConnector">
-							<port>9091</port>
-						</connector>
-					</connectors>
-				</configuration>
 			</plugin>
 			<!-- IDE -->
 			<plugin>

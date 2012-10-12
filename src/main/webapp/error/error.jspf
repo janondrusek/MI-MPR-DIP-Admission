@@ -1,6 +1,6 @@
-<%@ include file="include.jsp" %>
+<%@ include file="include.jsp"%>
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <errorResponse> 
-	<message>${param.message}</message> 
+	<message>${errorMessage}</message> 
 	<internalRequestId><%= MDC.get(WebKeys.MDC_KEY_INTERNAL_REQUEST_ID) %></internalRequestId>
 </errorResponse>
