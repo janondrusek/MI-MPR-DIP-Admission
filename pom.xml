@@ -320,6 +320,12 @@
 		</dependency>
 		<!-- Test start -->
 		<dependency>
+			<groupId>eu.prvaci</groupId>
+			<artifactId>test-templates</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
 			<version>${easymock.version}</version>

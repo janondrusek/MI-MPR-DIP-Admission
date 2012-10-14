@@ -9,16 +9,21 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.RoleAccessiblePropertyConfigurer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.DeduplicationService;
 
+@RooJavaBean
 @Service
 public class UserRolePermissionServiceImpl implements UserRolePermissionService,
 		ApplicationListener<ContextRefreshedEvent> {
 
-	private Logger log = LoggerFactory.getLogger(UserRolePermissionServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(UserRolePermissionServiceImpl.class);
+
+	private boolean refreshed;
+	private int refreshCount;
 
 	@Autowired
 	@Qualifier("userRoleDeduplicationService")
@@ -28,8 +33,15 @@ public class UserRolePermissionServiceImpl implements UserRolePermissionService,
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		log.debug("Calling insert default roles on Context Refresh");
-		insertDefaultRolesAndPermissions();
+		refreshCount++;
+		if (!isRefreshed()) {
+			log.debug("Calling insert default roles on Context Refresh, refreshed={}, refreshCount={}", isRefreshed(),
+					getRefreshCount());
+			insertDefaultRolesAndPermissions();
+			refreshed = true;
+		} else {
+			log.debug("Skipping insert, already done, refreshed={}, refreshCount={}", isRefreshed(), getRefreshCount());
+		}
 	}
 
 	@Override
