@@ -214,7 +214,7 @@ public class UserPasswordServiceTest {
 	}
 
 	private List<Person> getPeople() {
-		List<Person> people = new ArrayList<Person>();
+		List<Person> people = new ArrayList<>();
 		people.add(person);
 		return people;
 	}

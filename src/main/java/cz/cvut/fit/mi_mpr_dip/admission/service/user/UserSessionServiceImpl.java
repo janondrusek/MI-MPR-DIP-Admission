@@ -43,7 +43,7 @@ public class UserSessionServiceImpl implements UserSessionService {
 	private Set<UserSession> getSessions(UserIdentity userIdentity) {
 		Set<UserSession> sessions = userIdentity.getSessions();
 		if (isEmpty(sessions)) {
-			sessions = new HashSet<UserSession>();
+			sessions = new HashSet<>();
 		}
 		return sessions;
 	}

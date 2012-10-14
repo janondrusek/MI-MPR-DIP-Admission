@@ -45,7 +45,7 @@ public class JbpmProcessService implements ProcessService {
 	}
 
 	private Map<String, Object> getProcessParameters(Admission admission) {
-		Map<String, Object> processParameters = new HashMap<String, Object>();
+		Map<String, Object> processParameters = new HashMap<>();
 		processParameters.put("admission", admission);
 		processParameters.put("evaluator", new BSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());

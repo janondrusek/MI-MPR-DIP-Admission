@@ -16,7 +16,7 @@ public class PrintLineDeduplicationTemplate extends AddressDeduplicationTemplate
 
 	@Override
 	protected Set<PrintLineType> collect(Address address) {
-		Set<PrintLineType> printLineTypes = new HashSet<PrintLineType>();
+		Set<PrintLineType> printLineTypes = new HashSet<>();
 		if (CollectionUtils.isNotEmpty(address.getPrintLines())) {
 			for (PrintLine printLine : address.getPrintLines()) {
 				printLineTypes.add(printLine.getPrintLineType());

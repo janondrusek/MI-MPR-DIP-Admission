@@ -23,7 +23,7 @@ public class DisabilityDeduplicationTemplate implements PersonDeduplicationTempl
 	}
 
 	private void deduplicateDisabilities(Set<DisabilityType> disabilityTypes) {
-		Set<DisabilityType> replacements = new HashSet<DisabilityType>();
+		Set<DisabilityType> replacements = new HashSet<>();
 		for (Iterator<DisabilityType> iterator = disabilityTypes.iterator(); iterator.hasNext();) {
 			DisabilityType disabilityType = iterator.next();
 			List<DisabilityType> dbDisabilityTypes = DisabilityType.findDisabilityTypesByNameEquals(

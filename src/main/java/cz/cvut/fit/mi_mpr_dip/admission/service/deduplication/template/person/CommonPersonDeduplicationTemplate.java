@@ -16,7 +16,7 @@ public abstract class CommonPersonDeduplicationTemplate<T> extends AddressDedupl
 	}
 
 	private Set<T> collect(Person person) {
-		Set<T> collected = new HashSet<T>();
+		Set<T> collected = new HashSet<>();
 		collected.addAll(collectDirectlyDescendant(person));
 		collected.addAll(collect(person.getAddresses()));
 		return collected;

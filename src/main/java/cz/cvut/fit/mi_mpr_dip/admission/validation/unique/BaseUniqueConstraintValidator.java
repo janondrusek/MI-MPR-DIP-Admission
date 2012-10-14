@@ -27,13 +27,12 @@ public abstract class BaseUniqueConstraintValidator<T> {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Set<ConstraintViolation<Object>> getConstraintViolations(T o) {
-		Set<ConstraintViolation<Object>> constraintViolations = new HashSet<ConstraintViolation<Object>>();
+		Set<ConstraintViolation<Object>> constraintViolations = new HashSet<>();
 		ConstraintViolationImpl<Object> constraintViolation = new ConstraintViolationImpl<Object>("Duplicate [{}]",
 				"Duplicate [" + getDuplicateValue(o) + "]", (Class) o.getClass(), o, o, getDuplicateValue(o),
 				PathImpl.createPathFromString(getPath()), null, ElementType.FIELD);
 		constraintViolations.add(constraintViolation);
 		return constraintViolations;
-
 	}
 
 	abstract protected String getPath();

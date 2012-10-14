@@ -26,7 +26,7 @@ public class UserRoleDeduplicationService implements DeduplicationService<UserRo
 	}
 
 	private void deduplicate(Set<UserPermission> permissions, List<UserPermission> dbPermissions) {
-		Set<UserPermission> replacements = new HashSet<UserPermission>();
+		Set<UserPermission> replacements = new HashSet<>();
 		for (Iterator<UserPermission> iterator = permissions.iterator(); iterator.hasNext();) {
 			UserPermission userPermission = iterator.next();
 			if (dbPermissions.contains(userPermission)) {

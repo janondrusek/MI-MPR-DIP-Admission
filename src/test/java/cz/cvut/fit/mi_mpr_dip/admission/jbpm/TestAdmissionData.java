@@ -98,8 +98,8 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 
 	private Admission createAdmission() {
-		Set<Appeal> appeals = new HashSet<Appeal>();
-		Set<Evaluation> evaluations = new HashSet<Evaluation>();
+		Set<Appeal> appeals = new HashSet<>();
+		Set<Evaluation> evaluations = new HashSet<>();
 		
 		Admission a = new Admission();
 		a.setCode("73935282");
@@ -182,7 +182,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 	
 	private Set<Document> createDocuments() {
-		Set<Document> documents = new HashSet<Document>();
+		Set<Document> documents = new HashSet<>();
 		
 		DocumentType documentType = new DocumentType();
 		documentType.setName("OP");
@@ -197,7 +197,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 	
 	private Set<Address> createAddresses() {
-		Set<Address> addresses = new HashSet<Address>();
+		Set<Address> addresses = new HashSet<>();
 		
 		City city = createCity("Testov");
 		Country country = createCountry("Česká republika");
@@ -242,7 +242,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 
 	private Set<PrintLine> createPrintLines(String[][] lines) {
-		Set<PrintLine> printLines = new HashSet<PrintLine>();
+		Set<PrintLine> printLines = new HashSet<>();
 		for (String[] line : lines) {
 			printLines.add(createPrintLine(line));
 		}

@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.crud;
 
 import javax.servlet.http.HttpServletResponse;
 

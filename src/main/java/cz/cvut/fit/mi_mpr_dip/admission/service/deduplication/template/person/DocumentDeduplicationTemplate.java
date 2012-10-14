@@ -30,7 +30,7 @@ public class DocumentDeduplicationTemplate implements PersonDeduplicationTemplat
 	}
 
 	private Set<DocumentType> collectDocumentTypes(Set<Document> documents) {
-		Set<DocumentType> documentTypes = new HashSet<DocumentType>();
+		Set<DocumentType> documentTypes = new HashSet<>();
 		for (Document document : documents) {
 			documentTypes.add(document.getDocumentType());
 		}
@@ -38,7 +38,7 @@ public class DocumentDeduplicationTemplate implements PersonDeduplicationTemplat
 	}
 
 	private void deduplicateDocumentTypes(Set<DocumentType> documentTypes) {
-		Set<DocumentType> replacements = new HashSet<DocumentType>();
+		Set<DocumentType> replacements = new HashSet<>();
 		for (Iterator<DocumentType> iterator = documentTypes.iterator(); iterator.hasNext();) {
 			DocumentType documentType = iterator.next();
 			List<DocumentType> dbDocumentTypes = DocumentType.findDocumentTypesByNameEquals(documentType.getName())

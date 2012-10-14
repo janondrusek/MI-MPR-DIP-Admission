@@ -144,7 +144,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	}
 
 	private Set<UserRole> createDefaultRoles() {
-		Set<UserRole> userRoles = new HashSet<UserRole>();
+		Set<UserRole> userRoles = new HashSet<>();
 		for (String role : getDefaultRoles()) {
 			List<UserRole> dbUserRoles = UserRole.findUserRolesByNameEquals(role).getResultList();
 			if (isNotEmpty(dbUserRoles)) {
@@ -177,7 +177,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	}
 
 	private Set<String> collectUsernames(List<UserIdentity> userIdentities) {
-		Set<String> usernames = new TreeSet<String>(new NaturalOrderComparator<String>());
+		Set<String> usernames = new TreeSet<>(new NaturalOrderComparator<String>());
 		for (UserIdentity userIdentity : userIdentities) {
 			usernames.add(userIdentity.getUsername());
 		}
@@ -223,7 +223,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	@Transactional
 	@Override
 	public void updateUserRoles(UserIdentity userIdentity, UserRoles userRoles) {
-		Set<UserRole> roles = new HashSet<UserRole>();
+		Set<UserRole> roles = new HashSet<>();
 		if (isNotEmpty(userRoles.getUserRoles())) {
 			for (UserRole userRole : userRoles.getUserRoles()) {
 				UserRole dbUserRole = getUserRoleDao().getUserRole(userRole.getName());

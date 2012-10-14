@@ -29,9 +29,9 @@ public class TermDataOnDemand {
 		return obj;
 	}
 
-	public void setPrograms(Term obj, int index) {
+	public void setPrograms(Term obj, @SuppressWarnings("unused") int index) {
 		Programme programme = programmeDataOnDemand.getRandomProgramme();
-		Set<Programme> programms = new HashSet<Programme>();
+		Set<Programme> programms = new HashSet<>();
 		programms.add(programme);
 		obj.setPrograms(programms);
 	}

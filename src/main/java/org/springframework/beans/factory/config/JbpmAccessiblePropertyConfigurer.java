@@ -9,7 +9,7 @@ import org.springframework.beans.BeansException;
 public class JbpmAccessiblePropertyConfigurer extends PropertyResourceConfigurer implements
 		AccessiblePropertyConfigurer<Map<String, String>> {
 
-	private Map<String, String> jbpmProcessProperties = new HashMap<String, String>();
+	private Map<String, String> jbpmProcessProperties = new HashMap<>();
 
 	@Override
 	protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props)

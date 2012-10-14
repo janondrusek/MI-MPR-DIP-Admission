@@ -40,7 +40,7 @@ public class EvaluationDeduplicationTemplate implements AdmissionDeduplicationTe
 	}
 
 	private Set<EvaluationType> collectEvaluationTypes(Set<Evaluation> evaluations) {
-		Set<EvaluationType> evaluationTypes = new HashSet<EvaluationType>();
+		Set<EvaluationType> evaluationTypes = new HashSet<>();
 		for (Evaluation evaluation : evaluations) {
 			evaluationTypes.add(evaluation.getEvaluationType());
 		}
@@ -48,7 +48,7 @@ public class EvaluationDeduplicationTemplate implements AdmissionDeduplicationTe
 	}
 
 	private void deduplicateEvaluationTypes(Set<EvaluationType> evaluationTypes) {
-		Set<EvaluationType> replacements = new HashSet<EvaluationType>();
+		Set<EvaluationType> replacements = new HashSet<>();
 		Iterator<EvaluationType> iterator = evaluationTypes.iterator();
 		while (iterator.hasNext()) {
 			EvaluationType evaluationType = iterator.next();

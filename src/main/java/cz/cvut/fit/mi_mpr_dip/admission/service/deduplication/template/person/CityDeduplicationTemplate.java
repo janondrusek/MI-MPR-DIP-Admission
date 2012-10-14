@@ -15,7 +15,7 @@ public class CityDeduplicationTemplate extends CommonPersonDeduplicationTemplate
 
 	@Override
 	protected Set<City> collectDirectlyDescendant(Person person) {
-		Set<City> cities = new HashSet<City>();
+		Set<City> cities = new HashSet<>();
 		cities.add(person.getCityOfBirth());
 		return cities;
 	}

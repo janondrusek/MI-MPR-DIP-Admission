@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
+@SuppressWarnings("unused")
 @Component
 public class JaxbExceptionMapper extends BaseExceptionMapper<JAXBException> implements
 		ExceptionMapper<JAXBException> {

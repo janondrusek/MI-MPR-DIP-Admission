@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
+@SuppressWarnings("unused")
 @RooJavaBean
 public class AccessDeniedExceptionMapper extends BaseExceptionMapper<AccessDeniedException> implements
 		ExceptionMapper<AccessDeniedException> {
@@ -32,9 +33,8 @@ public class AccessDeniedExceptionMapper extends BaseExceptionMapper<AccessDenie
 	protected Integer getResponseCode(AccessDeniedException exception) {
 		if (isAnonymous()) {
 			return HttpServletResponse.SC_UNAUTHORIZED;
-		} else {
-			return HttpServletResponse.SC_FORBIDDEN;
 		}
+		return HttpServletResponse.SC_FORBIDDEN;
 	}
 
 	private boolean isAnonymous() {

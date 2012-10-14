@@ -15,7 +15,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 
 	private int statusCode;
 
-	private Map<String, String> headers = new HashMap<String, String>();
+	private Map<String, String> headers = new HashMap<>();
 
 	private BufferedServletOutputStream output;
 	private PrintWriter writer;
@@ -62,6 +62,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 		statusCode = sc;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setStatus(int sc, String sm) {
 		super.setStatus(sc, sm);

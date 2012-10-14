@@ -17,9 +17,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AdmissionService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 
 @RooJavaBean
 @Service
@@ -64,7 +64,7 @@ public class AppendixEndpointHelperImpl extends CommonEndpointHelper<Appendix> i
 	}
 
 	private Set<Term> collectTerms(Admission admission) {
-		Set<Term> terms = new HashSet<Term>();
+		Set<Term> terms = new HashSet<>();
 		if (CollectionUtils.isNotEmpty(admission.getRegistrations())) {
 			for (TermRegistration termRegistration : admission.getRegistrations()) {
 				terms.add(termRegistration.getTerm());
@@ -94,7 +94,7 @@ public class AppendixEndpointHelperImpl extends CommonEndpointHelper<Appendix> i
 	}
 
 	private Set<Appendix> collectAppendices(Set<TermRegistration> registrations) {
-		Set<Appendix> appendices = new HashSet<Appendix>();
+		Set<Appendix> appendices = new HashSet<>();
 		if (CollectionUtils.isNotEmpty(registrations)) {
 			for (TermRegistration termRegistration : registrations) {
 				if (termRegistration.getApology() != null) {

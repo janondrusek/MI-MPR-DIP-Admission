@@ -54,7 +54,7 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 
 	private void populateTerms(Terms terms) {
 		List<Term> dbTerms = Term.findAllTerms();
-		terms.setTerms(new HashSet<Term>(dbTerms));
+		terms.setTerms(new HashSet<>(dbTerms));
 		addLinks(terms.getTerms());
 
 		updateCollectionDomainCounters(new Long(dbTerms.size()), terms);

@@ -15,7 +15,7 @@ public class CountryDeduplicationTemplate extends CommonPersonDeduplicationTempl
 
 	@Override
 	protected Set<Country> collectDirectlyDescendant(Person person) {
-		Set<Country> countries = new HashSet<Country>();
+		Set<Country> countries = new HashSet<>();
 		countries.add(person.getCitizenship());
 		countries.add(person.getCountryOfBirth());
 		return countries;

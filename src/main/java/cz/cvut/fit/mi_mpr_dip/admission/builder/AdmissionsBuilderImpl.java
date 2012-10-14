@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Required;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 
 public class AdmissionsBuilderImpl implements AdmissionsBuilder {
 

@@ -69,7 +69,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 	}
 
 	private Map<String, String> getModel(UserIdentity userIdentity) {
-		Map<String, String> model = new HashMap<String, String>();
+		Map<String, String> model = new HashMap<>();
 		model.put(WebKeys.USERNAME, userIdentity.getUsername());
 		model.put(WebKeys.PASSWORD, userIdentity.getUserPassword().getPlaintext());
 		return model;

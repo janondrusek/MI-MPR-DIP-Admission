@@ -40,7 +40,7 @@ public class ProgrammeEndpointHelperImpl extends CommonEndpointHelper<Programme>
 
 	private void populate(Programs programs) {
 		List<Programme> dbPrograms = Programme.findAllProgrammes();
-		programs.setPrograms(new HashSet<Programme>(dbPrograms));
+		programs.setPrograms(new HashSet<>(dbPrograms));
 
 		updateCollectionDomainCounters(new Long(dbPrograms.size()), programs);
 	}

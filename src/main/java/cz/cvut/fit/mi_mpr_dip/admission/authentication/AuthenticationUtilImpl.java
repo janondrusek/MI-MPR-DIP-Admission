@@ -16,7 +16,7 @@ public class AuthenticationUtilImpl implements AuthenticationUtil {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(Set<UserRole> roles) {
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		Set<GrantedAuthority> authorities = new HashSet<>();
 		if (roles != null) {
 			for (UserRole role : roles) {
 				authorities.addAll(getAuthorities(role));
@@ -26,7 +26,7 @@ public class AuthenticationUtilImpl implements AuthenticationUtil {
 	}
 
 	private Collection<? extends GrantedAuthority> getAuthorities(UserRole role) {
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		Set<GrantedAuthority> authorities = new HashSet<>();
 		Set<UserPermission> permissions = role.getPermissions();
 		if (permissions != null) {
 			for (UserPermission permission : permissions) {

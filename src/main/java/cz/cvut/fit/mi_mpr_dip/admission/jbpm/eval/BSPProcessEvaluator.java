@@ -3,7 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
 
-public class BSPProcessEvaluator extends DefaultProcessEvaluator implements ProcessEvaluator {
+public class BSPProcessEvaluator extends DefaultProcessEvaluator {
 
 	private final String CZ = "Česká republika"; // CZ or something else
 	private final String SK = "Slovenská republika"; // CZ or something else

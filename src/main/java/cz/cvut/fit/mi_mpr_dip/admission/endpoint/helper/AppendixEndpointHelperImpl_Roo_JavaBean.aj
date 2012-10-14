@@ -4,9 +4,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AppendixEndpointHelperImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AdmissionService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 
 privileged aspect AppendixEndpointHelperImpl_Roo_JavaBean {
     

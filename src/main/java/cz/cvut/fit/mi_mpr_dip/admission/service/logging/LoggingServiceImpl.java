@@ -138,7 +138,7 @@ public class LoggingServiceImpl implements LoggingService {
 	}
 
 	private List<Loggable> createCallAwareLoggables() {
-		List<Loggable> loggables = new ArrayList<Loggable>();
+		List<Loggable> loggables = new ArrayList<>();
 		loggables.add(createLoggable(WebKeys.CALL_IDENTIFIER, MDC.get(WebKeys.MDC_KEY_CALL_IDENTIFIER)));
 
 		return loggables;

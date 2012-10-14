@@ -18,6 +18,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.util.BusinessExceptionUtil;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.TermDateUtils;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 

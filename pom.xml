@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<!-- Dependencies -->
-		<aspectj.version>1.7.0.RC1</aspectj.version>
+		<aspectj.version>1.7.1</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
 		<cxf.version>2.5.3</cxf.version>
 		<easymock.version>3.1</easymock.version>
@@ -46,7 +46,7 @@
 		<drools-spring.version>5.3.1.Final</drools-spring.version>
 		<!-- Plugins -->
 		<maven.cobertura.version>2.5.1</maven.cobertura.version>
-		<maven.compiler.version>2.3.2</maven.compiler.version>
+		<maven.compiler.version>2.5.1</maven.compiler.version>
 		<maven.deploy.version>2.7</maven.deploy.version>
 		<maven.eclipse.version>2.7</maven.eclipse.version>
 		<maven.war.version>2.1.1</maven.war.version>
@@ -66,48 +66,8 @@
 		<jbpm.test.version>5.2.0.Final</jbpm.test.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>maven.org</id>
-			<url>http://repo1.maven.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>java.net</id>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-		<repository>
-			<id>spring-maven-release</id>
-			<name>Spring Maven Release Repository</name>
-			<url>http://maven.springframework.org/release</url>
-		</repository>
-		<repository>
-			<id>spring-maven-milestone</id>
-			<name>Spring Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</repository>
-		<repository>
-			<id>spring-roo-repository</id>
-			<name>Spring Roo Repository</name>
-			<url>http://spring-roo-repository.springsource.org/release</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-maven-release</id>
-			<name>Spring Maven Release Repository</name>
-			<url>http://maven.springframework.org/release</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-maven-milestone</id>
-			<name>Spring Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-roo-repository</id>
-			<name>Spring Roo Repository</name>
-			<url>http://spring-roo-repository.springsource.org/release</url>
-		</pluginRepository>
-	</pluginRepositories>
+	<repositories></repositories>
+	<pluginRepositories></pluginRepositories>
 
 	<dependencies>
 		<!-- AspectJ start -->
@@ -614,13 +574,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
 				</configuration>
-				<version>${maven.compiler.version}</version>
 			</plugin>
 			<!-- IDE -->
 			<plugin>

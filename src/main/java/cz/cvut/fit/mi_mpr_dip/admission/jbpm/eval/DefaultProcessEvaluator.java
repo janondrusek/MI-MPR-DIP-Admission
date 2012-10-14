@@ -6,147 +6,114 @@ public class DefaultProcessEvaluator implements ProcessEvaluator {
 
 	@Override
 	public Boolean evalAcceptWithoutAT(Admission admission) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Boolean evalNeededDocuments(Admission admission) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Boolean evalAppealPossibility(Admission admission) {
-		if (!admission.getAccepted() && admission.getAppeals().size() < 2) { // Limit for appeals is 2 (to Dean / to Rector)
-			return true;
-		}
-		return false;
+		// Limit for appeals is 2 (to Dean / to Rector)
+		return !admission.getAccepted() && admission.getAppeals().size() < 2;
 	}
-	
+
 	@Override
 	public Boolean evalAdmissionAcceptance(Admission admission) {
-		if (admission.getAccepted()) {
-			return true;
-		}
-		return false;
+		return admission.getAccepted();
 	}
 
 	@Override
 	public Boolean evalRegisterForAT(Admission admission) {
 		return true;
-// TODO
-//		if (admission.getAdmissionState().getCode().equals("S10")) { // getName REGISTRED_TO_ADMISSION_TEST
-//			return true;
-//		} else {
-//			return false;
-//		}
+		// TODO
+		// if (admission.getAdmissionState().getCode().equals("S10")) { //
+		// getName REGISTRED_TO_ADMISSION_TEST
+		// return true;
+		// } else {
+		// return false;
+		// }
 	}
 
 	@Override
 	public Boolean evalApologyFromAT(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S11")) { // getName APOLOGY_REQUEST
-			return true;
-		} else {
-			return false;
-		}
+		// APOLOGY_REQUEST
+		return admission.getAdmissionState().getCode().equals("S11");
 	}
 
 	@Override
 	public Boolean evalBackFromAT(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S09")) { // getName INVITED_TO_ADMISSION_TEST
-			return true;
-		} else {
-			return false;
-		}
+		// INVITED_TO_ADMISSION_TEST
+		return admission.getAdmissionState().getCode().equals("S09");
 	}
 
 	@Override
 	public Boolean evalAdmissionTestEvaluated(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S17")) { // getName ADMISSION_TEST_EVALUATED
-			return true;
-		} else {
-			return false;
-		}
+		// ADMISSION_TEST_EVALUATED
+		return admission.getAdmissionState().getCode().equals("S17");
 	}
 
 	@Override
 	public Boolean evalApologyApproval(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S12")) { // getName APOLOGY_APPROVED
-			return true;
-		} else {
-			return false;
-		}
+		// APOLOGY_APPROVED
+		return admission.getAdmissionState().getCode().equals("S12");
 	}
 
 	@Override
 	public Boolean evalAdmissionSWCOne(Admission admission) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Boolean evalAdmissionSWCTwo(Admission admission) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Boolean evalRegisterForREG(Admission admission) {
 		return true;
-// TODO
-//		if (admission.getAdmissionState().getCode().equals("S30")) { // getName REGISTRED_TO_REGISTRATION
-//			return true;
-//		} else {
-//			return false;
-//		}
+		// TODO
+		// if (admission.getAdmissionState().getCode().equals("S30")) { //
+		// getName REGISTRED_TO_REGISTRATION
+		// return true;
+		// } else {
+		// return false;
+		// }
 	}
 
 	@Override
 	public Boolean evalApologyFromREG(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S32")) { // getName REGISTRATION_APOLOGY_APPROVED
-			return true;
-		} else {
-			return false;
-		}
+		// REGISTRATION_APOLOGY_APPROVED
+		return admission.getAdmissionState().getCode().equals("S32");
 	}
 
 	@Override
 	public Boolean evalBackFromREG(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S26")) { // getName DECISION_SENT
-			return true;
-		} else {
-			return false;
-		}
+		// DECISION_SENT
+		return admission.getAdmissionState().getCode().equals("S26");
 	}
 
 	@Override
 	public Boolean EnoughTestPoints(Admission admission) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Boolean evalRegistrationDone(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S35")) { // getName REGISTRED
-			return true;
-		} else {
-			return false;
-		}
+		// REGISTRED
+		return admission.getAdmissionState().getCode().equals("S35");
 	}
 
 	@Override
 	public Boolean evalRegistrationApologyApproval(Admission admission) {
-		if (admission.getAdmissionState().getCode().equals("S32")) { // getName REGISTRATION_APOLOGY_APPROVED
-			return true;
-		} else {
-			return false;
-		}
+		// REGISTRATION_APOLOGY_APPROVED
+		return admission.getAdmissionState().getCode().equals("S32");
 	}
 
 	@Override
 	public void testGeneratingDecisionType(Admission admission) {
-		// TODO Auto-generated method stub
-		
+
 	}
 }

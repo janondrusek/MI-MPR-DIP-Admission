@@ -26,7 +26,7 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	}
 
 	protected Set<T> collect(Set<C> collection) {
-		Set<T> collected = new HashSet<T>();
+		Set<T> collected = new HashSet<>();
 		for (C item : collection) {
 			collected.addAll(collect(item));
 		}
@@ -36,7 +36,7 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	abstract protected Set<T> collect(C item);
 
 	protected Set<T> wrap(T item) {
-		Set<T> wrapper = new HashSet<T>();
+		Set<T> wrapper = new HashSet<>();
 		if (item != null) {
 			wrapper.add(item);
 		}
@@ -44,7 +44,7 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	}
 
 	protected void deduplicate(Set<T> collected) {
-		Set<T> replacements = new HashSet<T>();
+		Set<T> replacements = new HashSet<>();
 		for (Iterator<T> iterator = collected.iterator(); iterator.hasNext();) {
 			T item = iterator.next();
 			List<T> items = findByNameEquals(item);

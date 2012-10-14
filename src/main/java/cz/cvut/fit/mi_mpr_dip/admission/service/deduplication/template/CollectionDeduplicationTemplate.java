@@ -23,7 +23,7 @@ public abstract class CollectionDeduplicationTemplate<C, D> implements Deduplica
 	}
 
 	protected void deduplicate(Set<C> collection) {
-		Set<C> replacements = new HashSet<C>();
+		Set<C> replacements = new HashSet<>();
 		for (Iterator<C> iterator = collection.iterator(); iterator.hasNext();) {
 			C item = iterator.next();
 			C duplicate = findDuplicate(item);

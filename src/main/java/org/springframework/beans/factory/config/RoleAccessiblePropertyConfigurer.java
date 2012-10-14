@@ -17,7 +17,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 public class RoleAccessiblePropertyConfigurer extends PropertyResourceConfigurer implements
 		AccessiblePropertyConfigurer<List<UserRole>> {
 
-	private List<UserRole> defaultRoles = new ArrayList<UserRole>();
+	private List<UserRole> defaultRoles = new ArrayList<>();
 
 	@Override
 	public List<UserRole> getProperties() {
@@ -45,7 +45,7 @@ public class RoleAccessiblePropertyConfigurer extends PropertyResourceConfigurer
 	}
 
 	private Set<UserPermission> createUserPermissions(String[] names) {
-		Set<UserPermission> permissions = new HashSet<UserPermission>();
+		Set<UserPermission> permissions = new HashSet<>();
 		for (String name : names) {
 			UserPermission userPermission = new UserPermission();
 			userPermission.setName(name);

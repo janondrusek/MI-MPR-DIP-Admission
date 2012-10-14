@@ -53,7 +53,7 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	}
 
 	private Set<UserIdentity> createRandomPassword(List<Person> people) {
-		Set<UserIdentity> userIdentities = new HashSet<UserIdentity>();
+		Set<UserIdentity> userIdentities = new HashSet<>();
 		for (Person person : people) {
 			Admission admission = getAdmissionDao().getAdmission(person);
 			UserIdentity userIdentity = admission.getUserIdentity();

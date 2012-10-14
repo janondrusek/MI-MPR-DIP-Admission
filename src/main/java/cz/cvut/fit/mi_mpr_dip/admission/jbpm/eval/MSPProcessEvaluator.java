@@ -3,8 +3,9 @@ package cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appeal;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
+import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 
-public class MSPProcessEvaluator extends DefaultProcessEvaluator implements ProcessEvaluator {
+public class MSPProcessEvaluator extends DefaultProcessEvaluator {
 
 	private final String CZ = "Česká republika"; // CZ or something else
 	private final String SK = "Slovenská republika"; // CZ or something else
@@ -118,7 +119,7 @@ public class MSPProcessEvaluator extends DefaultProcessEvaluator implements Proc
 		}
 
 		boolean result = false;
-		String type = "";
+		String type = StringPool.BLANK;
 
 		for (Appeal appeal : admission.getAppeals()) {
 			result = appeal.getAccepted();

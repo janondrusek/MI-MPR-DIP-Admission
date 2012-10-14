@@ -24,7 +24,7 @@ public class AccessiblePropertyPlaceholderConfigurer extends PropertyPlaceholder
 			throws BeansException {
 		super.processProperties(beanFactory, props);
 
-		propertiesMap = new HashMap<String, String>();
+		propertiesMap = new HashMap<>();
 		for (Object key : props.keySet()) {
 			String keyStr = key.toString();
 			String valueStr = resolvePlaceholder(keyStr, props, springSystemPropertiesMode);

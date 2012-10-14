@@ -41,7 +41,7 @@ public class AccomplishmentDeduplicationTemplate implements AdmissionDeduplicati
 	}
 
 	private Set<AccomplishmentType> collectAccomplishmentTypes(Set<Accomplishment> accomplishments) {
-		Set<AccomplishmentType> accomplishmentTypes = new HashSet<AccomplishmentType>();
+		Set<AccomplishmentType> accomplishmentTypes = new HashSet<>();
 		for (Accomplishment accomplishment : accomplishments) {
 			accomplishmentTypes.add(accomplishment.getAccomplishmentType());
 		}
@@ -49,7 +49,7 @@ public class AccomplishmentDeduplicationTemplate implements AdmissionDeduplicati
 	}
 
 	private void deduplicateAccomplishmentTypes(Set<AccomplishmentType> accomplishmentTypes) {
-		Set<AccomplishmentType> replacements = new HashSet<AccomplishmentType>();
+		Set<AccomplishmentType> replacements = new HashSet<>();
 		Iterator<AccomplishmentType> iterator = accomplishmentTypes.iterator();
 		while (iterator.hasNext()) {
 			AccomplishmentType accomplishmentType = iterator.next();

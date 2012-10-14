@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
+@SuppressWarnings("unused")
 @RooJavaBean
 @Component
 public class WebApplicationExceptionMapper extends BaseExceptionMapper<WebApplicationException> implements

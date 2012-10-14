@@ -24,9 +24,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.education.Accomplishment;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AdmissionService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.Action;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.AdmissionCodeValidator;
 
@@ -145,7 +145,7 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 				accomplishment.remove();
 			}
 
-		}, admission, dbAdmission);
+		});
 		dbAdmission.setAccomplishments(admission.getAccomplishments());
 	}
 
@@ -157,7 +157,7 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 				evaluation.remove();
 			}
 
-		}, admission, dbAdmission);
+		});
 		dbAdmission.setEvaluations(admission.getEvaluations());
 	}
 
@@ -174,11 +174,11 @@ public class AdmissionEndpointHelperImpl extends CommonEndpointHelper<Admission>
 				termRegistration.remove();
 			}
 
-		}, admission, dbAdmission);
+		});
 		dbAdmission.setRegistrations(admission.getRegistrations());
 	}
 
-	private <T> void removeAndAdd(Collection<T> collection, Action<T> action, Admission admission, Admission dbAdmission) {
+	private <T> void removeAndAdd(Collection<T> collection, Action<T> action) {
 		for (Iterator<T> iterator = collection.iterator(); iterator.hasNext();) {
 			T item = iterator.next();
 			iterator.remove();

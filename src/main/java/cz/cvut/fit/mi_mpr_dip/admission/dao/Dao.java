@@ -44,7 +44,7 @@ public abstract class Dao<T> {
 	}
 
 	protected List<T> createEmptyList() {
-		return new ArrayList<T>();
+		return new ArrayList<>();
 	}
 
 }

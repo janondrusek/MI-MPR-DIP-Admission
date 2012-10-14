@@ -1,3 +1,4 @@
+
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import static org.easymock.EasyMock.aryEq;
@@ -83,7 +84,7 @@ public class UserEndpointTest {
 
 	@Test
 	public void testResetPasswordEmailOnly() {
-		Set<UserIdentity> userIdentities = new HashSet<UserIdentity>();
+		Set<UserIdentity> userIdentities = new HashSet<>();
 		userIdentities.add(userIdentity);
 		expect(userPasswordService.createRandomPassword(same(EMAIL))).andReturn(userIdentities);
 		setPersistAndSendExpcetations(EMAIL);

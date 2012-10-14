@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 
+@SuppressWarnings("unused")
 @Component
 public class TechnicalExceptionMapper extends BaseExceptionMapper<TechnicalException> implements
 		ExceptionMapper<TechnicalException> {

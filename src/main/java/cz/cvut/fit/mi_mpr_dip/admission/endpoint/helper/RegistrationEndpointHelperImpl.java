@@ -20,9 +20,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.TermEndpointImpl;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AdmissionService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.TermService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AdmissionService;
+import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.ApologyDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.validation.unique.TermRegistrationUniqueConstraintValidator;
 

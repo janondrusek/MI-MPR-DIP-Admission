@@ -70,7 +70,7 @@ public class UserIdentityServiceTest extends BaseSpringJbpmTest {
 	private void initRoles() throws IOException {
 		properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource(DEPLOYMENT_PROPERTIES));
 		String roles = properties.getProperty(USER_IDENTITY_ROLES_DEFAULT);
-		userRoles = new HashSet<UserRole>();
+		userRoles = new HashSet<>();
 		for (String role : roles.split(StringPool.COMMA)) {
 			UserRole userRole = new UserRole();
 			userRole.setName(role);

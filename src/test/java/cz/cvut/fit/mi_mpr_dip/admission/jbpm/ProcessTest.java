@@ -32,7 +32,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 	private static final String BPMN = ".bpmn";
 	private static final String EMAIL_TO = "emailTo";
 
-	private static String debugEmail = "chobodav@fit";
+	private static String debugEmail = "ondruja1@fit";
 
 	@Autowired
 	private JbpmAccessiblePropertyConfigurer propertyConfigurer;
@@ -400,7 +400,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 	}
 
 	private Map<String, Object> getProcessParameters(Admission admission) {
-		Map<String, Object> processParameters = new HashMap<String, Object>();
+		Map<String, Object> processParameters = new HashMap<>();
 		processParameters.put("admission", admission);
 		processParameters.put("evaluator", new BSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());

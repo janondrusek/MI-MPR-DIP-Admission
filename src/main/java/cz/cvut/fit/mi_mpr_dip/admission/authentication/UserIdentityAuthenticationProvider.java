@@ -43,9 +43,8 @@ public class UserIdentityAuthenticationProvider implements AuthenticationProvide
 		if (isAuthentified(username, password, userIdentity)) {
 			log.info("Successfuly authentified [{}]", username);
 			return createAuthentication(username, password, userIdentity);
-		} else {
-			throw new BadCredentialsException(username + StringPool.COLON + password);
 		}
+		throw new BadCredentialsException(username + StringPool.COLON + password);
 	}
 
 	private boolean isAuthentified(String username, String password, UserIdentity userIdentity) {

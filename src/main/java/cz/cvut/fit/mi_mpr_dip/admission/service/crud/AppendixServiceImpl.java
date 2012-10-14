@@ -1,4 +1,4 @@
-package cz.cvut.fit.mi_mpr_dip.admission.service;
+package cz.cvut.fit.mi_mpr_dip.admission.service.crud;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +18,7 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.AppendixContent;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Link;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.TermRegistration;
+import cz.cvut.fit.mi_mpr_dip.admission.service.LinkService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringGenerator;
 
 @Service
@@ -47,7 +48,7 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	}
 
 	private Set<Appendix> getLinks(String admissionCode, Set<Appendix> photos) {
-		Set<Appendix> photoLinks = new HashSet<Appendix>();
+		Set<Appendix> photoLinks = new HashSet<>();
 		for (Appendix photo : photos) {
 			photoLinks.add(getLink(admissionCode, photo));
 		}
@@ -82,7 +83,7 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	}
 
 	private Set<Appendix> getLinks(Admission admission, Term term, Set<Appendix> appendices) {
-		Set<Appendix> appendixLinks = new HashSet<Appendix>();
+		Set<Appendix> appendixLinks = new HashSet<>();
 		for (Appendix appendix : appendices) {
 			appendixLinks.add(getLink(admission.getCode(), term, appendix));
 		}
