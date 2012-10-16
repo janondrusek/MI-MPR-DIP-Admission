@@ -5,6 +5,7 @@
 	<import resource="builders.xml" />
 	<import resource="exceptions.xml" />
 	<import resource="jbpm.xml" />
+	<import resource="jbpm-resources.xml" />
 	<import resource="property-configurer.xml" />
 	<import resource="services.xml" />
 	<import resource="spring-common.xml" />

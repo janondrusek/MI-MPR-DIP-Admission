@@ -123,7 +123,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@Transactional
 	private void deduplicateAndStoreAndRunJbpmProcess(Admission admission) {
 		deduplicateAndStore(admission);
-		// TODO: after @chobodav fixes processes, runJbpmProcess(admission);
+		// TODO: after processes fixed, runJbpmProcess(admission);
 	}
 
 	private void deduplicateAndStore(Admission admission) {

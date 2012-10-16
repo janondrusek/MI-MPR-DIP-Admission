@@ -35,10 +35,10 @@ public class UserRolePermissionServiceImpl implements UserRolePermissionService,
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		refreshCount++;
 		if (!isRefreshed()) {
+			refreshed = true;
 			log.debug("Calling insert default roles on Context Refresh, refreshed={}, refreshCount={}", isRefreshed(),
 					getRefreshCount());
 			insertDefaultRolesAndPermissions();
-			refreshed = true;
 		} else {
 			log.debug("Skipping insert, already done, refreshed={}, refreshCount={}", isRefreshed(), getRefreshCount());
 		}

@@ -6,8 +6,8 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.hibernate.validator.engine.ConstraintViolationImpl;
-import org.hibernate.validator.engine.PathImpl;
+import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
+import org.hibernate.validator.internal.engine.PathImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

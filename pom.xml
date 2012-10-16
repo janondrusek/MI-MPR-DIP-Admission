@@ -7,6 +7,7 @@
 	<packaging>war</packaging>
 	<name>MI-MPR-DIP-Admission</name>
 	<description>Automation of processing applications for master's degree program</description>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<parent>
 		<groupId>eu.prvaci</groupId>
@@ -18,44 +19,37 @@
 		<!-- Dependencies -->
 		<aspectj.version>1.7.1</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
-		<cxf.version>2.5.3</cxf.version>
+		<cxf.version>2.7.0</cxf.version>
 		<easymock.version>3.1</easymock.version>
 		<freemarker.version>2.3.18</freemarker.version>
-		<geronimo.2.5.version>1.1.2</geronimo.2.5.version>
-		<geronimo.3.0.version>1.0</geronimo.3.0.version>
 		<hamcrest.version>1.1</hamcrest.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
-		<hibernate.version>4.1.2.Final</hibernate.version>
-		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+		<hibernate.version>4.1.7.Final</hibernate.version>
+		<hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
 		<hsql.version>2.2.6</hsql.version>
 		<javax.transaction.version>1.1</javax.transaction.version>
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<jstl.version>1.2</jstl.version>
-		<logback.version>1.0.0</logback.version>
-		<mysql.version>5.1.18</mysql.version>
+		<logback.version>1.0.7</logback.version>
+		<mysql.version>5.1.21</mysql.version>
 		<roo.version>1.2.2.RELEASE</roo.version>
-		<slf4j.version>1.6.4</slf4j.version>
+		<slf4j.version>1.7.2</slf4j.version>
 		<spring.ldap.version>1.3.1.RELEASE</spring.ldap.version>
-		<spring.version>3.1.1.RELEASE</spring.version>
-		<spring.security.version>3.1.0.RELEASE</spring.security.version>
-		<spring.ws.version>2.0.3.RELEASE</spring.ws.version>
+		<spring.version>3.1.2.RELEASE</spring.version>
+		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 		<tomcat.version>7.0.30</tomcat.version>
 		<commons.dbcp.version>1.3</commons.dbcp.version>
 		<commons.lang3.version>3.1</commons.lang3.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
-		<junit.version>4.9</junit.version>
-		<jbpm.version>5.2.0.Final</jbpm.version>
-		<drools-spring.version>5.3.1.Final</drools-spring.version>
+		<junit.version>4.10</junit.version>
+		<jbpm.version>5.2.2.Final</jbpm.version>
+		<drools-spring.version>5.3.3.Final</drools-spring.version>
 		<!-- Plugins -->
 		<maven.tomcat7.version>2.0</maven.tomcat7.version>
 		<maven.tomcat7.url>http://pririz.is.fit.cvut.cz:9090/manager/html</maven.tomcat7.url>
 		<maven.tomcat7.username>USERNAME</maven.tomcat7.username>
 		<maven.tomcat7.password>PASSWORD</maven.tomcat7.password>
-		<jaxb2.schemagen.version>1.3.1</jaxb2.schemagen.version>
-		<jaxb2.maven.version>1.3.1</jaxb2.maven.version>
-		<jbpm.workitems.version>5.2.0.Final</jbpm.workitems.version>
-		<jbpm.human.task.version>5.2.0.Final</jbpm.human.task.version>
-		<jbpm.test.version>5.2.0.Final</jbpm.test.version>
+		<jaxb2.maven.version>1.5</jaxb2.maven.version>
 	</properties>
 
 	<dependencies>
@@ -73,17 +67,7 @@
 		<!-- Apache CXF start -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-bindings-http</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
@@ -92,18 +76,7 @@
 			<version>${cxf.version}</version>
 		</dependency>
 		<!-- Apache CXF end -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-security</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<!-- Omit if using standard WSS4J interceptors -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-policy</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
+				<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
@@ -149,6 +122,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -351,7 +325,7 @@
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-test</artifactId>
-			<version>${jbpm.test.version}</version>
+			<version>${jbpm.version}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -410,20 +384,14 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>jaxb2-maven-plugin</artifactId>
-			<version>${jaxb2.maven.version}</version>
-			<type>maven-plugin</type>
-		</dependency>
-		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-workitems</artifactId>
-			<version>${jbpm.workitems.version}</version>
+			<version>${jbpm.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-human-task</artifactId>
-			<version>${jbpm.human.task.version}</version>
+			<version>${jbpm.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>persistence-api</artifactId>
@@ -548,7 +516,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>${jaxb2.schemagen.version}</version>
+				<version>${jaxb2.maven.version}</version>
 				<configuration>
 					<outputDirectory>${project.build.directory}/generated-resources/schemas</outputDirectory>
 					<includes>

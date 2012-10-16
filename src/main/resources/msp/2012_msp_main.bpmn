@@ -212,7 +212,7 @@
       <dataInputAssociation>
         <targetRef>_29_ToInput</targetRef>
         <assignment>
-          <from xsi:type="tFormalExpression">chobodav@fit.cvut.cz;david.chobotsky@gmail.com</from>
+          <from xsi:type="tFormalExpression">ondruja1@fit.cvut.cz;ondrusek.jan@gmail.com</from>
           <to xsi:type="tFormalExpression">_29_ToInput</to>
         </assignment>
       </dataInputAssociation>

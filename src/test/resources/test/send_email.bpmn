@@ -1,288 +1,281 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<definitions id="Definition"
-             targetNamespace="http://www.jboss.org/drools"
-             typeLanguage="http://www.java.com/javaTypes"
-             expressionLanguage="http://www.mvel.org/2.0"
-             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
-             xmlns:g="http://www.jboss.org/drools/flow/gpd"
-             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-             xmlns:tns="http://www.jboss.org/drools">
-
-  <itemDefinition id="_propItem" structureRef="java.util.HashMap" />
-  <itemDefinition id="_emailToItem" structureRef="String" />
-
-  <process processType="Private" isExecutable="true" id="cz.cvut.fit.mi_mpr_dip.admission.test_email" name="Sample Process" tns:packageName="defaultPackage" >
-
-    <!-- process variables -->
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="Definition" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <itemDefinition id="_propItem" structureRef="java.util.HashMap"/>
+  <itemDefinition id="_emailToItem" structureRef="String"/>
+  <process id="cz.cvut.fit.mi_mpr_dip.admission.test_email" tns:packageName="defaultPackage" name="Sample Process" isExecutable="true" processType="Private">
     <property id="prop" itemSubjectRef="_propItem"/>
     <property id="emailTo" itemSubjectRef="_emailToItem"/>
-
-    <!-- nodes -->
-    <startEvent id="_1" name="StartProcess" />
-    <task id="_2" name="Email: FIT domain" tns:taskName="Email" >
-      <ioSpecification>
-        <dataInput id="_2_BodyInput" name="Body" />
-        <dataInput id="_2_SubjectInput" name="Subject" />
-        <dataInput id="_2_ToInput" name="To" />
-        <dataInput id="_2_FromInput" name="From" />
-        <inputSet>
+    <startEvent id="_1" name="StartProcess">
+      <outgoing>_1-_4</outgoing>
+    </startEvent>
+    <task id="_2" tns:taskName="Email" name="Email: FIT domain">
+      <incoming>_4-_2</incoming>
+      <outgoing>_2-_5</outgoing>
+      <ioSpecification id="InputOutputSpecification_1">
+        <dataInput id="_2_BodyInput" name="Body"/>
+        <dataInput id="_2_SubjectInput" name="Subject"/>
+        <dataInput id="_2_ToInput" name="To"/>
+        <dataInput id="_2_FromInput" name="From"/>
+        <inputSet id="InputSet_1">
           <dataInputRefs>_2_BodyInput</dataInputRefs>
           <dataInputRefs>_2_SubjectInput</dataInputRefs>
           <dataInputRefs>_2_ToInput</dataInputRefs>
           <dataInputRefs>_2_FromInput</dataInputRefs>
         </inputSet>
-        <outputSet>
-        </outputSet>
+        <outputSet id="OutputSet_1"/>
       </ioSpecification>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_1">
         <targetRef>_2_BodyInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">This is a test of email service!
+        <assignment id="Assignment_1">
+          <from xsi:type="tFormalExpression" id="FormalExpression_1">This is a test of email service!
 
 Great!</from>
-          <to xsi:type="tFormalExpression">_2_BodyInput</to>
+          <to xsi:type="tFormalExpression" id="FormalExpression_2">_2_BodyInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_2">
         <targetRef>_2_SubjectInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">TEST 1</from>
-          <to xsi:type="tFormalExpression">_2_SubjectInput</to>
+        <assignment id="Assignment_2">
+          <from xsi:type="tFormalExpression" id="FormalExpression_3">TEST 1</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_4">_2_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_3">
         <targetRef>_2_ToInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">#{emailTo}</from>
-          <to xsi:type="tFormalExpression">_2_ToInput</to>
+        <assignment id="Assignment_3">
+          <from xsi:type="tFormalExpression" id="FormalExpression_5">#{emailTo}</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_6">_2_ToInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_4">
         <targetRef>_2_FromInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
-          <to xsi:type="tFormalExpression">_2_FromInput</to>
+        <assignment id="Assignment_4">
+          <from xsi:type="tFormalExpression" id="FormalExpression_7">#{prop.get(&quot;mail.from&quot;)}</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_8">_2_FromInput</to>
         </assignment>
       </dataInputAssociation>
     </task>
-    <endEvent id="_3" name="End" >
-        <terminateEventDefinition/>
+    <endEvent id="_3" name="End">
+      <incoming>_8-_3</incoming>
+      <terminateEventDefinition id="TerminateEventDefinition_1"/>
     </endEvent>
-    <parallelGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
-    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Converging" />
-    <task id="_6" name="Email: myGmail domain" tns:taskName="Email" >
-      <ioSpecification>
-        <dataInput id="_6_BodyInput" name="Body" />
-        <dataInput id="_6_SubjectInput" name="Subject" />
-        <dataInput id="_6_ToInput" name="To" />
-        <dataInput id="_6_FromInput" name="From" />
-        <inputSet>
+    <parallelGateway id="_4" name="Gateway" gatewayDirection="Diverging">
+      <incoming>_1-_4</incoming>
+      <outgoing>_4-_2</outgoing>
+      <outgoing>_4-_6</outgoing>
+      <outgoing>_4-_7</outgoing>
+    </parallelGateway>
+    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Converging">
+      <incoming>_2-_5</incoming>
+      <incoming>_6-_5</incoming>
+      <incoming>_7-_5</incoming>
+      <outgoing>_5-_8</outgoing>
+    </exclusiveGateway>
+    <task id="_6" tns:taskName="Email" name="Email: myGmail domain">
+      <incoming>_4-_6</incoming>
+      <outgoing>_6-_5</outgoing>
+      <ioSpecification id="InputOutputSpecification_2">
+        <dataInput id="_6_BodyInput" name="Body"/>
+        <dataInput id="_6_SubjectInput" name="Subject"/>
+        <dataInput id="_6_ToInput" name="To"/>
+        <dataInput id="_6_FromInput" name="From"/>
+        <inputSet id="InputSet_2">
           <dataInputRefs>_6_BodyInput</dataInputRefs>
           <dataInputRefs>_6_SubjectInput</dataInputRefs>
           <dataInputRefs>_6_ToInput</dataInputRefs>
           <dataInputRefs>_6_FromInput</dataInputRefs>
         </inputSet>
-        <outputSet>
-        </outputSet>
+        <outputSet id="OutputSet_2"/>
       </ioSpecification>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_5">
         <targetRef>_6_BodyInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">TEST 2</from>
-          <to xsi:type="tFormalExpression">_6_BodyInput</to>
+        <assignment id="Assignment_5">
+          <from xsi:type="tFormalExpression" id="FormalExpression_9">TEST 2</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_10">_6_BodyInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_6">
         <targetRef>_6_SubjectInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">TEST</from>
-          <to xsi:type="tFormalExpression">_6_SubjectInput</to>
+        <assignment id="Assignment_6">
+          <from xsi:type="tFormalExpression" id="FormalExpression_11">TEST</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_12">_6_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_7">
         <targetRef>_6_ToInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">david.chobotsky@gmail.com</from>
-          <to xsi:type="tFormalExpression">_6_ToInput</to>
+        <assignment id="Assignment_7">
+          <from xsi:type="tFormalExpression" id="FormalExpression_13">ondrusek.jan@gmail.com</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_14">_6_ToInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_8">
         <targetRef>_6_FromInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
-          <to xsi:type="tFormalExpression">_6_FromInput</to>
+        <assignment id="Assignment_8">
+          <from xsi:type="tFormalExpression" id="FormalExpression_15">pririz@fit.cvut.cz</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_16">_6_FromInput</to>
         </assignment>
       </dataInputAssociation>
     </task>
-    <task id="_7" name="Email: myOwn domain" tns:taskName="Email" >
-      <ioSpecification>
-        <dataInput id="_7_BodyInput" name="Body" />
-        <dataInput id="_7_SubjectInput" name="Subject" />
-        <dataInput id="_7_ToInput" name="To" />
-        <dataInput id="_7_FromInput" name="From" />
-        <inputSet>
+    <task id="_7" tns:taskName="Email" name="Email: myOwn domain">
+      <incoming>_4-_7</incoming>
+      <outgoing>_7-_5</outgoing>
+      <ioSpecification id="InputOutputSpecification_3">
+        <dataInput id="_7_BodyInput" name="Body"/>
+        <dataInput id="_7_SubjectInput" name="Subject"/>
+        <dataInput id="_7_ToInput" name="To"/>
+        <dataInput id="_7_FromInput" name="From"/>
+        <inputSet id="InputSet_3">
           <dataInputRefs>_7_BodyInput</dataInputRefs>
           <dataInputRefs>_7_SubjectInput</dataInputRefs>
           <dataInputRefs>_7_ToInput</dataInputRefs>
           <dataInputRefs>_7_FromInput</dataInputRefs>
         </inputSet>
-        <outputSet>
-        </outputSet>
+        <outputSet id="OutputSet_3"/>
       </ioSpecification>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_9">
         <targetRef>_7_BodyInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_7_BodyInput</to>
+        <assignment id="Assignment_9">
+          <to xsi:type="tFormalExpression" id="FormalExpression_18">_7_BodyInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_10">
         <targetRef>_7_SubjectInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_7_SubjectInput</to>
+        <assignment id="Assignment_10">
+          <to xsi:type="tFormalExpression" id="FormalExpression_20">_7_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_11">
         <targetRef>_7_ToInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">david@chobotsky.cz</from>
-          <to xsi:type="tFormalExpression">_7_ToInput</to>
+        <assignment id="Assignment_11">
+          <from xsi:type="tFormalExpression" id="FormalExpression_21">ondrusek.jan.cz</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_22">_7_ToInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_12">
         <targetRef>_7_FromInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">pririz@fit.cvut.cz</from>
-          <to xsi:type="tFormalExpression">_7_FromInput</to>
+        <assignment id="Assignment_12">
+          <from xsi:type="tFormalExpression" id="FormalExpression_23">pririz@fit.cvut.cz</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_24">_7_FromInput</to>
         </assignment>
       </dataInputAssociation>
     </task>
-    <task id="_8" name="Email" tns:taskName="Email" >
-      <ioSpecification>
-        <dataInput id="_8_BodyInput" name="Body" />
-        <dataInput id="_8_SubjectInput" name="Subject" />
-        <dataInput id="_8_ToInput" name="To" />
-        <dataInput id="_8_FromInput" name="From" />
-        <inputSet>
+    <task id="_8" tns:taskName="Email" name="Email">
+      <incoming>_5-_8</incoming>
+      <outgoing>_8-_3</outgoing>
+      <ioSpecification id="InputOutputSpecification_4">
+        <dataInput id="_8_BodyInput" name="Body"/>
+        <dataInput id="_8_SubjectInput" name="Subject"/>
+        <dataInput id="_8_ToInput" name="To"/>
+        <dataInput id="_8_FromInput" name="From"/>
+        <inputSet id="InputSet_4">
           <dataInputRefs>_8_BodyInput</dataInputRefs>
           <dataInputRefs>_8_SubjectInput</dataInputRefs>
           <dataInputRefs>_8_ToInput</dataInputRefs>
           <dataInputRefs>_8_FromInput</dataInputRefs>
         </inputSet>
-        <outputSet>
-        </outputSet>
+        <outputSet id="OutputSet_4"/>
       </ioSpecification>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_13">
         <targetRef>_8_BodyInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">emailu --- #{prop.get("mail.from")}</from>
-          <to xsi:type="tFormalExpression">_8_BodyInput</to>
+        <assignment id="Assignment_13">
+          <from xsi:type="tFormalExpression" id="FormalExpression_25">emailu --- #{prop.get(&quot;mail.from&quot;)}</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_26">_8_BodyInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_14">
         <targetRef>_8_SubjectInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">Test 2</from>
-          <to xsi:type="tFormalExpression">_8_SubjectInput</to>
+        <assignment id="Assignment_14">
+          <from xsi:type="tFormalExpression" id="FormalExpression_27">Test 2</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_28">_8_SubjectInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_15">
         <targetRef>_8_ToInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">chobodav@fit.cvut.cz</from>
-          <to xsi:type="tFormalExpression">_8_ToInput</to>
+        <assignment id="Assignment_15">
+          <from xsi:type="tFormalExpression" id="FormalExpression_29">ondruja1@fit.cvut.cz</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_30">_8_ToInput</to>
         </assignment>
       </dataInputAssociation>
-      <dataInputAssociation>
+      <dataInputAssociation id="DataInputAssociation_16">
         <targetRef>_8_FromInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">#{prop.get("mail.from")}</from>
-          <to xsi:type="tFormalExpression">_8_FromInput</to>
+        <assignment id="Assignment_16">
+          <from xsi:type="tFormalExpression" id="FormalExpression_31">#{prop.get(&quot;mail.from&quot;)}</from>
+          <to xsi:type="tFormalExpression" id="FormalExpression_32">_8_FromInput</to>
         </assignment>
       </dataInputAssociation>
     </task>
-
-    <!-- connections -->
-    <sequenceFlow id="_4-_2" sourceRef="_4" targetRef="_2" />
-    <sequenceFlow id="_8-_3" sourceRef="_8" targetRef="_3" />
-    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
-    <sequenceFlow id="_2-_5" sourceRef="_2" targetRef="_5" />
-    <sequenceFlow id="_6-_5" sourceRef="_6" targetRef="_5" />
-    <sequenceFlow id="_7-_5" sourceRef="_7" targetRef="_5" />
-    <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6" />
-    <sequenceFlow id="_4-_7" sourceRef="_4" targetRef="_7" />
-    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8" />
-
+    <sequenceFlow id="_4-_2" sourceRef="_4" targetRef="_2"/>
+    <sequenceFlow id="_8-_3" sourceRef="_8" targetRef="_3"/>
+    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4"/>
+    <sequenceFlow id="_2-_5" sourceRef="_2" targetRef="_5"/>
+    <sequenceFlow id="_6-_5" sourceRef="_6" targetRef="_5"/>
+    <sequenceFlow id="_7-_5" sourceRef="_7" targetRef="_5"/>
+    <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6"/>
+    <sequenceFlow id="_4-_7" sourceRef="_4" targetRef="_7"/>
+    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8"/>
   </process>
-
-  <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.test_email" >
-      <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="16" y="96" width="48" height="48" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="cz.cvut.fit.mi_mpr_dip.admission.test_email">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
+        <dc:Bounds height="48.0" width="48.0" x="16.0" y="96.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="177" y="16" width="166" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="_2">
+        <dc:Bounds height="48.0" width="166.0" x="177.0" y="16.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="588" y="96" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="_3">
+        <dc:Bounds height="48.0" width="48.0" x="588.0" y="96.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="96" y="96" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_ParallelGateway_1" bpmnElement="_4">
+        <dc:Bounds height="48.0" width="48.0" x="96.0" y="96.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_5" >
-        <dc:Bounds x="375" y="96" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="_5" isMarkerVisible="true">
+        <dc:Bounds height="48.0" width="48.0" x="375.0" y="96.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="177" y="96" width="166" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="_6">
+        <dc:Bounds height="48.0" width="166.0" x="177.0" y="96.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="177" y="176" width="166" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="_7">
+        <dc:Bounds height="48.0" width="166.0" x="177.0" y="176.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="456" y="96" width="100" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="_8">
+        <dc:Bounds height="48.0" width="100.0" x="456.0" y="96.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_4-_2" >
-        <di:waypoint x="120" y="120" />
-        <di:waypoint x="260" y="40" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="_4-_2" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_1">
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="96.0"/>
+        <di:waypoint xsi:type="dc:Point" x="177.0" y="40.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_8-_3" >
-        <di:waypoint x="506" y="120" />
-        <di:waypoint x="612" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="_8-_3" sourceElement="BPMNShape_Task_4" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="556.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="588.0" y="120.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
-        <di:waypoint x="40" y="120" />
-        <di:waypoint x="120" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="_1-_4" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_ParallelGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="64.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="96.0" y="120.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_2-_5" >
-        <di:waypoint x="260" y="40" />
-        <di:waypoint x="399" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="_2-_5" sourceElement="BPMNShape_Task_1" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="343.0" y="40.0"/>
+        <di:waypoint xsi:type="dc:Point" x="399.0" y="96.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_6-_5" >
-        <di:waypoint x="260" y="120" />
-        <di:waypoint x="399" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="_6-_5" sourceElement="BPMNShape_Task_2" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="343.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="375.0" y="120.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_7-_5" >
-        <di:waypoint x="260" y="200" />
-        <di:waypoint x="399" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="_7-_5" sourceElement="BPMNShape_Task_3" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="343.0" y="200.0"/>
+        <di:waypoint xsi:type="dc:Point" x="399.0" y="145.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_4-_6" >
-        <di:waypoint x="120" y="120" />
-        <di:waypoint x="260" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="_4-_6" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_2">
+        <di:waypoint xsi:type="dc:Point" x="145.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="177.0" y="120.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_4-_7" >
-        <di:waypoint x="120" y="120" />
-        <di:waypoint x="260" y="200" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="_4-_7" sourceElement="BPMNShape_ParallelGateway_1" targetElement="BPMNShape_Task_3">
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="145.0"/>
+        <di:waypoint xsi:type="dc:Point" x="177.0" y="200.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_5-_8" >
-        <di:waypoint x="399" y="120" />
-        <di:waypoint x="506" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="_5-_8" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_Task_4">
+        <di:waypoint xsi:type="dc:Point" x="424.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="456.0" y="120.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-
 </definitions>

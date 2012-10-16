@@ -8,21 +8,6 @@
                         http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-container/drools-spring/src/main/resources/org/drools/container/spring/drools-spring.xsd
                         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<jbpm:kbase id="knowledgeBase">
-		<jbpm:resources>
-			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_bsp_main.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:msp/2012_msp_main.bpmn" />
-			
-			<jbpm:resource type="BPMN2" source="classpath:process/register_to_study.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:process/apology_approval.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:process/document_request.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:process/2012_registration.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:process/2012_admission_test.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:process/2012_test.bpmn" />
-			<jbpm:resource type="BPMN2" source="classpath:process/2012_decision.bpmn" />
-		</jbpm:resources>
-	</jbpm:kbase>
-
 	<jbpm:ksession id="knowledgeSession" type="stateful" kbase="knowledgeBase" />
 
 	<bean id="jbpmService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.JbpmProcessService">
@@ -84,13 +69,6 @@
 	</bean>
 	
 	<bean id="localTaskService" class="org.jbpm.task.service.local.LocalTaskService">
-		<constructor-arg ref="taskServiceSession" />
-	</bean>	
-	
-	<bean id="taskServiceSession" class="org.jbpm.task.service.TaskServiceSession" factory-bean="taskService" factory-method="createSession" />
-	
-	<bean id="jbpmTaskService" class="cz.cvut.fit.mi_mpr_dip.admission.jbpm.JbpmTaskServiceImpl">
-		<constructor-arg ref="knowledgeSession" />
 		<constructor-arg ref="taskService" />
-	</bean>
+	</bean>	
 </beans>

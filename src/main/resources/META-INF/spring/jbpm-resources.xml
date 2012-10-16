@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jbpm="http://drools.org/schema/drools-spring" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://drools.org/schema/drools-spring http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-container/drools-spring/src/main/resources/org/drools/container/spring/drools-spring.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<jbpm:kbase id="knowledgeBase">
+		<jbpm:resources>
+			<jbpm:resource type="BPMN2" source="classpath:bsp/2012_bsp_main.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:msp/2012_msp_main.bpmn" />
+
+			<jbpm:resource type="BPMN2" source="classpath:process/register_to_study.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/apology_approval.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/document_request.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/2012_registration.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/2012_admission_test.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/2012_test.bpmn" />
+			<jbpm:resource type="BPMN2" source="classpath:process/2012_decision.bpmn" />
+		</jbpm:resources>
+	</jbpm:kbase>
+
+	<util:map id="degreeProcessMapping">
+		<entry key="Bc." value="cz.cvut.fit.mi_mpr_dip.admission.2012_bsp_main" />
+		<entry key="Ing." value="cz.cvut.fit.mi_mpr_dip.admission.2012_msp_main" />
+	</util:map>
+</beans>
