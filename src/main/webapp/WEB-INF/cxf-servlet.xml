@@ -26,7 +26,7 @@
 		</jaxrs:providers>
 	</jaxrs:server>
 
-	<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider">
+	<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
 		<property name="serializeAsArray" value="true" />
 		<property name="arrayKeys" ref="jsonKeys" />
 	</bean>

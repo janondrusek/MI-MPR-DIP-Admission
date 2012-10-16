@@ -17,31 +17,25 @@
 
 	<properties>
 		<!-- Dependencies -->
-		<aspectj.version>1.7.1</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
 		<cxf.version>2.7.0</cxf.version>
-		<easymock.version>3.1</easymock.version>
 		<freemarker.version>2.3.18</freemarker.version>
-		<hamcrest.version>1.1</hamcrest.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
 		<hibernate.version>4.1.7.Final</hibernate.version>
 		<hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
 		<hsql.version>2.2.6</hsql.version>
 		<javax.transaction.version>1.1</javax.transaction.version>
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
+		<jettison.version>1.3.2</jettison.version>
 		<jstl.version>1.2</jstl.version>
-		<logback.version>1.0.7</logback.version>
 		<mysql.version>5.1.21</mysql.version>
 		<roo.version>1.2.2.RELEASE</roo.version>
-		<slf4j.version>1.7.2</slf4j.version>
+		<servlet.version>3.0.1</servlet.version>
 		<spring.ldap.version>1.3.1.RELEASE</spring.ldap.version>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 		<tomcat.version>7.0.30</tomcat.version>
 		<commons.dbcp.version>1.3</commons.dbcp.version>
-		<commons.lang3.version>3.1</commons.lang3.version>
-		<commons.collections.version>3.2.1</commons.collections.version>
-		<junit.version>4.10</junit.version>
 		<jbpm.version>5.2.2.Final</jbpm.version>
 		<drools-spring.version>5.3.3.Final</drools-spring.version>
 		<!-- Plugins -->
@@ -53,36 +47,18 @@
 	</properties>
 
 	<dependencies>
-		<!-- AspectJ start -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
-		<!-- Apache CXF start -->
+		<!-- Apache CXF -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
+			<artifactId>cxf-bundle-jaxrs</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>${cxf.version}</version>
+			<groupId>org.codehaus.jettison</groupId>
+			<artifactId>jettison</artifactId>
+			<version>${jettison.version}</version>
 		</dependency>
-		<!-- Apache CXF end -->
-				<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Spring start -->
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -252,12 +228,6 @@
 			<artifactId>freemarker</artifactId>
 			<version>${freemarker.version}</version>
 		</dependency>
-		<!-- Logging start -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
 		<!-- ROO dependencies -->
 		<dependency>
 			<groupId>org.springframework.roo</groupId>
@@ -265,34 +235,7 @@
 			<version>${roo.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<!-- Other start -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons.lang3.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${commons.collections.version}</version>
-		</dependency>
-		<!-- Test start -->
+		<!-- Test -->
 		<dependency>
 			<groupId>eu.prvaci</groupId>
 			<artifactId>test-templates</artifactId>
@@ -300,28 +243,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>${easymock.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<version>${hamcrest.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>${hsql.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- JBPM -->
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-test</artifactId>
@@ -350,7 +277,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- JBPM start -->
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-bpmn2</artifactId>
@@ -406,13 +332,19 @@
 		<!-- WEB -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jstl-impl</artifactId>
-			<version>1.2</version>
+			<version>${jstl.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>servlet-api</artifactId>
@@ -450,9 +382,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
 				<version>${aspectj.maven.version}</version>
-				<!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 and do not use 1.4 due to declare parents issue -->
 				<dependencies>
-					<!-- NB: You must use Maven 2.0.9 or above or these are ignored (see MNG-2972) -->
 					<dependency>
 						<groupId>org.aspectj</groupId>
 						<artifactId>aspectjrt</artifactId>
