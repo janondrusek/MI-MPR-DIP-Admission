@@ -47,7 +47,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 			mimeMessage.setSubject(getSubject());
 			mimeMessage.setFrom(new InternetAddress(getFrom()));
 			mimeMessage.setRecipients(RecipientType.TO, getAddresses(emails));
-			
+
 			getMailSender().send(mimeMessage);
 		} catch (Exception e) {
 			log.warn("Unable to send password reset email for [{}] [{}]", emails, userIdentity);

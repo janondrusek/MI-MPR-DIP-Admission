@@ -67,7 +67,9 @@ public class Address {
 	private Country country;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "address_print_line", joinColumns = { @JoinColumn(name = "address_id", referencedColumnName = "addressId") }, inverseJoinColumns = { @JoinColumn(name = "print_line_id", referencedColumnName = "printLineId") })
+	@JoinTable(name = "address_print_line", joinColumns = { @JoinColumn(name = "address_id",
+			referencedColumnName = "addressId") }, inverseJoinColumns = { @JoinColumn(name = "print_line_id",
+			referencedColumnName = "printLineId") })
 	@Valid
 	@XmlElementWrapper(name = "printLines")
 	@XmlElement(name = "printLine")

@@ -60,7 +60,9 @@ public class Apology {
 	private String text;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "apology_appendix", joinColumns = { @JoinColumn(name = "apology_id", referencedColumnName = "apologyId") }, inverseJoinColumns = { @JoinColumn(name = "appendix_id", referencedColumnName = "appendixId") })
+	@JoinTable(name = "apology_appendix", joinColumns = { @JoinColumn(name = "apology_id",
+			referencedColumnName = "apologyId") }, inverseJoinColumns = { @JoinColumn(name = "appendix_id",
+			referencedColumnName = "appendixId") })
 	@XmlTransient
 	private Set<Appendix> appendices;
 

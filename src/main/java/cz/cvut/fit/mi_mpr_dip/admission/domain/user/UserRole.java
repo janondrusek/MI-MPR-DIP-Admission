@@ -49,7 +49,9 @@ public class UserRole {
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id", referencedColumnName = "userPermissionId") })
+	@JoinTable(name = "user_role_permission", joinColumns = { @JoinColumn(name = "user_role_id",
+			referencedColumnName = "userRoleId") }, inverseJoinColumns = { @JoinColumn(name = "user_permission_id",
+			referencedColumnName = "userPermissionId") })
 	@XmlElementWrapper(name = "permissions")
 	@XmlElement(name = "permission")
 	private Set<UserPermission> permissions;

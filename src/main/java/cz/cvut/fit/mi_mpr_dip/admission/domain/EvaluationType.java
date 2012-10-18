@@ -42,7 +42,7 @@ public class EvaluationType {
 	@NotNull
 	@Column(unique = true)
 	private String name;
-	
+
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "evaluationType")
 	@XmlTransient
 	private Set<Evaluation> evaluations;

@@ -22,13 +22,13 @@ public class ProcessServiceTest extends BaseSpringJbpmTest {
 		TestAdmissionData data = new TestAdmissionData();
 		admission = data.getAdmission();
 	}
-	
+
 	@Test
 	public void testRunBlankProcess() {
 		admission.getProgramme().getDegree().setName(BLANK);
 		processService.runProcess(admission);
 	}
-	
+
 	@Test
 	public void testRunProcess() {
 		for (int i = 0; i < 3; i++) {
@@ -36,33 +36,35 @@ public class ProcessServiceTest extends BaseSpringJbpmTest {
 		}
 	}
 
-//	@Test
-//	public void testHumanTaskProcess() {
-//		try {
-//			UserTransaction ut = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
-//			ut.begin();
-//
-//			/*
-//			 * Get the local task service
-//			 */
-//			TaskService taskService = jbpmTaskService.getTaskService();
-//
-//			processService.runProcess(admission);
-//
-//			/*
-//			 * Retrive the tasks owned by a user
-//			 */
-//			List<TaskSummary> list = taskService.getTasksAssignedAsPotentialOwner("test", "en-UK");
-//			TaskSummary task = list.get(0);
-//
-//			System.out.println("test is executing task " + task.getName());
-//			taskService.start(task.getId(), "test");
-//			taskService.complete(task.getId(), "test", null);
-//
-//			ut.commit();
-//		} catch (Throwable t) {
-//			// TODO Auto-generated catch block
-//			t.printStackTrace();
-//		}
-//	}
+	// @Test
+	// public void testHumanTaskProcess() {
+	// try {
+	// UserTransaction ut = (UserTransaction) new
+	// InitialContext().lookup("java:comp/UserTransaction");
+	// ut.begin();
+	//
+	// /*
+	// * Get the local task service
+	// */
+	// TaskService taskService = jbpmTaskService.getTaskService();
+	//
+	// processService.runProcess(admission);
+	//
+	// /*
+	// * Retrive the tasks owned by a user
+	// */
+	// List<TaskSummary> list =
+	// taskService.getTasksAssignedAsPotentialOwner("test", "en-UK");
+	// TaskSummary task = list.get(0);
+	//
+	// System.out.println("test is executing task " + task.getName());
+	// taskService.start(task.getId(), "test");
+	// taskService.complete(task.getId(), "test", null);
+	//
+	// ut.commit();
+	// } catch (Throwable t) {
+	// // TODO Auto-generated catch block
+	// t.printStackTrace();
+	// }
+	// }
 }

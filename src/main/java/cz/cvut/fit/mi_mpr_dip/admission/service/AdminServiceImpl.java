@@ -27,7 +27,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Required
-	public void setAccessiblePropertyConfigurer(AccessiblePropertyConfigurer<Map<String, String>> exposablePropertyHolder) {
+	public void setAccessiblePropertyConfigurer(
+			AccessiblePropertyConfigurer<Map<String, String>> exposablePropertyHolder) {
 		this.accessiblePropertyConfigurer = exposablePropertyHolder;
 	}
 

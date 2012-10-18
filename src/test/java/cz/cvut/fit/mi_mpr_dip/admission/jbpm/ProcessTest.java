@@ -83,7 +83,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 		knowledgeSession.getWorkItemManager().registerWorkItemHandler("Email", testHandler);
 
 		knowledgeSession.startProcess(DOMAIN + "2012_msp_main", getProcessParameters(admission));
-		
+
 		for (int i = 0; i < 6; i++) {
 			knowledgeSession.getWorkItemManager().completeWorkItem(testHandler.getWorkItem().getId(), null);
 		}

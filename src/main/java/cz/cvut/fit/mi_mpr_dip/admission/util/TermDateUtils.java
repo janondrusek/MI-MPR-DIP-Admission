@@ -8,8 +8,8 @@ public interface TermDateUtils {
 	public Date fromUnderscoredIso(String text) throws ParseException;
 
 	public Date fromIso(String text) throws ParseException;
-	
+
 	public String toUnderscoredIso(Date date);
-	
+
 	public String toIso(Date date);
 }

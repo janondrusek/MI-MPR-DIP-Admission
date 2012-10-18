@@ -39,7 +39,7 @@ public abstract class Dao<T> {
 	protected List<T> processListException(Exception e) {
 		List<T> list = createEmptyList();
 		log.debug("Unable to find entries for [{}], [{}]", list.getClass(), String.valueOf(e));
-		
+
 		return list;
 	}
 

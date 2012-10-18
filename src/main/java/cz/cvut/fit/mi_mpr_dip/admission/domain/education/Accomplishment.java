@@ -52,7 +52,9 @@ public class Accomplishment {
 	@NotNull
 	@NotEmpty
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "accomplishment_accomplishment_value", joinColumns = { @JoinColumn(name = "accomplishment_id", referencedColumnName = "accomplishmentId") }, inverseJoinColumns = { @JoinColumn(name = "accomplishment_value_id", referencedColumnName = "accomplishmentValueId") })
+	@JoinTable(name = "accomplishment_accomplishment_value", joinColumns = { @JoinColumn(name = "accomplishment_id",
+			referencedColumnName = "accomplishmentId") }, inverseJoinColumns = { @JoinColumn(
+			name = "accomplishment_value_id", referencedColumnName = "accomplishmentValueId") })
 	@Valid
 	@XmlElementWrapper(name = "accomplishmentValues")
 	@XmlElement(name = "accomplishmentValue")

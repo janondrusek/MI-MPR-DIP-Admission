@@ -1,4 +1,3 @@
-
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import static org.easymock.EasyMock.aryEq;

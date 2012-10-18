@@ -13,7 +13,7 @@ public class UserRoleUniqueConstraint extends BaseUniqueConstraint<UserRole> {
 	public UserRoleUniqueConstraint(UserRole userRole) {
 		this(userRole.getName());
 	}
-	
+
 	private UserRoleUniqueConstraint(String name) {
 		this.name = name;
 	}

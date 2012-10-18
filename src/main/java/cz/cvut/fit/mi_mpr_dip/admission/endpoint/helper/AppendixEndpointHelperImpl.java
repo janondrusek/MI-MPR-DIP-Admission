@@ -40,7 +40,7 @@ public class AppendixEndpointHelperImpl extends CommonEndpointHelper<Appendix> i
 		Admission admission = getAdmissionOrThrowNotFound(admissionCode);
 		Appendix appendix = getPhotoOrThrowNotFound(admission, identifier);
 		getAppendixService().addContent(appendix);
-		
+
 		return getOkResponse(appendix);
 	}
 
@@ -52,7 +52,7 @@ public class AppendixEndpointHelperImpl extends CommonEndpointHelper<Appendix> i
 		verifyRegistration(admission, term);
 		Appendix appendix = getAppendixOrThrowNotFound(admission, identifier);
 		getAppendixService().addContent(appendix);
-		
+
 		return getOkResponse(appendix);
 	}
 

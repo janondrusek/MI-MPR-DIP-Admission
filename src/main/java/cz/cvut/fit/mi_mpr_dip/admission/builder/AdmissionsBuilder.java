@@ -12,6 +12,6 @@ public interface AdmissionsBuilder extends Builder<Admissions> {
 	public void buildAdmissions();
 
 	public void buildAdmissions(List<Admission> admissions);
-	
+
 	public void buildLinks();
 }

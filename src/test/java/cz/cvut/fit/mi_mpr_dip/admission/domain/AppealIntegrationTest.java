@@ -6,7 +6,7 @@ import org.springframework.roo.addon.test.RooIntegrationTest;
 @RooIntegrationTest(entity = Appeal.class)
 public class AppealIntegrationTest {
 
-    @Test
-    public void testMarkerMethod() {
-    }
+	@Test
+	public void testMarkerMethod() {
+	}
 }

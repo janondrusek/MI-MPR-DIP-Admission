@@ -78,14 +78,18 @@ public class Person {
 	private Boolean permanentResidenceGranted;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "person_document", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "document_id", referencedColumnName = "documentId") })
+	@JoinTable(name = "person_document", joinColumns = { @JoinColumn(name = "person_id",
+			referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "document_id",
+			referencedColumnName = "documentId") })
 	@Valid
 	@XmlElementWrapper(name = "documents")
 	@XmlElement(name = "document")
 	private Set<Document> documents;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "person_address", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "address_id", referencedColumnName = "addressId") })
+	@JoinTable(name = "person_address", joinColumns = { @JoinColumn(name = "person_id",
+			referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "address_id",
+			referencedColumnName = "addressId") })
 	@Valid
 	@XmlElementWrapper(name = "addresses")
 	@XmlElement(name = "address")
@@ -113,8 +117,11 @@ public class Person {
 	private String email;
 
 	@XmlElementWrapper(name = "disabilities")
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinTable(name = "person_disability_type", joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "disability_type_id", referencedColumnName = "disabilityTypeId") })
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.EAGER)
+	@JoinTable(name = "person_disability_type", joinColumns = { @JoinColumn(name = "person_id",
+			referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "disability_type_id",
+			referencedColumnName = "disabilityTypeId") })
 	@Valid
 	@XmlElement(name = "disability")
 	private Set<DisabilityType> disabilities;

@@ -72,7 +72,7 @@ public class RegistrationEndpointHelperImpl extends CommonEndpointHelper<TermReg
 	public Response deleteRegistration(String admissionCode, String dateOfTerm, String room) {
 		TermRegistration termRegistration = getTermRegistrationOrThrowNotFound(admissionCode, dateOfTerm, room);
 		termRegistration.remove();
-		
+
 		return getOkResponse();
 	}
 

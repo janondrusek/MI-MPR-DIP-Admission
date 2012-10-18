@@ -77,8 +77,11 @@ public class Term {
 
 	@NotNull
 	@NotEmpty
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinTable(name = "term_programme", joinColumns = { @JoinColumn(name = "term_id", referencedColumnName = "termId") }, inverseJoinColumns = { @JoinColumn(name = "programme_id", referencedColumnName = "programmeId") })
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.EAGER)
+	@JoinTable(name = "term_programme",
+			joinColumns = { @JoinColumn(name = "term_id", referencedColumnName = "termId") },
+			inverseJoinColumns = { @JoinColumn(name = "programme_id", referencedColumnName = "programmeId") })
 	@Valid
 	@XmlElementWrapper(name = "programs")
 	@XmlElement(name = "programme")

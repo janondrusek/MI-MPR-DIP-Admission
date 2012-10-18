@@ -6,7 +6,7 @@ import org.springframework.roo.addon.test.RooIntegrationTest;
 @RooIntegrationTest(entity = AdmissionState.class)
 public class AdmissionStateIntegrationTest {
 
-    @Test
-    public void testMarkerMethod() {
-    }
+	@Test
+	public void testMarkerMethod() {
+	}
 }

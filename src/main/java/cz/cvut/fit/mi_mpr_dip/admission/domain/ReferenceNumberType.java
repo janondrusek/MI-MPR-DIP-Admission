@@ -27,7 +27,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
 public class ReferenceNumberType {
-	
+
 	@Version
 	@Transient
 	@XmlTransient
@@ -39,10 +39,10 @@ public class ReferenceNumberType {
 	private Long referenceNumberTypeId;
 
 	@NotEmpty
-    @NotNull
-    @Column(unique = true)
-    private String name;
-    
+	@NotNull
+	@Column(unique = true)
+	private String name;
+
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "referenceNumberType")
 	@XmlTransient
 	private Set<ReferenceNumber> referenceNumbers;

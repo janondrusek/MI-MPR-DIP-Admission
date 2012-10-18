@@ -7,6 +7,6 @@ public interface UserSessionService {
 	public void ensureUserSession(UserIdentity userIdentity);
 
 	public void removeExpired(UserIdentity userIdentity);
-	
+
 	public void prolong(UserIdentity userIdentity);
 }

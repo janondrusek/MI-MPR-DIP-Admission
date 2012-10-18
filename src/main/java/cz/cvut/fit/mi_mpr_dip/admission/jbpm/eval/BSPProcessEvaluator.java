@@ -21,27 +21,39 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator {
 	private String scioPoints = "h7";
 	private Integer limitScioPoints = 70; // h7
 
-//	private Map<String, String> jbpmProperties;
+	// private Map<String, String> jbpmProperties;
 
-//	@Autowired
-//	private JbpmAccessiblePropertyConfigurer propertyConfigurer;
+	// @Autowired
+	// private JbpmAccessiblePropertyConfigurer propertyConfigurer;
 
 	public BSPProcessEvaluator() {
-//		jbpmProperties = new HashMap<String, String>();
-//		jbpmProperties = propertyConfigurer.getProperties();
-//
-//		admissionTestPoints = jbpmProperties.get("process.evaluation.type.admission_test_points");
-//		limitAdmissionTestPoints = Integer.valueOf(jbpmProperties.get("process.evaluation.h2"));
-//		neededDocuments = jbpmProperties.get("process.evaluation.type.needed_documents");
-//		limitNeededDocuments = Integer.valueOf(jbpmProperties.get("process.evaluation.h3"));
-//		czechLanguageExamination = jbpmProperties.get("process.evaluation.type.czech_lang_exam");
-//		limitCzechLanguageExamination = Integer.valueOf(jbpmProperties.get("process.evaluation.h4"));
-//		olympiadAchievement = jbpmProperties.get("process.evaluation.type.olympiad_achievement");
-//		limitOlympiadAchievement = Integer.valueOf(jbpmProperties.get("process.evaluation.h5"));
-//		graduationMathPoints = jbpmProperties.get("process.evaluation.type.graduation_math_points");
-//		limitGraduationMathPoints = Integer.valueOf(jbpmProperties.get("process.evaluation.h6"));
-//		scioPoints = jbpmProperties.get("process.evaluation.type.scio_points");
-//		limitScioPoints = Integer.valueOf(jbpmProperties.get("process.evaluation.h7"));		
+		// jbpmProperties = new HashMap<String, String>();
+		// jbpmProperties = propertyConfigurer.getProperties();
+		//
+		// admissionTestPoints =
+		// jbpmProperties.get("process.evaluation.type.admission_test_points");
+		// limitAdmissionTestPoints =
+		// Integer.valueOf(jbpmProperties.get("process.evaluation.h2"));
+		// neededDocuments =
+		// jbpmProperties.get("process.evaluation.type.needed_documents");
+		// limitNeededDocuments =
+		// Integer.valueOf(jbpmProperties.get("process.evaluation.h3"));
+		// czechLanguageExamination =
+		// jbpmProperties.get("process.evaluation.type.czech_lang_exam");
+		// limitCzechLanguageExamination =
+		// Integer.valueOf(jbpmProperties.get("process.evaluation.h4"));
+		// olympiadAchievement =
+		// jbpmProperties.get("process.evaluation.type.olympiad_achievement");
+		// limitOlympiadAchievement =
+		// Integer.valueOf(jbpmProperties.get("process.evaluation.h5"));
+		// graduationMathPoints =
+		// jbpmProperties.get("process.evaluation.type.graduation_math_points");
+		// limitGraduationMathPoints =
+		// Integer.valueOf(jbpmProperties.get("process.evaluation.h6"));
+		// scioPoints =
+		// jbpmProperties.get("process.evaluation.type.scio_points");
+		// limitScioPoints =
+		// Integer.valueOf(jbpmProperties.get("process.evaluation.h7"));
 	}
 
 	@Override
@@ -53,7 +65,7 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator {
 		if (admission.getEvaluations() == null) {
 			return false;
 		}
-		
+
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName().toLowerCase();
@@ -74,11 +86,11 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator {
 	public Boolean evalNeededDocuments(Admission admission) {
 		boolean documentsOk = false;
 		boolean czLangExamOk = false;
-		
+
 		if (admission.getAccepted()) {
 			return true;
 		}
-		
+
 		if (admission.getEvaluations() == null) {
 			return false;
 		}
@@ -127,7 +139,7 @@ public class BSPProcessEvaluator extends DefaultProcessEvaluator {
 		if (admission.getEvaluations() == null) {
 			return false;
 		}
-		
+
 		for (Evaluation evaluation : admission.getEvaluations()) {
 			String value = evaluation.getValue();
 			String type = evaluation.getEvaluationType().getName().toLowerCase();

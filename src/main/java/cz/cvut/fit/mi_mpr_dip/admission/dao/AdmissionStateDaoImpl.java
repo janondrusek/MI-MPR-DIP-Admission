@@ -13,7 +13,7 @@ public class AdmissionStateDaoImpl extends Dao<AdmissionState> implements Admiss
 	public AdmissionState getAdmissionState(String code) {
 		return getAdmissionStateQuietly(code);
 	}
-	
+
 	private AdmissionState getAdmissionStateQuietly(String code) {
 		AdmissionState admissionState;
 		try {

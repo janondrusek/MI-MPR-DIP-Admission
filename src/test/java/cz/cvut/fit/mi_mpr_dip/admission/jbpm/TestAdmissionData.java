@@ -32,52 +32,52 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 public class TestAdmissionData extends BaseSpringJbpmTest {
 
 	private Admission admission;
-	
+
 	public TestAdmissionData() {
 		admission = createAdmission();
 	}
-	
+
 	public Admission getAdmission() {
 		return admission;
 	}
-	
+
 	public void addEvaluation(String value, String type) {
 		EvaluationType evaluationType = new EvaluationType();
 		evaluationType.setName(type);
-		
+
 		Evaluation evaluation = new Evaluation();
 		evaluation.setValue(value);
 		evaluation.setEvaluationType(evaluationType);
-		
+
 		admission.getEvaluations().add(evaluation);
 	}
 
 	public void addAppeal(Boolean accepted, String type) {
 		AppealType appealType = new AppealType();
 		appealType.setName(type);
-		
+
 		Appeal appeal = new Appeal();
 		appeal.setAccepted(accepted);
 		appeal.setAppealType(appealType);
 
 		admission.getAppeals().add(appeal);
 	}
-	
+
 	public void addAdmissionResult(Double value) {
 		AdmissionResult admissionResult = new AdmissionResult();
 		admissionResult.setValue(value);
-		
+
 		admission.setResult(admissionResult);
 	}
-	
+
 	public void setAdmissionState(String code, String name) {
 		AdmissionState admissionState = new AdmissionState();
 		admissionState.setCode(code);
 		admissionState.setName(name);
-		
+
 		admission.setAdmissionState(admissionState);
 	}
-	
+
 	public void setProgramme(String degree, String studyMode, String language, String programme) {
 		Degree d = new Degree();
 		d.setName(degree);
@@ -93,14 +93,14 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 		p.setStudyMode(sm);
 		p.setLanguage(l);
 		p.setName(programme);
-		
+
 		admission.setProgramme(p);
 	}
 
 	private Admission createAdmission() {
 		Set<Appeal> appeals = new HashSet<>();
 		Set<Evaluation> evaluations = new HashSet<>();
-		
+
 		Admission a = new Admission();
 		a.setCode("73935282");
 		a.setType("P");
@@ -112,23 +112,23 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 		a.setFaculty(createFaculty("FIT"));
 		a.setPerson(createPerson());
 		a.setProgramme(createProgramme());
-		
+
 		return a;
 	}
-	
+
 	private AdmissionState createState(String code, String name) {
 		AdmissionState admissionState = new AdmissionState();
 		admissionState.setCode(code);
 		admissionState.setName(name);
 		return admissionState;
 	}
-	
+
 	private Faculty createFaculty(String name) {
 		Faculty faculty = new Faculty();
 		faculty.setName(name);
 		return faculty;
 	}
-	
+
 	private Programme createProgramme() {
 		Degree degree = new Degree();
 		degree.setName("Bc.");
@@ -144,14 +144,14 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 		programme.setStudyMode(studyMode);
 		programme.setLanguage(language);
 		programme.setName("BI");
-		
+
 		return programme;
 	}
-	
+
 	private Person createPerson() {
 		City city = createCity("Testov");
 		Country country = createCountry("Česká republika");
-		
+
 		Person person = new Person();
 		person.setFirstname("Frantisek");
 		person.setLastname("Vomáčka");
@@ -163,42 +163,42 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 		person.setCityOfBirth(city);
 		person.setCountryOfBirth(country);
 		person.setDocuments(createDocuments());
-		
+
 		return person;
 	}
-	
+
 	private City createCity(String name) {
 		City city = new City();
 		city.setName(name);
-		
+
 		return city;
 	}
-	
+
 	private Country createCountry(String name) {
 		Country country = new Country();
 		country.setName(name);
-		
+
 		return country;
 	}
-	
+
 	private Set<Document> createDocuments() {
 		Set<Document> documents = new HashSet<>();
-		
+
 		DocumentType documentType = new DocumentType();
 		documentType.setName("OP");
-		
+
 		Document document = new Document();
 		document.setNumber("111222333");
 		document.setDocumentType(documentType);
 
 		documents.add(document);
-		
+
 		return documents;
 	}
-	
+
 	private Set<Address> createAddresses() {
 		Set<Address> addresses = new HashSet<>();
-		
+
 		City city = createCity("Testov");
 		Country country = createCountry("Česká republika");
 
@@ -230,7 +230,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 
 		addresses.add(ad);
 		addresses.add(adc);
-		
+
 		return addresses;
 	}
 
@@ -256,12 +256,12 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 		printLine.setValue(line[1]);
 		return printLine;
 	}
-	
+
 	@Test
 	public void testValidAdmissionData() {
 		isAdmissionValid(admission);
 	}
-	
+
 	private void isAdmissionValid(Admission admission) {
 		assertNotNull(admission);
 		assertNotNull(admission.getCode());

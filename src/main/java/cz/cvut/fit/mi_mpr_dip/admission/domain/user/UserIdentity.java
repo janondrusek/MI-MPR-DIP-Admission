@@ -64,7 +64,9 @@ public class UserIdentity {
 	private String username;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_identity_role", joinColumns = { @JoinColumn(name = "user_identity_id", referencedColumnName = "userIdentityId") }, inverseJoinColumns = { @JoinColumn(name = "user_role_id", referencedColumnName = "userRoleId") })
+	@JoinTable(name = "user_identity_role", joinColumns = { @JoinColumn(name = "user_identity_id",
+			referencedColumnName = "userIdentityId") }, inverseJoinColumns = { @JoinColumn(name = "user_role_id",
+			referencedColumnName = "userRoleId") })
 	@XmlElementWrapper(name = "roles")
 	@XmlElement(name = "role")
 	private Set<UserRole> roles;

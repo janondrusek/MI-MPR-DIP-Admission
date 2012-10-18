@@ -6,7 +6,7 @@ import org.springframework.roo.addon.test.RooIntegrationTest;
 @RooIntegrationTest(entity = PrintLineType.class)
 public class PrintLineTypeIntegrationTest {
 
-    @Test
-    public void testMarkerMethod() {
-    }
+	@Test
+	public void testMarkerMethod() {
+	}
 }
