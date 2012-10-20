@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -66,7 +65,7 @@ public class Address {
 	@Valid
 	private Country country;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "address_print_line", joinColumns = { @JoinColumn(name = "address_id",
 			referencedColumnName = "addressId") }, inverseJoinColumns = { @JoinColumn(name = "print_line_id",
 			referencedColumnName = "printLineId") })

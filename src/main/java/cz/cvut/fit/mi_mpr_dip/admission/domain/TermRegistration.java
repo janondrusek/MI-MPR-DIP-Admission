@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,8 +43,7 @@ public class TermRegistration {
 	private Long termRegistrationId;
 
 	@NotNull
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
-			fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@XmlTransient
 	private Admission admission;
 
@@ -54,8 +52,7 @@ public class TermRegistration {
 	private Admission admissionLink;
 
 	@NotNull
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
-			fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@Valid
 	@XmlTransient
 	private Term term;

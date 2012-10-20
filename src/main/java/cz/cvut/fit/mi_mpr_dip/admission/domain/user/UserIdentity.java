@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -63,7 +62,7 @@ public class UserIdentity {
 	@Column(unique = true)
 	private String username;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_identity_role", joinColumns = { @JoinColumn(name = "user_identity_id",
 			referencedColumnName = "userIdentityId") }, inverseJoinColumns = { @JoinColumn(name = "user_role_id",
 			referencedColumnName = "userRoleId") })
@@ -71,7 +70,7 @@ public class UserIdentity {
 	@XmlElement(name = "role")
 	private Set<UserRole> roles;
 
-	@OneToMany(mappedBy = "userIdentity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "userIdentity", cascade = CascadeType.ALL)
 	@OrderBy("grantValidTo DESC")
 	@XmlElementWrapper(name = "sessions")
 	@XmlElement(name = "session")

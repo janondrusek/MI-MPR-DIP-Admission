@@ -2,7 +2,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
 import java.util.Set;
 
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +40,7 @@ public class DocumentType {
 	@NotNull
 	private String name;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "documentType")
+	@OneToMany(orphanRemoval = true, mappedBy = "documentType")
 	@XmlTransient
 	private Set<Document> documents;
 }

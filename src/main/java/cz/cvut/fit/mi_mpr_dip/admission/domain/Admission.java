@@ -67,7 +67,7 @@ public class Admission {
 	@NotNull
 	private Boolean accepted = Boolean.FALSE;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "admission_accomplishment", joinColumns = { @JoinColumn(name = "admission_id",
 			referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "accomplishment_id",
 			referencedColumnName = "accomplishmentId") })
@@ -76,7 +76,7 @@ public class Admission {
 	@XmlElement(name = "accomplishment")
 	private Set<Accomplishment> accomplishments;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "admission_appeal", joinColumns = { @JoinColumn(name = "admission_id",
 			referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "appeal_id",
 			referencedColumnName = "appealId") })
@@ -95,7 +95,7 @@ public class Admission {
 	@Valid
 	private AdmissionResult result;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "admission_evaluation", joinColumns = { @JoinColumn(name = "admission_id",
 			referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "evaluation_id",
 			referencedColumnName = "evaluationId") })
@@ -133,7 +133,7 @@ public class Admission {
 	@XmlElement(name = "photo")
 	private Set<Appendix> photoLinks;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "admission", orphanRemoval = true)
+	@OneToMany(mappedBy = "admission", orphanRemoval = true)
 	@Valid
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")
@@ -142,7 +142,7 @@ public class Admission {
 	@OneToOne(cascade = CascadeType.ALL)
 	private UserIdentity userIdentity;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "admission_reference_number", joinColumns = { @JoinColumn(name = "admission_id",
 			referencedColumnName = "admissionId") }, inverseJoinColumns = { @JoinColumn(name = "reference_number_id",
 			referencedColumnName = "referenceNumberId") })

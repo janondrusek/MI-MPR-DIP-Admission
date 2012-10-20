@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -77,8 +76,7 @@ public class Term {
 
 	@NotNull
 	@NotEmpty
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
-			fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@JoinTable(name = "term_programme",
 			joinColumns = { @JoinColumn(name = "term_id", referencedColumnName = "termId") },
 			inverseJoinColumns = { @JoinColumn(name = "programme_id", referencedColumnName = "programmeId") })
@@ -87,7 +85,7 @@ public class Term {
 	@XmlElement(name = "programme")
 	private Set<Programme> programs;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "term", orphanRemoval = true)
+	@OneToMany(mappedBy = "term", orphanRemoval = true)
 	@Valid
 	@XmlElementWrapper(name = "registrations")
 	@XmlElement(name = "registration")

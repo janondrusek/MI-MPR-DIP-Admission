@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +42,7 @@ public class TermType {
 	@Column(unique = true)
 	private String name;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "termType")
+	@OneToMany(orphanRemoval = true, mappedBy = "termType")
 	@XmlTransient
 	private Set<Term> terms;
 }

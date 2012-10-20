@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -77,7 +76,7 @@ public class Person {
 
 	private Boolean permanentResidenceGranted;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "person_document", joinColumns = { @JoinColumn(name = "person_id",
 			referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "document_id",
 			referencedColumnName = "documentId") })
@@ -86,7 +85,7 @@ public class Person {
 	@XmlElement(name = "document")
 	private Set<Document> documents;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "person_address", joinColumns = { @JoinColumn(name = "person_id",
 			referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "address_id",
 			referencedColumnName = "addressId") })
@@ -117,8 +116,7 @@ public class Person {
 	private String email;
 
 	@XmlElementWrapper(name = "disabilities")
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
-			fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@JoinTable(name = "person_disability_type", joinColumns = { @JoinColumn(name = "person_id",
 			referencedColumnName = "personId") }, inverseJoinColumns = { @JoinColumn(name = "disability_type_id",
 			referencedColumnName = "disabilityTypeId") })

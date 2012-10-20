@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +42,7 @@ public class AddressType {
 	@Column(unique = true)
 	private String name;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "addressType")
+	@OneToMany(orphanRemoval = true, mappedBy = "addressType")
 	@XmlTransient
 	private Set<Address> addresses;
 }

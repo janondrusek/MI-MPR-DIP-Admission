@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +44,7 @@ public class Faculty {
 	@Column(unique = true)
 	private String name;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "faculty")
+	@OneToMany(orphanRemoval = true, mappedBy = "faculty")
 	@XmlTransient
 	private Set<Admission> admissions;
 }

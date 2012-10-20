@@ -43,7 +43,7 @@ public class MaritalStatus {
 	@Column(unique = true)
 	private String name;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "maritalStatus")
+	@OneToMany(orphanRemoval = true, mappedBy = "maritalStatus")
 	@XmlTransient
 	private Set<Person> persons;
 }

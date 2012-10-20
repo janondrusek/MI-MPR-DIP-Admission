@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,7 +50,7 @@ public class Accomplishment {
 
 	@NotNull
 	@NotEmpty
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "accomplishment_accomplishment_value", joinColumns = { @JoinColumn(name = "accomplishment_id",
 			referencedColumnName = "accomplishmentId") }, inverseJoinColumns = { @JoinColumn(
 			name = "accomplishment_value_id", referencedColumnName = "accomplishmentValueId") })
