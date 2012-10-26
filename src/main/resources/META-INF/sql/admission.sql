@@ -3,7 +3,7 @@
 # Server version:               5.5.16-log
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2012-05-23 00:08:30
+# Date/time:                    2012-10-26 23:26:37
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -325,7 +325,6 @@ CREATE TABLE IF NOT EXISTS `appendix` (
   `appendix_content` bigint(20) NOT NULL,
   `appendix_type` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`appendix_id`),
-  UNIQUE KEY `appendix_content` (`appendix_content`),
   UNIQUE KEY `identifier` (`identifier`),
   KEY `FK45ED7DC93F8C0244` (`appendix_type`),
   KEY `FK45ED7DC9DD1F3322` (`appendix_content`),
@@ -437,7 +436,7 @@ DROP TABLE IF EXISTS `deadline`;
 CREATE TABLE IF NOT EXISTS `deadline` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `deadline_date` datetime DEFAULT NULL,
-  `escalated` tinyint(1) NOT NULL,
+  `escalated` smallint(6) DEFAULT NULL,
   `deadlines_start_dead_line_id` bigint(20) DEFAULT NULL,
   `deadlines_end_dead_line_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -601,12 +600,12 @@ CREATE TABLE IF NOT EXISTS `i18ntext` (
   `task_subjects_id` bigint(20) DEFAULT NULL,
   `task_names_id` bigint(20) DEFAULT NULL,
   `task_descriptions_id` bigint(20) DEFAULT NULL,
+  `deadline_documentation_id` bigint(20) DEFAULT NULL,
   `reassignment_documentation_id` bigint(20) DEFAULT NULL,
   `notification_subjects_id` bigint(20) DEFAULT NULL,
   `notification_names_id` bigint(20) DEFAULT NULL,
   `notification_documentation_id` bigint(20) DEFAULT NULL,
   `notification_descriptions_id` bigint(20) DEFAULT NULL,
-  `deadline_documentation_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK2140804B2162DFB4` (`notification_descriptions_id`),
   KEY `FK2140804BD488CEEB` (`notification_names_id`),
@@ -689,8 +688,8 @@ DROP TABLE IF EXISTS `notification_email_headers`;
 CREATE TABLE IF NOT EXISTS `notification_email_headers` (
   `notification` bigint(20) NOT NULL,
   `email_headers` bigint(20) NOT NULL,
-  `email_headers_key` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`notification`,`email_headers_key`),
+  `mapkey` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`notification`,`mapkey`),
   UNIQUE KEY `email_headers` (`email_headers`),
   KEY `FKAA16E98FF88391FD` (`email_headers`),
   KEY `FKAA16E98FA3B41C18` (`notification`),
@@ -1012,6 +1011,7 @@ CREATE TABLE IF NOT EXISTS `sub_tasks_strategy` (
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `archived` smallint(6) DEFAULT NULL,
   `allowed_to_delegate` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `priority` int(11) NOT NULL,
   `activation_time` datetime DEFAULT NULL,
@@ -1035,6 +1035,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   `skipable` tinyint(1) NOT NULL,
   `status` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `work_item_id` bigint(20) NOT NULL,
+  `optlock` int(11) DEFAULT NULL,
   `task_initiator` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `actual_owner` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `created_by` varchar(255) COLLATE utf8_bin DEFAULT NULL,

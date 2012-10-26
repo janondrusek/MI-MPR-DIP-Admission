@@ -53,7 +53,7 @@ public class Appendix {
 	@NotNull
 	private String mimeType;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@NotNull
 	@Valid
 	@XmlTransient
