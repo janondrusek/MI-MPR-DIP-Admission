@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>%d{yy-MM-dd HH:mm:ss.SSS} %-5level %X{internal-request-id} %logger{36} %msg%n</Pattern>
-		</layout>
+		<encoder  class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yy-MM-dd HH:mm:ss.SSS} %-5level %X{internal-request-id} %logger{36} %msg%n</pattern>
+		</encoder >
 	</appender>
 
 	<logger name="org.springframework" level="INFO" />
@@ -13,7 +13,7 @@
 	<logger name="cz.cvut" level="DEBUG" />
 
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>

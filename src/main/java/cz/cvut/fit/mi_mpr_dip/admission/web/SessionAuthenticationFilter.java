@@ -36,15 +36,15 @@ public class SessionAuthenticationFilter extends GenericFilterBean {
 			ServletException {
 		final HttpServletRequest request = (HttpServletRequest) req;
 
-		String session = request.getHeader(WebKeys.X_CTU_FIT_ADMISSION_SESSION);
-		SecurityContextHolder.getContext().setAuthentication(createAuthentication(session));
+		String identifier = request.getHeader(WebKeys.X_CTU_FIT_ADMISSION_SESSION);
+		SecurityContextHolder.getContext().setAuthentication(createAuthentication(identifier));
 		chain.doFilter(req, res);
 	}
 
-	private Authentication createAuthentication(String session) {
+	private Authentication createAuthentication(String identifier) {
 		Authentication authentication = null;
-		if (StringUtils.isNotBlank(session)) {
-			UserSession userSession = userSessionDao.getUserSession(session);
+		if (StringUtils.isNotBlank(identifier)) {
+			UserSession userSession = userSessionDao.getUserSession(identifier);
 			if (userSession.getIdentifier() != null) {
 				UserIdentity userIdentity = userSession.getUserIdentity();
 				authentication = new UserAuthentication(userIdentity.getUsername(), userSession.getIdentifier(),
