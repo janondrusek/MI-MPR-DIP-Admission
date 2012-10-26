@@ -1,12 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Evaluation;
@@ -40,7 +41,7 @@ public class EvaluationDeduplicationTemplate implements AdmissionDeduplicationTe
 	}
 
 	private Set<EvaluationType> collectEvaluationTypes(Set<Evaluation> evaluations) {
-		Set<EvaluationType> evaluationTypes = new HashSet<>();
+		Set<EvaluationType> evaluationTypes = getEvaluationTypes();
 		for (Evaluation evaluation : evaluations) {
 			evaluationTypes.add(evaluation.getEvaluationType());
 		}
@@ -48,7 +49,7 @@ public class EvaluationDeduplicationTemplate implements AdmissionDeduplicationTe
 	}
 
 	private void deduplicateEvaluationTypes(Set<EvaluationType> evaluationTypes) {
-		Set<EvaluationType> replacements = new HashSet<>();
+		Set<EvaluationType> replacements = getEvaluationTypes();
 		Iterator<EvaluationType> iterator = evaluationTypes.iterator();
 		while (iterator.hasNext()) {
 			EvaluationType evaluationType = iterator.next();
@@ -60,5 +61,9 @@ public class EvaluationDeduplicationTemplate implements AdmissionDeduplicationTe
 			}
 		}
 		evaluationTypes.addAll(replacements);
+	}
+
+	private Set<EvaluationType> getEvaluationTypes() {
+		return Sets.newHashSet();
 	}
 }

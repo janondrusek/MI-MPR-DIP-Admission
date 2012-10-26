@@ -1,10 +1,11 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+
+import com.google.common.collect.Sets;
 
 public abstract class CollectionDeduplicationTemplate<C, D> implements DeduplicationTemplate<D> {
 
@@ -23,7 +24,7 @@ public abstract class CollectionDeduplicationTemplate<C, D> implements Deduplica
 	}
 
 	protected void deduplicate(Set<C> collection) {
-		Set<C> replacements = new HashSet<>();
+		Set<C> replacements = Sets.newHashSet();
 		for (Iterator<C> iterator = collection.iterator(); iterator.hasNext();) {
 			C item = iterator.next();
 			C duplicate = findDuplicate(item);

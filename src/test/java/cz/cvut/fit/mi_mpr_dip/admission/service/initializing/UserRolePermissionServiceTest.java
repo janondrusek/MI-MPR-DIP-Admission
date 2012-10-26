@@ -8,11 +8,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.config.RoleAccessiblePropertyConfigurer;
+
+import com.google.common.collect.Lists;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.user.UserRoleDeduplicationService;
@@ -33,7 +34,7 @@ public class UserRolePermissionServiceTest extends EasyMockTest {
 	@Test
 	public void testMultipleRefreshes() {
 		int refreshCount = 5;
-		List<UserRole> userRoles = new ArrayList<>();
+		List<UserRole> userRoles = Lists.newArrayList();
 		userRoles.add(new UserRole());
 
 		assertInitialState();

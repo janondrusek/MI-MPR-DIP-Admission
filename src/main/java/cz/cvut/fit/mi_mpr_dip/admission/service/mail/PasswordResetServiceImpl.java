@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.mail;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.Address;
@@ -18,6 +17,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
+
+import com.google.common.collect.Maps;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
@@ -69,7 +70,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 	}
 
 	private Map<String, String> getModel(UserIdentity userIdentity) {
-		Map<String, String> model = new HashMap<>();
+		Map<String, String> model = Maps.newHashMap();
 		model.put(WebKeys.USERNAME, userIdentity.getUsername());
 		model.put(WebKeys.PASSWORD, userIdentity.getUserPassword().getPlaintext());
 		return model;

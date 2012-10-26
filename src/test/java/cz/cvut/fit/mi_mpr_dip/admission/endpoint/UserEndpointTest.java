@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URI;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,8 @@ import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserIdentityDao;
@@ -83,7 +84,7 @@ public class UserEndpointTest {
 
 	@Test
 	public void testResetPasswordEmailOnly() {
-		Set<UserIdentity> userIdentities = new HashSet<>();
+		Set<UserIdentity> userIdentities = Sets.newHashSet();
 		userIdentities.add(userIdentity);
 		expect(userPasswordService.createRandomPassword(same(EMAIL))).andReturn(userIdentities);
 		setPersistAndSendExpcetations(EMAIL);

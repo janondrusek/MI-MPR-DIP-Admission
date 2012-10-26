@@ -1,11 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+
+import com.google.common.collect.Sets;
 
 public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements DeduplicationTemplate<D> {
 
@@ -26,7 +27,7 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	}
 
 	protected Set<T> collect(Set<C> collection) {
-		Set<T> collected = new HashSet<>();
+		Set<T> collected = getNewHashSet();
 		for (C item : collection) {
 			collected.addAll(collect(item));
 		}
@@ -36,7 +37,7 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	abstract protected Set<T> collect(C item);
 
 	protected Set<T> wrap(T item) {
-		Set<T> wrapper = new HashSet<>();
+		Set<T> wrapper = getNewHashSet();
 		if (item != null) {
 			wrapper.add(item);
 		}
@@ -44,7 +45,7 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	}
 
 	protected void deduplicate(Set<T> collected) {
-		Set<T> replacements = new HashSet<>();
+		Set<T> replacements = getNewHashSet();
 		for (Iterator<T> iterator = collected.iterator(); iterator.hasNext();) {
 			T item = iterator.next();
 			List<T> items = findByNameEquals(item);
@@ -67,4 +68,8 @@ public abstract class NestedCollectionDeduplicationTemplate<T, C, D> implements 
 	}
 
 	abstract protected void deduplicateItem(T item, C cItem);
+
+	private Set<T> getNewHashSet() {
+		return Sets.newHashSet();
+	}
 }

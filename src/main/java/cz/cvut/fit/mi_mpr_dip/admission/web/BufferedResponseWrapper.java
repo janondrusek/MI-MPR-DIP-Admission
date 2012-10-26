@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -11,11 +10,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import com.google.common.collect.Maps;
+
 public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 
 	private int statusCode;
 
-	private Map<String, String> headers = new HashMap<>();
+	private Map<String, String> headers = Maps.newHashMap();
 
 	private BufferedServletOutputStream output;
 	private PrintWriter writer;
@@ -35,6 +36,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 		return statusCode == 0 ? HttpServletResponse.SC_OK : statusCode;
 	}
 
+	@Override
 	public String getHeader(String name) {
 		String value = headers.get(name);
 		return value;
@@ -78,7 +80,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 	@Override
 	public void addDateHeader(String name, long date) {
 		super.addDateHeader(name, date);
-		insertHeaderValue(name, (new Date(date)).toString());
+		insertHeaderValue(name, new Date(date).toString());
 	}
 
 	@Override
@@ -96,7 +98,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 	@Override
 	public void setDateHeader(String name, long date) {
 		super.setDateHeader(name, date);
-		insertHeaderValue(name, (new Date(date)).toString());
+		insertHeaderValue(name, new Date(date).toString());
 	}
 
 	@Override

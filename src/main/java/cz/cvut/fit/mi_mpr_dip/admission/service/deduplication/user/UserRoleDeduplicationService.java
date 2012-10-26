@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.user;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +7,8 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserPermission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
@@ -26,7 +27,7 @@ public class UserRoleDeduplicationService implements DeduplicationService<UserRo
 	}
 
 	private void deduplicate(Set<UserPermission> permissions, List<UserPermission> dbPermissions) {
-		Set<UserPermission> replacements = new HashSet<>();
+		Set<UserPermission> replacements = Sets.newHashSet();
 		for (Iterator<UserPermission> iterator = permissions.iterator(); iterator.hasNext();) {
 			UserPermission userPermission = iterator.next();
 			if (dbPermissions.contains(userPermission)) {

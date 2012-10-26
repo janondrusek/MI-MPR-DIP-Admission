@@ -1,7 +1,8 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.person;
 
-import java.util.HashSet;
 import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -16,7 +17,7 @@ public abstract class CommonPersonDeduplicationTemplate<T> extends AddressDedupl
 	}
 
 	private Set<T> collect(Person person) {
-		Set<T> collected = new HashSet<>();
+		Set<T> collected = Sets.newHashSet();
 		collected.addAll(collectDirectlyDescendant(person));
 		collected.addAll(collect(person.getAddresses()));
 		return collected;

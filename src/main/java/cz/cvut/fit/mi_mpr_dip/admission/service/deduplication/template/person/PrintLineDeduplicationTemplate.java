@@ -1,11 +1,12 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.person;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.PrintLine;
@@ -16,7 +17,7 @@ public class PrintLineDeduplicationTemplate extends AddressDeduplicationTemplate
 
 	@Override
 	protected Set<PrintLineType> collect(Address address) {
-		Set<PrintLineType> printLineTypes = new HashSet<>();
+		Set<PrintLineType> printLineTypes = Sets.newHashSet();
 		if (CollectionUtils.isNotEmpty(address.getPrintLines())) {
 			for (PrintLine printLine : address.getPrintLines()) {
 				printLineTypes.add(printLine.getPrintLineType());

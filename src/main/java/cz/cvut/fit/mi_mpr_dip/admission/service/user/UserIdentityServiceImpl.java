@@ -2,10 +2,8 @@ package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import java.text.Normalizer;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -19,6 +17,8 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.comparator.NaturalOrderComparator;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
@@ -144,7 +144,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	}
 
 	private Set<UserRole> createDefaultRoles() {
-		Set<UserRole> userRoles = new HashSet<>();
+		Set<UserRole> userRoles = Sets.newHashSet();
 		for (String role : getDefaultRoles()) {
 			List<UserRole> dbUserRoles = UserRole.findUserRolesByNameEquals(role).getResultList();
 			if (isNotEmpty(dbUserRoles)) {
@@ -177,7 +177,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	}
 
 	private Set<String> collectUsernames(List<UserIdentity> userIdentities) {
-		Set<String> usernames = new TreeSet<>(new NaturalOrderComparator<String>());
+		Set<String> usernames = Sets.newTreeSet(new NaturalOrderComparator<String>());
 		for (UserIdentity userIdentity : userIdentities) {
 			usernames.add(userIdentity.getUsername());
 		}
@@ -223,7 +223,7 @@ public class UserIdentityServiceImpl implements UserIdentityService {
 	@Transactional
 	@Override
 	public void updateUserRoles(UserIdentity userIdentity, UserRoles userRoles) {
-		Set<UserRole> roles = new HashSet<>();
+		Set<UserRole> roles = Sets.newHashSet();
 		if (isNotEmpty(userRoles.getUserRoles())) {
 			for (UserRole userRole : userRoles.getUserRoles()) {
 				UserRole dbUserRole = getUserRoleDao().getUserRole(userRole.getName());

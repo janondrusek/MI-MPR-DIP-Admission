@@ -91,7 +91,7 @@ public class Admission {
 	@Valid
 	private AdmissionState admissionState;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Valid
 	private AdmissionResult result;
 
@@ -104,7 +104,8 @@ public class Admission {
 	@XmlElement(name = "evaluation")
 	private Set<Evaluation> evaluations;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@Valid
 	private Faculty faculty;
 
@@ -112,11 +113,12 @@ public class Admission {
 	private Link link;
 
 	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Valid
 	private Person person;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@Valid
 	private Programme programme;
 
@@ -139,7 +141,7 @@ public class Admission {
 	@XmlElement(name = "registration")
 	private Set<TermRegistration> registrations;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private UserIdentity userIdentity;
 
 	@OneToMany(cascade = CascadeType.ALL)

@@ -1,12 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.crud;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AppendixDao;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.AppendixUniqueConstraint;
@@ -48,7 +49,7 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	}
 
 	private Set<Appendix> getLinks(String admissionCode, Set<Appendix> photos) {
-		Set<Appendix> photoLinks = new HashSet<>();
+		Set<Appendix> photoLinks = getAppendices();
 		for (Appendix photo : photos) {
 			photoLinks.add(getLink(admissionCode, photo));
 		}
@@ -83,7 +84,7 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	}
 
 	private Set<Appendix> getLinks(Admission admission, Term term, Set<Appendix> appendices) {
-		Set<Appendix> appendixLinks = new HashSet<>();
+		Set<Appendix> appendixLinks = getAppendices();
 		for (Appendix appendix : appendices) {
 			appendixLinks.add(getLink(admission.getCode(), term, appendix));
 		}
@@ -170,6 +171,10 @@ public class AppendixServiceImpl extends BaseCrudService<Appendix> implements Ap
 	public void delete(UniqueConstraint<Appendix> uniqueConstraint) {
 		Appendix appendix = getAppendixOrThrowNotFound(uniqueConstraint);
 		appendix.remove();
+	}
+
+	private Set<Appendix> getAppendices() {
+		return Sets.newHashSet();
 	}
 
 }

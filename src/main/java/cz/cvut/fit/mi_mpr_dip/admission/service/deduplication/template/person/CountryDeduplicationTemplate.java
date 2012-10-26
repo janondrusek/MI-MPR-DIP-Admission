@@ -1,10 +1,11 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.person;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Address;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
@@ -15,7 +16,7 @@ public class CountryDeduplicationTemplate extends CommonPersonDeduplicationTempl
 
 	@Override
 	protected Set<Country> collectDirectlyDescendant(Person person) {
-		Set<Country> countries = new HashSet<>();
+		Set<Country> countries = Sets.newHashSet();
 		countries.add(person.getCitizenship());
 		countries.add(person.getCountryOfBirth());
 		return countries;

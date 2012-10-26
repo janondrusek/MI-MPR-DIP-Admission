@@ -2,7 +2,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.UserSessionDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
@@ -43,7 +44,7 @@ public class UserSessionServiceImpl implements UserSessionService {
 	private Set<UserSession> getSessions(UserIdentity userIdentity) {
 		Set<UserSession> sessions = userIdentity.getSessions();
 		if (isEmpty(sessions)) {
-			sessions = new HashSet<>();
+			sessions = Sets.newHashSet();
 		}
 		return sessions;
 	}

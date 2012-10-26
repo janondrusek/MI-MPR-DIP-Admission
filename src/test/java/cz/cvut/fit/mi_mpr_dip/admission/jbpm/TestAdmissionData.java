@@ -1,9 +1,10 @@
 package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -98,8 +99,8 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 
 	private Admission createAdmission() {
-		Set<Appeal> appeals = new HashSet<>();
-		Set<Evaluation> evaluations = new HashSet<>();
+		Set<Appeal> appeals = Sets.newHashSet();
+		Set<Evaluation> evaluations = Sets.newHashSet();
 
 		Admission a = new Admission();
 		a.setCode("73935282");
@@ -182,7 +183,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 
 	private Set<Document> createDocuments() {
-		Set<Document> documents = new HashSet<>();
+		Set<Document> documents = Sets.newHashSet();
 
 		DocumentType documentType = new DocumentType();
 		documentType.setName("OP");
@@ -197,7 +198,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 
 	private Set<Address> createAddresses() {
-		Set<Address> addresses = new HashSet<>();
+		Set<Address> addresses = Sets.newHashSet();
 
 		City city = createCity("Testov");
 		Country country = createCountry("Česká republika");
@@ -242,7 +243,7 @@ public class TestAdmissionData extends BaseSpringJbpmTest {
 	}
 
 	private Set<PrintLine> createPrintLines(String[][] lines) {
-		Set<PrintLine> printLines = new HashSet<>();
+		Set<PrintLine> printLines = Sets.newHashSet();
 		for (String[] line : lines) {
 			printLines.add(createPrintLine(line));
 		}

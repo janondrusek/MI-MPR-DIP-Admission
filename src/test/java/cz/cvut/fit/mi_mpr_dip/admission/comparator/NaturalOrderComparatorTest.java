@@ -35,7 +35,7 @@ public class NaturalOrderComparatorTest {
 
 	@Before
 	public void setUp() {
-		comparator = new NaturalOrderComparator<>();
+		comparator = new NaturalOrderComparator<String>();
 	}
 
 	@Test

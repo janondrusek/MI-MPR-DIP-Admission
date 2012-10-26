@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.drools.runtime.StatefulKnowledgeSession;
@@ -8,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.config.JbpmAccessiblePropertyConfigurer;
 import org.springframework.roo.addon.javabean.RooJavaBean;
+
+import com.google.common.collect.Maps;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.eval.BSPProcessEvaluator;
@@ -45,7 +46,7 @@ public class JbpmProcessService implements ProcessService {
 	}
 
 	private Map<String, Object> getProcessParameters(Admission admission) {
-		Map<String, Object> processParameters = new HashMap<>();
+		Map<String, Object> processParameters = Maps.newHashMap();
 		processParameters.put("admission", admission);
 		processParameters.put("evaluator", new BSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());

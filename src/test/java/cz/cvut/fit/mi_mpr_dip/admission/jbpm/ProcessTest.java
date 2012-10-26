@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.jbpm;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.drools.KnowledgeBase;
@@ -15,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.JbpmAccessiblePropertyConfigurer;
+
+import com.google.common.collect.Maps;
 
 import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -400,7 +401,7 @@ public class ProcessTest extends BaseSpringJbpmTest {
 	}
 
 	private Map<String, Object> getProcessParameters(Admission admission) {
-		Map<String, Object> processParameters = new HashMap<>();
+		Map<String, Object> processParameters = Maps.newHashMap();
 		processParameters.put("admission", admission);
 		processParameters.put("evaluator", new BSPProcessEvaluator());
 		processParameters.put("jbpmProperties", propertyConfigurer.getProperties());

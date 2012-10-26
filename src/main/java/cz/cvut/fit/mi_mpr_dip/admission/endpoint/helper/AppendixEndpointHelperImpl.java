@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.core.Response;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.AdmissionUniqueConstraint;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.persistence.AppendixUniqueConstraint;
@@ -64,7 +65,7 @@ public class AppendixEndpointHelperImpl extends CommonEndpointHelper<Appendix> i
 	}
 
 	private Set<Term> collectTerms(Admission admission) {
-		Set<Term> terms = new HashSet<>();
+		Set<Term> terms = Sets.newHashSet();
 		if (CollectionUtils.isNotEmpty(admission.getRegistrations())) {
 			for (TermRegistration termRegistration : admission.getRegistrations()) {
 				terms.add(termRegistration.getTerm());
@@ -94,7 +95,7 @@ public class AppendixEndpointHelperImpl extends CommonEndpointHelper<Appendix> i
 	}
 
 	private Set<Appendix> collectAppendices(Set<TermRegistration> registrations) {
-		Set<Appendix> appendices = new HashSet<>();
+		Set<Appendix> appendices = Sets.newHashSet();
 		if (CollectionUtils.isNotEmpty(registrations)) {
 			for (TermRegistration termRegistration : registrations) {
 				if (termRegistration.getApology() != null) {

@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.TermDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
@@ -54,7 +55,7 @@ public class TermEndpointHelperImpl extends CommonEndpointHelper<Term> implement
 
 	private void populateTerms(Terms terms) {
 		List<Term> dbTerms = Term.findAllTerms();
-		terms.setTerms(new HashSet<>(dbTerms));
+		terms.setTerms(Sets.newHashSet(dbTerms));
 		addLinks(terms.getTerms());
 
 		updateCollectionDomainCounters(new Long(dbTerms.size()), terms);

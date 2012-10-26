@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.logging;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -17,6 +16,9 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import ch.qos.logback.classic.Level;
+
+import com.google.common.collect.Lists;
+
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 import cz.cvut.fit.mi_mpr_dip.admission.exception.TechnicalException;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
@@ -138,7 +140,7 @@ public class LoggingServiceImpl implements LoggingService {
 	}
 
 	private List<Loggable> createCallAwareLoggables() {
-		List<Loggable> loggables = new ArrayList<>();
+		List<Loggable> loggables = Lists.newArrayList();
 		loggables.add(createLoggable(WebKeys.CALL_IDENTIFIER, MDC.get(WebKeys.MDC_KEY_CALL_IDENTIFIER)));
 
 		return loggables;

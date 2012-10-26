@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper;
 
-import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +8,8 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.dao.ProgrammeDao;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Programs;
@@ -40,7 +41,7 @@ public class ProgrammeEndpointHelperImpl extends CommonEndpointHelper<Programme>
 
 	private void populate(Programs programs) {
 		List<Programme> dbPrograms = Programme.findAllProgrammes();
-		programs.setPrograms(new HashSet<>(dbPrograms));
+		programs.setPrograms(Sets.newHashSet(dbPrograms));
 
 		updateCollectionDomainCounters(new Long(dbPrograms.size()), programs);
 	}

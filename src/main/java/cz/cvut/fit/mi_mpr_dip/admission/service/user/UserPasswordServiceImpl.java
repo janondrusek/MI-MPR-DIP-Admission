@@ -1,6 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.user;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +9,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.roo.addon.javabean.RooJavaBean;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
@@ -53,7 +54,7 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	}
 
 	private Set<UserIdentity> createRandomPassword(List<Person> people) {
-		Set<UserIdentity> userIdentities = new HashSet<>();
+		Set<UserIdentity> userIdentities = Sets.newHashSet();
 		for (Person person : people) {
 			Admission admission = getAdmissionDao().getAdmission(person);
 			UserIdentity userIdentity = admission.getUserIdentity();

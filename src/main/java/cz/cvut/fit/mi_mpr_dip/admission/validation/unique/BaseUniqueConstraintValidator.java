@@ -1,7 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.validation.unique;
 
 import java.lang.annotation.ElementType;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -10,6 +9,8 @@ import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.hibernate.validator.internal.engine.PathImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.exception.BusinessException;
 
@@ -27,7 +28,7 @@ public abstract class BaseUniqueConstraintValidator<T> {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Set<ConstraintViolation<Object>> getConstraintViolations(T o) {
-		Set<ConstraintViolation<Object>> constraintViolations = new HashSet<>();
+		Set<ConstraintViolation<Object>> constraintViolations = Sets.newHashSet();
 		ConstraintViolationImpl<Object> constraintViolation = new ConstraintViolationImpl<Object>("Duplicate [{}]",
 				"Duplicate [" + getDuplicateValue(o) + "]", (Class) o.getClass(), o, o, getDuplicateValue(o),
 				PathImpl.createPathFromString(getPath()), null, ElementType.FIELD);

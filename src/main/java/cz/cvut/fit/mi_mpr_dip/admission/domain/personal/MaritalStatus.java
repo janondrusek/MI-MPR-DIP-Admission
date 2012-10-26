@@ -3,7 +3,6 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

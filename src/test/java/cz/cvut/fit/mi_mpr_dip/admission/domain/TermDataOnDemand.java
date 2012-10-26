@@ -1,10 +1,11 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.dod.RooDataOnDemand;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.study.ProgrammeDataOnDemand;
@@ -31,7 +32,7 @@ public class TermDataOnDemand {
 
 	public void setPrograms(Term obj, @SuppressWarnings("unused") int index) {
 		Programme programme = programmeDataOnDemand.getRandomProgramme();
-		Set<Programme> programms = new HashSet<>();
+		Set<Programme> programms = Sets.newHashSet();
 		programms.add(programme);
 		obj.setPrograms(programms);
 	}

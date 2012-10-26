@@ -1,12 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.person;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DisabilityType;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Person;
@@ -23,7 +24,7 @@ public class DisabilityDeduplicationTemplate implements PersonDeduplicationTempl
 	}
 
 	private void deduplicateDisabilities(Set<DisabilityType> disabilityTypes) {
-		Set<DisabilityType> replacements = new HashSet<>();
+		Set<DisabilityType> replacements = Sets.newHashSet();
 		for (Iterator<DisabilityType> iterator = disabilityTypes.iterator(); iterator.hasNext();) {
 			DisabilityType disabilityType = iterator.next();
 			List<DisabilityType> dbDisabilityTypes = DisabilityType.findDisabilityTypesByNameEquals(

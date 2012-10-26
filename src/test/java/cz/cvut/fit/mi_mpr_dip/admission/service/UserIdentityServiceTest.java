@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
@@ -16,6 +15,8 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.BaseSpringJbpmTest;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -56,6 +57,7 @@ public class UserIdentityServiceTest extends BaseSpringJbpmTest {
 	@Autowired
 	private UserIdentityService userIdentityService;
 
+	@Override
 	@Before
 	public void setUp() throws IOException {
 		addSingleUserIdentity();
@@ -70,7 +72,7 @@ public class UserIdentityServiceTest extends BaseSpringJbpmTest {
 	private void initRoles() throws IOException {
 		properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource(DEPLOYMENT_PROPERTIES));
 		String roles = properties.getProperty(USER_IDENTITY_ROLES_DEFAULT);
-		userRoles = new HashSet<>();
+		userRoles = Sets.newHashSet();
 		for (String role : roles.split(StringPool.COMMA)) {
 			UserRole userRole = new UserRole();
 			userRole.setName(role);

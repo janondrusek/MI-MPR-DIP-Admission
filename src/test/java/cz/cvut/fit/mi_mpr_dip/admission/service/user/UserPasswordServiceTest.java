@@ -9,13 +9,14 @@ import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 import cz.cvut.fit.mi_mpr_dip.admission.adapter.PwdAuthenticationAdapter;
 import cz.cvut.fit.mi_mpr_dip.admission.dao.AdmissionDao;
@@ -214,7 +215,7 @@ public class UserPasswordServiceTest {
 	}
 
 	private List<Person> getPeople() {
-		List<Person> people = new ArrayList<>();
+		List<Person> people = Lists.newArrayList();
 		people.add(person);
 		return people;
 	}

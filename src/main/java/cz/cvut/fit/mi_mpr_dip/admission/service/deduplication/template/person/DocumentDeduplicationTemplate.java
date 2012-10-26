@@ -1,12 +1,13 @@
 package cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.template.person;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.Document;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.personal.DocumentType;
@@ -30,7 +31,7 @@ public class DocumentDeduplicationTemplate implements PersonDeduplicationTemplat
 	}
 
 	private Set<DocumentType> collectDocumentTypes(Set<Document> documents) {
-		Set<DocumentType> documentTypes = new HashSet<>();
+		Set<DocumentType> documentTypes = getDocumentTypes();
 		for (Document document : documents) {
 			documentTypes.add(document.getDocumentType());
 		}
@@ -38,7 +39,7 @@ public class DocumentDeduplicationTemplate implements PersonDeduplicationTemplat
 	}
 
 	private void deduplicateDocumentTypes(Set<DocumentType> documentTypes) {
-		Set<DocumentType> replacements = new HashSet<>();
+		Set<DocumentType> replacements = getDocumentTypes();
 		for (Iterator<DocumentType> iterator = documentTypes.iterator(); iterator.hasNext();) {
 			DocumentType documentType = iterator.next();
 			List<DocumentType> dbDocumentTypes = DocumentType.findDocumentTypesByNameEquals(documentType.getName())
@@ -59,5 +60,9 @@ public class DocumentDeduplicationTemplate implements PersonDeduplicationTemplat
 				}
 			}
 		}
+	}
+
+	private Set<DocumentType> getDocumentTypes() {
+		return Sets.newHashSet();
 	}
 }
