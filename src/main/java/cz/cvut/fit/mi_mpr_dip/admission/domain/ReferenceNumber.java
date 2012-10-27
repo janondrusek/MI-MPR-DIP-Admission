@@ -3,6 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +46,8 @@ public class ReferenceNumber {
 	@NotNull
 	private Date executed;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@Valid
 	private ReferenceNumberType referenceNumberType;
 }

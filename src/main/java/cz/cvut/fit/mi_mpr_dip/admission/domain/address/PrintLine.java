@@ -1,6 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,8 @@ public class PrintLine {
 	private Long printLineId;
 
 	@NotNull
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@Valid
 	private PrintLineType printLineType;
 

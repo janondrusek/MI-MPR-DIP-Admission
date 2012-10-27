@@ -42,7 +42,7 @@ public class ReferenceNumberType {
 	@Column(unique = true)
 	private String name;
 
-	@OneToMany(orphanRemoval = true, mappedBy = "referenceNumberType")
+	@OneToMany(mappedBy = "referenceNumberType")
 	@XmlTransient
 	private Set<ReferenceNumber> referenceNumbers;
 }

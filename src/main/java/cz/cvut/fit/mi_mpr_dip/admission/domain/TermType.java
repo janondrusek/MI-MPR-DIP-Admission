@@ -42,7 +42,7 @@ public class TermType {
 	@Column(unique = true)
 	private String name;
 
-	@OneToMany(orphanRemoval = true, mappedBy = "termType")
+	@OneToMany(mappedBy = "termType")
 	@XmlTransient
 	private Set<Term> terms;
 }

@@ -47,7 +47,7 @@ public class Apology {
 	@XmlTransient
 	private Long apologyId;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@XmlTransient
 	private TermRegistration registration;
 

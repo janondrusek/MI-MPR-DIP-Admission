@@ -1,6 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,8 @@ public class TermRegistration {
 	private Long termRegistrationId;
 
 	@NotNull
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@XmlTransient
 	private Admission admission;
 
@@ -52,7 +54,8 @@ public class TermRegistration {
 	private Admission admissionLink;
 
 	@NotNull
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@Valid
 	@XmlTransient
 	private Term term;
@@ -61,7 +64,7 @@ public class TermRegistration {
 	@XmlElement(name = WebKeys.TERM)
 	private Term termLink;
 
-	@OneToOne(mappedBy = "registration", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "registration", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Valid
 	private Apology apology;
 

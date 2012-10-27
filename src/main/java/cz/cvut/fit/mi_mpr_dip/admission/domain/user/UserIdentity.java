@@ -62,7 +62,7 @@ public class UserIdentity {
 	@Column(unique = true)
 	private String username;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
 	@JoinTable(name = "user_identity_role", joinColumns = { @JoinColumn(name = "user_identity_id",
 			referencedColumnName = "userIdentityId") }, inverseJoinColumns = { @JoinColumn(name = "user_role_id",
 			referencedColumnName = "userRoleId") })

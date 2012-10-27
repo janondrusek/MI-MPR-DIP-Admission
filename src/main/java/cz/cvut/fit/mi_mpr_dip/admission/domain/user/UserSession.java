@@ -3,6 +3,7 @@ package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,7 @@ public class UserSession {
 	private Date grantValidTo;
 
 	@XmlTransient
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userIdentityId")
 	private UserIdentity userIdentity;
 }

@@ -53,7 +53,7 @@ public class Appendix {
 	@NotNull
 	private String mimeType;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@NotNull
 	@Valid
 	@XmlTransient
@@ -62,7 +62,8 @@ public class Appendix {
 	@Transient
 	private String content;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH },
+			fetch = FetchType.LAZY)
 	@Valid
 	private AppendixType appendixType;
 }

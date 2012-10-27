@@ -3,16 +3,16 @@
 
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentType;
+import cz.cvut.fit.mi_mpr_dip.admission.domain.education.AccomplishmentTypeDataOnDemand;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 import org.springframework.stereotype.Component;
-
-import com.google.common.collect.Lists;
 
 privileged aspect AccomplishmentTypeDataOnDemand_Roo_DataOnDemand {
     
@@ -38,7 +38,7 @@ privileged aspect AccomplishmentTypeDataOnDemand_Roo_DataOnDemand {
         if (index < 0) {
             index = 0;
         }
-        if (index > data.size() - 1) {
+        if (index > (data.size() - 1)) {
             index = data.size() - 1;
         }
         AccomplishmentType obj = data.get(index);
@@ -68,14 +68,15 @@ privileged aspect AccomplishmentTypeDataOnDemand_Roo_DataOnDemand {
             return;
         }
         
-        data = Lists.newArrayList();
+        data = new ArrayList<AccomplishmentType>();
         for (int i = 0; i < 10; i++) {
             AccomplishmentType obj = getNewTransientAccomplishmentType(i);
             try {
                 obj.persist();
             } catch (ConstraintViolationException e) {
                 StringBuilder msg = new StringBuilder();
-                for (ConstraintViolation<?> cv : e.getConstraintViolations()) {
+                for (Iterator<ConstraintViolation<?>> iter = e.getConstraintViolations().iterator(); iter.hasNext();) {
+                    ConstraintViolation<?> cv = iter.next();
                     msg.append("[").append(cv.getConstraintDescriptor()).append(":").append(cv.getMessage()).append("=").append(cv.getInvalidValue()).append("]");
                 }
                 throw new RuntimeException(msg.toString(), e);
