@@ -21,8 +21,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
-import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.SavePhotoAdmissionAction;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.SetResultAdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AppendixEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
@@ -52,6 +52,12 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 
 	@Autowired
 	private ProcessService processService;
+
+	@Autowired
+	private SavePhotoAdmissionAction savePhotoAdmissionAction;
+
+	@Autowired
+	private SetResultAdmissionAction setResultAdmissionAction;
 
 	@Autowired
 	private UriEndpointHelper uriEndpointHelper;
@@ -137,15 +143,8 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@POST
 	@Override
-	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result) {
-		return admissionEndpointHelper.mergeAdmission(admissionCode, ENDPOINT_PATH, result,
-				new AdmissionAction<AdmissionResult>() {
-
-					@Override
-					public void performAction(Admission admission, AdmissionResult actor) {
-						admission.setResult(result);
-					}
-				});
+	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid AdmissionResult result) {
+		return admissionEndpointHelper.mergeAdmission(admissionCode, ENDPOINT_PATH, result, setResultAdmissionAction);
 	}
 
 	@Secured("PERM_READ_PHOTO")
@@ -164,8 +163,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@POST
 	@Override
 	public Response savePhoto(@PathParam("admissionCode") String admissionCode, Appendix photo) {
-		return admissionEndpointHelper.mergeAdmission(admissionCode, ENDPOINT_PATH, photo,
-				new SavePhotoAdmissionAction());
+		return admissionEndpointHelper.mergeAdmission(admissionCode, ENDPOINT_PATH, photo, savePhotoAdmissionAction);
 	}
 
 }
