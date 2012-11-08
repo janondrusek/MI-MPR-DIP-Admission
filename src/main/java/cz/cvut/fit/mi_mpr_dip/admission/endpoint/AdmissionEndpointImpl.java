@@ -1,7 +1,5 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
-import java.util.HashSet;
-
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,18 +22,16 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.AdmissionResult;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Appendix;
 import cz.cvut.fit.mi_mpr_dip.admission.domain.collection.Admissions;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.AdmissionAction;
+import cz.cvut.fit.mi_mpr_dip.admission.endpoint.action.SavePhotoAdmissionAction;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AdmissionEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.AppendixEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.jbpm.ProcessService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.crud.AppendixService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
-import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AppendixDeduplicationSevice;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.StringPool;
 import cz.cvut.fit.mi_mpr_dip.admission.util.URIKeys;
 
-@RooJavaBean
 @Path(AdmissionEndpointImpl.ENDPOINT_PATH)
 public class AdmissionEndpointImpl implements AdmissionEndpoint {
 
@@ -53,13 +48,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	private AdmissionEndpointHelper admissionEndpointHelper;
 
 	@Autowired
-	private AppendixDeduplicationSevice appendixDeduplicationSevice;
-
-	@Autowired
 	private AppendixEndpointHelper appendixEndpointHelper;
-
-	@Autowired
-	private AppendixService appendixService;
 
 	@Autowired
 	private ProcessService processService;
@@ -76,7 +65,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@GET
 	@Override
 	public Response getAdmission(@PathParam("admissionCode") String admissionCode) {
-		return getAdmissionEndpointHelper().getAdmission(admissionCode);
+		return admissionEndpointHelper.getAdmission(admissionCode);
 	}
 
 	@Secured("PERM_READ_ADMISSIONS")
@@ -84,7 +73,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@GET
 	@Override
 	public Admissions getAdmissions(@QueryParam("count") Integer count, @QueryParam("page") Integer page) {
-		return getAdmissionEndpointHelper().getAdmissions(count, page);
+		return admissionEndpointHelper.getAdmissions(count, page);
 	}
 
 	@Secured("PERM_WRITE_ADMISSION")
@@ -104,19 +93,19 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@Override
 	public Response updateAdmission(@PathParam("admissionCode") String admissionCode, Admission admission) {
 		validateAndUpdate(admissionCode, admission);
-		return getAdmissionEndpointHelper().getOkResponse();
+		return admissionEndpointHelper.getOkResponse();
 	}
 
 	@Transactional
 	private void validateAndUpdate(String admissionCode, Admission admission) {
-		Admission dbAdmission = getAdmissionEndpointHelper().validate(admissionCode, admission);
-		getAdmissionDeduplicationService().deduplicate(admission);
-		getAdmissionEndpointHelper().update(admission, dbAdmission);
+		Admission dbAdmission = admissionEndpointHelper.validate(admissionCode, admission);
+		admissionDeduplicationService.deduplicate(admission);
+		admissionEndpointHelper.update(admission, dbAdmission);
 	}
 
 	private void validateAndDeduplicateAndStore(Admission admission) {
-		getAdmissionEndpointHelper().validate(admission);
-		getUserIdentityService().buildUserIdentity(admission);
+		admissionEndpointHelper.validate(admission);
+		userIdentityService.buildUserIdentity(admission);
 		deduplicateAndStoreAndRunJbpmProcess(admission);
 	}
 
@@ -127,11 +116,11 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	}
 
 	private void deduplicateAndStore(Admission admission) {
-		getAdmissionDeduplicationService().deduplicateAndStore(admission);
+		admissionDeduplicationService.deduplicateAndStore(admission);
 	}
 
 	private void runJbpmProcess(Admission admission) {
-		getProcessService().runProcess(admission);
+		processService.runProcess(admission);
 	}
 
 	@Secured("PERM_DELETE_ADMISSION")
@@ -140,7 +129,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@DELETE
 	@Override
 	public Response deleteAdmission(@PathParam("admissionCode") String admissionCode) {
-		return getAdmissionEndpointHelper().deleteAdmission(admissionCode);
+		return admissionEndpointHelper.deleteAdmission(admissionCode);
 	}
 
 	@Secured("PERM_WRITE_RESULT")
@@ -149,7 +138,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@POST
 	@Override
 	public Response saveResult(@PathParam("admissionCode") String admissionCode, @Valid final AdmissionResult result) {
-		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, ENDPOINT_PATH, result,
+		return admissionEndpointHelper.mergeAdmission(admissionCode, ENDPOINT_PATH, result,
 				new AdmissionAction<AdmissionResult>() {
 
 					@Override
@@ -166,7 +155,7 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@Override
 	public Response getAdmissionPhoto(@PathParam("admissionCode") String admissionCode,
 			@PathParam("identifier") String identifier) {
-		return getAppendixEndpointHelper().getAdmissionPhoto(admissionCode, identifier);
+		return appendixEndpointHelper.getAdmissionPhoto(admissionCode, identifier);
 	}
 
 	@Secured("PERM_WRITE_PHOTO")
@@ -175,26 +164,8 @@ public class AdmissionEndpointImpl implements AdmissionEndpoint {
 	@POST
 	@Override
 	public Response savePhoto(@PathParam("admissionCode") String admissionCode, Appendix photo) {
-		return getAdmissionEndpointHelper().mergeAdmission(admissionCode, ENDPOINT_PATH, photo,
+		return admissionEndpointHelper.mergeAdmission(admissionCode, ENDPOINT_PATH, photo,
 				new SavePhotoAdmissionAction());
-	}
-
-	private class SavePhotoAdmissionAction implements AdmissionAction<Appendix> {
-
-		@Override
-		public void performAction(Admission admission, Appendix photo) {
-			getAppendixService().addContent(photo);
-			getAppendixDeduplicationSevice().deduplicate(photo);
-			getAppendixService().addIdentifier(photo);
-			ensurePhotos(admission);
-			admission.getPhotos().add(photo);
-		}
-
-		private void ensurePhotos(Admission admission) {
-			if (admission.getPhotos() == null) {
-				admission.setPhotos(new HashSet<Appendix>());
-			}
-		}
 	}
 
 }

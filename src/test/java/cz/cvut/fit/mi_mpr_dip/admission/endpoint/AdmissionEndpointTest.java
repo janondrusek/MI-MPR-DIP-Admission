@@ -1,11 +1,9 @@
 package cz.cvut.fit.mi_mpr_dip.admission.endpoint;
 
 import static org.easymock.EasyMock.anyObject;
-import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.same;
-import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
@@ -16,7 +14,6 @@ import java.net.URISyntaxException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
@@ -25,59 +22,38 @@ import cz.cvut.fit.mi_mpr_dip.admission.endpoint.helper.UriEndpointHelper;
 import cz.cvut.fit.mi_mpr_dip.admission.service.deduplication.AdmissionDeduplicationService;
 import cz.cvut.fit.mi_mpr_dip.admission.service.user.UserIdentityService;
 import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
+import eu.prvaci.util.test.annotation.Mock;
+import eu.prvaci.util.test.annotation.Tested;
+import eu.prvaci.util.test.mock.EasyMockTest;
 
-public class AdmissionEndpointTest {
+public class AdmissionEndpointTest extends EasyMockTest {
 
 	private static final String CODE = "code";
 	private static final String URI = "http://api.example.com";
 
+	@Tested
 	private AdmissionEndpointImpl admissionEndpoint;
 
+	@Mock
 	private Admission admission;
+	@Mock
 	private Admission dbAdmission;
+	@Mock
 	private AdmissionDeduplicationService admissionDeduplicationService;
+	@Mock
 	private AdmissionEndpointHelper admissionEndpointHelper;
+	@Mock
 	private UriEndpointHelper uriEndpointHelper;
+	@Mock
 	private UserIdentityService userIdentityService;
-
-	private Object[] mocks;
-
-	@Before
-	public void setUp() {
-		admissionEndpoint = new AdmissionEndpointImpl();
-
-		initMocks();
-	}
-
-	private void initMocks() {
-		initDependencyMocks();
-
-		admission = createMock(Admission.class);
-		dbAdmission = createMock(Admission.class);
-
-		mocks = new Object[] { admission, admissionDeduplicationService, admissionEndpointHelper, dbAdmission,
-				uriEndpointHelper, userIdentityService };
-	}
-
-	private void initDependencyMocks() {
-		admissionDeduplicationService = createMock(AdmissionDeduplicationService.class);
-		admissionEndpoint.setAdmissionDeduplicationService(admissionDeduplicationService);
-		admissionEndpointHelper = createMock(AdmissionEndpointHelper.class);
-		admissionEndpoint.setAdmissionEndpointHelper(admissionEndpointHelper);
-		userIdentityService = createMock(UserIdentityService.class);
-		admissionEndpoint.setUserIdentityService(userIdentityService);
-		uriEndpointHelper = createMock(UriEndpointHelper.class);
-		admissionEndpoint.setUriEndpointHelper(uriEndpointHelper);
-	}
 
 	@Test
 	public void testGetAdmission() {
 		Response response = Response.ok().build();
 		expect(admissionEndpointHelper.getAdmission(same(CODE))).andReturn(response);
 
-		replay(mocks);
+		replay(getMocks());
 		assertSame(response, admissionEndpoint.getAdmission(CODE));
-		verify(mocks);
 	}
 
 	@Test
@@ -88,9 +64,8 @@ public class AdmissionEndpointTest {
 				.andReturn(new URI(URI));
 		userIdentityService.buildUserIdentity(same(admission));
 
-		replay(mocks);
+		replay(getMocks());
 		Response response = admissionEndpoint.addAdmission(admission);
-		verify(mocks);
 		assertNotNull(response);
 		MultivaluedMap<String, Object> metadata = response.getMetadata();
 		assertArrayEquals(new String[] { URI }, metadata.get(WebKeys.LOCATION).toArray(new String[1]));
@@ -104,9 +79,8 @@ public class AdmissionEndpointTest {
 		admissionEndpointHelper.update(admission, dbAdmission);
 		expect(admissionEndpointHelper.getOkResponse()).andReturn(response);
 
-		replay(mocks);
+		replay(getMocks());
 		assertSame(response, admissionEndpoint.updateAdmission(CODE, admission));
-		verify(mocks);
 	}
 
 	@Test
@@ -114,8 +88,7 @@ public class AdmissionEndpointTest {
 		Response response = Response.ok().build();
 		expect(admissionEndpointHelper.deleteAdmission(same(CODE))).andReturn(response);
 
-		replay(mocks);
+		replay(getMocks());
 		assertSame(response, admissionEndpoint.deleteAdmission(CODE));
-		verify(mocks);
 	}
 }
