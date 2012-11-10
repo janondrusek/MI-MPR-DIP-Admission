@@ -21,6 +21,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Term;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Terms extends DomainCollection {
 
+	private static final long serialVersionUID = 4948380983366803051L;
+
 	@Valid
 	@XmlElement(name = "term")
 	private Set<Term> terms;

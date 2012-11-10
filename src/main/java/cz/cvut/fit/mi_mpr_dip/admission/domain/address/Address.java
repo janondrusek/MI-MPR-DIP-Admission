@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,7 +32,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "addressId" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Address {
+public class Address implements Serializable {
+
+	private static final long serialVersionUID = 326392808473210156L;
 
 	@Version
 	@Transient

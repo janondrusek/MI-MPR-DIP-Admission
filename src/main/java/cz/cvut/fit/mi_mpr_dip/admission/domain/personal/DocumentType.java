@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "documentTypeId", "documents" })
 @RooJpaActiveRecord(finders = { "findDocumentTypesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DocumentType {
+public class DocumentType implements Serializable {
+
+	private static final long serialVersionUID = 8972861590400219701L;
 
 	@Version
 	@Transient

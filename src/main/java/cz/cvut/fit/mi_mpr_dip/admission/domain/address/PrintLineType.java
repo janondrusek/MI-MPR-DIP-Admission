@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "printLineTypeId", "printLines" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findPrintLineTypesByNameEquals" })
-public class PrintLineType {
+public class PrintLineType implements Serializable {
+
+	private static final long serialVersionUID = -124063138145229471L;
 
 	@Version
 	@Transient

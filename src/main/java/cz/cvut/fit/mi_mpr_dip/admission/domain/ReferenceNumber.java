@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -27,7 +28,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "referenceNumberId" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
-public class ReferenceNumber {
+public class ReferenceNumber implements Serializable {
+
+	private static final long serialVersionUID = 8279805476471472585L;
 
 	@Version
 	@Transient

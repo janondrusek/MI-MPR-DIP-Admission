@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -41,7 +42,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findUserIdentitysByUsernameEquals",
 		"findUserIdentitysByUsernameEqualsAndAuthenticationEquals", "findUserIdentitysByUsernameLike" })
-public class UserIdentity {
+public class UserIdentity implements Serializable {
+
+	private static final long serialVersionUID = -8446297622173027596L;
 
 	@Version
 	@Transient

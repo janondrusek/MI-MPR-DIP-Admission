@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,7 +28,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 @RooEquals(excludeFields = { "facultyId", "admissions" })
 @RooJpaActiveRecord(finders = { "findFacultysByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Faculty {
+public class Faculty implements Serializable {
+
+	private static final long serialVersionUID = 5458754952778068646L;
 
 	@Version
 	@Transient

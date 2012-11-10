@@ -20,6 +20,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.Admission;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Admissions extends DomainCollection {
 
+	private static final long serialVersionUID = 3818506599882565787L;
+
 	@XmlElement(name = "admission")
 	private List<Admission> admissions;
 }

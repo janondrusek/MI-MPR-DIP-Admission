@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "addressTypeId", "addresses" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAddressTypesByNameEquals" })
-public class AddressType {
+public class AddressType implements Serializable {
+
+	private static final long serialVersionUID = -1390056010491859128L;
 
 	@Version
 	@Transient

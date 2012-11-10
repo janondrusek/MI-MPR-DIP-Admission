@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "maritalStatusId", "persons" })
 @RooJpaActiveRecord(finders = { "findMaritalStatusesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MaritalStatus {
+public class MaritalStatus implements Serializable {
+
+	private static final long serialVersionUID = 2292185386656623085L;
 
 	@Version
 	@Transient

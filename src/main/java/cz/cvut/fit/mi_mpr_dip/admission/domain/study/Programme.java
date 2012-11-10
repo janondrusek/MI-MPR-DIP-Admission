@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +32,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "name", "study_mode", "degree", "language" }))
-public class Programme {
+public class Programme implements Serializable {
+
+	private static final long serialVersionUID = 7889162893383940561L;
 
 	@Version
 	@Transient

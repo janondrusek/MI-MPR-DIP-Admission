@@ -21,6 +21,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Programs extends DomainCollection {
 
+	private static final long serialVersionUID = 6878820390566165261L;
+
 	@Valid
 	@XmlElement(name = "programme")
 	private Set<Programme> programs;

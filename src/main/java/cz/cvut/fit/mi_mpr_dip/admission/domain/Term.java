@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -40,7 +41,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.study.Programme;
 @XmlRootElement
 @RooJpaActiveRecord(finders = { "findTermsByDateOfTermEqualsAndRoomEquals" })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "dateOfTerm", "room" }))
-public class Term {
+public class Term implements Serializable {
+
+	private static final long serialVersionUID = -6121933612342594581L;
 
 	@Version
 	@Transient

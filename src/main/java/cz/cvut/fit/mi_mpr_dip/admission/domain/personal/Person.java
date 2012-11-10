@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.personal;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -39,7 +40,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.address.Country;
 @RooEquals(excludeFields = { "personId" })
 @RooJpaActiveRecord(finders = { "findPeopleByEmailEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Person {
+public class Person implements Serializable {
+
+	private static final long serialVersionUID = 5089731077365703537L;
 
 	@Version
 	@Transient

@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +21,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "appendixContentId" })
 @RooToString
 @RooJpaActiveRecord
-public class AppendixContent {
+public class AppendixContent implements Serializable {
+
+	private static final long serialVersionUID = -671296367230269773L;
 
 	@Version
 	@Transient

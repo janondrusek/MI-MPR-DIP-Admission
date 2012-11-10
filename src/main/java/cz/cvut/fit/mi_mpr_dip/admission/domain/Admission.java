@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,7 +44,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserIdentity;
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(
 		finders = { "findAdmissionsByCodeEquals", "findAdmissionsByPerson", "findAdmissionsByUserIdentity" })
-public class Admission {
+public class Admission implements Serializable {
+
+	private static final long serialVersionUID = 5781771512258081725L;
 
 	@Version
 	@Transient

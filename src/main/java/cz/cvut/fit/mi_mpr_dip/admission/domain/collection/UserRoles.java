@@ -21,6 +21,8 @@ import cz.cvut.fit.mi_mpr_dip.admission.domain.user.UserRole;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserRoles extends DomainCollection {
 
+	private static final long serialVersionUID = -5592458603869382382L;
+
 	@Valid
 	@XmlElement(name = "role")
 	private Set<UserRole> userRoles;

@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.study;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +24,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "degreeId" })
 @RooJpaActiveRecord(finders = { "findDegreesByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Degree {
+public class Degree implements Serializable {
+
+	private static final long serialVersionUID = -2548284390991894506L;
 
 	@Version
 	@Transient

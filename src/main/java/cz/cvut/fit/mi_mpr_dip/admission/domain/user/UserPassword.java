@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import java.io.Serializable;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "userPasswordId", "plaintext" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord
-public class UserPassword {
+public class UserPassword implements Serializable {
+
+	private static final long serialVersionUID = -8549517154378126325L;
 
 	@Version
 	@Transient

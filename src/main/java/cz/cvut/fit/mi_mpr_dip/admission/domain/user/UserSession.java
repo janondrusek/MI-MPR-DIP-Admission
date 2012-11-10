@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -27,7 +28,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "userSessionId", "grantValidTo", "userIdentity" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findUserSessionsByIdentifierEqualsAndGrantValidToGreaterThan" })
-public class UserSession {
+public class UserSession implements Serializable {
+
+	private static final long serialVersionUID = 5160715381874909222L;
 
 	@Version
 	@Transient

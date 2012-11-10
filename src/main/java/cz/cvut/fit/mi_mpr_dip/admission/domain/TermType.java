@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "termTypeId", "terms" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findTermTypesByNameEquals" })
-public class TermType {
+public class TermType implements Serializable {
+
+	private static final long serialVersionUID = -8995494437275747185L;
 
 	@Version
 	@Transient

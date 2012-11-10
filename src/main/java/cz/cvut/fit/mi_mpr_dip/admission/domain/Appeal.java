@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,7 +28,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 @RooJpaActiveRecord
-public class Appeal {
+public class Appeal implements Serializable {
+
+	private static final long serialVersionUID = 4235504699654750496L;
 
 	@Version
 	@Transient

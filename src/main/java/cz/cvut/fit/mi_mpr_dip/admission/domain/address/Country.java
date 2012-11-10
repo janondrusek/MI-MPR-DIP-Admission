@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.address;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +24,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "countryId" })
 @RooJpaActiveRecord(finders = { "findCountrysByNameEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Country {
+public class Country implements Serializable {
+
+	private static final long serialVersionUID = 1817649087907427536L;
 
 	@Version
 	@Transient

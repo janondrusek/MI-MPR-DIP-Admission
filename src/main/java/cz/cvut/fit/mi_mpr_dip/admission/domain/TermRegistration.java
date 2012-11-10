@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +33,9 @@ import cz.cvut.fit.mi_mpr_dip.admission.util.WebKeys;
 @RooJpaActiveRecord(finders = { "findTermRegistrationsByAdmissionAndTerm" })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "admission", "term" }))
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TermRegistration {
+public class TermRegistration implements Serializable {
+
+	private static final long serialVersionUID = -5483263109397979705L;
 
 	@Version
 	@Transient

@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "admissionStateId", "name", "desciption", "admissions" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAdmissionStatesByCodeEquals" })
-public class AdmissionState {
+public class AdmissionState implements Serializable {
+
+	private static final long serialVersionUID = 5981591095890784428L;
 
 	@Version
 	@Transient

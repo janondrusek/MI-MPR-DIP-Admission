@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.education;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "accomplishmentTypeId", "accomplishments" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @RooJpaActiveRecord(finders = { "findAccomplishmentTypesByNameEquals" })
-public class AccomplishmentType {
+public class AccomplishmentType implements Serializable {
+
+	private static final long serialVersionUID = 710089899730720072L;
 
 	@Version
 	@Transient

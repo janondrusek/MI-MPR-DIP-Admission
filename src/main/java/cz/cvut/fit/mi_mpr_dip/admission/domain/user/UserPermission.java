@@ -1,5 +1,6 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain.user;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooEquals(excludeFields = { "userPermissionId", "roles" })
 @RooJpaActiveRecord
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UserPermission {
+public class UserPermission implements Serializable {
+
+	private static final long serialVersionUID = -9029977606372545464L;
 
 	@Version
 	@Transient

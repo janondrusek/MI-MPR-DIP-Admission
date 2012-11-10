@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -12,7 +14,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooEquals
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Link {
+public class Link implements Serializable {
+
+	private static final long serialVersionUID = -7366014812417405862L;
 
 	@XmlAttribute
 	private String href;

@@ -1,5 +1,7 @@
 package cz.cvut.fit.mi_mpr_dip.admission.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -29,7 +31,9 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJpaActiveRecord(finders = { "findAppendixesByIdentifierEquals" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class Appendix {
+public class Appendix implements Serializable {
+
+	private static final long serialVersionUID = 6318449602166904443L;
 
 	@Version
 	@Transient
